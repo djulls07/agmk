@@ -113,8 +113,20 @@ class ArticlesController extends AppController {
 
     }
 
-    public function view() {
-        
+    public function view($id = null) {
+        $params = array(
+                'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id', 'Thumb.file'),
+                'contain' => array('Thumb', 'Media'),
+                'conditions' => array('Article.id' => $id)
+        );
+        $article = $this->Article->find('all', $params);
+        if (!$article) {
+            throw new NotFoundException(__('Invalid Article'));
+        }
+        if ($this->request->is('get')) {
+            $this->set('article', $article);
+        }
+
     }
 
     public function isAuthorized($user) {
