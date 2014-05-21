@@ -114,17 +114,13 @@ class ArticlesController extends AppController {
     }
 
     public function view($id = null) {
-        $params = array(
-                'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id', 'Thumb.file'),
-                'contain' => array('Thumb', 'Media'),
-                'conditions' => array('Article.id' => $id)
-        );
-        $article = $this->Article->find('all', $params);
+        $this->Article->recursive = 1;
+        $article = $this->Article->findById($id);
         if (!$article) {
             throw new NotFoundException(__('Invalid Article'));
         }
         if ($this->request->is('get')) {
-            $this->set('article', $article);
+            $this->set('article', $article[0]);
         } 
     }
 

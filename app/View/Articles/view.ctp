@@ -1,7 +1,7 @@
 <div id="article_view">
 	<div id="article_header">
 		<div class="thumb">
-		    <?= $this->Media->image($article['thumb'], 175, 110); ?>
+		    <?= $this->Media->image($article['Article']['thumb'], 175, 110); ?>
 		    <p>&nbsp;</p>
 	    </div>
 	    <div class="article_title">
