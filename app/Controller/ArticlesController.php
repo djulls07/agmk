@@ -125,13 +125,12 @@ class ArticlesController extends AppController {
         }
         if ($this->request->is('get')) {
             $this->set('article', $article);
-        }
-
+        } 
     }
 
     public function isAuthorized($user) {
         if ($user['role'] === 'basic') {
-            $this->Session->setFlash(__('You are not author or owner of the article'));
+            $this->Session->setFlash(__('You are not author of the article'));
         }
         if ($user['role'] === 'author') {
             if (in_array($this->action, array('index', 'add'))) {
@@ -150,5 +149,4 @@ class ArticlesController extends AppController {
     }
 
 }
-
 ?>
