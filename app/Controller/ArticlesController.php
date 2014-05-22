@@ -18,7 +18,7 @@ class ArticlesController extends AppController {
             $this->request->data['Article']['author_id'] = $this->Auth->user('id');
             $this->request->data['Article']['published'] = 0;
             $this->Article->Create();
-            if ($this->Article->save($this->request->data)) {
+            if ($this->Article->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__('Your article has been created'));
                 return $this->redirect(array(
                         'action' => 'edit',
@@ -43,24 +43,27 @@ class ArticlesController extends AppController {
     public function index($id = null) {
         if (!$id) {
             /* diplay news about everything */
-            $conditions = array('Article.published' => 1);
             $params = array(
                 'order' => 'Article.modified DESC',
+                'recursive' => 1,
                 'limit' => 10,
                 'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id', 'Thumb.file'),
                 'contain' => array('Thumb'),
-                'conditions' => $conditions
+                'conditions' => array('Article.published' => 1)
             );
         } else {
             /* display news about the $id (games table) */
             $params = array(
-                'conditions' => array('Article.game_id' => $id),
+                'conditions' => array('Article.game_id' => $id, 'Article.published' => 1),
                 'order' => 'Article.created DESC',
                 'limit' => 10,
-                'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id', 'Thumb.file'),
                 'contain' => array('Thumb'),
-                'conditions' => $conditions
             );
+            $game = $this->Article->Game->findById($id);
+            if (!$game) {
+                throw new NotFoundException(__('Invalid Game'));
+            }
+            $this->set('game', $game);
         }
         $articles = $this->Article->find('all', $params);
         if (!$articles) {
@@ -73,6 +76,7 @@ class ArticlesController extends AppController {
             $newsParPage = $this->Auth->user('newsParPage');
         $this->set('newsParPage', $newsParPage);
         $this->set('articles', $articles);
+        //debug($articles);
     }
 
     public function delete($id = null) {

@@ -1,6 +1,3 @@
-<?php 
-App::uses('AuthComponent', 'Component');
-?>
 <nav id="news">
 
 <div class="contenu">			
