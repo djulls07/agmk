@@ -12,5 +12,6 @@
 	    </div>
 	</div>
 	<div id="article_content">
-		<?php echo $article['Article']['body']); ?>
+		<?php echo h($article['Article']['body']); ?>
+	</div>
 </div>

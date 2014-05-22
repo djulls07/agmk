@@ -40,4 +40,13 @@ class Game extends AppModel {
 			),
 		),
 	);
+
+	public $hasMany = array(
+		'Link' => array(
+			'classname' => 'Link',
+			'foreignKey' => 'game_id',
+			'dependent' => true,
+			'fields' => array('Link.url', 'Link.name')
+		)
+	);
 }
