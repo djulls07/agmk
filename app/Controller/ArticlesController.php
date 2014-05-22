@@ -134,7 +134,8 @@ class ArticlesController extends AppController {
             $this->set('article', $article[0]);
             $game = array();
             $game['Game'] = $article[0]['Game'];
-            $game['Link'] = array_shift($article[0]['Link']);
+            $game['Link'] = array_shift($article[0]['Game']['Link']);
+            unset($game['Game']['Link']);
             $this->set('game', $game);
             debug($game);
         }
