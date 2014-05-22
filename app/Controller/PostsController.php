@@ -3,9 +3,9 @@
 App::uses('AppController', 'Controller');
 
 class PostsController extends AppController {
-    public $cacheAction = array(
+    /*public $cacheAction = array(
     'view'  => array('callbacks' => true, 'duration' => 50)
-);
+);*/
 
     public $paginate = array(
         'fields' => array('Post.id', 'Post.user_id', 'Post.created', 'Post.modified', 'Post.title', 'User.username'),
