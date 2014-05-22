@@ -58,7 +58,12 @@ class User extends AppModel {
 		'captcha' => array(
 			'rule' => array('matchCaptcha'),
 			'message' => 'Failed human validation check'
-		)
+		),
+		'newsParPage' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			)
+		),
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

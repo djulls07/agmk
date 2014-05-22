@@ -28,23 +28,20 @@ html {
 
 /** General Style Info **/
 body {
-    background: #fff;
-    color: #fff;
+    color: #000;
     font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
-    font-size:90%;
-    width:100%;
-        background: url(../img/sc2fond.jpg) no-repeat center fixed; 
-    -webkit-background-size: cover; /* pour Chrome et Safari */
-    -moz-background-size: cover; /* pour Firefox */
-    -o-background-size: cover; /* pour Opera */
-    background-size: cover; /* version standardisée */
+    margin:0;
+	padding:0;
+	width:100%;
+}
+
+img
+{
+	border:0;
 }
 
 #header {
-    position:fixed;
-    top:0px;
-    margin:auto;
-    width:100%;
+
 }
 
 a {
@@ -59,6 +56,16 @@ a:hover {
 a img {
     border:none;
 }
+
+@font-face {
+    font-family: "SQUAREFONT";
+    src: url('../Square.ttf');
+}
+@font-face {
+    font-family: "Prototype";
+    src: url('../Prototype.ttf');
+}
+
 h1, h2, h3, h4 {
     font-weight: normal;
     margin-bottom:0.5em;
@@ -83,11 +90,813 @@ h4 {
     color: #993;
     font-weight: normal;
 }
-ul, li {
-    margin: 0 12px;
-}
 p {
     margin: 0 0 1em 0;
+}
+
+/*   Architecture    */ 
+/* TOP */
+div.container_absolute_top /* contient le conteneur fixed des top_barres */
+{
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+div.barres_top /* contient les deux barres du haut + la ban*/
+{
+	position : fixed ;
+	top:0;
+	width : 100%;
+	z-index:3;
+}
+
+div.home_barre /* la 1e barre : accueil, login... */
+{
+	background-color : #808080;
+	position : relative ;
+	width : 100%;
+	height:50px;
+	text-align : center;
+	line-height	:	30px;
+	border	:	2px solid black;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+div.home_barre_user
+{
+	float	:	left;
+	height	:	100%;
+}
+
+div.home_barre_user a
+{
+	display		:	block;
+	width	:	100%;
+	height	:	100%;
+	float	:	left;
+	line-height	:	32px; /* hauteur de la home_barre - hauteurs des borders - 2*padding*/
+	font-weight : none;
+	color	:	black;
+}
+
+div.home_barre_avatar
+{
+	float	:	left;
+	width	:	50px;
+	height	:	100%;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+div.home_barre_avatar img
+{
+	width	:	100%;
+	height	:	auto;
+	max-height	:	100%;
+	border : 0;
+}
+
+div.home_barre_pseudo
+{
+	float	:	left;
+	height	:	100%;
+	padding	:	5px;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+div.home_barre_connexion
+{
+	position:relative;
+	margin-top:0;
+	width:100%;
+	height:50%;
+	line-height	:	100%;
+}
+
+div.home_barre_inscription
+{
+	position:relative;
+	width:100%;
+	height:50%;
+	line-height	:	100%;
+}
+
+div.home_barre_boutons
+{
+	float	:	left;
+	width	:	170px;
+	height	:	100%;
+	margin-left	:	1%;
+	color	:	red;
+	font-weight : bold;
+	vertical-align	:	top;
+	text-align	:	right;
+	font-family	:	"SQUAREFONT";
+}
+
+div.home_barre_boutons a
+{
+	display		:	block;
+	width	:	100%;
+	height	:	100%;
+}
+
+div.home_barre_bouton1
+{
+	float	:	left;
+	height	:	100%;
+	width	:	40px;
+	background-image:url('../img/notif_home.png');
+	background-size	:	30px 30px;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+
+div.home_barre_bouton2
+{
+	float	:	left;
+	width	:	40px;
+	height	:	100%;
+	margin-left	:	10px;
+	background-image:url('../img/notif_notif.png');
+	background-size	:	20px 20px;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+
+div.home_barre_bouton3
+{
+	float	:	left;
+	width	:	40px;
+	height	:	100%;
+	margin-left	:	10px;
+	background-image:url('../img/notif_message.gif');
+	background-size	:	20px 20px;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+
+div.home_barre_mines
+{
+	float	:	left;
+	vertical-align	:	middle;
+	line-height : 46px; /* hauteur de la home_barre - hauteurs des borders*/
+	font-weight	:	none;
+	color	:	black;
+	font-family	:	"SQUAREFONT";
+}
+div.home_barre_mines a
+{
+	display		:	block;
+	width	:	100%;
+	height	:	100%;
+	color	:	black;
+	font-family	:	"SQUAREFONT";
+	vertical-align	:	middle;
+	line-height : 46px; /* hauteur de la home_barre - hauteurs des borders*/
+	font-weight	:	none;
+	text-decoration : none;
+}
+div.home_barre_mines a:hover
+{
+	text-decoration : none;
+}
+
+div.home_barre_mything
+{
+	float	:	left;
+	margin-left	:	5px;
+}
+
+div.home_barre_time
+{
+	float	:	right;
+	height : 100%;
+	margin-right:0;
+	border-left	:	2px solid black;
+	padding-left	:	20px;
+	padding-right	:	20px;
+	line-height : 23px; /* (hauteur de la home_barre - hauteurs des borders )/2*/
+}
+
+div.home_barre_time_date
+{
+	position:relative;
+	width:100%;
+	height:50%;
+}
+
+div.home_barre_time_heure
+{
+	position:relative;
+	width:100%;
+	height:50%;
+}
+
+/* BANNIERE */
+div.banniere
+{
+	position : relative;
+	width : 100%;
+	height	:	100px;
+	background-color	:	white;
+}
+
+div.banniere_content
+{
+	position	:	relative;
+	width	:	60%;
+	margin	:	auto;
+	height	:	100%;
+	line-height	:	100%;
+}
+
+div.banniere_image
+{
+	float	:	left;
+	width	:	50%;
+	height	:	100%;
+	text-align:center;
+	background-image	:	url('../img/logo_agamek.png');
+	background-size:100% auto;
+	background-repeat	:	no-repeat;
+	background-position: center;
+}
+
+div.social
+{
+	float	:	left;
+	margin-left	:	2%;
+	width	:	5%;
+	height	:	100%;
+	text-align	:	center;
+}
+
+div.social img
+{
+	width	:	50%;
+	height	:	auto;
+}
+
+div.pub
+{
+	float	:	left;
+	margin-left	:	2%;
+	width	:	29%;
+	height	:	100%;
+	background-color	:	white;
+}
+
+div.avatar
+{
+	float	:	left;
+	margin-left	:	2%;
+	width	:	10%;
+	height	:	100%;
+	background-size:100% auto;
+	background-repeat	:	no-repeat;
+	background-position: center;
+}
+
+div.avatar img
+{
+	width	:	auto;
+	height	:	100%;
+}
+
+div.barre_jeux
+{
+	background-color	:	#a7a7a7;
+	position : relative ;
+	width : 100%;
+	text-align	:	center; 
+	height:30px;
+	line-height	:	30px;
+}
+
+div.barres_top 	a
+{
+	text-decoration	:	none;
+	font-family	:	"SQUAREFONT";
+	vertical-align:middle;
+	color	:	white;
+	margin-left	:	2%;
+}
+
+div.barre_jeux	a
+{
+	color : #000000;
+}
+
+/* MID */ 
+div.page
+{
+	position : relative;
+	width : 100%;/*1900px; /* taille de base, toutes les autres largeurs sont relatives à celle-ci */
+	margin:auto;
+	margin-top:180px; /* somme des hauteurs du top */
+}
+
+div.contentgauche
+{
+	float:left;
+	position : fixed;
+	height : 100%;
+	width : 20%;
+	background-repeat:no-repeat;
+	box-shadow: -40px 0 40px -40px #a7a7a7 inset;
+	background-size:100% auto;
+}
+
+div.contentcentre
+{
+	float:left;
+	position : absolute;
+	right:20%;
+	width	:	60%;
+}
+
+div.contentdroite
+{
+	float:left;
+	position : fixed;
+	right:0;
+	width : 20%;
+	background-repeat:no-repeat;
+	height : 100%;
+	box-shadow: 40px 0 40px -40px #a7a7a7 inset;
+	background-size:100% auto;
+}
+
+div.contenu
+{
+	position:relative;
+	padding-top:3%;
+	width:100%;
+	height:100%;
+	z-index:0;
+}
+
+div.content
+{
+	position : relative;
+	width : 100%;
+	margin:0;
+	font-family	:	"Prototype";
+	font-weight	:	none;
+}
+
+/* ARTICLES */
+div.col_gauche
+{
+	position	:	relative;
+	float		:	left;
+	width		:	59%;
+	margin-right	:	1%;
+}
+
+div.col_gauche_mainnews
+{
+	width		:	100%;
+	height	:	150px; /* hauteur à définir */
+}
+
+#slideshow {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin:  0 auto;
+    overflow: hidden;
+}
+
+#sContent_mainnews li, #sContent_tv li {
+    display: inline;
+	width	:	100%;
+	height	:	100%;
+}
+
+@-moz-keyframes AutoSlide_mainnews {
+    0%, 5%, 100% {
+        left: 0px; /*1ère image*/
+    }
+    25%, 30% {
+        left: -100%; /*2ème image*/
+    }
+    50%, 55% {
+        left: -200%; /*3ème image*/
+    }
+	75%, 80% {
+        left: -300%; /*2ème image*/
+    }
+}
+
+@-webkit-keyframes AutoSlide_mainnews {
+    0%, 5%, 100% {
+        left: 0px; /*1ère image*/
+    }
+    25%, 30% {
+        left: -100%; /*2ème image*/
+    }
+    50%, 55% {
+        left: -200%; /*3ème image*/
+    }
+	75%, 80% {
+        left: -300%; /*2ème image*/
+    }
+}
+
+@keyframes AutoSlide_mainnews {
+    0%, 5%, 100% {
+        left: 0px; /*1ère image*/
+    }
+    25%, 30% {
+        left: -100%; /*2ème image*/
+    }
+    50%, 55% {
+        left: -200%; /*3ème image*/
+    }
+	75%, 80% {
+        left: -300%; /*2ème image*/
+    }
+}
+
+#sContent_mainnews {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 400%; /* 100% * nbr de slides */
+	height	:	100%;
+	margin: 0;            
+	padding: 0;
+    
+	-webkit-animation-name: AutoSlide_mainnews;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: ease-in-out;
+	
+	-moz-animation-name: AutoSlide_mainnews;
+	-moz-animation-duration: 10s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: ease-in-out;
+	
+	animation-name: AutoSlide_mainnews;
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@-moz-keyframes AutoSlide_tv {
+    0%, 15%, 100% {
+        left: 0px; /*1ère image*/
+    }
+    35%, 50% {
+        left: -100%; /*2ème image*/
+    }
+    70%, 85% {
+        left: -200%; /*3ème image*/
+    }
+}
+
+@-webkit-keyframes AutoSlide_tv {
+    0%, 15%, 100% {
+        left: 0px; /*1ère image*/
+    }
+    35%, 50% {
+        left: -100%; /*2ème image*/
+    }
+    70%, 85% {
+        left: -200%; /*3ème image*/
+    }
+}
+
+@keyframes AutoSlide_tv {
+    0%, 15%, 100% {
+        left: 0px; /*1ère image*/
+    }
+    35%, 50% {
+        left: -100%; /*2ème image*/
+    }
+    70%, 85% {
+        left: -200%; /*3ème image*/
+    }
+}
+
+#sContent_tv {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300%;
+	height	:	100%;
+	margin: 0;            
+	padding: 0;
+    
+	-webkit-animation-name: AutoSlide_tv;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: ease-in-out;
+	
+	-moz-animation-name: AutoSlide_tv;
+	-moz-animation-duration: 10s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: ease-in-out;
+	
+	animation-name: AutoSlide_tv;
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+.col_gauche_news
+{
+	width	:	100%;
+	height	:	50px; /* hauteur fixe à définir */
+	line-height	:	50px;
+	position	:	relative;
+	margin-top	:	1%;
+	border	:	1px solid black;
+	
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	
+	background-size	:	10% auto;
+	background-repeat:no-repeat;
+	background-position:top left;
+}
+
+.col_gauche_news:hover
+{
+	box-shadow: inset 0px 0px 30px 1px #9d86b7;
+}
+
+.col_gauche_news_image
+{
+	float	:	left;
+	width	:	10%;
+	height	:	100%;
+	border-right	:	1px	solid black;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	background-color	:	#9d86b7;
+	border	:	0;
+}
+
+.col_gauche_news_text a
+{
+	display	:	inline-block;
+	width	:	100%;
+	height	:	100%;
+	color	:	black;
+}
+
+.col_gauche_news_image img
+{
+	width	:	100%;
+	height	:	100%;
+}
+
+.col_gauche_news_text
+{
+	float	:	left;
+	width	:	89%;
+	margin-left	:	1%;
+	height	:	100%;
+}
+
+.col_gauche_pages
+{
+	text-align	:	center;
+}
+
+.col_gauche_pages a
+{
+	color : #a7a7a7;
+}
+
+.col_gauche_pages a:hover
+{
+	color : #9d86b7;
+	font-weight : bold;
+}
+
+div.col_droite
+{
+	position	:	relative;
+	float		:	left;
+	width		:	40%;
+}
+
+.col_droite_tv
+{
+	width	:	100%;
+	height	:	150px; /* hauteur à définir */
+}
+
+.col_titre
+{
+	background-color	:	#9d86b7;
+	margin-top	:	1%;
+	margin-bottom	:	1%;
+	text-align	:	center;
+}
+
+.col_droite_info
+{
+	width	:	100%;
+}
+
+
+
+/* ESPACE MEMBRE */
+#espace_gauche
+{
+	float	:	left;
+	width	:	15%;
+	height	:	1000px;
+	margin-left	:	5%;
+	margin-right	:	5%;
+	padding-top	:	5%;
+}
+
+#espace_gauche_avatar
+{
+	width	:	100%;
+	height	:	20%;
+	background-size	:	80% auto;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+
+#espace_gauche_menu
+{
+	width	:	100%;
+	height	:	75%;
+	margin-top	:	5%;
+	/*border	:	2px	solid	black;*/
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+#espace_droite
+{
+	float	:	left;
+	width	:	73%;
+	margin-right	:	2%;
+	padding-top	:	2%;
+}
+
+#espace_droite_top
+{
+	height	:250px; /* TODO: à fixer/virer Taille du conteneur du pseudo + stats */
+}
+
+#espace_droite_user
+{
+	position	:	relative;
+	width	:	100%;
+	height	:	10%;
+	text-align	:	center;
+}
+
+#espace_droite_user_flag
+{
+	float	:	left;
+	width	:	5%;
+	height	:	100%;
+}
+
+#espace_droite_user_flag img
+{
+	width	:	100%;
+	height	:	auto;
+}
+
+#espace_droite_user_pseudo
+{
+	margin	:	0 auto;
+	height	:	100%;
+	padding-left	:	1%;
+}
+
+#espace_droite_user_team
+{
+	float	:	right;
+	height	:	100%;
+	width	:	30%;
+	border	:	1px solid black;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+#espace_droite_stats
+{
+	width	:	100%;
+	height	:	75%;
+	margin-top	:	2%;
+	margin-bottom	:	3%;
+}
+
+#espace_droite_stats_bloc1
+{
+	float	:	left;
+	margin-left	:	0.5%;
+	width	:	33%;
+	height	:	100%;
+	border	:	1px solid black;
+	border-right	:	0;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+#espace_droite_stats_bloc2
+{
+	float	:	left;
+	width	:	33%;
+	height	:	100%;
+	border	:	1px solid black;
+	border-right	:	0;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+#espace_droite_stats_bloc3
+{
+	float	:	left;
+	width	:	33%;
+	height	:	100%;
+	border	:	1px solid black;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+#espace_droite_stats_bloc_logogame
+{
+	height	:	40%;
+	width	:	100%;
+	text-align	:	center;
+}
+
+#espace_droite_stats_bloc_ranks
+{
+	height	:	40%;
+	width	:	100%;
+	border-top	:	1px solid black;
+	border-bottom	:	1px solid black;
+}
+
+#espace_droite_stats_bloc_rank1
+{
+	float	:	left;
+	border-right	:	1px solid black;
+	height	:	100%;
+	width	:	40%;
+}
+
+#espace_droite_stats_bloc_rank2
+{
+	float	:	left;
+	height	:	100%;
+	overflow	:	hidden;
+}
+
+#espace_droite_stats_bloc_morestats
+{
+	height	:	20%;
+	width	:	100%;
+}
+
+#espace_droite_stats_bloc_morestats a
+{
+	display	:	inline-block;
+	height	:	100%;
+	width	:	100%;
+}
+
+#espace_droite_wall
+{
+	width	:	100%;
 }
 
 /** Layout **/
@@ -96,9 +905,7 @@ p {
 }
 
 #header{
-    padding: 10px 20px;
-    z-index: 1000;
-    background:#444;
+
 }
 
 #header h1 {
@@ -119,13 +926,13 @@ p {
     text-decoration: underline;
 }
 #content{
-    width: 850px;
+    /*width: 850px;
     clear: both;
     color: #333;
     padding: 10px 20px 40px 20px;
     margin:auto;
     position:relative;
-    top:100px;
+    top:100px;*/
 }
 #footer {
     clear: both;
@@ -157,7 +964,6 @@ div.actions h3 {
     padding-top:0;
     color:#777;
 }
-
 
 /** Tables **/
 table {
@@ -776,6 +1582,42 @@ pre {
 
 
 /* Menu */
+/* UL list for menu */
+ul.liste_style {
+	position: relative;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	list-style: none;
+
+	-webkit-perspective: 400px;
+	   -moz-perspective: 400px;
+	    -ms-perspective: 400px;
+	     -o-perspective: 400px;
+	        perspective: 400px;
+}
+ul.liste_style li {
+		position: relative;
+		padding: 16px;
+		background: #eee;
+		color: #252525;
+		font-size: 18px;
+		z-index: 2;
+	}
+ul.liste_style li:nth-child(odd) {
+		background: #fff;
+	}
+ul.liste_style a 
+{
+	display	:	block;
+	width	:	100%;
+	height	:	100%;
+	color	:	#252525;
+	font-size: 18px;
+}
+
 #cssmenu {
     border: none;
     border: 0px;
@@ -867,9 +1709,10 @@ pre {
     clear: left;
 }
 
-/* Articles */
+/* Articles 
 #news {
-    width: 60%;
+    width: 100%;
+	height:100%;
 
 }
 
@@ -899,12 +1742,12 @@ pre {
 
 #news .after_thumb h3 {
     font-size: 10pt;
-}
+}*/
 
 
 /* liste */
 ul, ol {
-    list-style: none;
+    /*list-style: none;*/
 }
 
 div.users.form {
@@ -917,4 +1760,19 @@ div.users.form {
 
 .games.index {
     background:#fff;
+}
+
+
+/* Un ptit hack pour centrer verticalement */
+p.vertical_center
+{
+display: inline-block;  vertical-align: middle;  width: 100%; height: 100%;
+}
+
+div.vertical_center_div:before
+{
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }

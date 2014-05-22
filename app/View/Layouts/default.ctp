@@ -22,8 +22,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <html>
     <head>
         <?php echo $this->Html->charset(); ?>
-        <?= $this->Html->script('jquery-2.1.1.min.js'); ?>
-        <?= $this->fetch('script'); ?>
+        <?php $this->Html->script('jquery-2.1.1.min.js'); ?>
+        <?php $this->fetch('script'); ?>
         <title>
             <?php echo 'Agamek' ?>:
         </title>
@@ -35,20 +35,59 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->fetch('meta');
         echo $this->fetch('css');
         ?>
+		<STYLE type="text/css">
+			<?php
+			/*print "
+				div.contentgauche
+				{
+					background-image:url('images/".$page_jeu_style['image_gauche'].".png');
+				}
+				div.contentdroite
+				{
+					"; if ($page_jeu!="accueil") print"background-image:url('images/".$page_jeu_style['image_droite'].".png');"; print"
+				}
+				div.menu a
+				{
+					background	:	".$page_jeu_style['a_background'].";
+					color : ".$page_jeu_style['a_color'].";
+				}
+				div.menu a:hover
+				{
+					background	:	".$page_jeu_style['a_hover_background'].";
+					color : ".$page_jeu_style['a_hover_color'].";
+				}
+			";*/?>
+		</STYLE>
     </head>
     <body>
         <div id="container">
+			<div class="container_absolute_top"><div class="barres_top">
             <div id="header">
                 <!--nocache-->
                 <?php echo $this->element('menubar'); ?>
+				<?php echo $this->element('banniere'); ?>
+				<?php echo $this->element('barre_jeux'); ?>
                 <!--/nocache-->
             </div>
-            
-            <div id="content">
-                <?php echo $this->Session->flash(); ?>
+			</div></div>
+			
+			<div class="page">
+				<div class="contentgauche">
+				</div>
+			
+				<div class="contentcentre">
+							
+					<div class="content" id="centre">
+						<?php echo $this->Session->flash(); ?>
 
-                <?php echo $this->fetch('content'); ?>
-            </div>
+						<?php echo $this->fetch('content'); ?>
+					</div>
+				</div>
+				
+				<div class="contentdroite">
+				</div>
+			</div>			
+			
             <div id="footer">
                 <?php /* echo $this->Html->link(
                   $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
@@ -62,7 +101,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             </div>
         </div>
         <!--nocache-->
-            <?php if (AuthComponent::user('role') == 'admin') echo $this->element('sql_dump');  ?>
+            <?php //if (AuthComponent::user('role') == 'admin') echo $this->element('sql_dump');  ?>
         <!--/nocache-->
     </body>
 </html>
