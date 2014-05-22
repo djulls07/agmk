@@ -46,7 +46,7 @@ class ArticlesController extends AppController {
             $params = array(
                 'order' => 'Article.modified DESC',
                 'recursive' => 1,
-                'limit' => 10,
+                'limit' => 20,
                 'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id', 'Thumb.file'),
                 'contain' => array('Thumb'),
                 'conditions' => array('Article.published' => 1)
@@ -56,7 +56,7 @@ class ArticlesController extends AppController {
             $params = array(
                 'conditions' => array('Article.game_id' => $id, 'Article.published' => 1),
                 'order' => 'Article.created DESC',
-                'limit' => 10,
+                'limit' => 20,
                 'contain' => array('Thumb'),
             );
             $game = $this->Article->Game->findById($id);
