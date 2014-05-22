@@ -63,7 +63,7 @@ class ArticlesController extends AppController {
             if (!$game) {
                 throw new NotFoundException(__('Invalid Game'));
             }
-            $this->set('game', $game);
+            $this->set('game', $game['Game']);
         }
         $articles = $this->Article->find('all', $params);
         if (!$articles) {
@@ -128,7 +128,8 @@ class ArticlesController extends AppController {
             throw new NotFoundException(__('Invalid Article'));
         }
         if ($this->request->is('get')) {
-            $this->set('article', $article[0]);
+            $this->set('article', $article);
+            $this->set('game', $article['Game']);
         } 
     }
 
