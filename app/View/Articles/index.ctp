@@ -18,7 +18,7 @@ App::uses('AuthComponent', 'Component');
 		<div class="col_titre">
 			ACTUALITE
 		</div>
-		<?php 			
+		<?php
 			$newsTotal=count($articles);
 			$pageindex=1;
 			$news_id	=	0;
@@ -50,17 +50,19 @@ App::uses('AuthComponent', 'Component');
 				</div>
 			<?php }
 			print "<p class='col_gauche_pages'>";
-			$nbr_pages = ceil($newsTotal/$newsParPage);
-			if ( $newsParPage )
-			if ( $nbr_pages != 1 )
-				for ($i=1;$i<=$nbr_pages;$i++)
-				{
-					if ($i == $pageindex)
-						print "<a style=\"font-weight : bold; color : #9d86b7;\" ";
-					else
-						print "<a ";
-					print "href=\"?pageindex=".$i."\">".$i."</a> ";
-				}
+			if ( $newsParPage ) // si l'affichage n'est pas infini
+			{
+				$nbr_pages = ceil($newsTotal/$newsParPage); // et s'il n'y a pas qu'une seule page
+				if ( $nbr_pages != 1 )
+					for ($i=1;$i<=$nbr_pages;$i++) // alors affichage des numéros de pages
+					{
+						if ($i == $pageindex)
+							print "<a style=\"font-weight : bold; color : #9d86b7;\" ";
+						else
+							print "<a ";
+						print "href=\"?pageindex=".$i."\">".$i."</a> ";
+					}
+			} 
 		?>
 		</p>
 	</div>
