@@ -57,9 +57,10 @@ class ArticlesController extends AppController {
                 'conditions' => array('Article.game_id' => $id, 'Article.published' => 1),
                 'order' => 'Article.created DESC',
                 'limit' => 100,
-                'contain' => array('Thumb')
+                'contain' => array('Thumb'),
+                'recursive' => 0
             );
-            $this->Article->Game->recursive = 1;
+            $this->Article->Game->recursive = 0;
             $game = $this->Article->Game->findById($id);
             if (!$game) {
                 throw new NotFoundException(__('Invalid Game'));
@@ -137,7 +138,7 @@ class ArticlesController extends AppController {
             $game['Link'] = array_shift($article[0]['Game']['Link']);
             unset($game['Game']['Link']);
             $this->set('game', $game);
-            debug($game);
+            //debug($game);
         }
     }
 
