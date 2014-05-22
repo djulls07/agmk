@@ -68,6 +68,10 @@ class ArticlesController extends AppController {
             $this->Session->setFlash((__('No articles to show')));
             //return $this->redirect(array('controller' => 'posts', 'action' => 'index'));
         }
+        $newsParPage = 20; // nombre de news par page par défaut
+        if ($this->Auth->user('id'))
+            $newsParPage = $this->Auth->user('newsParPage');
+        $this->set('newsParPage', $newsParPage);
         $this->set('articles', $articles);
     }
 

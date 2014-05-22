@@ -1,8 +1,6 @@
 <?php 
 App::uses('AuthComponent', 'Component');
-$newsParPage=20; // nombre de news par page par défaut
-if (AuthComponent::user())
-	$newsParPage = AuthComponent::user('newsParPage');?>
+?>
 <nav id="news">
 
 <div class="contenu">			
