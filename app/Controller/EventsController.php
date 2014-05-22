@@ -8,7 +8,7 @@ class EventsController extends AppController {
 		$this->Auth->deny('all');
 	}
 
-	public function isAuthorized() {
+	public function isAuthorized($user) {
 		if (in_array($this->action, array('add', 'index'))) 
 			return true;
 	}
