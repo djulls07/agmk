@@ -57,14 +57,15 @@ class ArticlesController extends AppController {
                 'conditions' => array('Article.game_id' => $id, 'Article.published' => 1),
                 'order' => 'Article.created DESC',
                 'limit' => 100,
-                'contain' => array('Thumb'),
+                'contain' => array('Thumb')
             );
             $this->Article->Game->recursive = 1;
             $game = $this->Article->Game->findById($id);
             if (!$game) {
                 throw new NotFoundException(__('Invalid Game'));
             }
-            $this->set('game', $game['Game']);
+            $this->set('game', $game);
+            //debug($game);
         }
         $articles = $this->Article->find('all', $params);
         if (!$articles) {
@@ -124,14 +125,18 @@ class ArticlesController extends AppController {
     }
 
     public function view($id = null) {
-        $this->Article->recursive = 1;
-        $article = $this->Article->findById($id);
+        $this->Article->recursive = 2;
+        $article = $this->Article->find('all', array('conditions' => array('Article.id' => $id)));
         if (!$article) {
             throw new NotFoundException(__('Invalid Article'));
         }
         if ($this->request->is('get')) {
-            $this->set('article', $article);
-            $this->set('game', $article['Game']);
+            $this->set('article', $article[0]);
+            $game = array();
+            $game['Game'] = $article[0]['Game'];
+            $game['Link'] = array_shift($article[0]['Link']);
+            $this->set('game', $game);
+            debug($game);
         }
     }
 

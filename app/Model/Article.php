@@ -21,9 +21,7 @@ class Article extends AppModel {
         ),
         'Game' => array(
             'classname' => 'Game',
-            'foreignKey' => 'game_id',
-            'fields' => array('Game.id', 'Game.name')
-        )
+            'foreignKey' => 'game_id'        )
     );
     
     public $hasAndBelongsToMany = array(
