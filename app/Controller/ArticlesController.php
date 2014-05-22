@@ -46,7 +46,7 @@ class ArticlesController extends AppController {
             $params = array(
                 'order' => 'Article.modified DESC',
                 'recursive' => 1,
-                'limit' => 20,
+                'limit' => 100,
                 'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id', 'Thumb.file'),
                 'contain' => array('Thumb'),
                 'conditions' => array('Article.published' => 1)
@@ -56,9 +56,10 @@ class ArticlesController extends AppController {
             $params = array(
                 'conditions' => array('Article.game_id' => $id, 'Article.published' => 1),
                 'order' => 'Article.created DESC',
-                'limit' => 20,
+                'limit' => 100,
                 'contain' => array('Thumb'),
             );
+            $this->Article->Game->recursive = 1;
             $game = $this->Article->Game->findById($id);
             if (!$game) {
                 throw new NotFoundException(__('Invalid Game'));
@@ -77,6 +78,7 @@ class ArticlesController extends AppController {
         $this->set('newsParPage', $newsParPage);
         $this->set('articles', $articles);
         //debug($articles);
+        //debug($game);
     }
 
     public function delete($id = null) {
@@ -130,7 +132,7 @@ class ArticlesController extends AppController {
         if ($this->request->is('get')) {
             $this->set('article', $article);
             $this->set('game', $article['Game']);
-        } 
+        }
     }
 
     public function isAuthorized($user) {
