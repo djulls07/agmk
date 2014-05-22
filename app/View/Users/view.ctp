@@ -1,4 +1,6 @@
 <?php
+	$this->extend('/Common/articles_design');
+
 $specific_user_color="orange";
 $specific_user_avatar="avatar.jpg";?>
 <div id="espace_gauche"><?php echo $this->Session->flash(); ?>

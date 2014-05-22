@@ -1,3 +1,7 @@
+<?php
+	$this->extend('/Common/articles_design');
+?>
+
 <nav id="news">
 
 <div class="contenu">			
