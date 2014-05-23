@@ -4,7 +4,7 @@
 class Friend extends AppModel {
 
 
-	public $hasAndBelongsToMany = array(
+	/*public $hasAndBelongsToMany = array(
 		'User' => array(
 			'classname' => 'User',
 			'joinTable' => 'friends_users',
@@ -12,7 +12,7 @@ class Friend extends AppModel {
 			'associationForeignKey' => 'user_id',
 			'fields' => array('User.id', 'User.username')
 		)
-	);
+	);*/
 
 	public function addPotential($id) {
 		$data = array('user_id' => $id);
