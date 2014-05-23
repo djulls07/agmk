@@ -2,23 +2,47 @@
 	<?php 
 	if (isset ($game) ) 
 	{
-		debug ($game);
-		for ($i=1;$i<5;$i++)
-				print "<a href=\"\">Lien".$i."</a>";
+		echo "<span class='barre_jeux_element'>";
+		echo $this->Html->link("Accueil", array(
+						'controller' => 'articles',
+						'action' => 'index',
+						)
+					);
+		echo '</span>';
+		echo "<span class='barre_jeux_element'> / </span>";
+		echo "<span class='barre_jeux_element'>";
+		echo $this->Html->link($game['Game']['name'], array(
+							'controller' => 'articles',
+							'action' => 'index',
+							$game['Game']['id']
+							)
+						);
+		echo '</span>';
+		echo "<span class='barre_jeux_element'> / </span>";
+		echo "<span class='barre_jeux_element'>";
+		foreach($game['Link'] as $link_id => $link_array)
+		{
+			echo "<span class='barre_jeux_element'>";
+			print "<a href=\"".$link_array['url']."\">".$link_array['name']."</a>";
+			echo '</span>';
+			if ( count($game['Link']) != $link_id+1) echo "<span class='barre_jeux_element'> - </span>";
+		}
 	}
 	else
 	{
+		echo "<center>";
 		$games = $this->requestAction(array('controller'=>'games', 'action' => 'listgames'));
 		foreach ($games as $game) :
-			//echo "<span id='barre_jeux_".$game['Game']['id']."'>";
+			echo "<span class='barre_jeux_element' id='barre_jeux_".$game['Game']['id']."'>";
 			echo $this->Html->link($game['Game']['name'], array(
 							'controller' => 'articles',
 							'action' => 'index',
 							$game['Game']['id']
 							)
 						);
-			//echo '</span>';
+			echo '</span>';
 		endforeach;
+		echo "</center>";
 	}	
 	?>
 </div>

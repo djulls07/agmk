@@ -366,9 +366,18 @@ div.barre_jeux
 	position : absolute ;
 	width : 100%;
 	top	:	150px;
-	text-align	:	center; 
+	text-align	:	left; 
 	height:30px;
 	line-height	:	30px;
+}
+
+div.barre_jeux_element
+{
+	text-decoration	:	none;
+	font-family	:	"SQUAREFONT";
+	vertical-align:middle;
+	color	:	white;
+	margin-left	:	2%
 }
 
 div.barres_top 	a
@@ -377,7 +386,6 @@ div.barres_top 	a
 	font-family	:	"SQUAREFONT";
 	vertical-align:middle;
 	color	:	white;
-	margin-left	:	2%;
 }
 
 div.barre_jeux	a

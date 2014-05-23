@@ -59,10 +59,14 @@
 					print "<a ";
 				print "href=\"?pageindex=".$i."\">".$i."</a> ";
 			}
+
 			?>
-			<?php echo $this->Form->create('User'); ?>
-			<select name="newsParPage"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="0">infinite</option></select>
-			<?php echo $this->Form->end(__('Submit')); ?>
+			<form action="/users/edit/74?url=users%2Fedit%2F74" id="UserEditForm" method="post" accept-charset="utf-8">
+			<div style="display:none;">
+			<input type="hidden" name="_method" value="PUT"/></div>
+			<input type="hidden" name="data[User][id]" value="74" id="UserId"/>
+			<select name="data[User][newsParPage]" id="UsernewsParPage"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="0">infinite</option></select>
+			<input type="submit" value="News par page"/>
 			<?php
 		}
 	} 
