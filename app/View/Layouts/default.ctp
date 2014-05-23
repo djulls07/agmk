@@ -43,7 +43,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <!--nocache-->
                 <?php echo $this->element('menubar'); ?>
 				<?php echo $this->element('banniere'); ?>
-				<?php echo $this->element('barre_specific'); ?>
+				<?php echo $this->element('barre_specific', array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long_view",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                ); ?>
                 <!--/nocache-->
             </div>
 			</div>
@@ -79,7 +86,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             </div>
         </div>
         <!--nocache-->
-            <?php //if (AuthComponent::user('role') == 'admin') echo $this->element('sql_dump');  ?>
+            <div style="positon:relative; bottom:1px; z-index:10;"><?php if (AuthComponent::user('username') == 'djulls07') echo $this->element('sql_dump');  ?></div>
         <!--/nocache-->
     </body>
 </html>

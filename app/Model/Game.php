@@ -28,7 +28,7 @@ class Game extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
+		)/*,
 		'website' => array(
 			'url' => array(
 				'rule' => array('url'),
@@ -38,7 +38,7 @@ class Game extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
+		),*/
 	);
 
 	public $hasMany = array(
