@@ -1,6 +1,4 @@
 <?php
-	$this->extend('/Common/articles_design');
-
 $specific_user_color="orange";
 $specific_user_avatar="avatar.jpg";?>
 <div id="espace_gauche"><?php echo $this->Session->flash(); ?>
@@ -71,8 +69,9 @@ $specific_user_avatar="avatar.jpg";?>
 		</div>
 	</div>
 	<div id="espace_droite_wall">
-		<h3><?php echo __('Related Posts'); ?></h3>
-		<?php if (!empty($user['Post'])): ?>
+			<div class="related">
+			<h3><?php echo __('Related Posts'); ?></h3>
+			<?php if (!empty($user['Post'])): ?>
 			<table cellpadding = "0" cellspacing = "0">
 			<tr>
 				<th><?php echo __('Id'); ?></th>
@@ -103,6 +102,92 @@ $specific_user_avatar="avatar.jpg";?>
 				</tr>
 			<?php endforeach; ?>
 			</table>
+		<?php endif; ?>
+
+			<div class="actions">
+				<ul>
+					<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
+				</ul>
+			</div>
+		</div>
+		<div class="related">
+			<h3><?php echo __('Related Profiles'); ?></h3>
+			<?php if (!empty($user['Profile'])): ?>
+			<table cellpadding = "0" cellspacing = "0">
+			<tr>
+				<th><?php echo __('Id'); ?></th>
+				<th><?php echo __('Game Name'); ?></th>
+				<th><?php echo __('Pseudo'); ?></th>
+				<th><?php echo __('Level'); ?></th>
+				<th><?php echo __('Modified'); ?></th>
+				<th class="actions"><?php echo __('Actions'); ?></th>
+			</tr>
+			<?php foreach ($user['Profile'] as $profile): ?>
+				<tr>
+					<td><?php echo $profile['id']; ?></td>
+					<td><?php echo $profile['game_name']; ?></td>
+					<td><?php echo $profile['pseudo']; ?></td>
+					<td><?php echo $profile['level']; ?></td>
+					<td><?php echo $profile['modified']; ?></td>
+					<td class="actions">
+						<?php echo $this->Html->link(__('View'), array('controller' => 'profiles', 'action' => 'view', $profile['id'])); ?>
+						<?php echo $this->Html->link(__('Edit'), array('controller' => 'profiles', 'action' => 'edit', $profile['id'])); ?>
+						<?php echo $this->Form->postLink(__('Delete'),
+							array('controller' =>'profiles', 'action' => 'delete', $profile['id']),
+							array('message' => 'Are you sure ?')
+						);?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+			</table>
+		<?php endif; ?>
+
+			<div class="actions">
+				<ul>
+					<li><?php echo $this->Html->link(__('New Profile'), array('controller' => 'profiles', 'action' => 'add'
+					)); ?> </li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="related">
+			<h3><?php echo __('Related Articles'); ?></h3>
+			<?php if (!empty($user['Article'])): ?>
+			<table cellpadding = "0" cellspacing = "0">
+			<tr>
+				<th><?php echo __('Id'); ?></th>
+				<th><?php echo __('Title'); ?></th>
+				<th><?php echo __('Modified'); ?></th>
+				<th><?php echo __('Public'); ?></th>
+				<th class="actions"><?php echo __('Actions'); ?></th>
+			</tr>
+			<?php foreach ($user['Article'] as $article): ?>
+				<tr>
+					<td><?php echo $article['id']; ?></td>
+					<td><?php echo $article['title']; ?></td>
+					<td><?php echo $article['modified']; ?></td>
+					<td><?php echo $article['published']; ?></td>
+					<td class="actions">
+						<?php echo $this->Html->link(__('View'), array('controller' => 'articles', 'action' => 'view', $article['id'])); ?>
+						<?php if ($article['author_id'] == AuthComponent::user('id')) : ?>
+							<?php echo $this->Html->link(__('Edit'), array('controller' => 'articles', 'action' => 'edit', $article['id'])); ?>
+							<?php echo $this->Form->postLink(__('Delete'),
+								array('controller' =>'articles', 'action' => 'delete', $article['id']),
+								array('message' => 'Are you sure ?')
+							);?>
+						<?php endif; ?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+			</table>
+		<?php endif; ?>
+		<?php if (in_array(AuthComponent::user('role'), array('admin', 'author'))) : ?>
+		<div class="actions">
+				<ul>
+					<li><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?> </li>
+				</ul>
+			</div>
+		</div>
 		<?php endif; ?>
 
 		<div class="actions">

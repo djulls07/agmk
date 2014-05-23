@@ -17,7 +17,7 @@ class Article extends AppModel {
         'User' => array(
             'classname' => 'User',
             'foreignKey' => 'author_id',
-            'fields' => array('User.username', 'User.id')
+            'fields' => array('User.username', 'User.id', 'User.description', 'User.avatar')
         ),
         'Game' => array(
             'classname' => 'Game',

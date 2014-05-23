@@ -1,13 +1,11 @@
 <?php
-App::uses('AuthComponent', 'Component');
-$games = $this->requestAction(array('controller'=>'games', 'action' => 'listgames'));
 $specific_user_color="orange";
 $specific_user_avatar="avatar.jpg";
 $specific_user_notifications=10;
 $specific_user_messages=0;
 $specific_user_GMT=2;
 ?>
-<nav id='cssmenu'>
+
 	<div class="home_barre"> <!-- home barre -->
 		<div class="home_barre_user">
 			<?php if (AuthComponent::user()): ?>
@@ -42,8 +40,8 @@ $specific_user_GMT=2;
 			<div class="home_barre_bouton2">
 				<?php
 					echo $this->Html->link($specific_user_notifications, array(
-						'controller' => 'articles',
-						'action' => 'index',
+						'controller' => 'users',
+						'action' => 'notifications',
 						)
 					);
 				?>
@@ -51,8 +49,8 @@ $specific_user_GMT=2;
 			<div class="home_barre_bouton3">
 				<?php
 					echo $this->Html->link($specific_user_messages, array(
-						'controller' => 'articles',
-						'action' => 'mymessages',
+						'controller' => 'users',
+						'action' => 'messages',
 						)
 					);
 				?>
@@ -63,8 +61,8 @@ $specific_user_GMT=2;
 			<div class="home_barre_mything">
 				<?php
 					echo $this->Html->link('| MyTeams', array(
-						'controller' => 'articles',
-						'action' => 'myteams',
+						'controller' => 'teams',
+						'action' => 'index',
 						)
 					);
 				?>
@@ -72,8 +70,8 @@ $specific_user_GMT=2;
 			<div class="home_barre_mything">
 				<?php
 					echo $this->Html->link('| MyEvents |', array(
-						'controller' => 'articles',
-						'action' => 'myevents',
+						'controller' => 'events',
+						'action' => 'index',
 						)
 					);
 				?>
@@ -102,8 +100,17 @@ $specific_user_GMT=2;
 					'action' => 'add'
 				)
 				);
-				print"</div></div>";
-			endif;
+				print"</div>
+		</div><div class=\"home_barre_boutons\"><div class=\"home_barre_bouton1\">";
+					echo $this->Html->link(' ', array(
+						'controller' => 'articles',
+						'action' => 'index',
+						)
+					);
+				?>
+				</div></div>
+			</div>
+		<?php endif;
 		?>
 		<div class="home_barre_time">
 			<div class="home_barre_time_date">
@@ -115,4 +122,3 @@ $specific_user_GMT=2;
 		</div>
 	</div>
     
-</nav>

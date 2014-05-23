@@ -1,14 +1,15 @@
-<?php
-App::uses('AuthComponent', 'Component');
-$games = $this->requestAction(array('controller'=>'games', 'action' => 'listgames'));?><div class="barre_jeux">
+<div class="barre_jeux">
 	<?php
-	for($i=0; $i<count($games)-1; $i++):
-		echo $this->Html->link($games[$i]['Game']['name'], array(
+	$games = $this->requestAction(array('controller'=>'games', 'action' => 'listgames'));
+	foreach ($games as $game) :
+		echo "<span id='barre_jeux_".$game['Game']['id']."'>";
+		echo $this->Html->link($game['Game']['name'], array(
                         'controller' => 'articles',
                         'action' => 'index',
-                        $games[$i]['Game']['id']
+                        $game['Game']['id']
                         )
                     );
-	endfor;
+		echo '</span>';
+	endforeach;
     ?>
 </div>

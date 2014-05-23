@@ -21,7 +21,5 @@ $specific_user_GMT=2;
 		</div>
 		<div class="pub">pub
 		</div>
-		<div class="avatar" style="background-image:url('img/<?php print $specific_user_avatar; ?>')">
-		</div>
 </div>
 </div>

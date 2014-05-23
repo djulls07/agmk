@@ -1,59 +1,95 @@
 <?php
-if(file_exists("img/backgrounds/".$game['image_gauche'].".png") && file_exists("img/backgrounds/".$game['image_gauche'].".png")) 
+if (isset ($game) ) 
 {
 ?>
-
+ <STYLE type="text/css">
+		#barre_jeux
+		{
+			background-color	:	#<?php echo $game['Game']['a_background']; ?>;
+			color	:	#<?php echo $game['Game']['a_color']; ?>;
+		}
+ </STYLE>
+<?php
+//if(file_exists("img/backgrounds/".$game['Game']['image_gauche'].".png") && file_exists("img/backgrounds/".$game['Game']['image_gauche'].".png")) 
+//{
+?>
  <STYLE type="text/css">
 		div.contentgauche
 		{
-			background-image:url('../../img/backgrounds/<?php print $game['image_gauche']; ?>.png');
+			background-image:url('../../img/backgrounds/<?php print $game['Game']['image_gauche']; ?>.png');
 		}
 		div.contentdroite
 		{
-			background-image:url('../../img/backgrounds/<?php print $game['image_droite']; ?>.png');
+			background-image:url('../../img/backgrounds/<?php print $game['Game']['image_droite']; ?>.png');
 		}
 		div.menu a
 		{
-			background	:	#<?php echo $game['a_background']; ?>;
-			color	:	#<?php echo $game['a_color']; ?>;
+			background	:	#<?php echo $game['Game']['a_background']; ?>;
+			color	:	#<?php echo $game['Game']['a_color']; ?>;
 		}
 		div.menu a:hover
 		{
-			background	:	#<?php echo $game['a_hover_background']; ?>;
-			color	:	#<?php echo $game['a_hover_color']; ?>;
+			background	:	#<?php echo $game['Game']['a_hover_background']; ?>;
+			color	:	#<?php echo $game['Game']['a_hover_color']; ?>;
 
 		}
+		.col_titre
+		{
+			background	:	#<?php echo $game['Game']['a_background']; ?>;
+			color	:	#<?php echo $game['Game']['a_color']; ?>;
+		}
+		/*div.contenu
+		{
+			padding-top:3.5%;
+		}*/
  </STYLE>
  
  
  <?php 
+ //}
  }
- else
- {
+  //echo $this->element('barre_specific');
  ?>
- 
-  <STYLE type="text/css">
-		div.contentgauche
-		{
-			background-image:url('../../img/backgrounds/accueil.png');
-		}
-		div.contentdroite
-		{
-		}
-		div.menu a
-		{
-			background	:	#a7a7a7;
-			color	:	black;
-
-		}
-		div.menu a:hover
-		{
-			background	:	#9d86b7;
-			color	:	black;
-
-		}
- </STYLE>
- 
- <?php }
- 
- echo $this->fetch('content'); ?>
+<div class="contenu">
+	<div class="col_gauche">
+		<?php echo $this->fetch('content');  ?>
+	</div>
+	<div class="col_droite">
+		<div class="col_droite_tv">
+				<div id="slideshow">
+				<ul id="sContent_tv">
+					<li><div style="width:33%; float:left; height:100%; background:green">TV 1</div></li>
+					<li><div style="width:33%; margin-left:0.5%; margin-right:0.5%; float:left;height:100%; background:yellow">TV 2</div></li>
+					<li><div style="width:33%; float:left;height:100%; background:red">TV 3</div></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col_titre">
+			TITRE
+		</div>
+		<div class="col_droite_info">
+			Info1
+		</div>
+				<div class="col_titre">
+			TITRE
+		</div>
+		<div class="col_droite_info">
+			Info1
+		</div>
+		<div class="col_titre">
+			TITRE
+		</div>
+		<div class="col_droite_info">
+			Info1
+		</div>
+		<div class="col_droite_info">
+			Info2
+		</div>
+				<div class="col_titre">
+			TITRE
+		</div>
+		<div class="col_droite_info">
+			Info1
+		</div>
+	</div>
+</div>

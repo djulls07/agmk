@@ -35,29 +35,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->fetch('meta');
         echo $this->fetch('css');
         ?>
-		<STYLE type="text/css">
-			<?php
-			/*print "
-				div.contentgauche
-				{
-					background-image:url('images/".$page_jeu_style['image_gauche'].".png');
-				}
-				div.contentdroite
-				{
-					"; if ($page_jeu!="accueil") print"background-image:url('images/".$page_jeu_style['image_droite'].".png');"; print"
-				}
-				div.menu a
-				{
-					background	:	".$page_jeu_style['a_background'].";
-					color : ".$page_jeu_style['a_color'].";
-				}
-				div.menu a:hover
-				{
-					background	:	".$page_jeu_style['a_hover_background'].";
-					color : ".$page_jeu_style['a_hover_color'].";
-				}
-			";*/?>
-		</STYLE>
     </head>
     <body>
         <div id="container">
@@ -66,10 +43,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <!--nocache-->
                 <?php echo $this->element('menubar'); ?>
 				<?php echo $this->element('banniere'); ?>
-				<?php echo $this->element('barre_jeux'); ?>
+				<?php echo $this->element('barre_specific'); ?>
                 <!--/nocache-->
             </div>
-			</div></div>
+			</div>
+			</div>
 			
 			<div class="page">
 				<div class="contentgauche">

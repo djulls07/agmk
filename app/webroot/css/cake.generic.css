@@ -1,3 +1,6 @@
+/*TODO : responsive design (% des font-size, virer les fixed et ptet les images sur les cotés, )
+TODO : w3c + css3 all navigateurs (moz webkit etc sur box shadow etc) */
+
 @charset "utf-8";
 /**
  *
@@ -71,7 +74,7 @@ h1, h2, h3, h4 {
     margin-bottom:0.5em;
 }
 h1 {
-    color: #fff;
+    color: black;
     font-size: 160%;
     padding:5px;
 }
@@ -356,28 +359,13 @@ div.pub
 	background-color	:	white;
 }
 
-div.avatar
-{
-	float	:	left;
-	margin-left	:	2%;
-	width	:	10%;
-	height	:	100%;
-	background-size:100% auto;
-	background-repeat	:	no-repeat;
-	background-position: center;
-}
-
-div.avatar img
-{
-	width	:	auto;
-	height	:	100%;
-}
 
 div.barre_jeux
 {
 	background-color	:	#a7a7a7;
-	position : relative ;
+	position : absolute ;
 	width : 100%;
+	top	:	150px;
 	text-align	:	center; 
 	height:30px;
 	line-height	:	30px;
@@ -415,6 +403,7 @@ div.contentgauche
 	background-repeat:no-repeat;
 	box-shadow: -40px 0 40px -40px #a7a7a7 inset;
 	background-size:100% auto;
+	opacity:0.6;
 }
 
 div.contentcentre
@@ -435,15 +424,7 @@ div.contentdroite
 	height : 100%;
 	box-shadow: 40px 0 40px -40px #a7a7a7 inset;
 	background-size:100% auto;
-}
-
-div.contenu
-{
-	position:relative;
-	padding-top:3%;
-	width:100%;
-	height:100%;
-	z-index:0;
+	opacity:0.6;
 }
 
 div.content
@@ -455,7 +436,58 @@ div.content
 	font-weight	:	none;
 }
 
+div.contentgauche
+{
+	background-image:url('../../img/backgrounds/accueil.png');
+}
+div.contentdroite
+{
+}
+
 /* ARTICLES */
+div.menu
+{
+	width	:	60%; /* =contentcentre ,n'est pas relatif au parent car fixed */
+	height : 3%;
+	border-bottom : 1px solid #808080;
+	border-top : 1px solid #808080;
+	margin-top 	:	0;
+	position	:	fixed;
+	background-color:white;
+	z-index:1;
+}
+div.contenu
+{
+	position:relative;
+	padding-top:0.5%; /*(hauteur + margin du menu) + éventuelle margin*/
+	width:98%;
+	margin-left	:	1%;
+	margin-right	:	1%;
+	height:100%;
+	z-index:0;
+}
+div.menu a
+{
+    display		:	block; 
+	float 		:	left;
+	text-align	:	center; 
+	background	:	#a7a7a7;
+	margin-right	:	0.2%;
+	height 		: 	100%;
+	line-height	:	150%;
+	padding-left:0.5%;
+	padding-right:0.5%;
+	vertical-align:middle;
+	color		:	black;
+	font-family	:	"SQUAREFONT";
+	font-size: 16px;
+}
+
+div.menu a:hover
+{
+	background	:	#9d86b7;
+}
+
 div.col_gauche
 {
 	position	:	relative;
@@ -467,7 +499,13 @@ div.col_gauche
 div.col_gauche_mainnews
 {
 	width		:	100%;
-	height	:	150px; /* hauteur à définir */
+	height	:	200px; /* hauteur à définir */
+}
+div.col_gauche_mainnews img
+{
+	width		:	auto;
+	max-width	:	100%;
+	height	:	100%; /* hauteur à définir */
 }
 
 #slideshow {
@@ -618,8 +656,8 @@ div.col_gauche_mainnews
 .col_gauche_news
 {
 	width	:	100%;
-	height	:	50px; /* hauteur fixe à définir */
-	line-height	:	50px;
+	height	:	100px; /* hauteur fixe à définir */
+	line-height	:	100px;
 	position	:	relative;
 	margin-top	:	1%;
 	border	:	1px solid black;
@@ -632,45 +670,57 @@ div.col_gauche_mainnews
 	background-size	:	10% auto;
 	background-repeat:no-repeat;
 	background-position:top left;
+	z-index:10;
 }
 
-.col_gauche_news:hover
-{
-	box-shadow: inset 0px 0px 30px 1px #9d86b7;
+.col_gauche_news:hover::before {
+	box-shadow: inset 0px 0px 30px 10px #9d86b7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
 }
 
 .col_gauche_news_image
 {
+	position	:	relative;
 	float	:	left;
-	width	:	10%;
+	width	:	20%;
 	height	:	100%;
 	border-right	:	1px	solid black;
 	box-sizing:border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
-	background-color	:	#9d86b7;
 	border	:	0;
 }
 
-.col_gauche_news_text a
+.col_gauche_news a
 {
 	display	:	inline-block;
 	width	:	100%;
 	height	:	100%;
 	color	:	black;
+	position	:	relative;
 }
 
 .col_gauche_news_image img
 {
 	width	:	100%;
-	height	:	100%;
+	height	:	auto;
+	max-height	:	100%;
+	vertical-align	:	middle;
+	z-index:-1;
+	position	:	relative;
 }
 
 .col_gauche_news_text
 {
+	position	:	relative;
 	float	:	left;
-	width	:	89%;
+	width	:	79%;
 	margin-left	:	1%;
 	height	:	100%;
 }
@@ -717,6 +767,96 @@ div.col_droite
 	width	:	100%;
 }
 
+#article_gameinfo
+{
+	width	:	100%;
+	text-align	:	center;
+	background-color	:	black;
+	color	:	white;
+}
+
+#article_view
+{
+	width	:	100%;
+}
+
+	#article_header
+	{
+		width	:	100%;
+		margin-top	:	5%;
+		margin-bottom	:	5%;
+		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+	}
+
+		#article_thumb
+		{
+			width	:	100%;
+		}
+
+		#article_title
+		{
+			width	:	100%;
+			text-align	:	center;
+		}
+		
+		#article_intro
+		{
+			width	:	100%;
+			text-align	:	center;
+		}
+
+	#article_content
+	{
+		width	:	100%;
+		padding-top	:	5%;
+		padding-bottom	:	5%;
+	
+	}
+	
+	#article_content img
+	{
+		max-width	:	100%;
+	}
+
+#article_user
+{
+	margin-top	:	10%;
+	margin-bottom	:	10%;
+	width	:	100%;
+	height	:	120px; /* hauteur à fixer */
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+	#article_user_img
+	{
+		width	:	20%;
+		height	:	auto;
+		max-height	:	90%;
+		margin-left	:	1%;
+		float	:	left;
+		line-height	:	120px; /* = height de acrticle_user */
+	}
+	
+	#article_user_img img
+	{
+		width	:	100%;
+		height	:	auto;
+		max-height	:	100%;
+		vertical-align	:	middle;
+	}
+
+	#article_user_text
+	{
+
+		float	:	left;
+		margin-left	:	5%;
+		vertical-align	:	top;
+	}
+
+#article_social
+{
+	width	:	100%;
+}
 
 
 /* ESPACE MEMBRE */
