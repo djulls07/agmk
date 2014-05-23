@@ -7,7 +7,7 @@
 						'controller' => 'articles',
 						'action' => 'index',
 						)
-					);
+					)
 				."</span>
 				<span class='barre_jeux_element'> / </span>
 				<span class='barre_jeux_element'>".
@@ -16,7 +16,7 @@
 							'action' => 'index',
 							$game['Game']['id']
 							)
-						);
+						)
 				."</span>
 				<span class='barre_jeux_element'> / </span>
 				<span class='barre_jeux_element'>";

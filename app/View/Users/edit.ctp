@@ -1,5 +1,5 @@
 <div class="users form">
-<?php echo $this->Form->create('User'); ?>
+<?php echo $this->Form->create('User'); debug($user); ?>
 	<fieldset>
 		<legend><?php echo __('Edit User'); ?></legend>
 	<?php
@@ -8,6 +8,10 @@
 		echo $this->Form->input('password');
 		//echo $this->Form->input('role');
 	?>
+		<div class="input select">
+			<label for="UsernewsParPage">News par page</label>
+			<select name="data[User][newsParPage]" id="UsernewsParPage"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="0">&infin;</option></select>
+		</div>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
