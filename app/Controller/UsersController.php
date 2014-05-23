@@ -116,6 +116,7 @@ class UsersController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->User->save($this->request->data)) {
+				$this->User->Friend->updatePotential($this->User->id, $this->request->data['User']['username']);
 				$this->Session->setFlash(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -175,8 +176,23 @@ class UsersController extends AppController {
 	    return $this->redirect($this->Auth->logout());
 	}
 
+	public function add_friend() {
+		if ($this->request->is('post')) {
+			debug($this->request->data);
+			if ($this->User->saveAssociated($this->request->data)) {
+				$this->Session->setFlash(__('Friend Added'));
+				return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
+			}
+		}
+		$friends = $this->User->Friend->find('list', array(
+			'fields' => array('Friend.id', 'Friend.username'),
+			'conditions' => array('Friend.user_id !=' => $this->Auth->user('id'))
+		));
+		$this->set('friends', $friends);
+	}
+
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view', 'addFriend'))) return true;
+		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend'))) return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
 			if ($user['id'] == (int) $this->request->params['pass'][0]) {
@@ -198,4 +214,5 @@ class UsersController extends AppController {
         }
         $this->Captcha->create();
     }
+
 }
