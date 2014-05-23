@@ -151,6 +151,7 @@ class User extends AppModel {
     		foreach($results as $k => $val) {
     			if ( ! empty($results[$k]['User']['avatar']) ) {
 				    if ( file_exists ( $results[$k]['User']['avatar'] ) ) { // toussa à mettre dans le model de l'user
+				    	$results[$k]['User']['avatar'] = '../../'.$results[$k]['User']['avatar'];
 				    	continue;
 			        }
 			        $file_headers = @get_headers($results[$k]['User']['avatar']);
@@ -163,6 +164,7 @@ class User extends AppModel {
     	} else {
 			if ( ! empty($results['avatar']) ) {
 			    if ( file_exists ( $results['avatar'] ) ) { // toussa à mettre dans le model de l'user
+			    	$results['avatar'] = '../../'.$results['avatar'];
 			    	return $results;
 		        }
 		        $file_headers = @get_headers($results['avatar']);
