@@ -110,11 +110,11 @@ class User extends AppModel {
 
 	public $hasAndBelongsToMany = array(
 		'Friend' => array(
-			'classname' => 'User',
+			'classname' => 'Friend',
 			'joinTable' => 'friends_users',
-            'foreignKey' => 'user_id',
-            'associationForeignKey' => 'friend_id',
-            'fields' => array('User.id', 'User.username')
+			'foreignKey' => 'user_id',
+			'associationForeignKey' => 'friend_id',
+			'fields' => array('Friend.id', 'Friend.username')
 		)
 	);
 
@@ -126,13 +126,6 @@ class User extends AppModel {
             );
         }
         return true;
-    }
-
-    public function addFriend($idUser, $idFriend) {
-    	if ($idUser == $idFriend) {
-    		return false;
-    	}
-    	
     }
 
     function matchCaptcha($inputValue)  {

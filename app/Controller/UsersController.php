@@ -67,6 +67,7 @@ class UsersController extends AppController {
  * @return void
  */
 	public function add() {
+		//$this->loadModel('Friend');
         $this->Captcha = $this->Components->load('Captcha', array('captchaType'=>'math', 'jquerylib'=>true, 'modelName'=>'User', 'fieldName'=>'captcha')); //load it
         if ($this->request->is('post')) {
             $this->User->setCaptcha($this->Captcha->getVerCode()); //getting from component and passing to model to make proper validation check
@@ -83,6 +84,9 @@ class UsersController extends AppController {
             if($this->User->validates()) {
                 $this->User->create();
                 if ($this->User->saveAssociated($this->request->data)) {
+                	//save as a potential friend
+                	$this->User->Friend->create();
+                	$this->User->Friend->addPotential($this->User->id);
                    	$this->Session->setFlash(__('New user has been saved'));
                     return $this->redirect(array('action' => 'login'));
                 }
@@ -169,18 +173,6 @@ class UsersController extends AppController {
 
 	public function logout() {
 	    return $this->redirect($this->Auth->logout());
-	}
-
-	public function addFriend() {
-		if ($this->request->is('post')) {
-			if ($this->User->saveAssociated($this->request->data) {
-			//if ($this->User->addFriend($this->Auth->user('id'), $this->request->data['User']['id'])) {
-				$this->Session->setFlash(__('Friend added'));
-				return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
-			}
-		}
-		$users = $this->User->find('list', array('fields' => array('User.id','User.username')));
-		$this->set('users', $users);
 	}
 
 	public function isAuthorized($user) {
