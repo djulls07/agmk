@@ -1,13 +1,17 @@
 <div class="users form">
 <?php 
 $user=AuthComponent::user();
-echo $this->Form->create('User');  ?>
+echo $this->Form->create('User', array(
+    'enctype' => 'multipart/form-data'
+));?>
 	<fieldset>
 		<legend><?php echo __('Edit User'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('username');
 		echo $this->Form->input('password');
+		echo $this->Form->input('avatar1');
+		echo $this->Form->file('User.avatar2');
 		//echo $this->Form->input('role');
 	?>
 		<div class="input select">

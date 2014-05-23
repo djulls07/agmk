@@ -35,7 +35,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton2">
+			<div class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop"; ?>">
 				<?php
 					echo $this->Html->link($user['notifications'], array(
 						'controller' => 'users',
@@ -44,9 +44,9 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton3">
+			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop"; ?>">
 				<?php
-					echo $this->Html->link($specific_user_messages, array(
+					echo $this->Html->link($user['messages'], array(
 						'controller' => 'users',
 						'action' => 'messages',
 						)
