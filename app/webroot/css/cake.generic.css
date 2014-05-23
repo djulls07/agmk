@@ -117,7 +117,7 @@ div.barres_top /* contient les deux barres du haut + la ban*/
 div.home_barre /* la 1e barre : accueil, login... */
 {
 	background-color : #808080;
-	position : relative ;
+	position : absolute ;
 	width : 100%;
 	height:50px;
 	text-align : center;
@@ -132,6 +132,7 @@ div.home_barre /* la 1e barre : accueil, login... */
 div.home_barre_user
 {
 	float	:	left;
+	position	:	relative;
 	height	:	100%;
 }
 
@@ -141,7 +142,7 @@ div.home_barre_user a
 	width	:	100%;
 	height	:	100%;
 	float	:	left;
-	line-height	:	32px; /* hauteur de la home_barre - hauteurs des borders - 2*padding*/
+	line-height	:	32px; /* hauteur de la home_barre - hauteurs des borders - 2*padding du pseudo*/
 	font-weight : none;
 	color	:	black;
 }
@@ -149,6 +150,7 @@ div.home_barre_user a
 div.home_barre_avatar
 {
 	float	:	left;
+	position	:	relative;
 	width	:	50px;
 	height	:	100%;
 	box-sizing:border-box;
@@ -163,11 +165,13 @@ div.home_barre_avatar img
 	height	:	auto;
 	max-height	:	100%;
 	border : 0;
+	vertical-align	:	middle;
 }
 
 div.home_barre_pseudo
 {
 	float	:	left;
+	position	:	relative;
 	height	:	100%;
 	padding	:	5px;
 	box-sizing:border-box;
@@ -196,6 +200,7 @@ div.home_barre_inscription
 div.home_barre_boutons
 {
 	float	:	left;
+	position	:	relative;
 	width	:	170px;
 	height	:	100%;
 	margin-left	:	1%;
@@ -251,6 +256,7 @@ div.home_barre_bouton3
 div.home_barre_mines
 {
 	float	:	left;
+	position	:	relative;
 	vertical-align	:	middle;
 	line-height : 46px; /* hauteur de la home_barre - hauteurs des borders*/
 	font-weight	:	none;
@@ -308,10 +314,11 @@ div.home_barre_time_heure
 /* BANNIERE */
 div.banniere
 {
-	position : relative;
+	position : absolute;
 	width : 100%;
 	height	:	100px;
 	background-color	:	white;
+	top	:	50px; /* hauteur de la home_barre */
 }
 
 div.banniere_content
@@ -360,15 +367,16 @@ div.pub
 }
 
 
-div.barre_jeux
-{
+div.barre_jeux /* = barre_specific */
+{ 
 	background-color	:	#a7a7a7;
 	position : absolute ;
 	width : 100%;
 	top	:	150px;
 	text-align	:	left; 
-	height:30px;
-	line-height	:	30px;
+	height	:	30px;
+	line-height	:	29px;
+	overflow	:	auto;
 }
 
 span.barre_jeux_element
@@ -377,20 +385,21 @@ span.barre_jeux_element
 	font-family	:	"SQUAREFONT";
 	vertical-align:middle;
 	color	:	white;
-	margin-left	:	2%
+	margin-left	:	2%;
+}
+
+span.barre_jeux_element a
+{
+	display	:	inline-block;
+	height	:	100%;
 }
 
 div.barres_top 	a
 {
 	text-decoration	:	none;
 	font-family	:	"SQUAREFONT";
-	vertical-align:middle;
+	vertical-align	:	middle;
 	color	:	white;
-}
-
-div.barre_jeux	a
-{
-	color : #000000;
 }
 
 /* MID */ 
@@ -488,7 +497,7 @@ div.menu a
 	vertical-align:middle;
 	color		:	black;
 	font-family	:	"SQUAREFONT";
-	font-size: 16px;
+	font-size: 100%;
 }
 
 div.menu a:hover
@@ -707,11 +716,12 @@ div.col_gauche_mainnews img
 
 .col_gauche_news a
 {
-	display	:	inline-block;
+	display	:	block;
 	width	:	100%;
 	height	:	100%;
 	color	:	black;
 	position	:	relative;
+	font-size	:	100%;
 }
 
 .col_gauche_news_image img
@@ -1924,4 +1934,13 @@ div.vertical_center_div:before
   display: inline-block;
   height: 100%;
   vertical-align: middle;
+}
+
+/* RESPONSIVE DESIGN */
+@media handheld
+{
+	div.barres_top
+	{
+		position	:	absolute;
+	}
 }

@@ -1,5 +1,7 @@
 <div class="users form">
-<?php echo $this->Form->create('User'); debug($user); ?>
+<?php 
+$user=AuthComponent::user();
+echo $this->Form->create('User');  ?>
 	<fieldset>
 		<legend><?php echo __('Edit User'); ?></legend>
 	<?php
@@ -10,7 +12,14 @@
 	?>
 		<div class="input select">
 			<label for="UsernewsParPage">News par page</label>
-			<select name="data[User][newsParPage]" id="UsernewsParPage"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="0">&infin;</option></select>
+			<select name="data[User][newsParPage]" id="UsernewsParPage">
+				<?php for ($i=20;$i>=0;$i-=5) {
+					print "<option value='".$i."'";
+					if ( $i == $user['newsParPage'] ) print ' selected';
+					if ($i==0) print ">&infin;</option>";
+					else print ">".$i."</option>";
+				} ?>
+			</select>
 		</div>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

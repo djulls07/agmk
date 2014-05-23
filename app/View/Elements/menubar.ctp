@@ -1,26 +1,24 @@
 <?php
 $specific_user_color="orange";
-$specific_user_avatar="avatar.jpg";
-$specific_user_notifications=10;
 $specific_user_messages=0;
 $specific_user_GMT=2;
 ?>
 
 	<div class="home_barre"> <!-- home barre -->
 		<div class="home_barre_user">
-			<?php if (AuthComponent::user()): ?>
+			<?php if (AuthComponent::user()): $user=AuthComponent::user();?>
 				<div class="home_barre_avatar" style="border: 2px solid <?php print $specific_user_color;?>"> 
-					<?php	echo $this->Html->image($specific_user_avatar, array(
+					<?php	echo $this->Html->image($user['avatar'], array(
 						"alt" => "AVATAR",
-						'url' => array('controller' => 'users', 'action' => 'view', AuthComponent::user('id'))
+						'url' => array('controller' => 'users', 'action' => 'view', $user['id'])
 					));?>
 				</div>
 				<div class="home_barre_pseudo" style="border: 2px solid <?php print $specific_user_color;?>; border-left:0">
 					<?php
-						echo $this->Html->link(AuthComponent::user('username'), array(
+						echo $this->Html->link($user['username'], array(
 							'controller' => 'users',
 							'action' => 'view',
-							AuthComponent::user('id')
+							$user['id']
 							)
 						);
 					?>
@@ -39,7 +37,7 @@ $specific_user_GMT=2;
 			</div>
 			<div class="home_barre_bouton2">
 				<?php
-					echo $this->Html->link($specific_user_notifications, array(
+					echo $this->Html->link($user['notifications'], array(
 						'controller' => 'users',
 						'action' => 'notifications',
 						)
@@ -77,6 +75,16 @@ $specific_user_GMT=2;
 				?>
 			</div>
 			<div class="home_barre_mything">
+				<?php
+					echo $this->Html->link(' LogOut |', array(
+						'controller' => 'users',
+						'action' => 'logout',
+						)
+					);
+				?>
+			</div>
+			<div class="home_barre_mything">
+				<a href=""> MyGames | </a>
 				<?php
 					echo $this->Html->link(' LogOut |', array(
 						'controller' => 'users',

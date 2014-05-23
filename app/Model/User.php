@@ -146,7 +146,7 @@ class User extends AppModel {
     }
 
     public function afterFind($results, $primary) {
-    	$img = 'img/avatar.jpg';
+    	$img = '../../img/avatar.jpg';
     	if ($primary) {
     		foreach($results as $k => $val) {
     			if ( ! empty($results[$k]['User']['avatar']) ) {
