@@ -105,6 +105,11 @@ class User extends AppModel {
 			'foreignKey' => 'author_id',
 			'dependent' => false,
 			'fields' => array('Article.title', 'Article.id', 'Article.modified', 'Article.published')
+		),
+		'Notification' => array(
+			'classname' => 'Notification',
+			'foreignKey' => 'user_id',
+			'dependent' => true
 		)
 	);
 
@@ -140,4 +145,36 @@ class User extends AppModel {
         return $this->captcha; //getting captcha value
     }
 
+    public function afterFind($results, $primary) {
+    	$img = 'img/avatar.jpg';
+    	if ($primary) {
+    		foreach($results as $k => $val) {
+    			if ( ! empty($results[$k]['User']['avatar']) ) {
+				    if ( file_exists ( $results[$k]['User']['avatar'] ) ) { // toussa à mettre dans le model de l'user
+				    	continue;
+			        }
+			        $file_headers = @get_headers($results[$k]['User']['avatar']);
+			        if($file_headers[0] != 'HTTP/1.1 404 Not Found') {
+			           continue;
+			        }
+			    }
+			    $results[$k]['User']['avatar'] = $img;
+		    }
+    	} else {
+			if ( ! empty($results['avatar']) ) {
+			    if ( file_exists ( $results['avatar'] ) ) { // toussa à mettre dans le model de l'user
+			    	return $results;
+		        }
+		        $file_headers = @get_headers($results['avatar']);
+		        if($file_headers[0] != 'HTTP/1.1 404 Not Found') {
+		        	return $results;
+		        }
+		    }
+		    $results['avatar'] = $img;
+    	}    
+	    return $results;
+    }
 }
+
+
+?>

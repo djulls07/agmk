@@ -50,7 +50,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                         // défini à true pour avoir before/afterRender appelé pour l'element
                         "callbacks" => true
                     )
-                ); ?>
+                    ); ?>
                 <!--/nocache-->
             </div>
 			</div>

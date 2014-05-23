@@ -180,6 +180,7 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			debug($this->request->data);
 			if ($this->User->saveAssociated($this->request->data)) {
+				$this->User->Notification->addFriend($this->Auth->user('id'), $this->request->data['Friend']['id']);
 				$this->Session->setFlash(__('Friend Added'));
 				return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 			}
