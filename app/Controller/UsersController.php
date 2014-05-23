@@ -84,9 +84,6 @@ class UsersController extends AppController {
             if($this->User->validates()) {
                 $this->User->create();
                 if ($this->User->saveAssociated($this->request->data)) {
-                	//save as a potential friend
-                	$this->User->Friend->create();
-                	$this->User->Friend->addPotential($this->User->id);
                    	$this->Session->setFlash(__('New user has been saved'));
                     return $this->redirect(array('action' => 'login'));
                 }
@@ -178,11 +175,14 @@ class UsersController extends AppController {
 
 	public function add_friend() {
 		if ($this->request->is('post')) {
-			debug($this->request->data);
+			//debug($this->request->data);
 			if ($this->User->saveAssociated($this->request->data)) {
-				$this->User->Notification->addFriend($this->Auth->user('id'), $this->request->data['Friend']['id']);
-				$this->Session->setFlash(__('Friend Added'));
-				return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
+				if ($this->User->Notification->addFriend($this->Auth->user('id'), $this->request->data['Friend']['Friend'])) {
+					$this->Session->setFlash(__('Friend Added'));
+					return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
+				} else {
+					$this->Session->setFlash(__('Cant send friend request, try later.'));
+				}
 			}
 		}
 		$friends = $this->User->Friend->find('list', array(
