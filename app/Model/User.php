@@ -128,6 +128,13 @@ class User extends AppModel {
         return true;
     }
 
+    public function addFriend($idUser, $idFriend) {
+    	if ($idUser == $idFriend) {
+    		return false;
+    	}
+    	
+    }
+
     function matchCaptcha($inputValue)  {
         return $inputValue['captcha']==$this->getCaptcha(); //return true or false after comparing submitted value with set value of captcha
     }
