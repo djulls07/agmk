@@ -22,7 +22,19 @@ $this->start('sidebar');
 </li>
 <?php $this->end(); ?>
 
-<p class="post_body"><?php echo h($post['Post']['body']); ?></p>
+<p class="post_body"><?php echo h($post['Post']['body']); ?><br />
+<small>
+	<?php 
+		echo $this->Html->link($post['User']['username'], array(
+				'controller' => 'users',
+				'action' => 'view',
+				$post['User']['id']
+			)
+		);
+	?>
+</small>
+</p>
+
 
 <div class="comments">
 <?php foreach ($post['Comment'] as $comment): ?>

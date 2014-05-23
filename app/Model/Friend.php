@@ -19,6 +19,14 @@ class Friend extends AppModel {
 		if ($this->save($data)) return true;
 		return false;
 	}
+
+	public function updatePotential($id, $username) {
+		$data = array('Friend.username' => $username);
+		$cond = array('Friend.user_id' => $id);
+		if ($this->updateAll($data, $cond))
+			return true;
+		return false;
+	}
 }
 
 ?>
