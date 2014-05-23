@@ -10,7 +10,7 @@ class NotificationsController extends AppController {
 		if ($this->action === 'index') return true;
 	}
 
-	public function add_friend($id) {
+	public function add_friend($id_dest) {
 
 	}
 }

@@ -110,16 +110,16 @@ class User extends AppModel {
 			'classname' => 'Notification',
 			'foreignKey' => 'user_id',
 			'dependent' => true
-		)
-	);
-
-	public $hasAndBelongsToMany = array(
-		'Friend' => array(
-			'classname' => 'Friend',
-			'joinTable' => 'friends_users',
-			'foreignKey' => 'user_id',
-			'associationForeignKey' => 'friend_id',
-			'fields' => array('Friend.id', 'Friend.username')
+		),
+		'Friendship' => array(
+			'classname' => 'Frienship',
+			'foreignKey' => false,
+			'conditions' => array(
+	            'OR' => array(
+	                array('Friendship.user_id' => '{$__cakeID__$}'),
+	                array('Friendship.friend_id' => '{$__cakeID__$}')
+	            )
+        	)
 		)
 	);
 
