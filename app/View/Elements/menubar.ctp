@@ -7,13 +7,13 @@ $specific_user_GMT=2;
 	<div class="home_barre"> <!-- home barre -->
 		<div class="home_barre_user">
 			<?php if (AuthComponent::user()): $user=AuthComponent::user();?>
-				<div class="home_barre_avatar" style="border: 2px solid <?php print $specific_user_color;?>"> 
+				<div class="home_barre_avatar" style="border: 2px solid <?php print $specific_user_color;?>; border-bottom-width:4px"> 
 					<?php	echo $this->Html->image($user['avatar'], array(
 						"alt" => "AVATAR",
 						'url' => array('controller' => 'users', 'action' => 'view', $user['id'])
 					));?>
 				</div>
-				<div class="home_barre_pseudo" style="border: 2px solid <?php print $specific_user_color;?>; border-left:0">
+				<div class="home_barre_pseudo" style="border: 2px solid <?php print $specific_user_color;?>; border-left:0; border-bottom-width:4px">
 					<?php
 						echo $this->Html->link($user['username'], array(
 							'controller' => 'users',
@@ -58,7 +58,7 @@ $specific_user_GMT=2;
 		<div class="home_barre_mines">
 			<div class="home_barre_mything">
 				<?php
-					echo $this->Html->link('| MyTeams', array(
+					echo $this->Html->link('MyTeams', array(
 						'controller' => 'teams',
 						'action' => 'index',
 						)
@@ -67,7 +67,7 @@ $specific_user_GMT=2;
 			</div>
 			<div class="home_barre_mything">
 				<?php
-					echo $this->Html->link('| MyEvents |', array(
+					echo $this->Html->link('MyEvents', array(
 						'controller' => 'events',
 						'action' => 'index',
 						)
@@ -76,7 +76,7 @@ $specific_user_GMT=2;
 			</div>
 			<div class="home_barre_mything">
 				<?php
-					echo $this->Html->link(' LogOut |', array(
+					echo $this->Html->link('LogOut', array(
 						'controller' => 'users',
 						'action' => 'logout',
 						)
@@ -84,13 +84,13 @@ $specific_user_GMT=2;
 				?>
 			</div>
 			<div class="home_barre_mything">
-				<a href=""> MyGames | </a>
+				<a> MyGames <span style="vertical-align	:	bottom">&#9660;</span></a>
 				<?php
-					echo $this->Html->link(' LogOut |', array(
+					/*echo $this->Html->link('LogOut', array(
 						'controller' => 'users',
 						'action' => 'logout',
 						)
-					);
+					);*/
 				?>
 			</div>
 		</div>
