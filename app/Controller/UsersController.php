@@ -81,18 +81,12 @@ class UsersController extends AppController {
                 	unset($this->request->data['Profile'][$k]);
                 }
             }
-            if (!empty($this->request->data['User']['avatar1'])) {
-            	$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
-            } else {
-            	//dans avatar2 on recoit l'upload, a gerer.
-            }
             if($this->User->validates()) {
                 $this->User->create();
                 if ($this->User->saveAssociated($this->request->data)) {
-                   	$this->Session->setFlash(__('New user has been saved'));
-                    return $this->redirect(array('action' => 'login'));
-                }
-                
+               		$this->Session->setFlash(__('New user has been saved'));
+                	return $this->redirect(array('action' => 'login'));  
+                }               
                 $this->Session->setFlash(__('The user could not be saved, please try again'));
             } else {
                 $this->Session->setFlash(__('Data validation failure'));
@@ -117,10 +111,21 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			if (!empty($this->request->data['User']['avatar1'])) {
+            		$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
+	            } else {
+	            	//dans avatar2 on recoit l'upload, a gerer.
+	            	$this->request->data['User']['avatar'] = 'img/'.$this->request->data['User']['username'].$this->request->data['User']['avatar2']['name'];
+	            }
 			if ($this->User->save($this->request->data)) {
-				$this->User->Friend->updatePotential($this->User->id, $this->request->data['User']['username']);
-				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				if (!empty($this->request->data['User']['avatar2'])) {
+                	if(move_uploaded_file($this->request->data['User']['avatar2']['tmp_name'], $this->request->data['User']['avatar'])) {
+						$this->Session->setFlash(__('The user has been saved.'));
+						return $this->redirect(array('action' => 'index'));
+					} else {
+						$this->Session->setFlash(__('User saved, but error happened with file upload'));
+					}
+				}
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
