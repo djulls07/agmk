@@ -81,6 +81,11 @@ class UsersController extends AppController {
                 	unset($this->request->data['Profile'][$k]);
                 }
             }
+            if (!empty($this->request->data['User']['avatar1'])) {
+            	$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
+            } else {
+            	//dans avatar2 on recoit l'upload, a gerer.
+            }
             if($this->User->validates()) {
                 $this->User->create();
                 if ($this->User->saveAssociated($this->request->data)) {
