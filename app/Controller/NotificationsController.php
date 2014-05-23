@@ -10,9 +10,15 @@ class NotificationsController extends AppController {
 		if ($this->action === 'index') return true;
 	}
 
-	public function add_friend($id_dest) {
-
+	public function index() {
+		$id = $this->Auth->user('id');
+		$this->Notification->find('all', array(
+			'conditions' => array('user_id' => $id),
+			'limits' => 20,
+			''
+		));
 	}
+
 }
 
 ?>
