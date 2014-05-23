@@ -171,8 +171,23 @@ class UsersController extends AppController {
 	    return $this->redirect($this->Auth->logout());
 	}
 
+	public function addFriend() {
+		if ($this->request->is('post')) {
+			$friend = $this->User->findById($id);
+			if(!$friend) {
+				throw new NotFoundException(__('Invalid friend'));
+			}
+			if ($this->User->saveAssociated($this->request->data) {
+				$this->Session->setFlash(__('Friend added'));
+				return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
+			}
+		}
+		$users = $this->User->find('list', array('fields' => array('User.id','User.username')));
+		$this->set('users', $users);
+	}
+
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view'))) return true;
+		if (in_array($this->action, array('logout', 'index', 'view', 'addFriend'))) return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
 			if ($user['id'] == (int) $this->request->params['pass'][0]) {

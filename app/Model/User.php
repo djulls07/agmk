@@ -108,6 +108,16 @@ class User extends AppModel {
 		)
 	);
 
+	public $hasAndBelongsToMany = array(
+		'Friend' => array(
+			'classname' => 'User',
+			'joinTable' => 'friends_users',
+            'foreignKey' => 'user_id',
+            'associationForeignKey' => 'friend_id',
+            'fields' => array('User.id', 'User.username')
+		)
+	);
+
 	public function beforeSave($options = array()) {
         if (!empty($this->data['User']['password'])) {
             $passwordHasher = new SimplePasswordHasher();
