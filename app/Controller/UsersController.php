@@ -177,7 +177,7 @@ class UsersController extends AppController {
 			if(!$friend) {
 				throw new NotFoundException(__('Invalid friend'));
 			}
-			if ($this->User->saveAssociated($this->request->data) {
+			if ($this->User->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('Friend added'));
 				return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 			}
