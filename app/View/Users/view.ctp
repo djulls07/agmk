@@ -1,8 +1,8 @@
 <?php
 $specific_user_color="orange";
-$specific_user_avatar='../../'.$user['User']['avatar'];?>
+?>
 <div id="espace_gauche"><?php echo $this->Session->flash(); ?>
-	<div id="espace_gauche_avatar" style="background-color:<?php print $specific_user_color;?>; background-image:url('<?php print $specific_user_avatar;?>')">
+	<div id="espace_gauche_avatar" style="background-color:<?php print $specific_user_color;?>; background-image:url('<?php print $user['User']['avatar'];?>')">
 	 </div>
 	<div id="espace_gauche_menu">
 		<ul class="liste_style">
