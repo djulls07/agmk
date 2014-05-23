@@ -2,29 +2,29 @@
 	<?php 
 	if (isset ($game) ) 
 	{
-		echo "<span class='barre_jeux_element'>";
-		echo $this->Html->link("Accueil", array(
+		print "	<span class='barre_jeux_element'>".
+				$this->Html->link("Accueil", array(
 						'controller' => 'articles',
 						'action' => 'index',
 						)
 					);
-		echo '</span>';
-		echo "<span class='barre_jeux_element'> / </span>";
-		echo "<span class='barre_jeux_element'>";
-		echo $this->Html->link($game['Game']['name'], array(
+				."</span>
+				<span class='barre_jeux_element'> / </span>
+				<span class='barre_jeux_element'>".
+				$this->Html->link($game['Game']['name'], array(
 							'controller' => 'articles',
 							'action' => 'index',
 							$game['Game']['id']
 							)
 						);
-		echo '</span>';
-		echo "<span class='barre_jeux_element'> / </span>";
-		echo "<span class='barre_jeux_element'>";
+				."</span>
+				<span class='barre_jeux_element'> / </span>
+				<span class='barre_jeux_element'>";
 		foreach($game['Link'] as $link_id => $link_array)
 		{
-			echo "<span class='barre_jeux_element'>";
-			print "<a href=\"".$link_array['url']."\">".$link_array['name']."</a>";
-			echo '</span>';
+			print "	<span class='barre_jeux_element'>
+					<a href=\"".$link_array['url']."\">".$link_array['name']."</a>
+					</span>";
 			if ( count($game['Link']) != $link_id+1) echo "<span class='barre_jeux_element'> - </span>";
 		}
 	}

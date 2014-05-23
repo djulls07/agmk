@@ -371,7 +371,7 @@ div.barre_jeux
 	line-height	:	30px;
 }
 
-div.barre_jeux_element
+span.barre_jeux_element
 {
 	text-decoration	:	none;
 	font-family	:	"SQUAREFONT";
