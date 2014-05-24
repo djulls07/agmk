@@ -62,7 +62,7 @@
 	</li>
 </div>
 <div class="comments">
-	<?php foreach ($article['Comment'] as $comment): ?>
+	<?php foreach ($article['Acomment'] as $comment): ?>
 		<p><?php echo h($comment['body']); ?> <br />
 		<small>
 			<?php 
