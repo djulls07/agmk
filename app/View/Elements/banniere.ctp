@@ -14,12 +14,13 @@ $specific_user_GMT=2;
 					echo $this->Html->image("facebook.gif", array(
 						"alt" => "Facebook",
 					));
-					echo "<p/>".$this->Html->image("twitter.png", array(
+					echo $this->Html->image("twitter.png", array(
 						"alt" => "Twitter",
 					));
 				?>
 		</div>
-		<div class="pub">pub
+		<div class="pub">
+			<img src="http://t0.gstatic.com/images?q=tbn:ANd9GcT4Aox9gE3y41VNE3SlC8sqS7_xvxODwkD9dfxk5EPRe0agB8dvbkbeGRBR">
 		</div>
 </div>
 </div>

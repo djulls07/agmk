@@ -43,13 +43,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <!--nocache-->
                 <?php echo $this->element('menubar'); ?>
 				<?php echo $this->element('banniere'); ?>
-				<?php echo $this->element('barre_specific', array(),
+				<?php echo $this->element('barre_specific', array()/*,
                     array(
                         // utilise la configuration de cache "long_view"
                         "cache" => "long_view",
                         // défini à true pour avoir before/afterRender appelé pour l'element
                         "callbacks" => true
-                    )
+                    )*/
                     ); ?>
                 <!--/nocache-->
             </div>
