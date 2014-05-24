@@ -38,8 +38,8 @@ $specific_user_GMT=2;
 			<div class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop"; ?>">
 				<?php
 					echo $this->Html->link($user['notifications'], array(
-						'controller' => 'users',
-						'action' => 'notifications',
+						'controller' => 'notifications',
+						'action' => 'index',
 						)
 					);
 				?>
@@ -47,8 +47,8 @@ $specific_user_GMT=2;
 			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop"; ?>">
 				<?php
 					echo $this->Html->link($user['messages'], array(
-						'controller' => 'users',
-						'action' => 'messages',
+						'controller' => 'messages',
+						'action' => 'index',
 						)
 					);
 				?>
