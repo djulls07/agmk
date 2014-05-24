@@ -63,7 +63,7 @@
 </div>
 <div class="comments">
 	<?php foreach ($article['Acomment'] as $comment): ?>
-		<p><?php echo h($comment['body']); ?> <br />
+		<p><?php echo h($comment['content']); ?> <br />
 		<small>
 			<?php 
 				echo $this->Html->link($comment['User']['username'], array(
