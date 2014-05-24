@@ -9,9 +9,10 @@ class Notification extends AppModel {
 		)
 	);
 
-	public function addFriend($id_src, $friends) {
+	public function addFriend($user_src, $friends) {
+		$id_src = $user_src['id'];
 		foreach($friends as $k => $val) {
-			$data = array('user_id' => $val, 'content' => 'New friend request', 'controller' => 'friendsusers', 'action' => 'active' ,'param1' => $id_src);
+			$data = array('user_id' => $val, 'content' => 'New friend request from '.$user_src['username'], 'controller' => 'friendships', 'action' => 'active' ,'param1' => $id_src);
 			$user = $this->User->findById($val);
 			$user['User']['notifications']++;
 			unset($user['User']['password']);

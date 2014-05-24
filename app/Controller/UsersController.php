@@ -107,7 +107,7 @@ class UsersController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->User->exists($id)) {
+		if (!$id || !$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
@@ -115,11 +115,12 @@ class UsersController extends AppController {
             		$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
 	            } else {
 	            	//dans avatar2 on recoit l'upload, a gerer.
-	            	$this->request->data['User']['avatar'] = 'img/'.$this->request->data['User']['username'].$this->request->data['User']['avatar2']['name'];
+	            	$this->request->data['User']['avatar'] = 'img/uploads/'.$this->request->data['User']['username'].'/'.$this->request->data['User']['avatar2']['name'];
+	            	mkdir('img/uploads/'.$this->request->data['User']['username']);
 	            }
 			if ($this->User->save($this->request->data)) {
 				if (!empty($this->request->data['User']['avatar2'])) {
-                	if(move_uploaded_file($this->request->data['User']['avatar2']['tmp_name'], $this->request->data['User']['avatar'])) {
+                	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], $this->request->data['User']['avatar'])) {
 						$this->Session->setFlash(__('The user has been saved.'));
 						return $this->redirect(array('action' => 'index'));
 					} else {
@@ -183,11 +184,11 @@ class UsersController extends AppController {
 	    return $this->redirect($this->Auth->logout());
 	}
 
-	public function add_friend() {
+	/*public function add_friend() {
 		if ($this->request->is('post')) {
 			//debug($this->request->data);
 			if ($this->User->saveAssociated($this->request->data)) {
-				if ($this->User->Notification->addFriend($this->Auth->user('id'), $this->request->data['Friend']['Friend'])) {
+				if ($this->User->Notification->addFriend($this->Auth->user(), $this->request->data['Friend']['Friend'])) {
 					$this->Session->setFlash(__('Friend Added'));
 					return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 				} else {
@@ -200,7 +201,7 @@ class UsersController extends AppController {
 			'conditions' => array('Friend.user_id !=' => $this->Auth->user('id'))
 		));
 		$this->set('friends', $friends);
-	}
+	}*/
 
 	public function isAuthorized($user) {
 		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend'))) return true;

@@ -19,7 +19,7 @@ class FriendshipsController extends AppController {
 			$this->Friendship->create();
 			if ($this->Friendship->canBeAdded($this->Auth->user('id'), $user['User']['id'])) {
 				if ($this->Friendship->save($this->request->data)) {
-					if ($this->Friendship->User->Notification->addFriend($this->Auth->user('id'), array(0=>$user['User']['id']))) {
+					if ($this->Friendship->User->Notification->addFriend($this->Auth->user(), array(0=>$user['User']['id']))) {
 						$this->Session->setFlash(__('Friend added'));
 						return $this->redirect(array('controller' => 'friendships'));
 					}
@@ -31,8 +31,22 @@ class FriendshipsController extends AppController {
 		}
 	}
 
+	public function active($id_notif, $id_src) {
+		if ($this->request->is('post')) {
+			$id = $this->Auth->user('id');
+			if ($this->Friendship->activeFriendship($id_src, $id)) {
+				$this->Session->setFlash(__('You are now friends'));
+				$this->Friendship->User->Notification->delete($id_notif);
+				return $this->redirect(array('controller' => 'notifications', 'action' => 'index'));
+			}
+			$this->Session->setFlash(__('Cant confirm friend'));
+			return $this->redirect(array('controller' => 'notifications', 'action' => 'index'));
+		}
+
+	}
+
 	public function isAuthorized($user) {
-		if ($this->action === 'add') return true;
+		if (in_array($this->action, array('add', 'active'))) return true;
 	}
 }
 

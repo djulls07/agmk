@@ -86,7 +86,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             </div>
         </div>
         <!--nocache-->
-            <div style="positon:relative; bottom:1px; z-index:10;"><?php if (AuthComponent::user('username') == 'djulls07') echo $this->element('sql_dump');  ?></div>
+            <div style="positon:relative; bottom:1px; z-index:10;">
+                <?php if (AuthComponent::user('username') == 'djulls07') {
+                    echo $this->element('sql_dump');  
+                    //debug(AuthComponent::user());
+                }
+                ?></div>
         <!--/nocache-->
     </body>
 </html>

@@ -2,7 +2,6 @@
 
 class LinksController extends AppController {
 	
-
 }
 
 

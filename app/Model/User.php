@@ -176,6 +176,19 @@ class User extends AppModel {
     	}    
 	    return $results;
     }
+
+    function isUploadedAvatar($avatar, $dest) {
+    	//redimensionner ( compression image et check tailler extension)
+    	if ($avatar['size'] > 1000000) return false;
+    	$tmp_name = $avatar['tmp_name'];
+    	$finfo = new finfo();
+    	$info = $finfo->file($tmp_name, FILEINFO_MIME_TYPE);
+    	if (in_array($info, array('image/jpeg', 'image/png'))) {
+	    	if (move_uploaded_file($tmp_name, $dest))
+	    		return true;
+	    }
+	    return false;
+    }
 }
 
 
