@@ -55,8 +55,9 @@ $specific_user_GMT=2;
 			</div>
 		</div>
 		
-		<div class="home_barre_mines">
-			<div class="home_barre_mything">
+		<nav class="home_barre_mines">
+			<ul>
+			<li>
 				<?php
 					echo $this->Html->link('MyTeams', array(
 						'controller' => 'teams',
@@ -64,8 +65,8 @@ $specific_user_GMT=2;
 						)
 					);
 				?>
-			</div>
-			<div class="home_barre_mything">
+			</li>
+			<li>
 				<?php
 					echo $this->Html->link('MyEvents', array(
 						'controller' => 'events',
@@ -73,18 +74,14 @@ $specific_user_GMT=2;
 						)
 					);
 				?>
-			</div>
-			<div class="home_barre_mything">
-				<?php
-					echo $this->Html->link('LogOut', array(
-						'controller' => 'users',
-						'action' => 'logout',
-						)
-					);
-				?>
-			</div>
-			<div class="home_barre_mything">
-				<a> MyGames <span style="vertical-align	:	bottom">&#9660;</span></a>
+			</li>
+			<li>
+				<a href=""> MyGames <span style="vertical-align	:	bottom">&#9660;</span></a>
+				<ul>
+					<li><a href="#">Tetris</a></li>
+					<li><a href="#">Pacman</a></li>
+					<li><a href="#">Candy Crush Saga</a></li>
+				</ul>
 				<?php
 					/*echo $this->Html->link('LogOut', array(
 						'controller' => 'users',
@@ -92,23 +89,33 @@ $specific_user_GMT=2;
 						)
 					);*/
 				?>
-			</div>
-		</div>
+			</li>
+			<li>
+				<?php
+					echo $this->Html->link('LogOut', array(
+						'controller' => 'users',
+						'action' => 'logout',
+						)
+					);
+				?>
+			</li>
+			</ul>
+		</nav>
 		<?php 
 			else: 
-				print "<div class=\"home_barre_connexion\">";
+				print "<nav class=\"home_barre_mines\"><ul><li>";
 				echo $this->Html->link('LogIn', array(
 					'controller' => 'users',
 					'action' => 'login'
 					)
 				);
-				print"</div><div class=\"home_barre_inscription\">";
+				print"</li><li>";
 				echo $this->Html->link('Create account', array(
 					'controller' => 'users',
 					'action' => 'add'
 				)
 				);
-				print"</div>
+				print"</li></ul></nav>
 		</div><div class=\"home_barre_boutons\"><div class=\"home_barre_bouton1\">";
 					echo $this->Html->link(' ', array(
 						'controller' => 'articles',
@@ -116,7 +123,7 @@ $specific_user_GMT=2;
 						)
 					);
 				?>
-				</div></div>
+				</div>
 			</div>
 		<?php endif;
 		?>

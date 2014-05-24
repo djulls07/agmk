@@ -6,6 +6,7 @@ if (isset ($game) )
 		#barre_jeux
 		{
 			background-color	:	#<?php echo $game['Game']['a_background']; ?>;
+			background: linear-gradient(to bottom, #282828 10%, #<?php echo $game['Game']['a_background']; ?> 100%) repeat scroll 0% 0% transparent;
 			color	:	#<?php echo $game['Game']['a_color']; ?>;
 		}
  </STYLE>
