@@ -122,7 +122,7 @@ class UsersController extends AppController {
 				if (!empty($this->request->data['User']['avatar2'])) {
                 	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], $this->request->data['User']['avatar'])) {
 						$this->Session->setFlash(__('The user has been saved.'));
-						return $this->redirect(array('action' => 'index'));
+						return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 					} else {
 						$this->Session->setFlash(__('User saved, but error happened with file upload'));
 					}

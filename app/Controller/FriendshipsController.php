@@ -45,8 +45,21 @@ class FriendshipsController extends AppController {
 
 	}
 
+	public function notactive($id_notif, $id_src) {
+		if ($this->request->is('post')) {
+			$id = $this->Auth->user('id');
+			if ($this->Friendship->notActiveFriendship($id_src, $id)) {
+				$this->Session->setFlash(__('friend invitation rejected'));
+				$this->Friendship->User->Notification->delete($id_notif);
+				return $this->redirect(array('controller' => 'notifications', 'action' => 'index'));
+			}
+			$this->Session->setFlash(__('Cant reject friend'));
+			return $this->redirect(array('controller' => 'notifications', 'action' => 'index'));
+		}
+	}
+
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('add', 'active'))) return true;
+		if (in_array($this->action, array('add', 'active', 'notactive'))) return true;
 	}
 }
 

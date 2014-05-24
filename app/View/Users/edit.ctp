@@ -9,7 +9,7 @@ echo $this->Form->create('User', array(
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('username');
-		echo $this->Form->input('password');
+		//echo $this->Form->input('password');
 		echo $this->Form->input('avatar1');
 		echo $this->Form->file('User.avatar2');
 		//echo $this->Form->input('role');

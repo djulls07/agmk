@@ -21,6 +21,9 @@ class NotificationsController extends AppController {
 				'limits' => 20,
 				'order' => array('Notification.created', 'Notification.created DESC')
 			));
+			if (!$notifications) {
+				$this->Session->setFlash(__('No notification'));
+			}
 			$this->set('notifications', $notifications);
 		}
 	}
