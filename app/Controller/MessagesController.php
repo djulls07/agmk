@@ -14,11 +14,19 @@ class MessagesController extends AppController {
 		if ($this->request->is('get')) {
 			$id = $this->Auth->user('id');
 			$this->Message->recursive = 0;
-			$messages = $this->Message->findById($id);
+			$params = array(
+				'conditions' => array('src_id' => $id)
+			);
+			$send_mess = $this->Message->find('all', $params)
+			$params = array(
+				'conditions' => array('dest_id' => $id)
+			);
+			$receive_mess = $this->Message->find('all', $params);
 			if (!$messages) {
-				throw new NotFoundException(__('No Message'));
+				$this->Session->setFlash(__('No message, sorry dude !'));
 			}
-			$this->set('messages', $messages);
+			$this->set('send_mess', $send_mess);
+			$this->set('receive_mess', $receive_mess);
 		}
 	}
 
