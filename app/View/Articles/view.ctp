@@ -54,7 +54,7 @@
 	<a href="">Partager cet article</a>
 	<li>
 		<?php echo $this->Html->link('Add comment', array(
-				'controller' => 'comments',
+				'controller' => 'acomments',
 				'action' => 'add',
 				$article['Article']['id']
 			)

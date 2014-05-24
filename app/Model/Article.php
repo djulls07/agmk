@@ -33,6 +33,15 @@ class Article extends AppModel {
             'fields' => array('Tag.content')
         )
     );
+
+    public $hasMany = array(
+        'Acomment' => array(
+            'classname' => 'Acomment',
+            'foreignKey' => 'article_id',
+            'limits' => '25',
+            'order' => 'Acomment.created ASC'
+        )
+    );
     
     public $validate = array(
         'title' => array(
