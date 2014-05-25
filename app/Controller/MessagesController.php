@@ -30,6 +30,13 @@ class MessagesController extends AppController {
 		}
 	}
 
+	public function add() {
+		//getfriendlist, envoyer a la vue pr choix destinataire.
+		//ou en ajax et check jquuery pr savoir si user dans list
+		//ou index des friends ( query search dans freindship.php et les paginate et choix pr mess)
+
+	}
+
 }
 
 ?>

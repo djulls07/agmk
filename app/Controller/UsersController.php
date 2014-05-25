@@ -227,4 +227,6 @@ class UsersController extends AppController {
         $this->Captcha->create();
     }
 
+   
 }
+?>

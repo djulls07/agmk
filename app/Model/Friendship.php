@@ -2,12 +2,6 @@
 
 class Friendship extends AppModel {
 
-	public $belongsTo = array(
-		'User' => array(
-			'classname' => 'User'
-		)
-	);
-
 	public function canBeAdded($myId, $hisId) {
 		$params = array(
 			'conditions' => array(
@@ -89,5 +83,18 @@ class Friendship extends AppModel {
 		if ($this->delete($id))
 			return true;
 		return false;
+	}
+
+	public function removeMe($friends) {
+		foreach($friends as $k => $v) {
+			if ($friends[$k]['User1']['id'] == null) {
+				$friends[$k]['User'] = $friends[$k]['User2'];
+			} else {
+				$friends[$k]['User'] = $friends[$k]['User1'];				
+			}
+			unset($friends[$k]['User1']);
+			unset($friends[$k]['User2']);
+		}
+		return $friends;
 	}
 }
