@@ -2,6 +2,8 @@
 
 class Friendship extends AppModel {
 
+	public $hasMany = array('User');
+
 	public function canBeAdded($myId, $hisId) {
 		$params = array(
 			'conditions' => array(
