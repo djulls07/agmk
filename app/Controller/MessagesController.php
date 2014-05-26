@@ -9,7 +9,7 @@ class MessagesController extends AppController {
 	}
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('index', 'add', 'view', 'received', 'sent')))
+		if (in_array($this->action, array('index', 'add', 'view', 'received', 'sent', 'reponse')))
 			return true;
 		return parent::isAuthorized($user);
 	}
@@ -44,7 +44,7 @@ class MessagesController extends AppController {
 			$this->Message->recursive = -1;
 			$params = array(
 				'conditions' => array('dest_id' => $id),
-				'limits' => 100,
+				'limits' => 50,
 				'order' => 'Message.created DESC',
 				'fields' => array('Message.id', 'Message.dest_username', 'Message.dest_id','Message.src_username', 'Message.src_id','Message.content', 'Message.created', 'Message.open_src', 'Message.open_dest')
 			);
@@ -63,7 +63,7 @@ class MessagesController extends AppController {
 			$this->Message->recursive = -1;
 			$params = array(
 				'conditions' => array('src_id' => $id),
-				'limits' => 100,
+				'limits' => 50,
 				'order' => 'Message.created DESC',
 				'fields' => array('Message.id', 'Message.dest_username', 'Message.dest_id','Message.src_username', 'Message.src_id','Message.content', 'Message.created', 'Message.open_src', 'Message.open_dest')
 			);
@@ -121,6 +121,30 @@ class MessagesController extends AppController {
 					$this->Message->saveField('open_dest', 1);
 				}
 			}
+		}
+	}
+
+	public function reponse($messageId) {
+		$message = $this->Message->findById($messageId);
+		if(!$message) {
+			throw new NotFoundException(__('Invalid message'));
+		}
+		if (!$message['Message']['dest_id'] == $this->Auth->user('id')) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this->request->data['Message']['dest_id'] = $message['Message']['src_id'];
+		$this->request->data['Message']['src_id'] = $this->Auth->user('id');
+		$this->request->data['Message']['dest_username'] = $message['Message']['src_username'];
+		$this->request->data['Message']['src_username'] = $this->Auth->user('username');
+		if ($this->request->is('get')) {
+			$this->set('message_src', $messageId);
+		} else if ($this->request->is('post')) {	
+			$this->Message->create();
+			if ($this->Message->save($this->request->data)) {
+				$this->Session->setFlash(__('Message sent'));
+				return $this->redirect(array('action' => 'received'));
+			}
+			$this->Session->setFlash(__('Cant send message'));
 		}
 	}
 }

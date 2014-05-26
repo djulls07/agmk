@@ -6,5 +6,5 @@
 			array('controller' => 'users', 'action' => 'view', $message['Message']['src_id'])
 		); ?></small>
 	</p>
-	<?php echo $this->Html->link('Back', array('action' => 'index')); ?>
+	<?php echo $this->Html->link('Back', array('action' => 'received')); ?>
 </div>
