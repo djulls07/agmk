@@ -87,7 +87,7 @@ class MessagesController extends AppController {
 			if ($user['User']['username'] == $this->request->data['Message']['dest_username']) {
 				if ($this->Message->save($this->request->data)) {
 					$this->Message->User->id = $user['User']['id'];
-					$this->Message->User->saveField('messages', $user['User']['messages'] + 1); 
+					$this->Message->User->saveField('messages', ($user['User']['messages'] + 1)); 
 					$this->Session->setFlash(__('Message sent'));
 					return $this->redirect(array('controller' => 'friendships', 'action' => 'index'));
 				}
@@ -119,6 +119,10 @@ class MessagesController extends AppController {
 					$this->Message->saveField('open_src', 1);
 				} else {
 					$this->Message->saveField('open_dest', 1);
+					$user = $this->Message->User->findById($idUser);
+					$this->Message->User->id = $idUser;
+					if ($user['User']['messages'] > 0)
+						$this->Message->User->saveField('messages', $user['User']['messages'] - 1);
 				}
 			}
 		}
@@ -137,10 +141,13 @@ class MessagesController extends AppController {
 		$this->request->data['Message']['dest_username'] = $message['Message']['src_username'];
 		$this->request->data['Message']['src_username'] = $this->Auth->user('username');
 		if ($this->request->is('get')) {
-			$this->set('message_src', $messageId);
+			$this->set('message_src', $message);
 		} else if ($this->request->is('post')) {	
 			$this->Message->create();
 			if ($this->Message->save($this->request->data)) {
+				$user = $this->Message->User->findById($this->request->data['Message']['dest_id']);
+				$this->Message->User->id = $user['User']['id'];
+				$this->Message->User->saveField('messages', ($user['User']['messages'] + 1)); 
 				$this->Session->setFlash(__('Message sent'));
 				return $this->redirect(array('action' => 'received'));
 			}
