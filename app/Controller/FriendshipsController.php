@@ -103,10 +103,8 @@ class FriendshipsController extends AppController {
 			);
 			$this->Paginator->settings = $params;
 			$friendships = $this->Paginator->paginate();
-
-			$friendships = $this->Friendship->removeMe($friendships);
+			$friendships = $this->Friendship->removeMe($friendships, $this->Auth->user('id'));
 			$this->set('friendships', $friendships);
-			debug($friendships);
 		}
 
 	}

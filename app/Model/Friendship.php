@@ -85,9 +85,9 @@ class Friendship extends AppModel {
 		return false;
 	}
 
-	public function removeMe($friends) {
+	public function removeMe($friends, $myId) {
 		foreach($friends as $k => $v) {
-			if ($friends[$k]['User1']['id'] == null) {
+			if ($friends[$k]['User1']['id'] == $myId) {
 				$friends[$k]['User'] = $friends[$k]['User2'];
 			} else {
 				$friends[$k]['User'] = $friends[$k]['User1'];				

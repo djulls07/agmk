@@ -2,41 +2,81 @@
 
 class MessagesController extends AppController {
 
+	public $components = array('Paginator');
+
 	public function beforeFilter() {
 		$this->Auth->deny('all');
 	}
 
 	public function isAuthorized($user) {
+		if (in_array($this->action, array('index', 'add', 'view')))
+			return true;
 		return parent::isAuthorized($user);
 	}
 
 	public function index() {
 		if ($this->request->is('get')) {
 			$id = $this->Auth->user('id');
-			$this->Message->recursive = 0;
+			$this->Message->recursive = -1;
 			$params = array(
-				'conditions' => array('src_id' => $id)
+				'conditions' => array(
+					'OR' => array(
+						array('dest_id' => $id),
+						array('src_id' => $id)
+					)
+				),
+				'limits' => 100,
+				'fields' => array('Message.id', 'Message.dest_username', 'Message.dest_id','Message.src_username', 'Message.src_id','Message.content', 'Message.created')
 			);
-			$send_mess = $this->Message->find('all', $params)
-			$params = array(
-				'conditions' => array('dest_id' => $id)
-			);
-			$receive_mess = $this->Message->find('all', $params);
+			$this->Paginator->settings = $params;
+			$messages= $this->Paginator->paginate();
 			if (!$messages) {
 				$this->Session->setFlash(__('No message, sorry dude !'));
 			}
-			$this->set('send_mess', $send_mess);
-			$this->set('receive_mess', $receive_mess);
+			$this->set('messages', $messages);
 		}
 	}
 
-	public function add() {
-		//getfriendlist, envoyer a la vue pr choix destinataire.
-		//ou en ajax et check jquuery pr savoir si user dans list
-		//ou index des friends ( query search dans freindship.php et les paginate et choix pr mess)
-
+	public function add($idDest = null, $usernameDest = null) {
+		if ($this->request->is('post')) {
+			$this->Message->create();
+			$this->request->data['Message']['src_id'] = $this->Auth->user('id');
+			$this->request->data['Message']['src_username'] = $this->Auth->user('username');
+			if (!($user=$this->Message->User->findById($this->request->data['Message']['dest_id']))) {
+				throw new NotFoundException(__('Invalid user'));
+			}
+			if ($user['User']['username'] == $this->request->data['Message']['dest_username']) {
+				if ($this->Message->save($this->request->data)) {
+					$this->Session->setFlash(__('Message sent'));
+					return $this->redirect(array('controller' => 'friendships', 'action' => 'index'));
+				}
+				$this->Session->setFlash(__('Error while sending message'));
+			}
+		} else if ($this->request->is('get')) {
+			if (!$idDest || !$usernameDest) {
+				throw new NotFoundException(__('Invalid user'));
+			}
+			$this->set('dest_id', $idDest);
+			$this->set('dest_username', $usernameDest);
+		}
 	}
 
+	public function view($id = null) {
+		$idUser = $this->Auth->user('id');
+		if ($this->request->is('get')) {
+			$message = $this->Message->findById($id);
+			if (!$message) {
+				throw new NotFoundException(__('Invalid message'));
+			}
+			if ($message['Message']['src_id'] != $idUser && $message['Message']['dest_id'] != $idUser) {
+				$this->Session->setFlash(__('You cant see messages that dont concern you !'));
+				return $this->redirect(array('controller' => 'messages','action'=>'index'));
+			} else {
+				$this->set('message', $message);
+			}
+		}
+	}
 }
+
 
 ?>
