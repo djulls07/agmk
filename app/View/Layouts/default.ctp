@@ -22,8 +22,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <html>
     <head>
         <?php echo $this->Html->charset(); ?>
-        <?php $this->Html->script('jquery-2.1.1.min.js'); ?>
-        <?php $this->fetch('script'); ?>
+        <?php echo $this->Html->script('jquery-2.1.1.min'); ?>
+        <?php echo $this->fetch('script'); ?>
         <title>
             <?php echo 'Agamek' ?>:
         </title>
@@ -43,13 +43,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <!--nocache-->
                 <?php echo $this->element('menubar'); ?>
 				<?php echo $this->element('banniere'); ?>
-				<?php echo $this->element('barre_specific', array(),
+				<?php echo $this->element('barre_specific', array()/*,
                     array(
                         // utilise la configuration de cache "long_view"
                         "cache" => "long_view",
                         // défini à true pour avoir before/afterRender appelé pour l'element
                         "callbacks" => true
-                    )
+                    )*/
                     ); ?>
                 <!--/nocache-->
             </div>
@@ -93,5 +93,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 }
                 ?></div>
         <!--/nocache-->
+       <?php echo $this->Js->writeBuffer();?>
     </body>
 </html>

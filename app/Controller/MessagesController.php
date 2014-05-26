@@ -9,7 +9,7 @@ class MessagesController extends AppController {
 	}
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('index', 'add', 'view', 'received', 'sent', 'reponse')))
+		if (in_array($this->action, array('index', 'add', 'view', 'received', 'sent', 'reponse', 'ecrire')))
 			return true;
 		return parent::isAuthorized($user);
 	}
@@ -93,13 +93,12 @@ class MessagesController extends AppController {
 				}
 				$this->Session->setFlash(__('Error while sending message'));
 			}
-		} else if ($this->request->is('get')) {
-			if (!$idDest || !$usernameDest) {
-				throw new NotFoundException(__('Invalid user'));
-			}
-			$this->set('dest_id', $idDest);
-			$this->set('dest_username', $usernameDest);
 		}
+		if (!$idDest || !$usernameDest) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this->set('dest_id', $idDest);
+		$this->set('dest_username', $usernameDest);
 	}
 
 	public function view($id = null) {
@@ -153,6 +152,10 @@ class MessagesController extends AppController {
 			}
 			$this->Session->setFlash(__('Cant send message'));
 		}
+	}
+
+	public function ecrire() {
+
 	}
 }
 
