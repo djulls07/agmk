@@ -48,7 +48,7 @@ $specific_user_GMT=2;
 				<?php
 					echo $this->Html->link($user['messages'], array(
 						'controller' => 'messages',
-						'action' => 'index',
+						'action' => 'received',
 						)
 					);
 				?>

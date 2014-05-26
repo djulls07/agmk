@@ -9,7 +9,7 @@ class MessagesController extends AppController {
 	}
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('index', 'add', 'view')))
+		if (in_array($this->action, array('index', 'add', 'view', 'received', 'sent')))
 			return true;
 		return parent::isAuthorized($user);
 	}
@@ -26,7 +26,46 @@ class MessagesController extends AppController {
 					)
 				),
 				'limits' => 100,
-				'fields' => array('Message.id', 'Message.dest_username', 'Message.dest_id','Message.src_username', 'Message.src_id','Message.content', 'Message.created')
+				'order' => 'Message.created DESC',
+				'fields' => array('Message.id', 'Message.dest_username', 'Message.dest_id','Message.src_username', 'Message.src_id','Message.content', 'Message.created', 'Message.open_src', 'Message.open_dest')
+			);
+			$this->Paginator->settings = $params;
+			$messages= $this->Paginator->paginate();
+			if (!$messages) {
+				$this->Session->setFlash(__('No message, sorry dude !'));
+			}
+			$this->set('messages', $messages);
+		}
+	}
+
+	public function received() {
+		if ($this->request->is('get')) {
+			$id = $this->Auth->user('id');
+			$this->Message->recursive = -1;
+			$params = array(
+				'conditions' => array('dest_id' => $id),
+				'limits' => 100,
+				'order' => 'Message.created DESC',
+				'fields' => array('Message.id', 'Message.dest_username', 'Message.dest_id','Message.src_username', 'Message.src_id','Message.content', 'Message.created', 'Message.open_src', 'Message.open_dest')
+			);
+			$this->Paginator->settings = $params;
+			$messages= $this->Paginator->paginate();
+			if (!$messages) {
+				$this->Session->setFlash(__('No message, sorry dude !'));
+			}
+			$this->set('messages', $messages);
+		}
+	}
+
+	public function sent() {
+		if ($this->request->is('get')) {
+			$id = $this->Auth->user('id');
+			$this->Message->recursive = -1;
+			$params = array(
+				'conditions' => array('src_id' => $id),
+				'limits' => 100,
+				'order' => 'Message.created DESC',
+				'fields' => array('Message.id', 'Message.dest_username', 'Message.dest_id','Message.src_username', 'Message.src_id','Message.content', 'Message.created', 'Message.open_src', 'Message.open_dest')
 			);
 			$this->Paginator->settings = $params;
 			$messages= $this->Paginator->paginate();
@@ -47,6 +86,8 @@ class MessagesController extends AppController {
 			}
 			if ($user['User']['username'] == $this->request->data['Message']['dest_username']) {
 				if ($this->Message->save($this->request->data)) {
+					$this->Message->User->id = $user['User']['id'];
+					$this->Message->User->saveField('messages', $user['User']['messages'] + 1); 
 					$this->Session->setFlash(__('Message sent'));
 					return $this->redirect(array('controller' => 'friendships', 'action' => 'index'));
 				}
@@ -73,6 +114,12 @@ class MessagesController extends AppController {
 				return $this->redirect(array('controller' => 'messages','action'=>'index'));
 			} else {
 				$this->set('message', $message);
+				$this->Message->id = $message['Message']['id'];
+				if ($message['Message']['src_id'] == $idUser) {
+					$this->Message->saveField('open_src', 1);
+				} else {
+					$this->Message->saveField('open_dest', 1);
+				}
 			}
 		}
 	}
