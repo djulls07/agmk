@@ -5,7 +5,7 @@ class FriendshipsController extends AppController {
 	public $components = array('Paginator');
 
 	public function beforeFilter() {
-		$this->Auth->deny('all');
+		$this->Auth->allow('myfriends');
 	}
 
 	public function add() {
@@ -113,51 +113,51 @@ class FriendshipsController extends AppController {
 		if (in_array($this->action, array('add', 'active', 'notactive', 'index', 'myfriends'))) return true;
 	}
 
-	public function myfriends($namePart) {
+	public function myfriends($var = null) {
 		if ($this->request->is('ajax')) {
-			echo 'ok';
-			return;
-		
-		/*$params = array(	
-			'joins' => array(
-				array(
-					'table' => 'users',
-					'alias' => 'User1',
-					'type' => 'left',
-					'foreignKey' => false,
-					'conditions' => array(
-						'AND' => array(
-							array('user_id = User1.id')
+			$id = $this->Auth->user('id');
+			$params = array(	
+				'joins' => array(
+					array(
+						'table' => 'users',
+						'alias' => 'User1',
+						'type' => 'left',
+						'foreignKey' => false,
+						'conditions' => array(
+							'AND' => array(
+								array('user_id = User1.id')
+							)
+						)
+					),
+					array(
+						'table' => 'users',
+						'alias' => 'User2',
+						'type' => 'left',
+						'foreignKey' => false,
+						'conditions' => array(
+							'AND' => array(
+								array('friend_id = User2.id')
+							)
 						)
 					)
 				),
-				array(
-					'table' => 'users',
-					'alias' => 'User2',
-					'type' => 'left',
-					'foreignKey' => false,
-					'conditions' => array(
-						'AND' => array(
-							array('friend_id = User2.id')
-						)
+				'conditions' => array(
+					'AND' => array(
+						array(
+				            'OR' => array(
+				            	array('user_id' => $id),
+				            	array('friend_id' => $id)					    
+						    )
+						),
+						array('Friendship.actif' => 1)
 					)
-				)
-			),
-			'conditions' => array(
-				'AND' => array(
-					array(
-			            'OR' => array(
-			            	array('user_id' => $id),
-			            	array('friend_id' => $id)					    
-					    )
-					),
-					array('Friendship.actif' => 1)
-				)
-			),
-			'fields' => array('User1.id', 'User1.username', 'User2.id', 'User2.username', 'Friendship.id', 'Friendship.user_id', 'Friendship.friend_id','Friendship.actif')
-		);
-		$user = $this->Friendship->find('all', $params);
-		echo json_encode($user);*/
+				),
+				'fields' => array('User1.username', 'User2.username', 'User1.id', 'User2.id')
+			);
+			$friends = $this->Friendship->find('all', $params);
+			$friends = $this->Friendship->removeMe($friends, $id);
+			$this->set('friends', json_encode($friends));
+		}
 	}
 }
 

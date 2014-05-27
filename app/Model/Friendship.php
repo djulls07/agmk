@@ -99,4 +99,6 @@ class Friendship extends AppModel {
 		}
 		return $friends;
 	}
+
+	
 }

@@ -46,11 +46,14 @@ class AppController extends Controller {
                 )
             ),
             'authError' => 'You should be register to access this page',
-        )
+        ),
+        'RequestHandler'
     );
 
     public function beforeFilter() {
-        $this->Auth->allow('index', 'view');
+        if ($this->RequestHandler->isAjax()) {
+            $this->layout = null;
+        }
     }
 
     public function isAuthorized($user) {
