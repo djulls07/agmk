@@ -5,6 +5,7 @@ $(document).ready(function(){
 	var nbResults = 0;
 	var divs;
 	var selectedResult = -1;
+	var tabUsernamesCourant = new Array();
 
 	$.get('/friendships/myfriends/'+$(this).val(), {}, function(data) {
 		res = $.parseJSON(data);
@@ -14,26 +15,29 @@ $(document).ready(function(){
 	});
 
 
-	$( ".MessageTo" ).on('keyup', function(e) {
-		majResults(tabUsernames, $(this).val());
+	$( ".MessageTo" ).on ('keyup', function(e) {
 		e = e || window.event;
 		var results = document.getElementById('results');
-		var divs = results.getElementsByTagName('div');
+		//var divs = results.getElementsByTagName('div');
 		if (e.keyCode == 38 && selectedResult > -1) { // Si la touche pressée est la flèche « haut »
 
-		    divs[selectedResult--].cssText('color:black;'); // On retire la classe de l'élément inférieur et on décrémente la variable « selectedResult »
-		    
+		    $( "#result"+selectedResult ).css('color', 'black');
+		    selectedResult--;
+
 		    if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
-		        divs[selectedResult].cssText('color:red;'); // On applique une classe à l'élément actuellement sélectionné
+		        //divs[selectedResult].cssText('color:red;'); // On applique une classe à l'élément actuellement sélectionné
+		    	$( "#result"+selectedResult ).css('color', '#aaa');
 		    }
 
-		} else if (e.keyCode == 40 && selectedResult < divs.length - 1) { // Si la touche pressée est la flèche « bas »
+		} else if (e.keyCode == 40 && selectedResult < tabUsernamesCourant.length - 1) { // Si la touche pressée est la flèche « bas »
 		  
 		    if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
-		        divs[selectedResult].cssText('color:black;');
+		        $( "#result"+selectedResult ).css('color', 'black');
 		    }
-
-		    divs[++selectedResult].cssText('color:red;');
+		    selectedResult++;
+		    $( "#result"+selectedResult ).css('color', '#aaa');
+		} else {
+			tabUsernamesCourant = majResults(tabUsernames, $(this).val());
 		}
 	});
 
@@ -57,7 +61,8 @@ $(document).ready(function(){
 		}
 		$( "#results" ).html('');
 		for (var j=0; j<tabUsernamesCourant.length; j++) {
-			$ ( "#results" ).append("<div class=\"result\">"+tabUsernamesCourant[j]+"</div>");
+			$ ( "#results" ).append("<div id=\"result"+j+"\">"+tabUsernamesCourant[j]+"</div>");
 		}
+		return tabUsernamesCourant;
 	}
 });

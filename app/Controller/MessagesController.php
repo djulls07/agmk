@@ -141,6 +141,10 @@ class MessagesController extends AppController {
 		$this->request->data['Message']['src_username'] = $this->Auth->user('username');
 		if ($this->request->is('get')) {
 			$this->set('message_src', $message);
+			if ($message['Message']['dest_id'] == $this->Auth->user('id')) {
+				$this->Message->id = $messageId;
+				$this->Message->saveField('open_dest', 1);
+			}
 		} else if ($this->request->is('post')) {	
 			$this->Message->create();
 			if ($this->Message->save($this->request->data)) {
