@@ -7,6 +7,10 @@ $(document).ready(function(){
 	var selectedResult = -1;
 	var tabUsernamesCourant = new Array();
 
+	$("form").on('submit', function(){
+		return false;
+	}); 
+
 	$.get('/friendships/myfriends/'+$(this).val(), {}, function(data) {
 		res = $.parseJSON(data);
 		$.each(res, function (i, item) {
@@ -15,29 +19,35 @@ $(document).ready(function(){
 	});
 
 
-	$( ".MessageTo" ).on ('keyup', function(e) {
+	$( "#MessageTo" ).on('keyup', function(e) {
 		e = e || window.event;
 		var results = document.getElementById('results');
 		//var divs = results.getElementsByTagName('div');
 		if (e.keyCode == 38 && selectedResult > -1) { // Si la touche pressée est la flèche « haut »
 
-		    $( "#result"+selectedResult ).css('color', 'black');
+		    $( "#result"+selectedResult ).css('background', 'white');
 		    selectedResult--;
 
 		    if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
 		        //divs[selectedResult].cssText('color:red;'); // On applique une classe à l'élément actuellement sélectionné
-		    	$( "#result"+selectedResult ).css('color', '#aaa');
+		    	$( "#result"+selectedResult ).css('background', '#aaa');
 		    }
 
 		} else if (e.keyCode == 40 && selectedResult < tabUsernamesCourant.length - 1) { // Si la touche pressée est la flèche « bas »
 		  
 		    if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
-		        $( "#result"+selectedResult ).css('color', 'black');
+		        $( "#result"+selectedResult ).css('background', 'white');
 		    }
 		    selectedResult++;
-		    $( "#result"+selectedResult ).css('color', '#aaa');
+		    $( "#result"+selectedResult ).css('background', '#aaa');
+		} else if(e.keyCode == 13) {
+			$( "#dest_username").val(tabUsernamesCourant[selectedResult]);
+			$( "#dest_id").val(tabIdsCourant[selectedResult]);
+			$( "#MessageTo" ).val(tabUsernamesCourant[selectedResult]);
+			$( "#results" ).html('');
 		} else {
-			tabUsernamesCourant = majResults(tabUsernames, $(this).val());
+			majResults(tabUsernames, $(this).val());
+			selectedResult = -1;
 		}
 	});
 
@@ -49,7 +59,8 @@ $(document).ready(function(){
 			return;
 		}
 
-		var tabUsernamesCourant = new Array();
+		tabUsernamesCourant = new Array();
+		tabIdsCourant = new Array();
 
 		var regExp = new RegExp('^(.*)('+input+'){1}(.*)$', "i");
 
@@ -57,12 +68,13 @@ $(document).ready(function(){
 			//compare les chaine et choisi dajouter ou non
 			if (regExp.test(tabUsernames[i])) {
 				tabUsernamesCourant.push(tabUsernames[i]);
+				tabIdsCourant.push();
 			}
 		}
 		$( "#results" ).html('');
 		for (var j=0; j<tabUsernamesCourant.length; j++) {
 			$ ( "#results" ).append("<div id=\"result"+j+"\">"+tabUsernamesCourant[j]+"</div>");
 		}
-		return tabUsernamesCourant;
+		//return tabUsernamesCourant;
 	}
 });
