@@ -204,7 +204,7 @@ class UsersController extends AppController {
 	}*/
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend'))) return true;
+		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'getnbmessages'))) return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
 			if ($user['id'] == (int) $this->request->params['pass'][0]) {
@@ -227,6 +227,10 @@ class UsersController extends AppController {
         $this->Captcha->create();
     }
 
-   
+    public function getnbmessages() {
+    	$this->User->id = $this->request->data['id'];
+    	echo $this->User->field('messages');
+    	exit();
+    }
 }
 ?>

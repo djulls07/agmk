@@ -23,6 +23,16 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <head>
         <?php echo $this->Html->charset(); ?>
         <?php echo $this->Html->script('jquery-2.1.1.min'); ?>
+        <script>
+            $('document').ready(function() {
+                var messagesNotif = $(".home_barre_bouton3 a");
+                $.post( "/users/getnbmessages", { id: <?php echo AuthComponent::user('id'); ?>})
+                    .done(function( data ) {
+                    messagesNotif.html(data);
+                });
+            });
+        </script>
+
         <?php echo $this->fetch('script'); ?>
         <title>
             <?php echo 'Agamek' ?>:
@@ -74,12 +84,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</div>			
 			
             <div id="footer">
-                <?php /* echo $this->Html->link(
-                  $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-                  'http://www.cakephp.org/',
-                  array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-                  ); */
-                ?>
                 <p>
                     <?php //echo $cakeVersion;  ?>
                 </p>

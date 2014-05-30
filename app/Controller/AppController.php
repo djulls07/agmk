@@ -55,9 +55,6 @@ class AppController extends Controller {
             $this->layout = null; 
             return;
         }
-        $this->loadModel('User');
-        $this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
-        //TODO: remplacer par script js qui met a jour cela
     }
 
     public function isAuthorized($user) {

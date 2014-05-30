@@ -16,7 +16,7 @@ class NotificationsController extends AppController {
 			$this->Notification->recursive = 0;
 			$this->Notification->User->id = $id;
 			$this->Notification->User->saveField('notifications', 0);
-			$this->Session->write('Auth', $this->Nitofication->User->read(null, $id));
+			$this->Session->write('Auth', $this->Notification->User->read(null, $id));
 			$notifications = $this->Notification->find('all', array(
 				'conditions' => array('user_id' => $id),
 				'limits' => 20,

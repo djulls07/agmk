@@ -148,7 +148,8 @@ class MessagesController extends AppController {
 				$this->Message->saveField('open_dest', 1);
 				$user = $this->Message->User->findById($this->Auth->user('id'));
 				$this->Message->User->id = $user['User']['id'];
-				$this->Message->User->saveField('messages', $user['User']['messages'] - 1 );
+				if ($user['User']['messages'] > 0)
+					$this->Message->User->saveField('messages', $user['User']['messages'] - 1 );
 			}
 		} else if ($this->request->is('post')) {	
 			$this->Message->create();
@@ -175,7 +176,10 @@ class MessagesController extends AppController {
 			if (!$user) {
 				throw new NotFoundException(__('Invalid user'));
 			}
-			//TODO: verif qu'ils sont bien amis
+			
+			if (!$this->Message->User->Friendship->areActiveFriends($this->Auth->user('id'), $this->request->data['Message']['dest_id'])) {
+				throw new NotFoundException(__('Friend not found'));
+			}
 
 			if ($this->Message->save($this->request->data)) {
 				$this->Message->User->id = $user['User']['id'];

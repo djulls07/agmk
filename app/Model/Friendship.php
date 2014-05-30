@@ -29,6 +29,33 @@ class Friendship extends AppModel {
 		return true;
 	}
 
+	public function areActiveFriends($myId, $hisId) {
+		$params = array(
+			'conditions' => array(
+	            'OR' => array(
+	            	array(
+		            	'AND' => array(
+			                array('Friendship.user_id' => $myId),
+			                array('Friendship.friend_id' => $hisId),
+			                array('Friendship.actif' => 1)
+			            )
+			        ),
+			        array(
+			        	'AND' => array(
+			            	array('Friendship.user_id' => $hisId),
+			                array('Friendship.friend_id' => $myId),
+			                array('Friendship.actif' => 1)
+			            )
+			        )
+	            )
+        	)
+		);
+		if ($this->find('all', $params)) {
+			return true;
+		}
+		return false;
+	}
+
 	public function activeFriendship($myId, $hisId) {
 		$params = array(
 			'conditions' => array(
