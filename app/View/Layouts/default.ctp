@@ -23,15 +23,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <head>
         <?php echo $this->Html->charset(); ?>
         <?php echo $this->Html->script('jquery-2.1.1.min'); ?>
-        <script>
-            $('document').ready(function() {
-                var messagesNotif = $(".home_barre_bouton3 a");
-                $.post( "/users/getnbmessages", { id: <?php echo AuthComponent::user('id'); ?>})
-                    .done(function( data ) {
-                    messagesNotif.html(data);
-                });
-            });
-        </script>
+
+        <!--Script pour actualiser messages -->
+        <?php echo $this->Html->script('getUserNotifs'); ?>
 
         <?php echo $this->fetch('script'); ?>
         <title>
@@ -50,18 +44,30 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <div id="container">
 			<div class="container_absolute_top"><div class="barres_top">
             <div id="header">
-                <!--nocache-->
-                <?php echo $this->element('menubar'); ?>
-				<?php echo $this->element('banniere'); ?>
-				<?php echo $this->element('barre_specific', array()/*,
+                <?php echo $this->element('menubar')/*, array(),
                     array(
                         // utilise la configuration de cache "long_view"
-                        "cache" => "long_view",
+                        "cache" => "long",
                         // défini à true pour avoir before/afterRender appelé pour l'element
                         "callbacks" => true
-                    )*/
-                    ); ?>
-                <!--/nocache-->
+                    )
+                )*/; ?>
+				<?php echo $this->element('banniere')/*, array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                )*/; ?>
+				<?php echo $this->element('barre_specific')/*, array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                )*/; ?>
             </div>
 			</div>
 			</div>
