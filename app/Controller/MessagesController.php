@@ -5,6 +5,7 @@ class MessagesController extends AppController {
 	public $components = array('Paginator');
 
 	public function beforeFilter() {
+		parent::beforeFilter();
 		$this->Auth->deny('all');
 	}
 
@@ -87,7 +88,7 @@ class MessagesController extends AppController {
 			if ($user['User']['username'] == $this->request->data['Message']['dest_username']) {
 				if ($this->Message->save($this->request->data)) {
 					$this->Message->User->id = $user['User']['id'];
-					$this->Message->User->saveField('messages', ($user['User']['messages'] + 1)); 
+					$this->Message->User->saveField('messages', ($user['User']['messages'] + 1));
 					$this->Session->setFlash(__('Message sent'));
 					return $this->redirect(array('controller' => 'friendships', 'action' => 'index'));
 				}
@@ -120,8 +121,9 @@ class MessagesController extends AppController {
 					$this->Message->saveField('open_dest', 1);
 					$user = $this->Message->User->findById($idUser);
 					$this->Message->User->id = $idUser;
-					if ($user['User']['messages'] > 0)
+					if ($user['User']['messages'] > 0) {
 						$this->Message->User->saveField('messages', $user['User']['messages'] - 1);
+					}
 				}
 			}
 		}
@@ -144,13 +146,16 @@ class MessagesController extends AppController {
 			if ($message['Message']['dest_id'] == $this->Auth->user('id')) {
 				$this->Message->id = $messageId;
 				$this->Message->saveField('open_dest', 1);
+				$user = $this->Message->User->findById($this->Auth->user('id'));
+				$this->Message->User->id = $user['User']['id'];
+				$this->Message->User->saveField('messages', $user['User']['messages'] - 1 );
 			}
 		} else if ($this->request->is('post')) {	
 			$this->Message->create();
 			if ($this->Message->save($this->request->data)) {
-				$user = $this->Message->User->findById($this->request->data['Message']['dest_id']);
+				$user = $this->Message->User->findById($message['Message']['src_id']);
 				$this->Message->User->id = $user['User']['id'];
-				$this->Message->User->saveField('messages', ($user['User']['messages'] + 1)); 
+				$this->Message->User->saveField('messages', ($user['User']['messages'] + 1));
 				$this->Session->setFlash(__('Message sent'));
 				return $this->redirect(array('action' => 'received'));
 			}
@@ -159,7 +164,26 @@ class MessagesController extends AppController {
 	}
 
 	public function ecrire() {
+		if ($this->request->is('get')) {
 
+		} else if ($this->request->is('post')) {
+			$this->request->data['Message']['src_id'] = $this->Auth->user('id');
+			$this->request->data['Message']['src_username'] = $this->Auth->user('username');
+
+			$user = $this->Message->User->findById($this->request->data['Message']['dest_id']);
+
+			if (!$user) {
+				throw new NotFoundException(__('Invalid user'));
+			}
+			//TODO: verif qu'ils sont bien amis
+
+			if ($this->Message->save($this->request->data)) {
+				$this->Message->User->id = $user['User']['id'];
+				$this->Message->User->saveField('messages', $user['User']['messages'] + 1);
+				$this->Session->setFlash(__('Message sent'));
+				return $this->redirect(array('controller' => 'messages', 'action' => 'sent'));
+			}
+		}
 	}
 }
 

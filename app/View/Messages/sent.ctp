@@ -3,7 +3,8 @@
 		<?php echo $this->Html->link('Outbox', array('action' => 'sent')); ?>
 	</h1>
 	<nav>
-		<?php echo $this->Html->link('Go to Inbox', array('action' => 'received')); ?>
+		<?php echo $this->Html->link('Go to Inbox', array('action' => 'received')); ?> |
+		<?php echo $this->Html->link('New message', array('action' => 'ecrire')); ?>
 	</nav>
 	<?php echo $this->Paginator->numbers(); ?>
 	<table>

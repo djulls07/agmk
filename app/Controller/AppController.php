@@ -52,8 +52,12 @@ class AppController extends Controller {
 
     public function beforeFilter() {
         if ($this->RequestHandler->isAjax()) {
-            $this->layout = null;
+            $this->layout = null; 
+            return;
         }
+        $this->loadModel('User');
+        $this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
+        //TODO: remplacer par script js qui met a jour cela
     }
 
     public function isAuthorized($user) {
