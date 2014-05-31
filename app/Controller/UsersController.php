@@ -204,7 +204,7 @@ class UsersController extends AppController {
 	}*/
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'getusernotifs'))) 
+		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'getusernotifs', 'getusers'))) 
 			return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
@@ -232,6 +232,19 @@ class UsersController extends AppController {
     	$this->User->id = $this->Auth->user('id');
     	echo $this->User->field('messages');
     	exit();
+    }
+
+    public function getusers($user) {
+    	if ($this->request->is("ajax")) {
+			$params = array(
+				'conditions' => array(
+					'User.username LIKE' => '%'.$user.'%'
+				),
+				'fields' => array('User.id', 'User.username')
+			);
+			echo json_encode($this->User->find('all', $params));
+			exit();
+		}
     }
 }
 ?>
