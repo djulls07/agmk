@@ -152,7 +152,8 @@ class FriendshipsController extends AppController {
 						array('Friendship.actif' => 1)
 					)
 				),
-				'fields' => array('User1.username', 'User2.username', 'User1.id', 'User2.id')
+				'fields' => array('User1.username', 'User2.username', 'User1.id', 'User2.id'),
+				'limits' => 200
 			);
 			$friends = $this->Friendship->find('all', $params);
 			$friends = $this->Friendship->removeMe($friends, $id);
