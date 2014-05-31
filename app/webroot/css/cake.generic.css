@@ -506,7 +506,6 @@ div.contentgauche
 	background-repeat:no-repeat;
 	box-shadow: -40px 0 40px -40px #a7a7a7 inset;
 	background-size:100% auto;
-	opacity:0.6;
 }
 
 div.contentcentre
@@ -527,7 +526,6 @@ div.contentdroite
 	height : 100%;
 	box-shadow: 40px 0 40px -40px #a7a7a7 inset;
 	background-size:100% auto;
-	opacity:0.6;
 }
 
 div.content
