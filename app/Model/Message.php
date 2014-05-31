@@ -2,8 +2,14 @@
 
 class Message extends AppModel {
 
-	public validate = array(
+	public $validate = array(
 		'body' => array(
+			'rule' => 'notEmpty'
+		),
+		'dest_username' => array(
+			'rule' => 'notEmpty'
+		),
+		'dest_id' => array(
 			'rule' => 'notEmpty'
 		)
 	);
@@ -14,6 +20,9 @@ class Message extends AppModel {
 			'foreignKey' => 'message_id'
 		)
 	);
+
+	public $belongsTo = 'User';
+
 }
 
 ?>

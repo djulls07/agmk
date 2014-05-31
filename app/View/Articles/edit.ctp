@@ -7,7 +7,7 @@
         <?php echo $this->Form->input('subtitle'); ?>
 	<?php echo $this->Form->input('intro', array('rows' => 3)); ?>
 	<?php echo $this->Media->ckeditor('body', array('label' => 'Content')); ?>
-	<?php echo $this->Form->input('Game'); ?>
+	<?php echo $this->Form->input('game_id', array('label' => 'Game')); ?>
         <?= $this->Form->input('published', array(
             'options' => array(
                 '1' => 'Make public',

@@ -115,14 +115,14 @@ class UsersController extends AppController {
             		$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
 	            } else {
 	            	//dans avatar2 on recoit l'upload, a gerer.
-	            	$this->request->data['User']['avatar'] = 'img/uploads/'.$this->Auth->user('id').'/'.$this->request->data['User']['avatar2']['name'];
+	            	$this->request->data['User']['avatar'] = '/img/uploads/'.$this->Auth->user('id').'/'.$this->request->data['User']['avatar2']['name'];
 	            	mkdir('img/uploads/'.$this->Auth->user('id'));
 	            }
 			if ($this->User->save($this->request->data)) {
 				if (!empty($this->request->data['User']['avatar2'])) {
                 	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], $this->request->data['User']['avatar'])) {
 						$this->Session->setFlash(__('The user has been saved.'));
-						return $this->redirect(array('action' => 'index'));
+						return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 					} else {
 						$this->Session->setFlash(__('User saved, but error happened with file upload'));
 					}
@@ -204,7 +204,8 @@ class UsersController extends AppController {
 	}*/
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend'))) return true;
+		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'getusernotifs'))) 
+			return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
 			if ($user['id'] == (int) $this->request->params['pass'][0]) {
@@ -227,4 +228,10 @@ class UsersController extends AppController {
         $this->Captcha->create();
     }
 
+    public function getusernotifs() {
+    	$this->User->id = $this->Auth->user('id');
+    	echo $this->User->field('messages');
+    	exit();
+    }
 }
+?>

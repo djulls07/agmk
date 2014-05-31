@@ -22,8 +22,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <html>
     <head>
         <?php echo $this->Html->charset(); ?>
-        <?php $this->Html->script('jquery-2.1.1.min.js'); ?>
-        <?php $this->fetch('script'); ?>
+        <?php echo $this->Html->script('jquery-2.1.1.min'); ?>
+
+        <!--Script pour actualiser messages -->
+        <?php echo $this->Html->script('getUserNotifs'); ?>
+
+        <?php echo $this->fetch('script'); ?>
         <title>
             <?php echo 'Agamek' ?>:
         </title>
@@ -40,18 +44,30 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <div id="container">
 			<div class="container_absolute_top"><div class="barres_top">
             <div id="header">
-                <!--nocache-->
-                <?php echo $this->element('menubar'); ?>
-				<?php echo $this->element('banniere'); ?>
-				<?php echo $this->element('barre_specific', array()/*,
+                <?php echo $this->element('menubar')/*, array(),
                     array(
                         // utilise la configuration de cache "long_view"
-                        "cache" => "long_view",
+                        "cache" => "long",
                         // défini à true pour avoir before/afterRender appelé pour l'element
                         "callbacks" => true
-                    )*/
-                    ); ?>
-                <!--/nocache-->
+                    )
+                )*/; ?>
+				<?php echo $this->element('banniere')/*, array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                )*/; ?>
+				<?php echo $this->element('barre_specific')/*, array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                )*/; ?>
             </div>
 			</div>
 			</div>
@@ -74,12 +90,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</div>			
 			
             <div id="footer">
-                <?php /* echo $this->Html->link(
-                  $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-                  'http://www.cakephp.org/',
-                  array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-                  ); */
-                ?>
                 <p>
                     <?php //echo $cakeVersion;  ?>
                 </p>
@@ -93,5 +103,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 }
                 ?></div>
         <!--/nocache-->
+       <?php echo $this->Js->writeBuffer();?>
     </body>
 </html>
