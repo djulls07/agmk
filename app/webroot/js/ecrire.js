@@ -78,8 +78,34 @@ $(document).ready(function(){
 			}
 		}
 		$( "#results" ).html('');
+		var tmp;
 		for (var j=0; j<tabUsernamesCourant.length; j++) {
-			$ ( "#results" ).append("<div id=\"result"+j+"\">"+tabUsernamesCourant[j]+"</div>");
+			$ ( "#results" ).append("<div class=\"mouseListener\" id=\"result"+j+"\">"+tabUsernamesCourant[j]+"</div>");
 		}
+
+		$( ".mouseListener" ).on('mouseover', function(e) {
+			var tmp = new String($(this).attr('id'));
+			var id = tmp.substring(tmp.length-1, tmp.length);
+			selectedResult = id;
+			$( "#result"+selectedResult ).css('background', '#aaa');
+		});
+
+		$( ".mouseListener" ).on('mouseout', function(e) {
+			var tmp = new String($(this).attr('id'));
+			var id = tmp.substring(tmp.length-1, tmp.length);
+			selectedResult = id;
+			$( "#result"+selectedResult ).css('background', 'white');
+		});
+
+		$( ".mouseListener" ).on('click', function(e) {
+			var tmp = new String($(this).attr('id'));
+			var id = tmp.substring(tmp.length-1, tmp.length);
+			selectedResult = id;
+			$( "#dest_username").val(tabUsernamesCourant[selectedResult]);
+			$( "#dest_id").val(tabIdsCourant[selectedResult]);
+			$( "#MessageTo" ).val(tabUsernamesCourant[selectedResult]);
+			$( "#results" ).html('');
+		});
+
 	}
 });

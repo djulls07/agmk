@@ -30,6 +30,8 @@ class Friendship extends AppModel {
 	}
 
 	public function areActiveFriends($myId, $hisId) {
+		if (!$myId || !$hisId)
+			return false;
 		$params = array(
 			'conditions' => array(
 	            'OR' => array(

@@ -17,11 +17,11 @@ if (isset ($game) )
  <STYLE type="text/css">
 		div.contentgauche
 		{
-			background-image:url('../../img/backgrounds/<?php print $game['Game']['image_gauche']; ?>.png');
+			background-image:url('/img/backgrounds/<?php print $game['Game']['image_gauche']; ?>.png');
 		}
 		div.contentdroite
 		{
-			background-image:url('../../img/backgrounds/<?php print $game['Game']['image_droite']; ?>.png');
+			background-image:url('/img/backgrounds/<?php print $game['Game']['image_droite']; ?>.png');
 		}
 		div.menu a
 		{

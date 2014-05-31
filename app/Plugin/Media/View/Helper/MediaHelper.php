@@ -47,10 +47,8 @@ class MediaHelper extends AppHelper{
 		$baseNameAbs = substr($imageSrc, 2, -(strlen($extension)+1));
 		$fileDest = $baseNameAbs . '_' . $width . 'x' . $height . '.' .$extension;
 		//debug($fileDest);
-		if (file_exists($fileDest)) {
-			if ($this->params['pass'] != null)
-				return '<img src="../../'.$fileDest.'"/>';
-			return '<img src="'.$fileDest.'"/>';
+		if (file_exists('/'.$fileDest)) {
+			return '<img src="/'.$fileDest.'"/>';
 		}
 		$dest = imagecreatetruecolor($width, $height);
 		if ($extension == 'png') {
@@ -63,8 +61,6 @@ class MediaHelper extends AppHelper{
 		$width = $height/$r;*/
 		imagecopyresized($dest, $src, 0,0,0,0, $width, $height, $wSrc, $hSrc);
 		imagejpeg($dest, $fileDest);
-		if ($this->params['pass'] != null)
-			return '<img src="../../'.$fileDest.'"/>';
-		return '<img src="'.$fileDest.'"/>';
+		return '<img src="/'.$fileDest.'"/>';
 	}
 }

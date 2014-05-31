@@ -3,3 +3,5 @@
 <?php echo $this->Form->input('username', array('type' => 'text', 'label' => 'Friend Name')); ?>
 
 <?php echo $this->Form->end(__('Add Friend')); ?>
+
+<?php echo $this->Html->link('Back', array('action' => 'index')); ?>

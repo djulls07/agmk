@@ -115,7 +115,7 @@ class UsersController extends AppController {
             		$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
 	            } else {
 	            	//dans avatar2 on recoit l'upload, a gerer.
-	            	$this->request->data['User']['avatar'] = 'img/uploads/'.$this->Auth->user('id').'/'.$this->request->data['User']['avatar2']['name'];
+	            	$this->request->data['User']['avatar'] = '/img/uploads/'.$this->Auth->user('id').'/'.$this->request->data['User']['avatar2']['name'];
 	            	mkdir('img/uploads/'.$this->Auth->user('id'));
 	            }
 			if ($this->User->save($this->request->data)) {

@@ -23,7 +23,7 @@
 		foreach($game['Link'] as $link_id => $link_array)
 		{
 			print "	<span class='barre_jeux_element'>
-					<a href=\"".$link_array['url']."\">".$link_array['name']."</a>
+					<a target=\"_blank\" href=\"".$link_array['url']."\">".$link_array['name']."</a>
 					</span>";
 			if ( count($game['Link']) != $link_id+1) echo "<span class='barre_jeux_element'> - </span>";
 		}

@@ -46,7 +46,7 @@ $specific_user_GMT=2;
 			</div>
 			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop"; ?>">
 				<?php
-					echo $this->Html->link('?', array(
+					echo $this->Html->link(' ', array(
 						'controller' => 'messages',
 						'action' => 'received',
 						)
@@ -88,6 +88,15 @@ $specific_user_GMT=2;
 						'action' => 'logout',
 						)
 					);*/
+				?>
+			</li>
+			<li>
+				<?php
+					echo $this->Html->link('Social', array(
+						'controller' => 'friendships',
+						'action' => 'index',
+						)
+					);
 				?>
 			</li>
 			<li>

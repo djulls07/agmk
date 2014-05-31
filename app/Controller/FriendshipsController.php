@@ -22,7 +22,7 @@ class FriendshipsController extends AppController {
 			if ($this->Friendship->canBeAdded($this->Auth->user('id'), $user['User']['id'])) {
 				if ($this->Friendship->save($this->request->data)) {
 					if ($this->Friendship->User->Notification->addFriend($this->Auth->user(), array(0=>$user['User']['id']))) {
-						$this->Session->setFlash(__('Friend added'));
+						$this->Session->setFlash(__('Friend request sent'));
 						return $this->redirect(array('controller' => 'friendships'));
 					}
 					$this->Session->setFlash(__('Cant send "add friend" request'));
