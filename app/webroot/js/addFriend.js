@@ -31,8 +31,14 @@ $(document).ready(function() {
 			selectedResult++;
 			$( "#"+selectedResult ).css('background-color', '#aaa');
 		} else if (e.keyCode == 13) {
+			if (selectedResult == -1) {
+				results.empty();
+				$('#FriendshipAddForm').submit();
+				return;
+			} 
 			$(this).val($( "#"+selectedResult ).html());
 			results.empty();
+			selectedResult = -1;
 		} else {
 			$.post( "/users/getusers/" + $( "#FriendshipUsername" ).val()).done(function( data ) {
         		results.empty();
@@ -55,6 +61,7 @@ $(document).ready(function() {
         			var id = $(this).attr('id');
         			$( "#FriendshipUsername" ).val($( "#"+id).html());
         			results.empty();
+        			selectedResult = -1;
         		});
 
     		});
