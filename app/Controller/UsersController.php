@@ -209,7 +209,7 @@ class UsersController extends AppController {
 	}*/
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'getusernotifs', 'getusers'))) 
+		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'myteams','getusernotifs', 'getusers'))) 
 			return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
@@ -250,6 +250,16 @@ class UsersController extends AppController {
 			echo json_encode($this->User->find('all', $params));
 			exit();
 		}
+    }
+
+    public function myteams() {
+    	$user = $this->User->find('first', array(
+    		'recursive' => 1,
+    		'conditions' => array(
+    			'id' => $this->Auth->user('id')
+    		)
+    	));
+    	$this->set('teams', $user['Team']);
     }
 }
 ?>

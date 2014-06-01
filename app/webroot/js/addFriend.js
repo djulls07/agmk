@@ -49,11 +49,13 @@ $(document).ready(function() {
 
         		$( ".mouseListener").on('mouseover', function() {
         			var id = $(this).attr('id');
+        			selectedResult = id;
         			$( "#"+id ).css('background-color', '#aaa');
         		});
 
         		$( ".mouseListener").on('mouseout', function() {
         			var id = $(this).attr('id');
+        			selectedResult = id;
         			$( "#"+id ).css('background-color', 'white');
         		});
 

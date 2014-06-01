@@ -16,6 +16,10 @@ class FriendshipsController extends AppController {
 				$this->Session->setFlash(__('Invalid user'));
 				return;
 			}
+			if ($user['User']['id'] == $this->Auth->user('id')) {
+				$this->Session->setFlash(__('You can\'t add yourself as a friend'));
+				return;
+			}
 			$this->request->data['Friendship']['friend_id'] = $user['User']['id'];
 			$this->request->data['Friendship']['user_id'] = $this->Auth->user('id');
 			$this->Friendship->create();
