@@ -17,6 +17,8 @@ class TeamsController extends AppController {
 				return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
 			}
 		}
+		$games = $this->Team->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
+		$this->set('games', $games);
 	}
 
 	public function view ($id = null) {
