@@ -13,6 +13,13 @@ class Team extends AppModel {
         )
 	);
 
+	public $belongsTo = array(
+		'Game' => array(
+			'classname' => 'Game',
+			'foreignKey' => 'game_id'
+		)
+	);
+
 	public $hasAndBelongsToMany = array(
 		'User' => array(
 			'classname' => 'User',
@@ -21,6 +28,14 @@ class Team extends AppModel {
             'associationForeignKey' => 'team_id'
 		)
 	);
+
+	public function isLeader($user, $teamId) {
+		$team = $this->findById($teamId);
+		if ($team['Team']['leader_id'] == $user['id']) {
+			return true;
+		}
+		return false;
+	}
 }
 
 ?>

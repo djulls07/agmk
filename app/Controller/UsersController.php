@@ -252,14 +252,6 @@ class UsersController extends AppController {
 		}
     }
 
-    public function myteams() {
-    	$user = $this->User->find('first', array(
-    		'recursive' => 1,
-    		'conditions' => array(
-    			'id' => $this->Auth->user('id')
-    		)
-    	));
-    	$this->set('teams', $user['Team']);
-    }
+    
 }
 ?>
