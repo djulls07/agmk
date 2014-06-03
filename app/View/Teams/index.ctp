@@ -13,13 +13,13 @@
 		<tr>
 			<td> 
 				<?php 
-					echo $this->Html->link($team['name'], array(
+					echo $this->Html->link($team['Team']['name'], array(
 					'controller' => 'teams', 
 					'action' => 'view', 
-					$team['id']));
+					$team['Team']['id']));
 				?>
 			</td>
-			<td> <?= $team['tag']; ?> </td>
+			<td> <?= $team['Team']['tag']; ?> </td>
 			<td> 
 				<?php 
 					echo $this->Html->link($team['Game']['name'], array(
@@ -30,12 +30,12 @@
 			</td>
 			<td> 
 				<?php echo $this->Form->postLink('Delete',
-						array('controller' => 'teams', 'action' => 'delete', $team['id']),
+						array('controller' => 'teams', 'action' => 'delete', $team['Team']['id']),
 						array('confirm' => 'Are you sure ?')
 					); ?>
 			 	Action 2 
 			</td>
-			<td> <?= $team['created']; ?> </td>
+			<td> <?= $team['Team']['created']; ?> </td>
 		</tr>
 
 		<?php endforeach; ?>

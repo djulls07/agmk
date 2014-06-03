@@ -10,11 +10,11 @@ class TeamsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Team->create();
-			$this->request->data['Team']['User']['id'] = $this->Auth->user('id');
+			$this->request->data['User']['id'] = $this->Auth->user('id');
 			$this->request->data['Team']['leader_id'] = $this->Auth->user('id');
-			if ($this->Team->saveAll($this->request->data)) {
+			if ($this->Team->save($this->request->data)) {
 				$this->Session->setFlash(__('New team saved'));
-				return $this->redirect(array('controller' => 'users', 'action' => 'myteams'));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
 			}
 		}
 	}
@@ -53,9 +53,6 @@ class TeamsController extends AppController {
 		$this->set('team', $team);
 	}
 
-	public function index() {
-    	
-    }
 
 	public function delete($id = null) {
 		$this->request->onlyAllow('post');
@@ -66,51 +63,18 @@ class TeamsController extends AppController {
         }
         if ($this->Team->delete()) {
             $this->Session->setFlash(__('Your Team has been deleted'));
-            return $this->redirect(array('controller' => 'users', 'action' => 'myteams'));
+            return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
         }
         $this->setFlash(__('Unable to delete your article'));
     }
 
-    public function myteams() {
+    public function index() {
     	$id = $this->Auth->user('id');
-    	/*$params = array(
-    		'joins' => array(
-					array(
-						'table' => 'teams_users',
-						'alias' => 'teamsusers',
-						'type' => 'left',
-						'foreignKey' => false,
-						'conditions' => array(
-							'AND' => array(
-								array('teamsusers.user_id = User.id')
-							)
-						)
-					),
-					array(
-						'table' => 'teams',
-						'alias' => 'team',
-						'type' => 'left',
-						'foreignKey' => false,
-						'conditions' => array(
-							'AND' => array(
-								array('teamsusers.team_id = team.id')
-							)
-						)
-					)
-				), 
-    		'conditions' => array(
-    			'User.id' => $id,
-    		),
-    		'fields' => array('User.id', 'User.username')
-    	);
-    	$teams = $this->User->find('all', $params);
-    	debug($teams); 
-    	return;*/
 
-    	$db = $this->User->getDataSource();
-    	$sql = "SELECT * FROM teams as t LEFT JOIN teams_users as tu ON (t.id=tu.team_id) WHERE tu.user_id=".$id;
-    	debug($db->fetchAll($sql));
-    	$this->set('teams', $user['Team']);
+    	$db = $this->Team->getDataSource();
+    	$sql = "SELECT * FROM teams as Team LEFT JOIN teams_users as tu ON (Team.id=tu.team_id) LEFT JOIN games as Game ON Game.id=Team.game_id WHERE tu.user_id=".$id;
+    	$teams = $db->fetchAll($sql);
+    	$this->set('teams', $teams);
     }
 
 	public function isAuthorized($user) {

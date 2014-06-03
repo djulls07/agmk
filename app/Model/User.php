@@ -127,8 +127,8 @@ class User extends AppModel {
 		'Team' => array(
 			'classname' => 'Team',
 			'joinTable' => 'teams_users',
-            'foreignKey' => 'team_id',
-            'associationForeignKey' => 'user_id'
+            'foreignKey' => 'user_id',
+            'associationForeignKey' => 'team_id'
 		)
 	);
 

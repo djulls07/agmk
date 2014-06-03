@@ -24,8 +24,8 @@ class Team extends AppModel {
 		'User' => array(
 			'classname' => 'User',
 			'joinTable' => 'teams_users',
-            'foreignKey' => 'user_id',
-            'associationForeignKey' => 'team_id'
+            'foreignKey' => 'team_id',
+            'associationForeignKey' => 'user_id'
 		)
 	);
 
