@@ -60,8 +60,8 @@ $specific_user_GMT=2;
 			<li>
 				<?php
 					echo $this->Html->link('MyTeams', array(
-						'controller' => 'teams',
-						'action' => 'index',
+						'controller' => 'users',
+						'action' => 'myteams',
 						)
 					);
 				?>
