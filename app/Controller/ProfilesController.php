@@ -1,15 +1,16 @@
 <?php
 
 App::uses('AppController', 'Controller');
+App::uses('HttpSocket', 'Network/Http');
 
 class ProfilesController extends AppController {
 
 	public function beforeFilter() {
-		$this->Auth->deny('all');
+		$this->Auth->allow('checkSc2');
 	}
 
 	public function isAuthorized($user) {
-		if ($this->action === 'add') return true;
+		if (in_array($this->action, array('add'))) return true;
 		return parent::isAuthorized($user);
 	}
 
@@ -38,6 +39,15 @@ class ProfilesController extends AppController {
 			'fields' => array('Game.id', 'Game.name')
 		));
 		$this->set('games', $games);
+	}
+
+	public function checkSc2() {
+		$socket = new HttpSocket();
+		$reponse = $socket->get(
+			'http://'.$this->request->data['region'].'.battle.net/api/sc2/profile/'.$this->request->data['id'].'/1/'.$this->request->data['name'].'/'
+		);
+		echo $reponse;
+		exit();
 	}
 
 	public function admin_index() {

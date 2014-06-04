@@ -123,6 +123,15 @@ class User extends AppModel {
 		)
 	);
 
+	public $hasAndBelongsToMany = array(
+		'Team' => array(
+			'classname' => 'Team',
+			'joinTable' => 'teams_users',
+            'foreignKey' => 'user_id',
+            'associationForeignKey' => 'team_id'
+		)
+	);
+
 	public function beforeSave($options = array()) {
         if (!empty($this->data['User']['password'])) {
             $passwordHasher = new SimplePasswordHasher();
@@ -146,12 +155,14 @@ class User extends AppModel {
     }
 
     public function afterFind($results, $primary) {
-    	$img = '../../img/avatar.jpg';
+    	if (!isset($results['avatar']))
+    		return $results;
+    	$img = '/img/avatar.jpg';
     	if ($primary) {
     		foreach($results as $k => $val) {
     			if ( ! empty($results[$k]['User']['avatar']) ) {
 				    if ( file_exists ( $results[$k]['User']['avatar'] ) ) { // toussa à mettre dans le model de l'user
-				    	$results[$k]['User']['avatar'] = '../../'.$results[$k]['User']['avatar'];
+				    	$results[$k]['User']['avatar'] = $results[$k]['User']['avatar'];
 				    	continue;
 			        }
 			        $file_headers = @get_headers($results[$k]['User']['avatar']);
@@ -164,7 +175,7 @@ class User extends AppModel {
     	} else {
 			if ( ! empty($results['avatar']) ) {
 			    if ( file_exists ( $results['avatar'] ) ) { // toussa à mettre dans le model de l'user
-			    	$results['avatar'] = '../../'.$results['avatar'];
+			    	$results['avatar'] = $results['avatar'];
 			    	return $results;
 		        }
 		        $file_headers = @get_headers($results['avatar']);
@@ -177,7 +188,7 @@ class User extends AppModel {
 	    return $results;
     }
 
-    function isUploadedAvatar($avatar, $dest) {
+    public function isUploadedAvatar($avatar, $dest) {
     	//redimensionner ( compression image et check tailler extension)
     	if ($avatar['size'] > 1000000) return false;
     	$tmp_name = $avatar['tmp_name'];

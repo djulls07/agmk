@@ -1,5 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('Folder', 'Utility');
+App::uses('File', 'Utility');
 /**
  * Users Controller
  *
@@ -111,21 +113,24 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if (!empty($this->request->data['User']['avatar1'])) {
+			if ($this->request->data['User']['avatar1'] != '') {
             		$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
 	            } else {
 	            	//dans avatar2 on recoit l'upload, a gerer.
 	            	$this->request->data['User']['avatar'] = '/img/uploads/'.$this->Auth->user('id').'/'.$this->request->data['User']['avatar2']['name'];
-	            	mkdir('img/uploads/'.$this->Auth->user('id'));
+	            	$dir = new Folder('img/uploads/'.$this->Auth->user('id'), true, 0755);	            		
 	            }
 			if ($this->User->save($this->request->data)) {
-				if (!empty($this->request->data['User']['avatar2'])) {
-                	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], $this->request->data['User']['avatar'])) {
+				if ($this->request->data['User']['avatar1'] == '') {
+                	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], substr($this->request->data['User']['avatar'],1))) {
 						$this->Session->setFlash(__('The user has been saved.'));
 						return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 					} else {
 						$this->Session->setFlash(__('User saved, but error happened with file upload'));
 					}
+				} else {
+					$this->Session->setFlash(__('The user has been saved.'));
+					return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 				}
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
@@ -204,7 +209,7 @@ class UsersController extends AppController {
 	}*/
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'getusernotifs'))) 
+		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'myteams','getusernotifs', 'getusers'))) 
 			return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
@@ -233,5 +238,20 @@ class UsersController extends AppController {
     	echo $this->User->field('messages');
     	exit();
     }
+
+    public function getusers($user) {
+    	if ($this->request->is("ajax")) {
+			$params = array(
+				'conditions' => array(
+					'User.username LIKE' => '%'.$user.'%'
+				),
+				'fields' => array('User.id','User.username')
+			);
+			echo json_encode($this->User->find('all', $params));
+			exit();
+		}
+    }
+
+    
 }
 ?>
