@@ -2,22 +2,6 @@
 TODO : w3c + css3 all navigateurs (moz webkit etc sur box shadow etc) */
 
 @charset "utf-8";
-/**
- *
- * Generic CSS for CakePHP
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.webroot.css
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
 
 * {
     margin:0;
@@ -29,13 +13,13 @@ html {
     padding:0;
 }
 
-/** General Style Info **/
 body {
     color: #000;
     font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
     margin:0;
 	padding:0;
 	width:100%;
+		background-color:#282828;
 }
 
 img
@@ -131,13 +115,17 @@ div.home_barre /* la 1e barre : accueil, login... */
 	height:50px;
 	text-align : center;
 	line-height	:	30px;
-	border-bottom	:	4px solid #9d86b7;
+	border-bottom	:	4px solid black;/* #9d86b7;*/
 
 	box-sizing:border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	background: linear-gradient(to bottom, #808080 0%, #282828 100%) repeat scroll 0% 0% transparent;
+	
+	background-image	:	url('../img/Barre1.png');
+	background-repeat	:	repeat-x;
+	background-size	:	auto	100%;
 }
 
 div.home_barre_user
@@ -189,21 +177,6 @@ div.home_barre_pseudo
 	padding-bottom	:	0;
 	padding-top	:	0;
 }
-
-/*div.home_barre_connexion
-{
-	position:relative;
-	margin-top:0;
-	height:100%;
-	line-height	:	100%;
-}
-
-div.home_barre_inscription
-{
-	position:relative;
-	height:100%;
-	line-height	:	100%;
-}*/
 
 div.home_barre_boutons
 {
@@ -290,7 +263,7 @@ nav.home_barre_mines ul
 	line-height : 46px; /* hauteur de la home_barre - hauteurs des borders*/
 	font-weight	:	none;
 	font-family	:	"SQUAREFONT";
-	border-left	:	1px	solid	#a7a7a7;
+	/*border-left	:	1px	solid	#a7a7a7;*/
 	list-style: none;
 	display: inline-table;
 	z-index:	10;
@@ -306,8 +279,8 @@ nav.home_barre_mines ul li:hover > ul {
 
 nav.home_barre_mines ul li {
 	float: left;
-	border-right	:	1px	solid	#a7a7a7;
-		box-sizing:border-box;
+	/*border-right	:	1px	solid	#a7a7a7;*/
+	box-sizing:border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -404,7 +377,7 @@ div.banniere
 	width : 100%;
 	height	:	100px;
 	line-height	:	100px;
-	background-color	:	white;
+	background-color	:	black;
 	top	:	50px; /* hauteur de la home_barre */
 	text-align	:	center;
 }
@@ -424,7 +397,7 @@ div.banniere_image
 	width	:	50%;
 	height	:	100%;
 	background-image	:	url('../img/logo_agamek.png');
-	background-size:100% auto;
+	background-size:auto 100%;
 	background-repeat	:	no-repeat;
 	background-position: center;
 
@@ -466,11 +439,15 @@ div.barre_jeux /* = barre_specific */
 	position : absolute ;
 	width : 100%;
 	top	:	150px;
-	text-align	:	left; 
+	text-align	:	center; 
 	height	:	30px;
 	line-height	:	29px;
 	overflow	:	auto;
 	background: linear-gradient(to bottom, #a7a7a7 0%, #282828 100%) repeat scroll 0% 0% transparent;
+	
+	background-image	:	url('../img/Barre1.png');
+	background-repeat	:	repeat-x;
+	background-size	:	auto	100%;
 }
 
 span.barre_jeux_element
@@ -492,25 +469,28 @@ span.barre_jeux_element a
 div.page
 {
 	position : relative;
-	width : 100%;/*1900px; /* taille de base, toutes les autres largeurs sont relatives à celle-ci */
+	width : 100%;
 	margin:auto;
 	margin-top:180px; /* somme des hauteurs du top */
 }
 
 div.contentgauche
 {
-	float:left;
 	position : fixed;
-	height : 100%;
+	height	:	100%;
+	height : -moz-calc(100% - 180px); /* 100% - hauteur des topbarres en px */
+	height: -webkit-calc(100% - 180px);
+	height: -o-calc(100% - 180px);
+	height: calc(100% - 180px);
 	width : 20%;
+	background-position	: top	right;
 	background-repeat:no-repeat;
 	box-shadow: -40px 0 40px -40px #a7a7a7 inset;
-	background-size:100% auto;
+	background-size:auto 100%;
 }
 
 div.contentcentre
 {
-	float:left;
 	position : absolute;
 	right:20%;
 	width	:	60%;
@@ -518,14 +498,18 @@ div.contentcentre
 
 div.contentdroite
 {
-	float:left;
 	position : fixed;
+	height	:	100%;
+	height : -moz-calc(100% - 180px); /* 100% - hauteur des topbarres en px */
+	height: -webkit-calc(100% - 180px);
+	height: -o-calc(100% - 180px);
+	height: calc(100% - 180px);
 	right:0;
 	width : 20%;
 	background-repeat:no-repeat;
-	height : 100%;
 	box-shadow: 40px 0 40px -40px #a7a7a7 inset;
-	background-size:100% auto;
+	background-size:auto 100%;
+	background-position	: top	left;
 }
 
 div.content
@@ -536,15 +520,7 @@ div.content
 	font-family	:	"Prototype";
 	font-weight	:	none;
 }
-
-div.contentgauche
-{
-	background-image:url('../../img/backgrounds/accueil.png');
-}
-div.contentdroite
-{
-}
-
+ 
 /* ARTICLES */
 div.menu
 {
@@ -606,7 +582,7 @@ div.col_gauche_mainnews img
 {
 	width		:	auto;
 	max-width	:	100%;
-	height	:	100%; /* hauteur à définir */
+	height	:	100%;
 }
 
 #slideshow {
@@ -634,7 +610,7 @@ div.col_gauche_mainnews img
         left: -200%; /*3ème image*/
     }
 	75%, 80% {
-        left: -300%; /*2ème image*/
+        left: -300%; /*4ème image*/
     }
 }
 
@@ -649,7 +625,7 @@ div.col_gauche_mainnews img
         left: -200%; /*3ème image*/
     }
 	75%, 80% {
-        left: -300%; /*2ème image*/
+        left: -300%; /*4ème image*/
     }
 }
 
@@ -664,7 +640,7 @@ div.col_gauche_mainnews img
         left: -200%; /*3ème image*/
     }
 	75%, 80% {
-        left: -300%; /*2ème image*/
+        left: -300%; /*4ème image*/
     }
 }
 
@@ -853,13 +829,13 @@ div.col_droite
 .col_droite_tv
 {
 	width	:	100%;
-	height	:	150px; /* hauteur à définir */
+	height	:	200px; /* hauteur à définir */
 }
 
 .col_titre
 {
 	background-color	:	#9d86b7;
-	margin-top	:	1%;
+	margin-top	:	0%;
 	margin-bottom	:	1%;
 	text-align	:	center;
 }

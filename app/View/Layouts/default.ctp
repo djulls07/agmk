@@ -87,7 +87,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				
 				<div class="contentdroite">
 				</div>
-			</div>			
+			</div>	
+			
 			
             <div id="footer">
                 <p>

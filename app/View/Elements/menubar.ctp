@@ -112,7 +112,7 @@ $specific_user_GMT=2;
 		</nav>
 		<?php 
 			else: 
-				print "<nav class=\"home_barre_mines\"><ul><li>";
+				print "</div><nav class=\"home_barre_mines\"><ul><li>";
 				echo $this->Html->link('LogIn', array(
 					'controller' => 'users',
 					'action' => 'login'
@@ -125,7 +125,7 @@ $specific_user_GMT=2;
 				)
 				);
 				print"</li></ul></nav>
-		</div><div class=\"home_barre_boutons\"><div class=\"home_barre_bouton1\">";
+				<div class=\"home_barre_boutons\"><div class=\"home_barre_bouton1\">";
 					echo $this->Html->link(' ', array(
 						'controller' => 'articles',
 						'action' => 'index',
