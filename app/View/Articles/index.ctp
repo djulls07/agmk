@@ -16,7 +16,8 @@
 </div>
 <?php
 	echo $this->Session->flash();
-	$newsTotal=count($articles);
+	$newsTotal=count($articles);	//debug($Acomment);	
+	$Acomments=count($Acomment); // nombre total de commentaires
 	$pageindex=1;
 	$news_id	=	0;
 	if (isset ($_GET['pageindex']))
@@ -27,22 +28,30 @@
 	{
 		$news_id = ($i+($pageindex-1)*$newsParPage);
 		$article=$articles[$news_id]['Article'];
+		$comments = 0;
+		for($j = 0 ; $j < $Acomments ; $j++)
+			if($Acomment[$j]['Acomment']['article_id'] == $article['id']) $comments++;
 		?>
 		<div class="col_gauche_news">
 
-			<div class="col_gauche_news_image">
-				<?php 	echo '<a href="/articles/view/' . $article['id']. '">';
-						echo $this->Media->image($article['thumb'], 175, 110); ?></a>
-			</div>
-			<div class="col_gauche_news_text">
+			<div class="col_gauche_news_image" style="background-image:url('<? print $article['thumb']; ?>')">
 				<?php
-					echo $this->Html->link($article['title'], array(
+					echo $this->Html->link(' ', array(
 						'controller' => 'articles',
 						'action' => 'view',
 						$article['id']
 						)
 					);
 				?>
+				<?php 	//echo '<a href="/articles/view/' . $article['id']. '">';
+						//echo $this->Media->image($article['thumb'], 175, 110); ?><!--</a>-->
+			</div>
+			<div class="col_gauche_news_text">
+			<a href="articles/view/<?php print $article['id']; ?>">
+				<div class="col_gauche_news_text_title"><?php echo $article['title']; ?></div>
+				<div class="col_gauche_news_text_subtitle"><?php echo $article['subtitle']; ?></div>
+				<div class="col_gauche_news_text_social"> <? if ( $comments ) print "&#9714;".$comments; ?></div>
+			</a>
 			</div>
 		</div>
 	<?php }

@@ -60,7 +60,7 @@ class ArticlesController extends AppController {
                 'contain' => array('Thumb'),
                 'recursive' => 0
             );
-            $this->Article->Game->recursive = 1;
+            $this->Article->Game->recursive = 0;
             $game = $this->Article->Game->findById($id);
             if (!$game) {
                 throw new NotFoundException(__('Invalid Game'));
@@ -79,6 +79,9 @@ class ArticlesController extends AppController {
             $newsParPage = $this->Auth->user('newsParPage');
         $this->set('newsParPage', $newsParPage);
         $this->set('articles', $articles);
+		
+		$Acomment=$this->Article->Acomment->find('all',array('order' => array('Acomment.article_id')));
+		$this->set('Acomment', $Acomment);
         //debug($articles);
         //debug($game);
     }

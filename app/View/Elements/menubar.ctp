@@ -8,10 +8,10 @@ $specific_user_GMT=2;
 		<div class="home_barre_user">
 			<?php if (AuthComponent::user()): $user=AuthComponent::user();?>
 				<div class="home_barre_avatar" style="border: 2px solid <?php print $specific_user_color;?>; border-bottom-width:4px"> 
-					<?php	/*echo $this->Html->image($user['avatar'], array(
+					<?php	echo $this->Html->image($user['avatar'], array(
 						"alt" => "AVATAR",
 						'url' => array('controller' => 'users', 'action' => 'view', $user['id'])
-					));*/?><img src="<?php print $user['avatar'] ?>">
+					));?>
 				</div>
 				<div class="home_barre_pseudo" style="border: 2px solid <?php print $specific_user_color;?>; border-left:0; border-bottom-width:4px">
 					<?php
@@ -55,7 +55,7 @@ $specific_user_GMT=2;
 			</div>
 		</div>
 		
-		<nav class="home_barre_mines">
+		<nav class="home_barre_mines" style="float:left">
 			<ul>
 			<li>
 				<?php
@@ -99,16 +99,6 @@ $specific_user_GMT=2;
 					);
 				?>
 			</li>
-			<li>
-				<?php
-					echo $this->Html->link('LogOut', array(
-						'controller' => 'users',
-						'action' => 'logout',
-						)
-					);
-				?>
-			</li>
-			</ul>
 		</nav>
 		<?php 
 			else: 
@@ -136,13 +126,31 @@ $specific_user_GMT=2;
 			</div>
 		<?php endif;
 		?>
-		<div class="home_barre_time">
-			<div class="home_barre_time_date">
-				<?php echo strftime("%d/%m/%y");?>
-			</div>
-			<div class="home_barre_time_heure">
-				<?php echo strftime("%H:%M");?> GMT+<?php print $specific_user_GMT;?>
-			</div>
-		</div>
+		<nav class="home_barre_mines" style="float:right;">
+		<ul>
+			<?php if (AuthComponent::user()): $user=AuthComponent::user();?>
+			<li>
+				<?php
+					echo $this->Html->link('LogOut', array(
+						'controller' => 'users',
+						'action' => 'logout',
+						)
+					);
+				?>
+			</li>
+			<? endif; ?>
+			<li>
+					<a href=""><?php echo strftime("%H:%M");?> GMT+<?php print $specific_user_GMT;?></a>
+					<ul style="right:0;"><li>
+						<?php echo $this->Html->link('AgamekTimeConverter', array(
+								'controller' => 'articles',
+								'action' => 'index',
+								)
+							);
+						?>
+					</li></ul>
+			</li>
+		</ul>
+		</nav>
 	</div>
     

@@ -14,12 +14,12 @@ html {
 }
 
 body {
-    color: #000;
+    color: black;
     font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
     margin:0;
 	padding:0;
 	width:100%;
-		background-color:#282828;
+	background-color:white;
 }
 
 img
@@ -34,7 +34,6 @@ img
 a {
     color: #003d4c;
     text-decoration: none;
-    font-weight: bold;
 }
 a:hover {
     color: #FD7E00;
@@ -46,11 +45,29 @@ a img {
 
 @font-face {
     font-family: "SQUAREFONT";
-    src: url('../Square.ttf');
+    /*src: url('../Square.ttf');*/
+	src: url('../AGENCYR.TTF');
 }
 @font-face {
     font-family: "Prototype";
-    src: url('../Prototype.ttf');
+    /*src: url('../Prototype.ttf');*/
+	src: url('../AGENCYR.TTF');
+}
+@font-face {
+    font-family: "AgencyR";
+    src: url('../AGENCYR.TTF');
+}
+@font-face {
+    font-family: "Prototype";
+    /*src: url('../Prototype.ttf');*/
+	src: url('../AGENCYB.TTF');
+	font-weight	:	bold;
+}
+@font-face {
+    font-family: "SQUAREFONT";
+    /*src: url('../Prototype.ttf');*/
+	src: url('../AGENCYB.TTF');
+	font-weight	:	bold;
 }
 
 h1, h2, h3, h4 {
@@ -96,7 +113,6 @@ div.barres_top /* contient les deux barres du haut + la ban*/
 	top:0;
 	width : 100%;
 	z-index:3;
-	color	:	white;
 }
 
 div.barres_top 	a
@@ -104,26 +120,25 @@ div.barres_top 	a
 	text-decoration	:	none;
 	font-family	:	"SQUAREFONT";
 	vertical-align	:	middle;
-	color	:	white;
+	color	:	black;
 }
 
 div.home_barre /* la 1e barre : accueil, login... */
 {
-	background-color : #808080;
 	position : absolute ;
 	width : 100%;
-	height:50px;
+	height:40px;
 	text-align : center;
-	line-height	:	30px;
-	border-bottom	:	4px solid black;/* #9d86b7;*/
+	border-bottom	:	1px solid gray;
 
 	box-sizing:border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
-	background: linear-gradient(to bottom, #808080 0%, #282828 100%) repeat scroll 0% 0% transparent;
 	
-	background-image	:	url('../img/Barre1.png');
+	/*background: linear-gradient(to bottom, #808080 0%, #282828 100%) repeat scroll 0% 0% transparent;*/
+	
+	background-image	:	url('../img/Barre1_blanc2.png');
 	background-repeat	:	repeat-x;
 	background-size	:	auto	100%;
 }
@@ -133,7 +148,9 @@ div.home_barre_user
 	float	:	left;
 	position	:	relative;
 	height	:	100%;
-	height	:	44px;  /* height de la home barre - border_avatar (définie dans menubar.ctp) ; le but étant que la bordure de l'user recouvre la bordure de la homme barre*/
+	height	:	34px;  /* height de la home barre - border_avatar (définie dans menubar.ctp) ; le but étant que la bordure de l'user recouvre la bordure de la homme barre*/
+	background-color	:	white;
+	z-index	:	10;
 }
 
 div.home_barre_user a
@@ -142,8 +159,10 @@ div.home_barre_user a
 	width	:	100%;
 	height	:	100%;
 	float	:	left;
-	line-height	:	44px; /* hauteur de la home_barre - hauteurs des borders - 2*padding du pseudo*/
+	line-height	:	34px; /* hauteur de la home_barre - hauteurs des borders - 2*padding du pseudo*/
 	font-weight : none;
+	background-color	:	white;
+	z-index	:	10;
 }
 
 div.home_barre_avatar
@@ -225,7 +244,7 @@ div.home_barre_bouton1
 	float	:	left;
 	height	:	100%;
 	width	:	40px;
-	background-image:url('../img/notif_home.png');
+	background-image:url('../img/home.png');
 	background-size	:	30px 30px;
 	background-repeat:no-repeat;
 	background-position:center center;
@@ -237,8 +256,8 @@ div.home_barre_bouton2
 	width	:	40px;
 	height	:	100%;
 	margin-left	:	10px;
-	background-image:url('../img/notif_notif.png');
-	background-size	:	20px 20px;
+	background-image:url('../img/notification.png');
+	background-size	:	30px 30px;
 	background-repeat:no-repeat;
 	background-position:center center;
 }
@@ -249,10 +268,16 @@ div.home_barre_bouton3
 	width	:	40px;
 	height	:	100%;
 	margin-left	:	10px;
-	background-image:url('../img/notif_message.gif');
-	background-size	:	20px 20px;
+	background-image:url('../img/mail.png');
+	background-size	:	30px 30px;
 	background-repeat:no-repeat;
 	background-position:center center;
+}
+
+nav.home_barre_mines 
+{
+	height	:	100%;
+	float:left;
 }
 
 nav.home_barre_mines ul 
@@ -260,10 +285,10 @@ nav.home_barre_mines ul
 	float	:	left;
 	position	:	relative;
 	vertical-align	:	middle;
-	line-height : 46px; /* hauteur de la home_barre - hauteurs des borders*/
+	line-height : 40px; /* hauteur de la home_barre - hauteurs des borders*/
 	font-weight	:	none;
 	font-family	:	"SQUAREFONT";
-	/*border-left	:	1px	solid	#a7a7a7;*/
+	border-left	:	1px	solid	#9d86b7;
 	list-style: none;
 	display: inline-table;
 	z-index:	10;
@@ -279,25 +304,42 @@ nav.home_barre_mines ul li:hover > ul {
 
 nav.home_barre_mines ul li {
 	float: left;
-	/*border-right	:	1px	solid	#a7a7a7;*/
+	border-right	:	1px	solid	#9d86b7;
 	box-sizing:border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		-o-box-sizing: border-box;
+		
+	transition	:	background-position 500ms ease 0s;
+		-webkit-transition	:	background-position 500ms ease 0s;
+		-moz-transition	:	background-position 500ms ease 0s;
+		-ms-transition	:	background-position 500ms ease 0s;
+		-o-transition	:	background-position 500ms ease 0s;
+		
+	background-image: linear-gradient(rgba(157, 134, 183, 0) 50%, rgba(157, 134, 183, 0.5) 80%, rgba(157, 134, 183, 0.3) 100%);
+    background-size: auto 250%;
+    background-position: 0 0;
+    transition: background-position 500ms;
 }
-nav.home_barre_mines ul li:hover {
-	background: #9d86b7;
-	background: linear-gradient(top, rgba(108, 91, 126, 1) 0%, #9d86b7 80%);
-	background: -moz-linear-gradient(top, rgba(108, 91, 126, 1) 0%, #9d86b7 80%);
-	background: -webkit-linear-gradient(top, rgba(108, 91, 126, 1) 0%,#9d86b7 80%);
-}
-nav.home_barre_mines ul li:hover a {
-	color: #fff;
-}
-
 nav.home_barre_mines ul li a {
 	display: block; padding: 0 40px;
 	color: #a7a7a7; text-decoration: none;
+		transition	:	color 2000ms ease 0s;
+		-webkit-transition	:	color 1000ms ease 0s;
+		-moz-transition	:	color 1000ms ease 0s;
+		-ms-transition	:	color 1000ms ease 0s;
+		-o-transition	:	color 1000ms ease 0s;
+}
+nav.home_barre_mines ul li:hover {
+ background-position: 0 100%;
+	/*background: #9d86b7;
+	background: linear-gradient(top, rgba(157, 134, 183, 0.3) 0%,rgba(157, 134, 183, 0.6) 80%);
+	background: -moz-linear-gradient(top, rgba(157, 134, 183, 0.3) 0%,rgba(157, 134, 183, 0.6) 80%);
+	background: -webkit-linear-gradient(top, rgba(157, 134, 183, 0.3) 0%,rgba(157, 134, 183, 0.6) 80%);*/
+}
+nav.home_barre_mines ul li:hover a {
+	color: #fff;
 }
 
 nav.home_barre_mines ul ul {
@@ -344,7 +386,7 @@ div.home_barre_mything
 	padding-left	:	23px;	
 	padding-right	:	23px;
 }
-/***************************************/
+
 div.home_barre_time
 {
 	float	:	right;
@@ -353,7 +395,7 @@ div.home_barre_time
 	border-left	:	3px solid #9d86b7;
 	padding-left	:	20px;
 	padding-right	:	20px;
-	line-height : 23px; /* (hauteur de la home_barre - hauteurs des borders )/2*/
+	line-height : 13px;  /*(hauteur de la home_barre - hauteurs des borders )/2
 }
 
 div.home_barre_time_date
@@ -369,6 +411,7 @@ div.home_barre_time_heure
 	width:100%;
 	height:50%;
 }
+/**********************************************/
 
 /* BANNIERE */
 div.banniere
@@ -377,8 +420,8 @@ div.banniere
 	width : 100%;
 	height	:	100px;
 	line-height	:	100px;
-	background-color	:	black;
-	top	:	50px; /* hauteur de la home_barre */
+	background-color	:	white;
+	top	:	40px; /* hauteur de la home_barre */
 	text-align	:	center;
 }
 
@@ -396,7 +439,7 @@ div.banniere_image
 	float:	left;
 	width	:	50%;
 	height	:	100%;
-	background-image	:	url('../img/logo_agamek.png');
+	background-image	:	url('../img/agamek_logo_metal.png');
 	background-size:auto 100%;
 	background-repeat	:	no-repeat;
 	background-position: center;
@@ -438,16 +481,20 @@ div.barre_jeux /* = barre_specific */
 	background-color	:	#a7a7a7;
 	position : absolute ;
 	width : 100%;
-	top	:	150px;
+	top	:	140px; /* some des hauteurs home_barre+banniere */
 	text-align	:	center; 
 	height	:	30px;
-	line-height	:	29px;
 	overflow	:	auto;
-	background: linear-gradient(to bottom, #a7a7a7 0%, #282828 100%) repeat scroll 0% 0% transparent;
+	/*background: linear-gradient(to bottom, #a7a7a7 0%, #282828 100%) repeat scroll 0% 0% transparent;
 	
-	background-image	:	url('../img/Barre1.png');
+	background-image	:	url('../img/barre2_blanc.png');
 	background-repeat	:	repeat-x;
-	background-size	:	auto	100%;
+	background-size	:	auto	100%;*/
+	background	:	white;
+	border-top	:	1px solid #a7a7a7;
+	border-bottom	:	1px solid #616161;
+	
+	box-shadow: 0 4px 2px -2px gray;
 }
 
 span.barre_jeux_element
@@ -463,6 +510,16 @@ span.barre_jeux_element a
 {
 	display	:	inline-block;
 	height	:	100%;
+	transition	:	color 500ms ease 0s;
+		-webkit-transition	:	color 500ms ease 0s;
+		-moz-transition	:	color 500ms ease 0s;
+		-ms-transition	:	color 500ms ease 0s;
+		-o-transition	:	color 500ms ease 0s;
+}
+
+span.barre_jeux_element a:hover
+{
+	color	:	#784bb3;
 }
 
 /* MID */ 
@@ -471,21 +528,22 @@ div.page
 	position : relative;
 	width : 100%;
 	margin:auto;
-	margin-top:180px; /* somme des hauteurs du top */
+	margin-top:170px; /* somme des hauteurs du top */
 }
 
 div.contentgauche
 {
 	position : fixed;
 	height	:	100%;
-	height : -moz-calc(100% - 180px); /* 100% - hauteur des topbarres en px */
-	height: -webkit-calc(100% - 180px);
-	height: -o-calc(100% - 180px);
-	height: calc(100% - 180px);
+	height : -moz-calc(100% - 170px); /* 100% - hauteur des topbarres en px */
+	height: -webkit-calc(100% - 170px);
+	height: -o-calc(100% - 170px);
+	height: calc(100% - 170px);
 	width : 20%;
+	background-image	:	url('../img/backgrounds/menu_bord_G.png');
 	background-position	: top	right;
 	background-repeat:no-repeat;
-	box-shadow: -40px 0 40px -40px #a7a7a7 inset;
+	/*box-shadow: -40px 0 40px -40px #a7a7a7 inset;*/
 	background-size:auto 100%;
 }
 
@@ -500,14 +558,15 @@ div.contentdroite
 {
 	position : fixed;
 	height	:	100%;
-	height : -moz-calc(100% - 180px); /* 100% - hauteur des topbarres en px */
-	height: -webkit-calc(100% - 180px);
-	height: -o-calc(100% - 180px);
-	height: calc(100% - 180px);
+	height : -moz-calc(100% - 170px); /* 100% - hauteur des topbarres en px */
+	height: -webkit-calc(100% - 170px);
+	height: -o-calc(100% - 170px);
+	height: calc(100% - 170px);
 	right:0;
 	width : 20%;
+	background-image	:	url('../img/backgrounds/menu_bord_D.png');
 	background-repeat:no-repeat;
-	box-shadow: 40px 0 40px -40px #a7a7a7 inset;
+	/*box-shadow: 40px 0 40px -40px #a7a7a7 inset;*/
 	background-size:auto 100%;
 	background-position	: top	left;
 }
@@ -571,6 +630,12 @@ div.col_gauche
 	float		:	left;
 	width		:	59%;
 	margin-right	:	1%;
+}
+
+.col_gauche img
+{
+	width	:	100%;
+	height	:	auto:
 }
 
 div.col_gauche_mainnews
@@ -705,7 +770,7 @@ div.col_gauche_mainnews img
     }
 }
 
-#sContent_tv {
+/*#sContent_tv {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -728,37 +793,35 @@ div.col_gauche_mainnews img
 	animation-duration: 10s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease-in-out;
-}
+}*/
 
 .col_gauche_news
 {
 	width	:	100%;
 	height	:	100px; /* hauteur fixe à définir */
-	line-height	:	100px;
 	position	:	relative;
 	margin-top	:	1%;
-	border	:	1px solid black;
+	border	:	4px double #d9d9d9;
 	
 	box-sizing:border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
-	
-	background-size	:	10% auto;
-	background-repeat:no-repeat;
-	background-position:top left;
-	z-index:10;
 }
 
-.col_gauche_news:hover::before {
-	box-shadow: inset 0px 0px 30px 10px #9d86b7;
+.col_gauche_news_text:hover {
+	box-shadow: inset 0px 0px 20px 10px #9d86b7;
+}
+
+/*.col_gauche_news_text:hover::before {
+	box-shadow: inset 0px 0px 20px 10px #9d86b7;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     content: "";
-}
+}*/
 
 .col_gauche_news_image
 {
@@ -772,6 +835,12 @@ div.col_gauche_mainnews img
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	border	:	0;
+	
+	border-right	:	1px solid #d9d9d9;
+	
+	background-position	:	50% 50%;
+	background-size	:	200% auto;
+	background-repeat:no-repeat;
 }
 
 .col_gauche_news a
@@ -784,7 +853,7 @@ div.col_gauche_mainnews img
 	font-size	:	100%;
 }
 
-.col_gauche_news_image img
+/*.col_gauche_news_image img
 {
 	width	:	100%;
 	height	:	auto;
@@ -792,15 +861,36 @@ div.col_gauche_mainnews img
 	vertical-align	:	middle;
 	z-index:-1;
 	position	:	relative;
-}
+}*/
 
 .col_gauche_news_text
 {
 	position	:	relative;
 	float	:	left;
 	width	:	79%;
-	margin-left	:	1%;
+	padding-left	:	1%;
 	height	:	100%;
+}
+
+.col_gauche_news_text_title
+{
+	height	:	30%;
+	position	:	relative;
+	width	:	100%;
+	font-weight	:	bold;
+}
+.col_gauche_news_text_subtitle
+{
+	height	:	50%;
+	position	:	relative;
+	width	:	100%;
+}
+.col_gauche_news_text_social
+{
+	height	:	20%;
+	position	:	relative;
+	width	:	100%;
+	text-align	:	right;
 }
 
 .col_gauche_pages
@@ -830,6 +920,8 @@ div.col_droite
 {
 	width	:	100%;
 	height	:	200px; /* hauteur à définir */
+	text-align	:	center;
+	line-height	:	200px;
 }
 
 .col_titre
@@ -843,6 +935,7 @@ div.col_droite
 .col_droite_info
 {
 	width	:	100%;
+	font-weight	:	bold;
 }
 
 #article_gameinfo
@@ -899,9 +992,9 @@ div.col_droite
 #article_user
 {
 	margin-top	:	10%;
-	margin-bottom	:	10%;
+	margin-bottom	:	50px; /* hauteur à fixer */
 	width	:	100%;
-	height	:	120px; /* hauteur à fixer */
+	display	:	inline-block;
 	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -933,6 +1026,72 @@ div.col_droite
 
 #article_social
 {
+	width	:	100%;
+}
+
+#article_comments
+{
+	width	:	100%;
+}
+
+.article_comment
+{
+	width	:	100%;
+	display: inline-block; 
+	position	:	relative;
+	margin-top	:	1%;
+	border	:	4px double #d9d9d9;
+	
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
+.article_comment_image
+{
+	position	:	relative;
+	float	:	left;
+	width	:	20%;
+
+	border-right	:	1px	solid black;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	border	:	0;
+	
+	box-shadow : 1px 1px 10px 1px rgba(0, 0, 0, 0.3);
+	
+	margin-top:1%;
+	margin-left:1%;
+	margin-bottom:1%;
+	margin-right:1%;
+}
+
+.article_comment_image img
+{
+	width	:	100%;
+	height	:	auto;
+	max-height	:	100%;
+}
+
+.article_comment_text
+{
+	position	:	relative;
+	float	:	left;
+	width	:	78%; /* 100 - width et margin de l'image */
+}
+.article_comment_text_title
+{
+	height	:	30px; /* hauteur à fixer */
+	position	:	relative;
+	width	:	100%;
+	font-weight	:	bold;
+}
+.article_comment_text_text
+{
+	position	:	relative;
 	width	:	100%;
 }
 
@@ -1153,8 +1312,13 @@ div.col_droite
     top:100px;*/
 }
 #footer {
-    clear: both;
-    padding: 6px 10px;
+	position	:	relative;
+	clear	:	both;
+	width	:	100%;
+	border-top	:	10px	solid	#9d86b7;
+	border-bottom	:	10px	solid	#9d86b7;
+	margin-bottom	:	0;
+	bottom	:	0;
 }
 #header a, #footer a {
 

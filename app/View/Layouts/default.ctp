@@ -89,12 +89,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				</div>
 			</div>	
 			
-			
-            <div id="footer">
-                <p>
-                    <?php //echo $cakeVersion;  ?>
-                </p>
-            </div>
         </div>
         <!--nocache-->
             <div style="positon:relative; bottom:1px; z-index:10;">

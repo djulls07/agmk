@@ -12,7 +12,7 @@ class Acomment extends AppModel {
 		'User' => array(
 			'classname' => 'User',
 			'foreignKey' => 'user_id',
-			'fields' => array('User.username, User.id')
+			'fields' => array('User.username, User.id, User.avatar')
 		)
 	);
 }

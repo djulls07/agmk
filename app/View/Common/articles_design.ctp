@@ -6,7 +6,7 @@ if (isset ($game) )
 		#barre_jeux
 		{
 			background-color	:	#<?php echo $game['Game']['a_background']; ?>;
-			background: linear-gradient(to bottom, #282828 10%, #<?php echo $game['Game']['a_background']; ?> 100%) repeat scroll 0% 0% transparent;
+			/*background: linear-gradient(to bottom, #282828 10%, #<?php echo $game['Game']['a_background']; ?> 100%) repeat scroll 0% 0% transparent;*/
 			color	:	#<?php echo $game['Game']['a_color']; ?>;
 		}
  </STYLE>
@@ -49,7 +49,6 @@ if (isset ($game) )
  <?php 
  //}
  }
-  //echo $this->element('barre_specific');
  ?>
 <div class="contenu">
 	<div class="col_gauche">
@@ -57,13 +56,8 @@ if (isset ($game) )
 	</div>
 	<div class="col_droite">
 		<div class="col_droite_tv">
-				<div id="slideshow">
-				<ul id="sContent_tv">
-					<li><div style="width:33%; float:left; height:100%; background:green">TV 1</div></li>
-					<li><div style="width:33%; margin-left:0.5%; margin-right:0.5%; float:left;height:100%; background:yellow">TV 2</div></li>
-					<li><div style="width:33%; float:left;height:100%; background:red">TV 3</div></li>
-				</ul>
-			</div>
+			<iframe width="100%" height="100%" src="//www.youtube.com/embed/0iiNPtM9bKs?autoplay=0&version=3" frameborder="0" allowfullscreen></iframe>
+
 		</div>
 		<div class="col_titre">
 			TITRE
@@ -93,4 +87,13 @@ if (isset ($game) )
 			Info1
 		</div>
 	</div>
+						<div id="footer">
+						<p>Suivre AGAMEK
+						<br>
+						twitter facebook google+ pinterest reddit you-porn</p>
+						<p>
+							Tous droits reserves 2014
+						</p>
+						
+					</div>
 </div>

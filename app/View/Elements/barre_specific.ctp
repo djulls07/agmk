@@ -9,7 +9,7 @@
 						)
 					)
 				."</span>
-				<span class='barre_jeux_element'> / </span>
+				<span class='barre_jeux_element'> &#9654; </span>
 				<span class='barre_jeux_element'>".
 				$this->Html->link($game['Game']['name'], array(
 							'controller' => 'articles',
@@ -18,7 +18,7 @@
 							)
 						)
 				."</span>
-				<span class='barre_jeux_element'> / </span>
+				<span class='barre_jeux_element'> &#9654; </span>
 				<span class='barre_jeux_element'>";
 		foreach($game['Link'] as $link_id => $link_array)
 		{

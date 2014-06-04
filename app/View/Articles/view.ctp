@@ -42,38 +42,46 @@
 							'action' => 'view',
 							$article['User']['id']
 						)
-					);			
+					);	
 		?>
 		<p>
 		"<?php echo $article['User']['description']; ?>"
 		</p>
-		<a href="">Suivre cet auteur</a>
+		<a href="">Suivre cet auteur</a> <a href="">Partager cet article</a>
 	</div>
 </div>
 <div id="article_social">
-	<a href="">Partager cet article</a>
-	<li>
 		<?php echo $this->Html->link('Add comment', array(
 				'controller' => 'acomments',
 				'action' => 'add',
 				$article['Article']['id']
 			)
 		); ?>
-	</li>
 </div>
-<div class="comments">
-	<?php foreach ($article['Acomment'] as $comment): ?>
-		<p><?php echo h($comment['content']); ?> <br />
-		<small>
-			<?php 
-				echo $this->Html->link($comment['User']['username'], array(
-						'controller' => 'users',
-						'action' => 'view',
-						$comment['user_id']
-					)
-				);
-			?>
-		</small></p>
+<div id="article_comments">
+	<?php foreach ($article['Acomment'] as $comment):?>
+		<div class="article_comment">
+			<div class="article_comment_image">
+			<?php echo $this->Html->image($comment['User']['avatar'], array(
+						"alt" => "AVATAR")); ?>
+			</div>
+			<div class="article_comment_text">
+				<div class="article_comment_text_title">
+					<?php 
+						echo $this->Html->link($comment['User']['username'], array(
+								'controller' => 'users',
+								'action' => 'view',
+								$comment['user_id']
+							)
+						);
+						echo "<span style=\"float:right\">".$comment['created']."</span>";
+					?>
+				</div>
+				<div class="article_comment_text_text">
+					<?php echo h($comment['content']); ?>
+				</div>
+			</div>
+		</div>
 	<?php endforeach; ?>
 </div>
 </div>
