@@ -25,7 +25,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <?php echo $this->Html->script('jquery-2.1.1.min'); ?>
 
         <!--Script pour actualiser messages -->
-        <?php echo $this->Html->script('getUserNotifs'); ?>
+        <?php if (AuthComponent::user('id')) echo $this->Html->script('getUserNotifs'); ?>
 
         <?php echo $this->fetch('script'); ?>
         <title>
