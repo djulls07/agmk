@@ -153,9 +153,9 @@ class MessagesController extends AppController {
 			}
 		} else if ($this->request->is('post')) {	
 			$this->Message->create();
-			if (!$this->Message->User->Friendship->areActiveFriends($this->Auth->user('id'), $this->request->data['Message']['dest_id'])) {
+			/*if (!$this->Message->User->Friendship->areActiveFriends($this->Auth->user('id'), $this->request->data['Message']['dest_id'])) {
 				throw new NotFoundException(__('Invalid Friend'));
-			}
+			}*/
 			if ($this->Message->save($this->request->data)) {
 				$user = $this->Message->User->findById($message['Message']['src_id']);
 				$this->Message->User->id = $user['User']['id'];
@@ -179,10 +179,11 @@ class MessagesController extends AppController {
 			if (!$user) {
 				throw new NotFoundException(__('Invalid user'));
 			}
-			
-			if (!$this->Message->User->Friendship->areActiveFriends($this->Auth->user('id'), $this->request->data['Message']['dest_id'])) {
+
+			//Plus besoin friend pour ecrire donc on comment.
+			/*if (!$this->Message->User->Friendship->areActiveFriends($this->Auth->user('id'), $this->request->data['Message']['dest_id'])) {
 				throw new NotFoundException(__('Friend not found'));
-			}
+			}*/
 
 			if ($this->Message->save($this->request->data)) {
 				$this->Message->User->id = $user['User']['id'];
