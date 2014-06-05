@@ -36,6 +36,13 @@ class Team extends AppModel {
 		}
 		return false;
 	}
+
+	public function leave($teamId, $userId) {
+		$db = $this->getDataSource();
+    	$sql = "DELETE FROM teams_users WHERE team_id=".$teamId." AND user_id=".$userId;
+    	$userTeam = $db->query($sql);
+    	return true;
+	}
 }
 
 ?>

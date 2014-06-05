@@ -30,6 +30,7 @@ class TeamsController extends AppController {
 		if (!$team) {
 			throw new NotFoundException(__('Invalid Team'));
 		}
+		//debug($team);
 		$this->set('team', $team);
 	}
 
@@ -79,6 +80,23 @@ class TeamsController extends AppController {
     	$this->set('teams', $teams);
     }
 
+    public function leave($id = null) {
+    	if (!$id) {
+    		throw new NotFoundException(__('Invalid Team'));
+    	}
+    	$team = $this->Team->findById($id);
+    	if (!$team) {
+    		throw new NotFoundException(__('Invalid Team'));
+    	}
+    	if ($this->Auth->user('id') == $team['Team']['leader_id']) {
+    		return $this->redirect(array('controller' => 'teams', 'action' => 'view', $id));
+    	}
+    	if ($this->Team->leave($id, $this->Auth->user('id'))) {
+    		$this->Session->setFlash(__('You are no longer a member of '.$team['Team']['name']));
+    		return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
+    	}
+    }
+
 	public function isAuthorized($user) {
 		if (in_array($this->action, array('index', 'add', 'view'))) {
 			return true;
@@ -89,7 +107,18 @@ class TeamsController extends AppController {
 				return true;
 			}
 		}
+		if ($this->action === 'leave') {
+			$teamId = (int) $this->request->params['pass'][0];
+			if ($this->Team->isLeader($user, $teamId)) {
+				return false;
+			}
+			return true;
+		}
 		return parent::isAuthorized();
+	}
+
+	public function addMember() {
+		
 	}
 }
 

@@ -100,7 +100,8 @@ $specific_user_GMT=2;
 				?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('searchBar', array('label' => '', 'id' => 'searchB'));?>
+				<?php echo $this->Form->input('searchBar', array('label' => '', 'id' => 'searchBar'));?>
+				<div id="searchBarResults"></div>
 			</li>
 		</nav>
 		<?php 
