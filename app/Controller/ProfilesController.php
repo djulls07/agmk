@@ -50,6 +50,28 @@ class ProfilesController extends AppController {
 		exit();
 	}
 
+	/*public function checkSc2() {
+		//if ($this->request->is("ajax")) {
+			$req = $this->request->data;
+			$socket = new HttpSocket();
+			$socket->request['redirect'] = true;
+			$data = array(
+				//'name' => $req['name'],
+				'bracket' => '1v1',
+				'league' => 'all',
+				'expansion' => 'hots',
+				'rank_region' => 'global',
+				'api_key' => 'YfFdxi1P4mY9UOwBORCuEn3L7oOdzjkZb18E'
+			);
+			$reponse = $socket->post(
+				'http://api.sc2ranks.com/v2/characters/search?name='.$req['name'],
+				$data
+			);
+			echo json_encode($reponse);
+			exit();
+		//}
+	}*/
+
 	public function admin_index() {
 		if (!$this->request->is('get')) {
 			throw new NotFoundException(__('Invalid method'));

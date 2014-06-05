@@ -99,6 +99,9 @@ $specific_user_GMT=2;
 					);
 				?>
 			</li>
+			<li>
+				<?php echo $this->Form->input('searchBar', array('label' => '', 'id' => 'searchB'));?>
+			</li>
 		</nav>
 		<?php 
 			else: 

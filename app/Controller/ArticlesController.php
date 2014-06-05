@@ -82,8 +82,6 @@ class ArticlesController extends AppController {
 		
 		$Acomment=$this->Article->Acomment->find('all',array('order' => array('Acomment.article_id')));
 		$this->set('Acomment', $Acomment);
-        //debug($articles);
-        //debug($game);
     }
 
     public function delete($id = null) {

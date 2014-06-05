@@ -15,15 +15,14 @@
 
 		    	<?php 
 		    		if ($id == 3) {
-		    			echo '<small>How do i find it: <br />'.
-		    			'Surf '.$this->Html->link('http://eu.battle.net/sc2/', 'http://eu.battle.net/sc2/') . 
-		    			' OR '. $this->Html->link('http://us.battle.net/sc2/', 'http://us.battle.net/sc2/') . 
-		    			' And login with your data. '.
-		    			'Then proceed and click on your profile avatar. '.
-		    			'On the next page in the adressbar there will be a number of about 6 or 7 digits. '.
-		    			'This is your web-id. '.
-		    			'Example: http://us.battle.net/sc2/en/profile/999000/1/DayNine/ -> ID is 999000</small>';
 		    			echo $this->Form->input('Profile.'.$id.'sc2Id', array('id' => 'sc2Id', 'label' => 'Enter SC2 ID'));
+		    			echo '<p> How DO I FIND IT: <br />';
+		    			echo 'SURF TO: <a href="http://sc2ranks.com" target="_blanck"> sc2ranks.com</a><br />';
+		    			echo ' Search for your account in the search bar.';
+		    			echo ' Click to view your stats, in the adressbar you will have something like : '.
+		    				 ' http://www.sc2ranks.com/character/eu/3216311/YourPseudo/hots/1v1. <br />'.
+		    				 ' Your sc2 id is the number beetween region ( here "eu") and "YourPseudo"'.
+		    				 ' here it is 3216311</p>';
 		    			echo $this->Form->input('Profile.'.$id.'.region', array(
 		    				'options' => array(
 		    					'eu' => 'Europe',
