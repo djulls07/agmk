@@ -101,7 +101,7 @@ class TeamsController extends AppController {
 		if (in_array($this->action, array('index', 'add', 'view'))) {
 			return true;
 		}
-		if (in_array($this->action, array('delete', 'edit'))) {
+		if (in_array($this->action, array('delete', 'edit', 'addMember'))) {
 			$teamId = (int) $this->request->params['pass'][0];
 			if ($this->Team->isLeader($user, $teamId)) {
 				return true;

@@ -248,7 +248,8 @@ class UsersController extends AppController {
 				'fields' => array('User.id','User.username'),
 				'order' => 'User.username'
 			);
-			echo json_encode($this->User->find('all', $params));
+			$results = $this->User->find('all', $params);
+			echo json_encode($results);
 			exit();
 		}
     }
