@@ -99,6 +99,10 @@ $specific_user_GMT=2;
 					);
 				?>
 			</li>
+			<li>
+				<?php echo $this->Form->input('searchBarAgmk', array('label' => '', 'id' => 'searchBarAgmk'));?>
+				<div id="searchBarAgmkResults"></div>
+			</li>
 		</nav>
 		<?php 
 			else: 
@@ -155,4 +159,3 @@ $specific_user_GMT=2;
 		</ul>
 		</nav>
 	</div>
-    

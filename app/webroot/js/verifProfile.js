@@ -24,14 +24,18 @@ $(document).ready(function() {
         url: '/profiles/checkSc2',
         type: 'POST',
         data: {'region' : sc2Region.val(), 'id' : sc2Id.val(), 'name' : sc2Pseudo.val()},
-        success: function (data, status) {
+        success: function (data) {
           data = $.parseJSON(data);
+          if (data.status == 'nok') {
+            sc2Level.val(data.message);
+            return;
+          }
           sc2Level.val(data.career.highest1v1Rank);
         },
         error: function() {sc2Level.val("Cant get your level with the informations you give")
         },
          datatype: 'json'
-     });  
+     });
   }
 
 

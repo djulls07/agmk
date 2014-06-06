@@ -245,13 +245,12 @@ class UsersController extends AppController {
 				'conditions' => array(
 					'User.username LIKE' => '%'.$user.'%'
 				),
-				'fields' => array('User.id','User.username')
+				'fields' => array('User.id','User.username'),
+				'order' => 'User.username'
 			);
 			echo json_encode($this->User->find('all', $params));
 			exit();
 		}
     }
-
-    
 }
 ?>

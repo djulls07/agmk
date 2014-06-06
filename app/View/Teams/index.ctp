@@ -1,11 +1,13 @@
 <div id="myteams">
+	<h1>My Teams</h1>
 	<?php //echo $this->Html->link('Create new team', array('controller' => 'teams', 'action' => 'add')); ?>
 	<table>
 		<tr>
-			<th> Name </th>
-			<th> Tag </th>
+			<th> Team Name </th>
+			<th> Team Tag </th>
 			<th> Game </th>
 			<th class="actions"> Actions </th>
+			<th>Your Role</th>
 			<th> Created </th>
 		</tr>
 		<?php foreach($teams as $team) : ?>
@@ -34,6 +36,14 @@
 						array('confirm' => 'Are you sure ?')
 					); ?>
 			 	Action 2 
+			</td>
+			<td>
+				<?php 
+					if ($team['Team']['leader_id'] == AuthComponent::user('id'))
+						echo 'LEADER';
+					else
+						echo 'Member';
+				?>
 			</td>
 			<td> <?= $team['Team']['created']; ?> </td>
 		</tr>
