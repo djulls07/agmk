@@ -26,6 +26,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
         <!--Script pour actualiser messages -->
         <?php if (AuthComponent::user('id')) echo $this->Html->script('getUserNotifs'); ?>
+        <?php echo $this->Html->script('searchBar'); ?>
 
         <?php echo $this->fetch('script'); ?>
         <title>

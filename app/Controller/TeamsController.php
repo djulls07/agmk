@@ -124,7 +124,7 @@ class TeamsController extends AppController {
     	}
     	if ($this->request->is('post')) {
     		if ($this->Team->addMember($id, $this->request->data['Team']['user_id'])) {
-    			//send notifications//TODOODODODODODDODODO
+    			//send notifications//TODOODODODODODDODODO et mettre searchBar.js partout ou needed
     			$this->Session->setFlash(__('Mate added'));
     			return $this->redirect(array('action' => 'addMember'));
     		} else {
