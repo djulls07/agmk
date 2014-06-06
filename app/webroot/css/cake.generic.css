@@ -288,7 +288,6 @@ nav.home_barre_mines ul
 	line-height : 40px; /* hauteur de la home_barre - hauteurs des borders*/
 	font-weight	:	none;
 	font-family	:	"SQUAREFONT";
-	border-left	:	1px	solid	#9d86b7;
 	list-style: none;
 	display: inline-table;
 	z-index:	10;
@@ -302,6 +301,10 @@ nav.home_barre_mines ul li:hover > ul {
 	display: block;
 }
 
+.home_barre_mines_first
+{
+	border-left	:	1px	solid	#9d86b7;
+}
 nav.home_barre_mines ul li {
 	float: left;
 	border-right	:	1px	solid	#9d86b7;
@@ -344,7 +347,7 @@ nav.home_barre_mines ul li:hover a {
 
 nav.home_barre_mines ul ul {
 	background: #9d86b7; border-radius: 0px; padding: 0;
-	position: absolute; top: 100%;
+	position: absolute; top: 40px;
 }
 nav.home_barre_mines ul ul li {
 	float: none; 

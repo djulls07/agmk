@@ -57,7 +57,7 @@ $specific_user_GMT=2;
 		
 		<nav class="home_barre_mines" style="float:left">
 			<ul>
-			<li>
+			<li class="home_barre_mines_first">
 				<?php
 					echo $this->Html->link('MyTeams', array(
 						'controller' => 'teams',
@@ -129,7 +129,7 @@ $specific_user_GMT=2;
 		<nav class="home_barre_mines" style="float:right;">
 		<ul>
 			<?php if (AuthComponent::user()): $user=AuthComponent::user();?>
-			<li>
+			<li class="home_barre_mines_first">
 				<?php
 					echo $this->Html->link('LogOut', array(
 						'controller' => 'users',
@@ -138,8 +138,10 @@ $specific_user_GMT=2;
 					);
 				?>
 			</li>
-			<? endif; ?>
 			<li>
+			<? else: ?>
+			<li class="home_barre_mines_first">
+			<? endif; ?>
 					<a href=""><?php echo strftime("%H:%M");?> GMT+<?php print $specific_user_GMT;?></a>
 					<ul style="right:0;"><li>
 						<?php echo $this->Html->link('AgamekTimeConverter', array(
