@@ -43,6 +43,22 @@ class Team extends AppModel {
     	$userTeam = $db->query($sql);
     	return true;
 	}
+
+	public function addMember($idTeam, $idMember) {
+		$this->User->id = $idMember;
+		if ($this->User->exists()) {
+			$db = $this->getDataSource();
+    		$sql = "SELECT * FROM teams_users as tu WHERE tu.team_id=".$idTeam." AND tu.user_id=".$idMember;
+    		$res = $db->fetchAll($sql);
+    		if ($res) {
+    			return false;
+    		} else {
+    			$sql = "INSERT INTO teams_users(user_id, team_id) VALUES('".$idMember."', '".$idTeam."')";
+    			$db->query($sql);
+    			return true;
+    		}
+		}
+	}
 }
 
 ?>

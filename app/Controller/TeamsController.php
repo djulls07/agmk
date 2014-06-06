@@ -103,6 +103,7 @@ class TeamsController extends AppController {
 		}
 		if (in_array($this->action, array('delete', 'edit', 'addMember'))) {
 			$teamId = (int) $this->request->params['pass'][0];
+			if (!$teamId) return false;
 			if ($this->Team->isLeader($user, $teamId)) {
 				return true;
 			}
@@ -114,11 +115,23 @@ class TeamsController extends AppController {
 			}
 			return true;
 		}
-		return parent::isAuthorized();
+		return parent::isAuthorized($user);
 	}
 
-	public function addMember() {
-		
+	public function addMember($id = null) {
+		if (!$id) {
+    		throw new NotFoundException(__('Invalid Team'));
+    	}
+    	if ($this->request->is('post')) {
+    		if ($this->Team->addMember($id, $this->request->data['Team']['user_id'])) {
+    			//send notifications//TODOODODODODODDODODO
+    			$this->Session->setFlash(__('Mate added'));
+    			return $this->redirect(array('action' => 'addMember'));
+    		} else {
+    			$this->Session->setFlash(__('Cant add your mate'));
+    			return $this->redirect(array('action' => 'addMember'));
+    		}
+    	}
 	}
 }
 
