@@ -347,7 +347,7 @@ nav.home_barre_mines ul li:hover a {
 
 nav.home_barre_mines ul ul {
 	background: #9d86b7; border-radius: 0px; padding: 0;
-	position: absolute; top: 40px;
+	position: absolute;
 }
 nav.home_barre_mines ul ul li {
 	float: none; 
@@ -487,7 +487,6 @@ div.barre_jeux /* = barre_specific */
 	top	:	140px; /* some des hauteurs home_barre+banniere */
 	text-align	:	center; 
 	height	:	30px;
-	overflow	:	auto;
 	/*background: linear-gradient(to bottom, #a7a7a7 0%, #282828 100%) repeat scroll 0% 0% transparent;
 	
 	background-image	:	url('../img/barre2_blanc.png');
@@ -500,7 +499,19 @@ div.barre_jeux /* = barre_specific */
 	box-shadow: 0 4px 2px -2px gray;
 }
 
-span.barre_jeux_element
+div.barre_jeux nav.home_barre_mines
+{
+	float:none;
+	display:inline-table;
+}
+
+div.barre_jeux nav.home_barre_mines ul
+{
+	line-height	:	30px; /*hauteur de barre_jeux */
+	z-index	:	9;
+}
+
+/*span.barre_jeux_element
 {
 	text-decoration	:	none;
 	font-family	:	"SQUAREFONT";
@@ -523,7 +534,7 @@ span.barre_jeux_element a
 span.barre_jeux_element a:hover
 {
 	color	:	#784bb3;
-}
+}*/
 
 /* MID */ 
 div.page
