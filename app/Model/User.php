@@ -188,7 +188,7 @@ class User extends AppModel {
 	    return $results;
     }
 
-    public function isUploadedAvatar($avatar, $dest) {
+    /*public function isUploadedAvatar($avatar, $dest) {
     	//redimensionner ( compression image et check tailler extension)
     	if ($avatar['size'] > 1000000) return false;
     	$tmp_name = $avatar['tmp_name'];
@@ -199,6 +199,30 @@ class User extends AppModel {
 	    		return true;
 	    }
 	    return false;
+    }*/
+
+    public function isUploadedAvatar($avatar, $dest) {
+    	//redimensionner ( compression image et check tailler extension)
+    	$tmp_name = $avatar['tmp_name'];
+    	$finfo = new finfo();
+    	$info = $finfo->file($tmp_name, FILEINFO_MIME_TYPE);
+    	list($wSrc, $hSrc) = getimagesize($tmp_name);
+    	$ratio = 100/$wSrc;
+    	$imgDest = imagecreatetruecolor($wSrc*$ratio, $hSrc*$ratio);
+    	if ($info == 'image/jpeg') {
+    		$src = imagecreatefromjpeg($tmp_name);
+    		imagecopyresized($imgDest, $src, 0,0,0,0, $wSrc*$ratio, $hSrc*$ratio, $wSrc, $hSrc);
+    		imagejpeg($imgDest, $dest);
+    		imagedestroy($tmp_name);
+    		return true;
+    	} else if ($info == 'image/png') {
+    		$src = imagecreatefrompng($tmp_name);
+    		imagecopyresized($imgDest, $src, 0,0,0,0, $wSrc*$ratio, $hSrc*$ratio, $wSrc, $hSrc);
+    		imagepng($imgDest, $dest);
+    		imagedestroy($tmp_name);
+    		return true;
+    	}
+    	return false;
     }
 }
 

@@ -1,5 +1,7 @@
 <?php 
 
+App::uses('AppController', 'Controller');
+
 class TeamsController extends AppController {
 
 	public function beforeFilter() {
@@ -9,12 +11,17 @@ class TeamsController extends AppController {
 
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->Team->create();
-			$this->request->data['User']['id'] = $this->Auth->user('id');
-			$this->request->data['Team']['leader_id'] = $this->Auth->user('id');
-			if ($this->Team->save($this->request->data)) {
-				$this->Session->setFlash(__('New team saved'));
-				return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
+			$team = $this->Team->findByName($this->request->data['Team']['name']);
+			if ($team) {
+				$this->Session->setFlash(__('Team name already taken.'));
+			} else {
+				$this->Team->create();
+				$this->request->data['User']['id'] = $this->Auth->user('id');
+				$this->request->data['Team']['leader_id'] = $this->Auth->user('id');
+				if ($this->Team->saveAssociated($this->request->data)) {
+					$this->Session->setFlash(__('New team saved'));
+					return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
+				}
 			}
 		}
 		$games = $this->Team->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
@@ -75,7 +82,7 @@ class TeamsController extends AppController {
     	$id = $this->Auth->user('id');
 
     	$db = $this->Team->getDataSource();
-    	$sql = "SELECT * FROM teams as Team LEFT JOIN teams_users as tu ON (Team.id=tu.team_id) LEFT JOIN games as Game ON Game.id=Team.game_id WHERE tu.user_id=".$id;
+    	$sql = "SELECT * FROM teams as Team LEFT JOIN teams_users as tu ON (Team.id=tu.team_id) LEFT JOIN games as Game ON Game.id=Team.game_id WHERE tu.user_id=".$id." AND tu.actif=1";
     	$teams = $db->fetchAll($sql);
     	$this->set('teams', $teams);
     }
@@ -98,7 +105,7 @@ class TeamsController extends AppController {
     }
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('index', 'add', 'view'))) {
+		if (in_array($this->action, array('index', 'add', 'view', 'activeMember', 'notactiveMember'))) {
 			return true;
 		}
 		if (in_array($this->action, array('delete', 'edit', 'addMember'))) {
@@ -124,14 +131,38 @@ class TeamsController extends AppController {
     	}
     	if ($this->request->is('post')) {
     		if ($this->Team->addMember($id, $this->request->data['Team']['user_id'])) {
-    			//send notifications//TODOODODODODODDODODO et mettre searchBar.js partout ou needed
-    			$this->Session->setFlash(__('Mate added'));
+    			//send notifications//TODOODODODODODDODODO
+    			$this->Team->User->Notification->addTeamMember($id, $this->Auth->user('username'), $this->request->data['Team']['user_id']);
+    			$this->Session->setFlash(__('Invitation sent'));
     			return $this->redirect(array('action' => 'addMember'));
     		} else {
-    			$this->Session->setFlash(__('Cant add your mate'));
+    			$this->Session->setFlash(__($this->request->data['Team']['name'] . ' is already in your Team.'));
     			return $this->redirect(array('action' => 'addMember'));
     		}
     	}
+	}
+
+	public function activeMember($id_notif, $idTeam, $teamName) {
+		if ($this->request->is('post')) {
+			if($this->Team->activeMember($idTeam, $this->Auth->user('id'))) {
+				$this->Team->User->Notification->delete($id_notif);
+				$this->Session->setFlash(__('You are now member of ' . $teamName));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+			} else {
+				$this->Session->setFlash(__('Cant accept invitation, retry later or contact admin'));
+				return $this->redirect(array('controller' => 'notifications', 'action' => 'index'));
+			}
+		}
+	}
+
+	public function notactiveMember($id_notif, $id_team, $teamName) {
+		if ($this->request->is('post')) {
+			if ($this->Team->notActiveMember($id_team, $this->Auth->user('id'))) {
+				$this->Session->setFlash('You refused the invitation to join the Team '.$teamName);
+				$this->Team->User->Notification->delete($id_notif);
+				return $this->redirect(array('controller' => 'notifications', 'action' => 'index'));
+			}
+		}
 	}
 }
 

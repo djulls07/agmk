@@ -83,6 +83,7 @@ class UsersController extends AppController {
                 	unset($this->request->data['Profile'][$k]);
                 }
             }
+            $this->request->data['User']['avatar'] = '/img/avatar.jpg';
             if($this->User->validates()) {
                 $this->User->create();
                 if ($this->User->saveAssociated($this->request->data)) {
@@ -234,8 +235,11 @@ class UsersController extends AppController {
     }
 
     public function getusernotifs() {
-    	$this->User->id = $this->Auth->user('id');
-    	echo $this->User->field('messages');
+    	$tab = $this->User->find('first', array(
+    		'conditions' => array('id' => $this->Auth->user('id')),
+    		'fields' => array('notifications', 'messages')
+    	));
+    	echo json_encode($tab);
     	exit();
     }
 

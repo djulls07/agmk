@@ -8,7 +8,7 @@
 	<td><?php echo $notification['Notification']['content']; ?></td>
 	<td class="actions">
 		<?php echo $this->Form->postLink(
-				'Accept friend request',
+				'Accept',
 				array(
 					'controller' => $notification['Notification']['controller'],
 					'action' => $notification['Notification']['action'],
@@ -16,7 +16,7 @@
 					$notification['Notification']['param1'],
 					$notification['Notification']['param2']
 				),
-				array('confirm' => 'Accept friend invitation ?')
+				array('confirm' => 'Accept ?')
 		); ?>
 		<?php echo $this->Form->postLink(
 				'Refuse',
@@ -27,7 +27,7 @@
 					$notification['Notification']['param1'],
 					$notification['Notification']['param2']
 				),
-				array('confirm' => 'Want to refuse friend invitation ?')
+				array('confirm' => 'Want to refuse ?')
 		); ?>
 	</td>	
 <?php endforeach; ?>

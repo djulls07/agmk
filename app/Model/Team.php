@@ -53,12 +53,27 @@ class Team extends AppModel {
     		if ($res) {
     			return false;
     		} else {
-    			$sql = "INSERT INTO teams_users(user_id, team_id) VALUES('".$idMember."', '".$idTeam."')";
+    			$sql = "INSERT INTO teams_users(user_id, team_id, actif) VALUES('".$idMember."', '".$idTeam."', 0)";
     			$db->query($sql);
     			return true;
     		}
 		}
 	}
+
+	public function activeMember($idTeam, $idUser) {
+		$db = $this->getDataSource();
+		$sql = "UPDATE teams_users SET actif=1 WHERE user_id=".$idUser." AND team_id=".$idTeam;
+		$db->query($sql);
+		return true;
+	}
+
+	public function notActiveMember($idTeam, $idUser) {
+		$db = $this->getDataSource();
+		$sql = "DELETE FROM teams_users WHERE user_id=".$idUser." AND team_id=".$idTeam;
+		$db->query($sql);
+		return true;
+	}
+
 }
 
 ?>

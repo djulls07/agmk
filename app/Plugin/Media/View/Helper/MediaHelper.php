@@ -51,16 +51,18 @@ class MediaHelper extends AppHelper{
 			return '<img src="/'.$fileDest.'"/>';
 		}
 		$dest = imagecreatetruecolor($width, $height);
+		list($wSrc, $hSrc) = getimagesize($imageSrc);
 		if ($extension == 'png') {
 			$src = imagecreatefrompng($imageSrc);
+			imagecopyresized($dest, $src, 0,0,0,0, $width, $height, $wSrc, $hSrc);
+			imagepng($dest, $fileDest);
 		} else {
 			$src = imagecreatefromjpeg($imageSrc);
+			imagecopyresized($dest, $src, 0,0,0,0, $width, $height, $wSrc, $hSrc);
+			imagejpeg($dest, $fileDest);
 		}
-		list($wSrc, $hSrc) = getimagesize($imageSrc);
 		/*$r = $hSrc/$wSrc;
-		$width = $height/$r;*/
-		imagecopyresized($dest, $src, 0,0,0,0, $width, $height, $wSrc, $hSrc);
-		imagejpeg($dest, $fileDest);
+		$width = $height/$r;*/		
 		return '<img src="/'.$fileDest.'"/>';
 	}
 }

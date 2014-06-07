@@ -1,4 +1,5 @@
 <div id="message_view">
+	<h1> Message from <?php echo $message['Message']['src_username'];?></h1>
 	<p>
 		<?php echo h($message['Message']['content']);?>
 		<br />
