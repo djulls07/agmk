@@ -35,7 +35,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop"; ?>">
+			<div class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop\" style=\"background-image:url('../../img/notification_new.png')\""; else print '"';?>>
 				<?php
 					echo $this->Html->link($user['notifications'], array(
 						'controller' => 'notifications',
@@ -44,7 +44,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop"; ?>">
+			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop\" style=\"background-image:url('../../img/mail_new.png')\""; else print '"';?>>
 				<?php
 					echo $this->Html->link('0', array(
 						'controller' => 'messages',
@@ -99,10 +99,6 @@ $specific_user_GMT=2;
 					);
 				?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('searchBarAgmk', array('label' => '', 'id' => 'searchBarAgmk'));?>
-				<div id="searchBarAgmkResults"></div>
-			</li>
 		</nav>
 		<?php 
 			else: 
@@ -128,8 +124,8 @@ $specific_user_GMT=2;
 				?>
 				</div>
 			</div>
-		<?php endif;
-		?>
+		<?php endif;	?>
+				
 		<nav class="home_barre_mines" style="float:right;">
 		<ul>
 			<?php if (AuthComponent::user()): $user=AuthComponent::user();?>
@@ -158,4 +154,20 @@ $specific_user_GMT=2;
 			</li>
 		</ul>
 		</nav>
+		
+		<div id="searchBarAgmk">
+			<?php 	echo $this->Form->create('Search');
+					$options = array(
+							'type'	=>	'image',
+							'src'	=>	'../../img/search.png',
+							'div' => array(
+								'class' => 'searchBarAgmk_submit',
+							)
+						);
+					echo $this->Form->end($options);
+					echo $this->Form->input('searchBarAgmk', array('label' => false, 'id' => 'searchBarAgmk'));
+			?>
+		</div>
+		<div id="searchBarAgmkResults">
+		</div>
 	</div>

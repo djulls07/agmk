@@ -416,6 +416,36 @@ div.home_barre_time_heure
 }
 /**********************************************/
 
+#searchBarAgmk
+{
+	float:right;
+	height	:	100%;
+	line-height	:	30px;
+	padding-top:5px;
+}
+
+#searchBarAgmk .input
+{
+	float	:	right;
+	width	:	50%;
+	font-size: 100%;
+	padding:0;
+	margin	:	0;
+	clear:none;
+	height	:	20px;
+}
+
+.searchBarAgmk_submit
+{
+	float:right;
+	height	:	80%;
+	width	:	20%;
+	font-size: 100%;
+	padding:0;
+	margin	:	0;
+	clear:none;
+}
+
 /* BANNIERE */
 div.banniere
 {
@@ -1544,7 +1574,7 @@ label {
 }
 input, textarea {
     clear: both;
-    font-size: 140%;
+    /*font-size: 140%;*/
     font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
     padding: 1%;
     width:98%;

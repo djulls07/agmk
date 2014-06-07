@@ -79,7 +79,7 @@
 		{
 			if ( ! empty ($category['games']) )
 			{
-				print "<li ".$unepremiereborder."><a href=''>".$category['name']."</a><ul>";
+				print "<li ".$unepremiereborder."><a href=''>".$category['name']." <span style=\"vertical-align	:	bottom\">&#9660;</span></a><ul>";
 				foreach ($category['games'] as $game)
 				{
 					print "<li>";

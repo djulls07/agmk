@@ -1,5 +1,5 @@
 <?php
-if (isset ($game) ) 
+if ( false && isset ($game) ) 
 {
 ?>
  <STYLE type="text/css">
