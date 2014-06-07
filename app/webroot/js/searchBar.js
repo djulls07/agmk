@@ -10,8 +10,7 @@ $(document).ready(function() {
 	$.each(form, function () {
 
 		var searchBar = $( "#"+$(this).attr('id') + " .searchBar" );
-		if (searchBar == null) 
-			return;
+		if (searchBar.length == 0) return;
 		var results = $( "#"+$(this).attr('id') + " .resultsSearchBar" );
 		var controller = searchBar.attr('controller');
 		var action = searchBar.attr('action');

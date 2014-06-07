@@ -164,6 +164,10 @@ class TeamsController extends AppController {
 			}
 		}
 	}
+
+	public function eject($idTeam, $idUser) {
+		
+	}
 }
 
 ?>

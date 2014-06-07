@@ -60,7 +60,7 @@ class ArticlesController extends AppController {
                 'contain' => array('Thumb'),
                 'recursive' => 0
             );
-            $this->Article->Game->recursive = 0;
+            $this->Article->Game->recursive = 1;
             $game = $this->Article->Game->findById($id);
             if (!$game) {
                 throw new NotFoundException(__('Invalid Game'));
