@@ -1,5 +1,11 @@
+<h1>Teams</h1>
+<nav>
+	<?php echo $this->Html->link('Create NEW TEAM', array('action' => 'add')); ?> |
+</nav>
+<hr>
+<br />
 <div id="myteams">
-	<h1>My Teams</h1>
+	<h3>My Teams</h3>
 	<?php //echo $this->Html->link('Create new team', array('controller' => 'teams', 'action' => 'add')); ?>
 	<table>
 		<tr>
