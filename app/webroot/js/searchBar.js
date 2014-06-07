@@ -10,8 +10,7 @@ $(document).ready(function() {
 	$.each(form, function () {
 
 		var searchBar = $( "#"+$(this).attr('id') + " .searchBar" );
-		if (searchBar == null) 
-			return;
+		if (searchBar.length == 0) return;
 		var results = $( "#"+$(this).attr('id') + " .resultsSearchBar" );
 		var controller = searchBar.attr('controller');
 		var action = searchBar.attr('action');
@@ -21,6 +20,13 @@ $(document).ready(function() {
 		var handler = searchBar.attr('handler');
 		var selectedResult = -1;
 		var inputAdd = $( "#"+$(this).attr('id') + " .inputAdd" );
+
+		//objet a completé contenant le nom des functions handler a lancer.
+		var myHandlers = {
+			'getUsersHandler' : function(data) {
+				getUsersHandler(data);
+			}
+		};
 
 		form.on('submit', function() {
 			if (inputAdd.val()!= ''){
@@ -82,18 +88,13 @@ $(document).ready(function() {
 			}
 		}
 
-		//objet a completé contenant le nom des functions handler a lancer.
-		var myHandlers = {
-			'getUsersHandler' : function(data) {
-				getUsersHandler(data);
-			}
-		};
 
 		//fonctions correspondant aux diff handlers
 		function getUsersHandler(data) {
 			var i = 0;
 			jsonData = $.parseJSON(data);
 			results.empty();
+			
 			$.each(jsonData, function (index, obj) {
 				results.append("<div value=\""+obj.User.id+"\" class=\"mouseListener\" userId=\""+obj.User.id+"\" username=\""+obj.User.username+"\" id=\""+(i++)+"\">"+obj.User.username+"</div>");
 			});

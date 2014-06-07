@@ -20,10 +20,12 @@
 		}?>
 		>
 			<td><?php echo h($message['Message']['src_username']); ?></td>
-			<td><?php echo h(substr($message['Message']['content'], 0, 25)) . '...'; ?></td>
+			<td><?php echo $this->Html->link(substr($message['Message']['content'], 0, 50),
+				array('action' => 'reponse', $message['Message']['id']));?>
+			</td>
 			<td>
-				<?php echo $this->Html->link('Read', array('action' => 'view', $message['Message']['id'])); ?>
-				<?php echo $this->Html->link('Respond', array('action' => 'reponse', $message['Message']['id'])); ?>
+				<?php //echo $this->Html->link('Read', array('action' => 'view', $message['Message']['id'])); ?>
+				<?php echo $this->Html->link('Read', array('action' => 'reponse', $message['Message']['id'])); ?>
 			</td>
 			<td><?php echo $message['Message']['created']; ?></td>
 		</tr>

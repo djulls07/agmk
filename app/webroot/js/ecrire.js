@@ -51,7 +51,10 @@ $(document).ready(function(){
 			$( "#MessageTo" ).val(result.html());
 			results.html('');
 		} else {
-			if ($(this).val() == '') return;
+			if ($(this).val() == '') {
+				results.empty();
+				return;
+			}
 			$.post( "/users/getusers/" + $( this ).val()).done(function( data ) {
 				res = $.parseJSON(data);
 				majResults();
