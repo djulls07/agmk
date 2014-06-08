@@ -80,7 +80,7 @@ class ArticlesController extends AppController {
         $this->set('newsParPage', $newsParPage);
         $this->set('articles', $articles);
 		
-		$Acomment=$this->Article->Acomment->find('all',array('order' => array('Acomment.article_id')));
+		$Acomment=$this->Article->Acomment->find('all',array('order' => array('Acomment.article_id'), 'fields' => array('id', 'article_id')));
 		$this->set('Acomment', $Acomment);
     }
 

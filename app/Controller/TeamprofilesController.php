@@ -24,7 +24,15 @@ class TeamprofilesController extends AppController {
 		}
 		if ($this->request->is('post')) {
 			$this->request->data['Teamprofile']['team_id'] = $idTeam;
-			debug($this->request->data);
+			$g = $this->Teamprofile->Game->findById($this->request->data['Teamprofile']['game_id']);
+			if (!$g) {
+				throw new NotFoundException(__('Invalid game'));
+			}
+			$this->request->data['Teamprofile']['game_name'] = $g['Game']['name'];
+			if ($this->Teamprofile->save($this->request->data)) {
+				$this->Session->setFlash(__('Roster/Profile created'));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+			}
 		}
 	}
 
@@ -33,6 +41,15 @@ class TeamprofilesController extends AppController {
 			return true;
 		}
 		return parent::isAuthorized($user);
+	}
+
+	public function delete($id = null) {
+		if ($this->request->is('post')){
+			if ($this->Teamprofile->delete($id)){
+				$this->Session->setFlash(__('Team Profile deleted'));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
+			}
+		}
 	}
 }
 

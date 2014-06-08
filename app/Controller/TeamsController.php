@@ -24,8 +24,8 @@ class TeamsController extends AppController {
 				}
 			}
 		}
-		$games = $this->Team->Teamprofile->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
-		$this->set('games', $games);
+		//$games = $this->Team->Teamprofile->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
+		//$this->set('games', $games);
 	}
 
 	public function view ($id = null) {
@@ -36,6 +36,27 @@ class TeamsController extends AppController {
 		$team = $this->Team->findById($id);
 		if (!$team) {
 			throw new NotFoundException(__('Invalid Team'));
+		}
+		$tmp = array();
+		foreach($team['User'] as $user) {
+			$tmp[$user['id']] = $user;
+		}
+		$team['User'] = $tmp;
+		$db = $this->Team->getDataSource();
+		foreach($team['Teamprofile'] as $k => $v) {
+			$sqlPart = '(';
+			foreach($v['roster'] as $i) {
+				$sqlPart .= $i.',';
+			}
+			$sqlPart = substr($sqlPart, 0, -1);
+			$sqlPart .= ')';
+			if (strlen($sqlPart) < 5) {
+				$team['Teamprofile'][$k]['roster'] = null;
+				continue;
+			}
+			$sql = "SELECT * FROM users as User LEFT JOIN profiles as Profile ON (User.id=Profile.user_id) WHERE User.id IN ".$sqlPart;
+			$res = $db->fetchAll($sql);
+			$team['Teamprofile'][$k]['roster'] = $res;
 		}
 		//debug($team);
 		$this->set('team', $team);
@@ -65,17 +86,18 @@ class TeamsController extends AppController {
 
 
 	public function delete($id = null) {
-		$this->request->onlyAllow('post');
-        $this->Team->id = $id;
-        
-        if (!$this->Team->exists()) {
-            throw new NotFoundException(__('Invalid article'));
+		if ($this->request->is('get')) {
+            throw new MethodNotAllowedException();
         }
-        if ($this->Team->delete()) {
-            $this->Session->setFlash(__('Your Team has been deleted'));
-            return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
-        }
-        $this->setFlash(__('Unable to delete your article'));
+		if ($this->request->is('post')) {
+	        if ($this->Team->delete($id)) {
+	        	if ($this->Team->Teamprofile->deleteProfiles($id)) {
+	        		$this->Session->setFlash(__('Your Team has been deleted'));
+	            	return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
+	        	}
+	        }
+	        $this->setFlash(__('Unable to delete your article'));
+	    }
     }
 
     public function index() {
@@ -83,12 +105,11 @@ class TeamsController extends AppController {
 
     	$db = $this->Team->getDataSource();
     	$sql = "SELECT * FROM teams as Team ".
-    		"LEFT JOIN teams_users as tu ON (Team.id=tu.team_id) ".
-    		"LEFT JOIN teamprofiles as Teamprofile ON (Teamprofile.team_id=Team.id) ".
-    		"LEFT JOIN games as Game ON (Game.id=Teamprofile.game_id) ".
-    		"WHERE tu.user_id=".$id." AND tu.actif=1";
+    		"WHERE Team.id IN ".
+    		"(SELECT team_id FROM teams_users as tu WHERE tu.user_id=".$id.")";
     	$teams = $db->fetchAll($sql);
     	$this->set('teams', $teams);
+    	//debug($teams);
     }
 
     public function leave($id = null) {
