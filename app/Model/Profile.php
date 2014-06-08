@@ -27,6 +27,19 @@ class Profile extends AppModel {
 		return false;
 	}
 
+	public function hasProfile($idUser, $idGame) {
+		$profile = $this->find('first', array(
+			'conditions' => array(
+				'Profile.user_id' => $idUser,
+				'Profile.game_id' => $idGame
+			)
+		));
+		if (!$profile) {
+			return false;
+		}
+		return true;
+	}
+
 }
 
 ?>

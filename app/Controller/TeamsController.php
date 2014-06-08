@@ -50,7 +50,7 @@ class TeamsController extends AppController {
 			}
 			$sqlPart = substr($sqlPart, 0, -1);
 			$sqlPart .= ')';
-			if (strlen($sqlPart) < 5) {
+			if (strlen($sqlPart) < 4) {
 				$team['Teamprofile'][$k]['roster'] = null;
 				continue;
 			}

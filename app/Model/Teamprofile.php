@@ -37,6 +37,7 @@ class Teamprofile extends AppModel {
 			}
 			return $results;
 		}
+		return $results;
 	}
 
 	public function deleteProfiles($idTeam) {
