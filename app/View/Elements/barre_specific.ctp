@@ -92,10 +92,31 @@
 					print "</li>";
 				}
 				print"</ul></li>";
+				$unepremiereborder="";
 			}
-			$unepremiereborder="";
 		}
-		echo "</nav>";
+		echo"<li>";
+		echo $this->Html->link('Coaching', array(
+			'controller' => 'articles',
+			'action' => 'index',
+			$game['Game']['id']
+			)
+		);
+		echo"</li><li>";
+		echo $this->Html->link('Forum', array(
+			'controller' => 'articles',
+			'action' => 'index',
+			$game['Game']['id']
+			)
+		);
+		echo"</li><li>";
+		echo $this->Html->link('Store', array(
+			'controller' => 'articles',
+			'action' => 'index',
+			$game['Game']['id']
+			)
+		);
+		echo "</li></ul></nav>";
 	}	
 	?>
 </div>
