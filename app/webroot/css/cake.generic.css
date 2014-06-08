@@ -288,7 +288,6 @@ nav.home_barre_mines ul
 	line-height : 40px; /* hauteur de la home_barre - hauteurs des borders*/
 	font-weight	:	none;
 	font-family	:	"SQUAREFONT";
-	border-left	:	1px	solid	#9d86b7;
 	list-style: none;
 	display: inline-table;
 	z-index:	10;
@@ -302,6 +301,10 @@ nav.home_barre_mines ul li:hover > ul {
 	display: block;
 }
 
+.home_barre_mines_first
+{
+	border-left	:	1px	solid	#9d86b7;
+}
 nav.home_barre_mines ul li {
 	float: left;
 	border-right	:	1px	solid	#9d86b7;
@@ -344,7 +347,7 @@ nav.home_barre_mines ul li:hover a {
 
 nav.home_barre_mines ul ul {
 	background: #9d86b7; border-radius: 0px; padding: 0;
-	position: absolute; top: 100%;
+	position: absolute;
 }
 nav.home_barre_mines ul ul li {
 	float: none; 
@@ -412,6 +415,36 @@ div.home_barre_time_heure
 	height:50%;
 }
 /**********************************************/
+
+#searchBarAgmk
+{
+	float:right;
+	height	:	100%;
+	line-height	:	30px;
+	padding-top:5px;
+}
+
+#searchBarAgmk .input
+{
+	float	:	right;
+	width	:	50%;
+	font-size: 100%;
+	padding:0;
+	margin	:	0;
+	clear:none;
+	height	:	20px;
+}
+
+.searchBarAgmk_submit
+{
+	float:right;
+	height	:	80%;
+	width	:	20%;
+	font-size: 100%;
+	padding:0;
+	margin	:	0;
+	clear:none;
+}
 
 /* BANNIERE */
 div.banniere
@@ -484,7 +517,6 @@ div.barre_jeux /* = barre_specific */
 	top	:	140px; /* some des hauteurs home_barre+banniere */
 	text-align	:	center; 
 	height	:	30px;
-	overflow	:	auto;
 	/*background: linear-gradient(to bottom, #a7a7a7 0%, #282828 100%) repeat scroll 0% 0% transparent;
 	
 	background-image	:	url('../img/barre2_blanc.png');
@@ -497,7 +529,19 @@ div.barre_jeux /* = barre_specific */
 	box-shadow: 0 4px 2px -2px gray;
 }
 
-span.barre_jeux_element
+div.barre_jeux nav.home_barre_mines
+{
+	float:none;
+	display:inline-table;
+}
+
+div.barre_jeux nav.home_barre_mines ul
+{
+	line-height	:	30px; /*hauteur de barre_jeux */
+	z-index	:	9;
+}
+
+/*span.barre_jeux_element
 {
 	text-decoration	:	none;
 	font-family	:	"SQUAREFONT";
@@ -520,7 +564,7 @@ span.barre_jeux_element a
 span.barre_jeux_element a:hover
 {
 	color	:	#784bb3;
-}
+}*/
 
 /* MID */ 
 div.page
@@ -1530,7 +1574,7 @@ label {
 }
 input, textarea {
     clear: both;
-    font-size: 140%;
+    /*font-size: 140%;*/
     font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
     padding: 1%;
     width:98%;

@@ -27,7 +27,7 @@ class GamesController extends AppController {
 	}
 
 	public function index() {
-		$this->Game->recursive = 0;
+		$this->Game->recursive = 1;
 		$this->set('games', $this->Paginator->paginate());
 	}
 

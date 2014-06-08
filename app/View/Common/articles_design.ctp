@@ -1,6 +1,7 @@
 <?php
-if (isset ($game) ) 
+if ( isset ($game) ) 
 {
+if( false) {
 ?>
  <STYLE type="text/css">
 		#barre_jeux
@@ -11,6 +12,7 @@ if (isset ($game) )
 		}
  </STYLE>
 <?php
+}
 //if(file_exists("img/backgrounds/".$game['Game']['image_gauche'].".png") && file_exists("img/backgrounds/".$game['Game']['image_gauche'].".png")) 
 //{
 ?>
