@@ -1,6 +1,5 @@
 <?php
 $specific_user_color="orange";
-$specific_user_messages=0;
 $specific_user_GMT=2;
 ?>
 
