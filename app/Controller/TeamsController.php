@@ -24,7 +24,7 @@ class TeamsController extends AppController {
 				}
 			}
 		}
-		$games = $this->Team->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
+		$games = $this->Team->Teamprofile->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
 		$this->set('games', $games);
 	}
 
@@ -82,7 +82,11 @@ class TeamsController extends AppController {
     	$id = $this->Auth->user('id');
 
     	$db = $this->Team->getDataSource();
-    	$sql = "SELECT * FROM teams as Team LEFT JOIN teams_users as tu ON (Team.id=tu.team_id) LEFT JOIN games as Game ON Game.id=Team.game_id WHERE tu.user_id=".$id." AND tu.actif=1";
+    	$sql = "SELECT * FROM teams as Team ".
+    		"LEFT JOIN teams_users as tu ON (Team.id=tu.team_id) ".
+    		"LEFT JOIN teamprofiles as Teamprofile ON (Teamprofile.team_id=Team.id) ".
+    		"LEFT JOIN games as Game ON (Game.id=Teamprofile.game_id) ".
+    		"WHERE tu.user_id=".$id." AND tu.actif=1";
     	$teams = $db->fetchAll($sql);
     	$this->set('teams', $teams);
     }

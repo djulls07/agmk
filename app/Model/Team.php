@@ -13,10 +13,17 @@ class Team extends AppModel {
         )
 	);
 
-	public $belongsTo = array(
+	/*public $belongsTo = array(
 		'Game' => array(
 			'classname' => 'Game',
 			'foreignKey' => 'game_id'
+		)
+	);*/
+
+	public $hasMany = array(
+		'Teamprofile' => array(
+			'classname' => 'Teamprofile',
+			'foreignKey' => 'team_id'
 		)
 	);
 
