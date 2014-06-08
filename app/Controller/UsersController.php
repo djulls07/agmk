@@ -210,7 +210,7 @@ class UsersController extends AppController {
 	}*/
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'myteams','getusernotifs', 'getusers'))) 
+		if (in_array($this->action, array('logout', 'index', 'view', 'add_friend','list_friend', 'myteams','getusernotifs', 'getusers', 'alpha'))) 
 			return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
@@ -255,6 +255,20 @@ class UsersController extends AppController {
 			echo json_encode($this->User->find('all', $params));
 			exit();
 		}
+    }
+
+    public function alpha($idTeam) {
+    	if (!$idTeam) {
+    		throw new notFoundException(__('Invalid Team'));		
+    	}
+    	if ($this->request->is('post')) {
+    		$this->User->id = $this->Auth->user('id');
+    		if ($this->User->saveField('alpha_team_id', $idTeam)) {
+    			$this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
+    			$this->Session->setFlash(__('Alpha Team added'));
+    			return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
+    		}
+    	}
     }
 }
 ?>

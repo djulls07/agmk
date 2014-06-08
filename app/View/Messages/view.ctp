@@ -1,7 +1,7 @@
 <div id="message_view">
 	<h1> Message from <?php echo $message['Message']['src_username'];?></h1>
 	<p>
-		<?php echo h($message['Message']['content']);?>
+		<?php echo nl2br(h($message['Message']['content']));?>
 		<br />
 		<small><?php echo $this->Html->link(h($message['Message']['src_username']), 
 			array('controller' => 'users', 'action' => 'view', $message['Message']['src_id'])
