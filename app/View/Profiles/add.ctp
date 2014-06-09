@@ -6,5 +6,5 @@
 <?php echo $this->Form->input('level', array('readonly' => 'readonly')); ?>
 </fieldset>
 <?php //echo $this->Form->end(__('Submit')); ?>
-
+<div id="loading"></div>
 <?php echo $this->Html->script('addProfile'); ?>

@@ -33,7 +33,7 @@ class Teamprofile extends AppModel {
 	public function afterFind($results, $primary) {
 		if (!$primary) {
 			foreach($results as $k => $v) {
-				$results[$k]['Teamprofile']['roster'] = explode(';', $results[$k]['Teamprofile']['roster']);
+				$results[$k]['Teamprofile']['roster'] = explode(',', $results[$k]['Teamprofile']['roster']);
 			}
 			return $results;
 		}
@@ -57,7 +57,7 @@ class Teamprofile extends AppModel {
 		//debug($teamProfiles);
 		foreach($teamProfiles as $tp) {
 			$b = true;
-			foreach(explode(';', $tp['Teamprofile']['roster']) as $id) {
+			foreach(explode(',', $tp['Teamprofile']['roster']) as $id) {
 				if ($id == $idUser) {
 					$b = false;
 					break;
@@ -88,10 +88,10 @@ class Teamprofile extends AppModel {
 		));
 		foreach($teamProfiles as $k => $v) {
 			$tmp = '';
-			foreach(explode(';', $v['Teamprofile']['roster']) as $id) {
+			foreach(explode(',', $v['Teamprofile']['roster']) as $id) {
 				if ($id != $idUser) {
 					//on gare lidUser
-					$tmp .= $id.';';
+					$tmp .= $id.',';
 				}
 			}
 			//sauveProfile
@@ -113,7 +113,7 @@ class Teamprofile extends AppModel {
 			$teamProfile['Teamprofile']['roster_leader_id'] = '';
 		}
 		$tmp = '';
-		foreach(explode(';', $teamProfile['Teamprofile']['roster']) as $id) {
+		foreach(explode(',', $teamProfile['Teamprofile']['roster']) as $id) {
 			if ($id != $idUser) {
 				$tmp .= $id.',';
 			}
@@ -133,7 +133,7 @@ class Teamprofile extends AppModel {
 		}
 		$this->id = $teamProfile['Teamprofile']['id'];
 		$b = false;
-		foreach(explode(';', $teamProfile['Teamprofile']['roster']) as $id) {
+		foreach(explode(',', $teamProfile['Teamprofile']['roster']) as $id) {
 			if($id == $idUser) {
 				$b =true;
 				break;
@@ -155,7 +155,7 @@ class Teamprofile extends AppModel {
 				'team_id' => $idTeam
 			)
 		));
-		foreach(explode(';', $teamProfile['Teamprofile']['roster']) as $id) {
+		foreach(explode(',', $teamProfile['Teamprofile']['roster']) as $id) {
 			if($id == $idUser) {
 				return true;
 			}

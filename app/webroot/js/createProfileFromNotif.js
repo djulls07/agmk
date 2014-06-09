@@ -49,6 +49,7 @@ $(document).ready(function() {
 
 	function majLol(pseudo, region) {
 		inputLevel.val('Loading data');
+		$( "#loading" ).html('LOADING...LOADING...LOADING...');
 	    $.ajax({
 	     	url: "https://prod.api.pvp.net/api/lol/"+region+"/v1.4/summoner/by-name/"+pseudo+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1",
 	     	type: 'GET',
@@ -86,6 +87,7 @@ $(document).ready(function() {
 
 	function majSc2(region, id, pseudo) {
 	    inputLevel.val('Loading data');
+	    $( "#loading" ).html('LOADING...LOADING...LOADING...')
 	    $.ajax({
 	        url: '/profiles/checkSc2',
 	        type: 'POST',
