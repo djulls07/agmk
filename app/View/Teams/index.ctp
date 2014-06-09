@@ -11,7 +11,6 @@
 		<tr>
 			<th> Team Name </th>
 			<th> Team Tag </th>
-			<th> Games </th>
 			<th>Your Role</th>
 			<th> Created </th>
 			<th class="actions"> Actions </th>
@@ -34,14 +33,6 @@
 				?>
 			</td>
 			<td> <?= h($team['Team']['tag']); ?> </td>
-			<td> 
-				<?php 
-					echo $this->Html->link($team['Game']['name'], array(
-					'controller' => 'articles', 
-					'action' => 'index', 
-					$team['Game']['id']));
-				?> 
-			</td>
 			<td>
 				<?php 
 					if ($team['Team']['leader_id'] == AuthComponent::user('id'))
