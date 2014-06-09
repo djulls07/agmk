@@ -58,10 +58,11 @@ class TeamprofilesController extends AppController {
 			}
 		}
 		$this->set('user', $this->Teamprofile->Team->User->findById($idUser));
-		$games = $this->Teamprofile->find('list', array(
+		/*$games = $this->Teamprofile->find('list', array(
 			'conditions' => array('Teamprofile.team_id' => $idTeam),
 			'fields' => array('Teamprofile.game_id', 'Teamprofile.game_name')
-		));
+		));*/
+		$games = $this->Teamprofile->getGamesRosterWithout($idUser, $idTeam);
 		if (!$games) {
 			$this->Session->setFlash(__('You should add Game/Roster to you TEAM before adding player to Game/Roster'));
 		}

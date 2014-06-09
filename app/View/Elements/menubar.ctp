@@ -158,7 +158,7 @@ $specific_user_GMT=2;
 			<?php 	echo $this->Form->create('Search');
 					$options = array(
 							'type'	=>	'image',
-							'src'	=>	'../../img/search.png',
+							'src'	=>	'/img/search.png',
 							'div' => array(
 								'class' => 'searchBarAgmk_submit',
 							)

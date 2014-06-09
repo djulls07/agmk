@@ -46,6 +46,41 @@ class Teamprofile extends AppModel {
 		$db->query($sql);
 		return true;
 	}
+
+	public function getGamesRosterWithout($idUser, $idTeam) {
+		$db = $this->getDataSource();
+		$listIds = '(';
+		$tab = array();
+		$teamProfiles = $this->find('all', array(
+			'conditions' => array('Teamprofile.team_id' => $idTeam)
+		));
+		//debug($teamProfiles);
+		foreach($teamProfiles as $tp) {
+			$b = true;
+			foreach(explode(';', $tp['Teamprofile']['roster']) as $id) {
+				if ($id == $idUser) {
+					$b = false;
+					break;
+				}
+			}
+			if ($b) {
+				$listIds .= $tp['Teamprofile']['game_id'].',';
+			}
+		}
+		$listIds = substr($listIds, 0, -1);
+		$listIds .= ')';
+		if (strlen($listIds) > 2) {
+			$sql = "SELECT name, id FROM games as Game WHERE Game.id IN ".$listIds;
+		} else {
+			$tab[0] = 'No Roster';
+			return $tab;
+		}
+		$res = $db->fetchAll($sql);
+		foreach($res as $r) {
+			$tab[($r['Game']['id'])] = $r['Game']['name'];
+		}
+		return $tab;
+	}
 }
 
 ?>
