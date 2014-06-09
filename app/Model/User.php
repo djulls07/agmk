@@ -224,6 +224,20 @@ class User extends AppModel {
     	}
     	return false;
     }
+
+    public function writeLoggedIn($idUser) {
+    	$db = $this->getDataSource();
+    	$sql = "DELETE FROM logged_ins WHERE user_id=".$idUser;
+    	$db->query($sql);
+    	$sql = "INSERT INTO logged_ins (user_id) VALUES ('".$idUser."')";
+    	$db->query($sql);
+    }
+
+    public function writeNotLoggedIn($idUser) {
+    	$db = $this->getDataSource();
+    	$sql = "DELETE FROM logged_ins WHERE user_id=".$idUser;
+    	$db->query($sql);
+    }
 }
 
 

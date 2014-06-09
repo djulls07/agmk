@@ -6,6 +6,16 @@ class Profile extends AppModel {
 	
 
 	public $validate = array(
+		'level' => array(
+			'required' => array (
+				'rule' => array('notEmpty')
+			)
+		),
+		'pseudo' => array(
+			'required' => array (
+				'rule' => array('notEmpty')
+			)
+		),
 	);
 
 	public $belongsTo = array(

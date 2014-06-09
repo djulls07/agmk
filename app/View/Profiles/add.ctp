@@ -1,8 +1,10 @@
 <?php echo $this->Form->create('Profile'); ?>
 <fieldset>
 <legend><?php echo __('Add Game profile'); ?></legend>
-<?php echo $this->Form->input('pseudo', array('label' => 'Pseudo')); ?>
-<?php echo $this->Form->input('level', array('label' => 'Level/ League')); ?>
 <?php echo $this->Form->input('Game'); ?>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->input('pseudo'); ?>
+<?php echo $this->Form->input('level', array('readonly' => 'readonly')); ?>
 </fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+
+<?php echo $this->Html->script('addProfile'); ?>

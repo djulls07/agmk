@@ -129,5 +129,33 @@ class Friendship extends AppModel {
 		return $friends;
 	}
 
+	public function getConnected($friendships) {
+		$tmp = "(";
+		foreach($friendships as $k => $v) {
+			$tmp .= "'".$v['User']['id']."',";
+		}
+		$tmp = substr($tmp, 0, -1);
+		$tmp .= ")";
+		$db = $this->getDataSource();
+		$sql = "";
+		if (strlen($tmp) > 3)
+			$sql = "SELECT * FROM logged_ins WHERE user_id IN ".$tmp;
+		else 
+			return $friendships;
+
+		$res = $db->fetchAll($sql);
+		$tmp = array();
+		foreach($res as $k => $v) {
+			$tmp[$res[$k]['logged_ins']['user_id']] = $res[$k]['logged_ins']['user_id'];
+		}
+		foreach($friendships as $k => $v) {
+			if (isset($tmp[$v['User']['id']])) {
+				$friendships[$k]['User']['connected'] = true;
+			} else {
+				$friendships[$k]['User']['connected'] = false;
+			}
+		}
+		return $friendships;
+	}
 	
 }

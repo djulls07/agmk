@@ -49,9 +49,10 @@ class TeamprofilesController extends AppController {
 			if ($this->Teamprofile->Team->User->Profile->hasProfile($idUser, 
 					$this->request->data['Teamprofile']['game_id'])) {
 				//on continue
-				//TODO: ajout au roster.
-				return;
-
+				if ($this->Teamprofile->addToRoster($idUser, $this->request->data['Teamprofile']['game_id'], $idTeam)) {
+					$this->Session->setFlash(__('User add to roster'));
+					return $this->redirect(array('controller' => 'teams' ,'action' => 'view', $idTeam));
+				}
 			} else {
 				//Send notif to addProfile and then add toRoster
 				$this->Session->setFlash(__('SHOUD SEND NOTIF TO ADD TO ROSTER CAUSE NO PROFILE FOUND'));
@@ -71,21 +72,45 @@ class TeamprofilesController extends AppController {
 		$this->set('team', $team);
 	}
 
+
+	public function delete($id = null, $idTeam = null) {
+		if ($this->request->is('post')){
+			if ($this->Teamprofile->delete($id)){
+				$this->Session->setFlash(__('Team Profile deleted'));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+			}
+		}
+	}
+
+	public function ejectFromRoster($idTeamProfile, $idUser, $idTeam) {
+		$this->request->onlyAllow('post');
+		if ($this->Teamprofile->ejectFromRoster($idTeamProfile, $idUser)) {
+			$this->Session->setFlash(__('User ejected from roster'));
+			return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+		}
+	}
+
+	public function makeLeaderRoster($idTeamProfile, $idUser, $idTeam) {
+		$this->request->onlyAllow('post');
+		if($this->Teamprofile->makeLeaderRoster($idTeamProfile, $idUser)) {
+			$this->Session->setFlash(__('Roster leader changed'));
+			return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+		}
+	}
+
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('add', 'addToRoster'))) {
+		if (in_array($this->action, array('add', 'addToRoster', 'ejectFromRoster', 'makeLeaderRoster'))) {
 			return true;
+		}
+		if ($this->action === 'delete') {
+			$idTeam = (int) $this->request->params['pass'][1];
+			if ($this->Teamprofile->Team->isLeader($this->Auth->user(), $idTeam)) {
+				return true;
+			}
 		}
 		return parent::isAuthorized($user);
 	}
 
-	public function delete($id = null) {
-		if ($this->request->is('post')){
-			if ($this->Teamprofile->delete($id)){
-				$this->Session->setFlash(__('Team Profile deleted'));
-				return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
-			}
-		}
-	}
 }
 
 ?>

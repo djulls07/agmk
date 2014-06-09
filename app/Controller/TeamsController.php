@@ -54,7 +54,8 @@ class TeamsController extends AppController {
 				$team['Teamprofile'][$k]['roster'] = null;
 				continue;
 			}
-			$sql = "SELECT * FROM users as User LEFT JOIN profiles as Profile ON (User.id=Profile.user_id) WHERE User.id IN ".$sqlPart;
+			$idGame = $team['Teamprofile'][$k]['game_id'];
+			$sql = "SELECT * FROM users as User LEFT JOIN profiles as Profile ON (User.id=Profile.user_id AND Profile.game_id=".$idGame.") WHERE User.id IN ".$sqlPart;
 			$res = $db->fetchAll($sql);
 			$team['Teamprofile'][$k]['roster'] = $res;
 		}
@@ -106,7 +107,7 @@ class TeamsController extends AppController {
     	$db = $this->Team->getDataSource();
     	$sql = "SELECT * FROM teams as Team ".
     		"WHERE Team.id IN ".
-    		"(SELECT team_id FROM teams_users as tu WHERE tu.user_id=".$id.")";
+    		"(SELECT team_id FROM teams_users as tu WHERE tu.actif=1 AND tu.user_id=".$id.")";
     	$teams = $db->fetchAll($sql);
     	$this->set('teams', $teams);
     	//debug($teams);
@@ -133,7 +134,7 @@ class TeamsController extends AppController {
 		if (in_array($this->action, array('index', 'add', 'view', 'activeMember', 'notactiveMember'))) {
 			return true;
 		}
-		if (in_array($this->action, array('delete', 'edit', 'addMember'))) {
+		if (in_array($this->action, array('delete', 'edit', 'addMember', 'eject'))) {
 			$teamId = (int) $this->request->params['pass'][0];
 			if (!$teamId) return false;
 			if ($this->Team->isLeader($user, $teamId)) {
@@ -191,7 +192,25 @@ class TeamsController extends AppController {
 	}
 
 	public function eject($idTeam, $idUser) {
-		
+		if ($this->request->is('post')) {
+			$team = $this->Team->findById($idTeam);
+			if (!$team) {
+				throw new NotFoundException(__('Invalid Team'));
+			}
+			if($team['Team']['leader_id'] == $idUser) {
+				$this->Session->setFlash(__('You should give up leadership before trying to leave your team'));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+			}
+			//parcourir all rosters et le virer
+			if ($this->Team->eject($idTeam, $idUser)) {
+				//eject lancera Teamprofile ejectFromAllRosters
+				$this->Session->setFlash(__('User Eject from team and Team rosters'));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+			} else {
+				$this->Session->setFlash(__('Cant Eject user, try again later or contact admin.'));
+				return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+			}
+		}
 	}
 }
 

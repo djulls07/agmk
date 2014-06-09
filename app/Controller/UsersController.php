@@ -174,7 +174,8 @@ class UsersController extends AppController {
 
 	public function login() {
 	    if ($this->request->is('post')) {
-	        if ($this->Auth->login()) {
+	        if ($this->Auth->login()) {	
+	        	$this->User->writeLoggedIn($this->Auth->user('id'));
 	            return $this->redirect($this->Auth->redirect());
 	        } else {
 	            $this->Session->setFlash(__("Username or password incorrect"));
@@ -187,6 +188,7 @@ class UsersController extends AppController {
 	}
 
 	public function logout() {
+		$this->User->writeNotLoggedIn($this->Auth->user('id'));
 	    return $this->redirect($this->Auth->logout());
 	}
 

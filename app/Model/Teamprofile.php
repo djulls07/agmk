@@ -81,6 +81,96 @@ class Teamprofile extends AppModel {
 		}
 		return $tab;
 	}
+
+	public function ejectFromAllRosters($idTeam, $idUser) {
+		$teamProfiles = $this->find('all', array(
+			'conditions' => array('Teamprofile.team_id' => $idTeam)
+		));
+		foreach($teamProfiles as $k => $v) {
+			$tmp = '';
+			foreach(explode(';', $v['Teamprofile']['roster']) as $id) {
+				if ($id != $idUser) {
+					//on gare lidUser
+					$tmp .= $id.';';
+				}
+			}
+			//sauveProfile
+			$teamProfiles[$k]['Teamprofile']['roster'] = substr($tmp,0,-1);
+			$this->id = $v['Teamprofile']['id'];
+			if (!$this->save($teamProfiles[$k])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public function ejectFromRoster($idTeamProfile, $idUser) {
+		$teamProfile = $this->findById($idTeamProfile);
+		if (!$teamProfile) {
+			throw new NotFoundException(__('Invalid TeamProfile'));
+		}
+		if ($teamProfile['Teamprofile']['roster_leader_id'] == $idUser) {
+			$teamProfile['Teamprofile']['roster_leader_id'] = '';
+		}
+		$tmp = '';
+		foreach(explode(';', $teamProfile['Teamprofile']['roster']) as $id) {
+			if ($id != $idUser) {
+				$tmp .= $id.',';
+			}
+		}
+		$teamProfile['Teamprofile']['roster'] = substr($tmp, 0, -1);
+		$this->id = $idTeamProfile;
+		if ($this->save($teamProfile)) {
+			return true;
+		}
+		return false;
+	}
+
+	public function makeLeaderRoster($idTeamProfile, $idUser) {
+		$teamProfile = $this->findById($idTeamProfile);
+		if (!$teamProfile) {
+			throw new NotFoundException(__('Invalid TeamProfile/Roster'));
+		}
+		$this->id = $teamProfile['Teamprofile']['id'];
+		$b = false;
+		foreach(explode(';', $teamProfile['Teamprofile']['roster']) as $id) {
+			if($id == $idUser) {
+				$b =true;
+				break;
+			}
+		}
+		if($b) {
+			$teamProfile['Teamprofile']['roster_leader_id'] = $idUser;
+			if ($this->save($teamProfile)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function addToRoster($idUser, $idGame, $idTeam) {
+		$teamProfile = $this->find('first', array(
+			'conditions' => array(
+				'game_id' => $idGame,
+				'team_id' => $idTeam
+			)
+		));
+		foreach(explode(';', $teamProfile['Teamprofile']['roster']) as $id) {
+			if($id == $idUser) {
+				return true;
+			}
+		}
+		//id non trouve dans roster, on ajoute.
+		$this->id = $teamProfile['Teamprofile']['id'];
+		if ($teamProfile['Teamprofile']['roster'] != '')
+			$teamProfile['Teamprofile']['roster'] .= ','.$idUser;
+		else
+			$teamProfile['Teamprofile']['roster'] = $idUser;
+		if ($this->save($teamProfile)) {
+			return true;
+		}
+		return false;
+	}
 }
 
 ?>

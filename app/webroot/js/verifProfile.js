@@ -27,7 +27,7 @@ $(document).ready(function() {
         success: function (data) {
           data = $.parseJSON(data);
           if (data.status == 'nok') {
-            sc2Level.val(data.message);
+            alert(data.message);
             return;
           }
           sc2Level.val(data.career.highest1v1Rank);

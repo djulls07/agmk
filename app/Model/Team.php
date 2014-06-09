@@ -77,11 +77,22 @@ class Team extends AppModel {
 
 	public function notActiveMember($idTeam, $idUser) {
 		$db = $this->getDataSource();
-		$sql = "DELETE FROM teams_users WHERE user_id=".$idUser." AND team_id=".$idTeam;
+		$sql = "DELETE FROM teams_users WHERE user_id=".$idUser." AND team_id=".$idTeam . " AND actif=0";
 		$db->query($sql);
 		return true;
 	}
 
+	public function eject($idTeam, $idUser) {
+		//on sait que la team exists
+		//le user on sen fiche
+		if (!$this->Teamprofile->ejectFromAllRosters($idTeam, $idUser)) {
+			return false;
+		}
+		$db = $this->getDataSource();
+		$sql = "DELETE FROM teams_users WHERE user_id=".$idUser." AND team_id=".$idTeam;
+		$db->query($sql);
+		return true;
+	}
 }
 
 ?>
