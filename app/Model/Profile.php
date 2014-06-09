@@ -50,6 +50,14 @@ class Profile extends AppModel {
 		return true;
 	}
 
+	public function getGamesInProfiles($userId) {
+		$profiles= $this->find('list', array(
+			'conditions' => array('Profile.user_id' => $userId),
+			'fields' => array('game_id', 'id')
+		));
+		return $profiles;
+	} 
+
 }
 
 ?>

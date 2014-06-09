@@ -81,7 +81,10 @@ $(document).ready(function() {
       				return;
 	        	});
 	      	},
-	     	error: function() {alert("Cant get your level with the informations you give")},
+	     	error: function() {
+	     		//alert("Cant get your level with the informations you give");
+	     		$( "#loading" ).html('Cant get your level with the informations you give, please try again');
+	     	},
 	    	datatype: 'json'
     	});
 	}

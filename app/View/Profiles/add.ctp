@@ -4,6 +4,7 @@
 <?php echo $this->Form->input('Game'); ?>
 <?php echo $this->Form->input('pseudo'); ?>
 <?php echo $this->Form->input('level', array('readonly' => 'readonly')); ?>
+<?php echo $this->Form->input('region', array('readonly' => 'readonly'));?>
 </fieldset>
 <?php //echo $this->Form->end(__('Submit')); ?>
 <div id="loading"></div>

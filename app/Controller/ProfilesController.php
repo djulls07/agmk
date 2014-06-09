@@ -9,11 +9,6 @@ class ProfilesController extends AppController {
 		$this->Auth->allow('checkSc2');
 	}
 
-	public function isAuthorized($user) {
-		if (in_array($this->action, array('add', 'createFromNotif'))) return true;
-		return parent::isAuthorized($user);
-	}
-
 	public function add() {
 		//$this->loadModel('User');
 		$id = $this->Auth->user('id');
@@ -35,9 +30,17 @@ class ProfilesController extends AppController {
 				return $this->redirect(array('controller' => 'users', 'action' => 'view', $id));
 			}
 		}
+		$gamesInProfiles = $this->Profile->getGamesInProfiles($this->Auth->user('id'));
+		//debug($gamesInProfiles);return;
 		$games = $this->Profile->Game->find('list', array(
 			'fields' => array('Game.id', 'Game.name')
 		));
+		foreach($games as $k =>$v) {
+			if (isset($gamesInProfiles[$k])) {
+				//user already have a profile for this game
+				unset($games[$k]);
+			}
+		}
 		$this->set('games', $games);
 	}
 
@@ -101,6 +104,24 @@ class ProfilesController extends AppController {
 				}
 			}
 		}
+	}
+
+	public function notcreateFromNotif($id_notif = null, $idTeam = null, $idProfileTeam = null) {
+		$this->request->onlyAllow('post');
+		if ($this->Profile->User->Notification->delete($id_notif)) {
+			$this->Session->setFlash(__('Invitation to join Roster has been rejected'));
+			return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+		} else {
+			$this->Session->setFlash(__('Cant refuse, try again later'));
+			return $this->redirect(array('controller' => 'notifications', 'action' => 'index'));
+		}
+	}
+
+	public function isAuthorized($user) {
+		if (in_array($this->action, array('add', 'createFromNotif', 'notcreateFromNotif'))) {
+			return true;
+		}
+		return parent::isAuthorized($user);
 	}
 	
 }

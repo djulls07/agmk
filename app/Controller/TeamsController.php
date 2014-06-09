@@ -160,7 +160,7 @@ class TeamsController extends AppController {
     			//send notifications//TODOODODODODODDODODO
     			$this->Team->User->Notification->addTeamMember($id, $this->Auth->user('username'), $this->request->data['Team']['user_id']);
     			$this->Session->setFlash(__('Invitation sent'));
-    			return $this->redirect(array('action' => 'addMember'));
+    			return $this->redirect(array('action' => 'addMember', $id));
     		} else {
     			$this->Session->setFlash(__($this->request->data['Team']['name'] . ' is already in your Team.'));
     			return $this->redirect(array('action' => 'addMember'));
