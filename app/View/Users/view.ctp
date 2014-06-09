@@ -6,16 +6,43 @@ $specific_user_color="orange";
 	 </div>
 	<div id="espace_gauche_menu">
 		<ul class="liste_style">
-			<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
-			<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('List Posts'), array('controller' => 'posts', 'action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
-			<li><?php echo $this->Html->link(__('List Profiles'), array('controller' => 'profiles', 'action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('New Profile'), array('controller' => 'profiles', 'action' => 'add'));?> </li>
+		
+			<?php if ( AuthComponent::user('id') == $user['User']['id'] ) : ?>
+				<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
+			<?php endif; ?>
+			
+			<li><a href="#Posts">Posts</a></li>
+			<li><a href="#Profiles">Profiles</a></li>
+			
+			<?php if (  $user['User']['role'] == 'author' || $user['User']['role'] == 'admin' ) : ?>
+				<li><a href="#Articles">Articles</a></li>
+			<?php endif;?>
+			
+			<?php if ( AuthComponent::user('id') == $user['User']['id'] && (AuthComponent::user('role') == 'author' || AuthComponent::user('role') == 'admin' )) : ?>
+				<li style="text-align:center;background-color:green">Author actions</li>
+				<li style="text-align:center;border:1px solid green"><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?></li>
+			<?php endif; ?>
+
+			<?php if ( AuthComponent::user('role') == 'admin' ) : ?>
+				<li style="text-align:center;background-color:#9d86b7">Admin actions</li>
+				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
+			<?php if (AuthComponent::user('id') == $user['User']['id'] ) : ?>
+				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
+				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('List Posts'), array('controller' => 'posts', 'action' => 'index')); ?> </li>
+				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
+				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('List Profiles'), array('controller' => 'profiles', 'action' => 'index')); ?> </li>
+				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('New Profile'), array('controller' => 'profiles', 'action' => 'add'));?> </li>
+			<?php endif; endif; ?>
+			
 		</ul>
 	</div>
 </div>
 <div id="espace_droite">
+
+	<a id="Posts" class=""></a>
+	<a id="Profiles" class=""></a>
+	<a id="Articles" class=""></a>
+	
 	<div id="espace_droite_top">
 		<div id="espace_droite_user">
 			<div id="espace_droite_user_flag">
@@ -68,8 +95,8 @@ $specific_user_color="orange";
 			</div>
 		</div>
 	</div>
-	<div id="espace_droite_wall">
-			<div class="related">
+
+		<div class="related" id="idPosts">
 			<h3><?php echo __('Related Posts'); ?></h3>
 			<?php if (!empty($user['Post'])): ?>
 			<table cellpadding = "0" cellspacing = "0">
@@ -110,7 +137,7 @@ $specific_user_color="orange";
 				</ul>
 			</div>
 		</div>
-		<div class="related">
+		<div class="related" id="idProfiles">
 			<h3><?php echo __('Related Profiles'); ?></h3>
 			<?php if (!empty($user['Profile'])): ?>
 			<table cellpadding = "0" cellspacing = "0">
@@ -150,7 +177,7 @@ $specific_user_color="orange";
 			</div>
 		</div>
 
-		<div class="related">
+		<div class="related" id="idArticles">
 			<h3><?php echo __('Related Articles'); ?></h3>
 			<?php if (!empty($user['Article'])): ?>
 			<table cellpadding = "0" cellspacing = "0">
@@ -195,6 +222,6 @@ $specific_user_color="orange";
 				<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
 			</ul>
 		</div>
-	</div>
+	<!--</div>-->
 </div><p/><br>
 
