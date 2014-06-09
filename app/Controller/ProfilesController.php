@@ -10,7 +10,7 @@ class ProfilesController extends AppController {
 	}
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('add'))) return true;
+		if (in_array($this->action, array('add', 'createFromNotif'))) return true;
 		return parent::isAuthorized($user);
 	}
 
@@ -78,6 +78,29 @@ class ProfilesController extends AppController {
 		}
 		$this->Profile->recursive = 1;
 		$this->set('profiles', $this->Profile->find('all'));
+	}
+
+	public function createFromNotif($id_notif = null, $idTeam = null, $idProfileTeam = null) {
+		$teamProfile = $this->Profile->User->Team->Teamprofile->findById($idProfileTeam);
+		$games[$teamProfile['Teamprofile']['game_id']] = $teamProfile['Teamprofile']['game_name'];
+		$this->set('games', $games);
+		$this->set('params', array($id_notif, $idTeam, $idProfileTeam));
+		//debug($games);
+		if ($this->request->is('post')) {
+			if (!empty($this->request->data['Profile']['level'])) {
+				$this->Profile->create();
+				$this->request->data['Profile']['user_id'] = $this->Auth->user('id');
+				$this->request->data['Profile']['game_id'] = $teamProfile['Teamprofile']['game_id'];
+				$this->request->data['Profile']['game_name'] = $teamProfile['Teamprofile']['game_name'];
+				if ($this->Profile->save($this->request->data)) {
+					if($this->Profile->User->Team->Teamprofile->addToRoster($this->Auth->user('id'), $teamProfile['Teamprofile']['game_id'], $idTeam)) {
+						$this->Session->setFlash(__('Profile saved and added to Roster'));
+						$this->Profile->User->Notification->delete($id_notif);
+						return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+					}
+				}
+			}
+		}
 	}
 	
 }

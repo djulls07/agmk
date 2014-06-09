@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	var games = $( "#ProfileGame" );
-	var form = $( "#ProfileAddForm" );
+	var form = $( "#ProfileCreateFromNotifForm" );
 	var game = '';
 	games.append("<option value=\"-1\" selected>None</option>"); 
 	var inputPseudo = $( "#ProfilePseudo" );
@@ -69,15 +69,14 @@ $(document).ready(function() {
 	                  				return;
 	                  			}
 	                		});
-
 	              		});
-	              		inputLevel.val('UNRANKED');
-          				inputPseudo.val(pseudo);
-          				inputRegion.val(region);
-          				alert('You LoL level is: UNRANKED');
-          				form.submit();
-          				return;
 	            	});
+	            	inputLevel.val('UNRANKED');
+      				inputPseudo.val(pseudo);
+      				inputRegion.val(region);
+      				alert('You LoL level is: UNRANKED');
+      				form.submit();
+      				return;
 	        	});
 	      	},
 	     	error: function() {alert("Cant get your level with the informations you give")},

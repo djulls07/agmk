@@ -27,18 +27,45 @@ class Notification extends AppModel {
 		return true;
 	}
 
-	public function addTeamMember($idTeam,$idSrc ,$idDest) {
+	public function addTeamMember($idTeam,$userSrcName ,$idDest) {
 		$user = $this->User->findById($idDest);
 		$team = $this->User->Team->findById($idTeam);
 		$data = array(
 			'user_id' => $idDest,
-			'content' => 'You have beed invited to join '.$team['Team']['name'] . ' By ' .$user['User']['username'],
+			'content' => 'You have beed invited to join '.$team['Team']['name'] . ' By ' .$userSrcName,
 			'controller' => 'teams',
 			'action' => 'activeMember',
 			'param1' => $idTeam,
 			'param2' => $team['Team']['name']
 		);
 		unset($user['User']['password']);
+		$this->create();
+		if (!$this->save($data)) {
+			return false;
+		}
+		$user['User']['notifications']++;
+		if (!$this->User->save($user)) {
+			return false;
+		}
+		return true;
+	}
+
+	public function addToRosterWithoutProfile($idUser, $idTeam, $idGame) {
+		$user = $this->User->findById($idUser);
+		unset($user['User']['password']);
+		$team = $this->User->Team->findById($idTeam);
+		$teamProfile = $this->User->Team->Teamprofile->find('first',array(
+			'conditions' => array('Teamprofile.game_id' => $idGame, 'Teamprofile.team_id' => $idTeam)
+		));
+		$idProfileTeam = $teamProfile['Teamprofile']['id'];
+		$data = array(
+			'user_id' => $idUser,
+			'content' => 'You have beed invited to join roster '.$teamProfile['Teamprofile']['game_name'] . ' Of ' .$team['Team']['name']. ' Team',
+			'controller' => 'profiles',
+			'action' => 'createFromNotif',
+			'param1' => $idTeam,
+			'param2' => $idProfileTeam
+		);
 		$this->create();
 		if (!$this->save($data)) {
 			return false;
