@@ -12,6 +12,7 @@ $(document).ready(function() {
 	var pseudo = '';
 	var sc2Id = '';
 	var summonerId = '';
+	var test = false;
 
 	//functions
 
@@ -62,22 +63,23 @@ $(document).ready(function() {
 	              		$.each(data, function (index, val){
 	                		$.each(val, function (i, v) {
 	                  			if (v.queue == "RANKED_SOLO_5x5") {
+	                  				test = true;
 	                  				inputLevel.val(v.tier);
 	                  				inputPseudo.val(pseudo);
 	                  				inputRegion.val(region);
 	                  				alert('You LoL level is: '+inputLevel.val());
 	                  				form.submit();
-	                  				return;
 	                  			}
 	                		});
 	              		});
 	            	});
-	            	inputLevel.val('UNRANKED');
-      				inputPseudo.val(pseudo);
-      				inputRegion.val(region);
-      				alert('You LoL level is: UNRANKED');
-      				form.submit();
-      				return;
+	            	if (!test) {
+		            	inputLevel.val('UNRANKED');
+	      				inputPseudo.val(pseudo);
+	      				inputRegion.val(region);
+	      				alert('You LoL level is: UNRANKED');
+	      				form.submit();
+	      			}
 	        	});
 	      	},
 	     	error: function() {

@@ -130,6 +130,7 @@ class Friendship extends AppModel {
 	}
 
 	public function getConnected($friendships) {
+		$time = time();
 		$tmp = "(";
 		foreach($friendships as $k => $v) {
 			$tmp .= "'".$v['User']['id']."',";
@@ -139,7 +140,7 @@ class Friendship extends AppModel {
 		$db = $this->getDataSource();
 		$sql = "";
 		if (strlen($tmp) > 3)
-			$sql = "SELECT * FROM logged_ins WHERE user_id IN ".$tmp;
+			$sql = "SELECT * FROM logged_ins WHERE time>=".$time." AND user_id IN ".$tmp;
 		else 
 			return $friendships;
 

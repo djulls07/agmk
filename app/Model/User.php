@@ -225,19 +225,20 @@ class User extends AppModel {
     	return false;
     }
 
-    public function writeLoggedIn($idUser) {
+    /*public function writeLoggedIn($idUser, $ipUser) {
     	$db = $this->getDataSource();
-    	$sql = "DELETE FROM logged_ins WHERE user_id=".$idUser;
+    	$time = time();
+    	$sql = "DELETE FROM logged_ins WHERE user_id=".$idUser." OR time<=".$time;
     	$db->query($sql);
-    	$sql = "INSERT INTO logged_ins (user_id) VALUES ('".$idUser."')";
+    	$sql = "INSERT INTO logged_ins (user_id, user_ip, time) VALUES ('".$idUser."', '".$ipUser."', '".($time+1200)."')";
     	$db->query($sql);
     }
 
-    public function writeNotLoggedIn($idUser) {
+    public function writeNotLoggedIn($idUser, $ipUser) {
     	$db = $this->getDataSource();
     	$sql = "DELETE FROM logged_ins WHERE user_id=".$idUser;
     	$db->query($sql);
-    }
+    }*/
 }
 
 
