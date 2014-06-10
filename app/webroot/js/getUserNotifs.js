@@ -19,8 +19,10 @@ $('document').ready(function() {
                 messagesNotif.html(messages);
                 if (data.User.messages > 0) {
                     home3.addClass('home_barre_boutons_plop');
+					home3.addClass('home_barre_boutons_plop_mail');
                 } else {
                     home3.removeClass('home_barre_boutons_plop');
+					home3.removeClass('home_barre_boutons_plop_mail');
                 }
             }
             if (data.User.notifications != notifications) {
@@ -28,8 +30,10 @@ $('document').ready(function() {
                 notifsNotif.html(notifications);
                 if (data.User.notifications > 0) {
                     home2.addClass('home_barre_boutons_plop');
+					home2.addClass('home_barre_boutons_plop_notif');
                 } else {
                     home2.removeClass('home_barre_boutons_plop');
+					home2.removeClass('home_barre_boutons_plop_notif');
                 }
             }
         });

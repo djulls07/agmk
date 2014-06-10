@@ -34,7 +34,18 @@
 		?>
 		<div class="col_gauche_news">
 
-			<div class="col_gauche_news_image" style="background-image:url('<? print $article['thumb']; ?>')">
+			<?php 
+			$article_image='/img/agamek_logo_crop.png';
+			$style_default="background-position:center center; background-size:contain";
+			if ( isset ($article['thumb']) )
+				if (!empty ($article['thumb']))
+
+						{
+							$article_image	=	$article['thumb'];
+							$style_default="";
+						}
+			?>
+			<div class="col_gauche_news_image" style="background-image:url('<? print $article_image."');".$style_default; ?>">
 				<?php
 					echo $this->Html->link(' ', array(
 						'controller' => 'articles',

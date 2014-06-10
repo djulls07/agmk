@@ -34,7 +34,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop\" style=\"background-image:url('../../img/notification_new.png')\""; else print '"';?>>
+			<div class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/notification_new.png')\""; else print '"';?>>
 				<?php
 					echo $this->Html->link($user['notifications'], array(
 						'controller' => 'notifications',
@@ -43,7 +43,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop\" style=\"background-image:url('../../img/mail_new.png')\""; else print '"';?>>
+			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/mail_new.png')\""; else print '"';?>>
 				<?php
 					echo $this->Html->link('0', array(
 						'controller' => 'messages',

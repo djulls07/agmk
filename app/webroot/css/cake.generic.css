@@ -113,6 +113,7 @@ div.barres_top /* contient les deux barres du haut + la ban*/
 	top:0;
 	width : 100%;
 	z-index:3;
+	min-width	:	1200px;
 }
 
 div.barres_top 	a
@@ -237,6 +238,15 @@ div.home_barre_boutons_plop a
 	animation-iteration-count: infinite;  
 	animation-timing-function: cubic-bezier(1.0,0,0,1.0);
 	animation-duration: 1s; 
+}
+
+div.home_barre_boutons_plop_notif
+{
+	background-image:url('../../img/notification_new.png') !important;
+}
+div.home_barre_boutons_plop_mail
+{
+	background-image:url('../../img/mail_new.png') !important;
 }
 
 div.home_barre_bouton1
@@ -782,7 +792,7 @@ div.col_gauche_mainnews img
 }
 
 .col_gauche_news_text:hover {
-	box-shadow: inset 0px 0px 20px 10px #9d86b7;
+	box-shadow: inset 0px 0px 10px 2px #9d86b7;
 }
 
 /*.col_gauche_news_text:hover::before {
@@ -839,14 +849,16 @@ div.col_gauche_mainnews img
 {
 	position	:	relative;
 	float	:	left;
-	width	:	79%;
+	width	:	78%;
 	padding-left	:	1%;
+	padding-right	:	1%;
 	height	:	100%;
 }
 
 .col_gauche_news_text_title
 {
-	height	:	30%;
+	height	:	28%;
+	top	:	2%;
 	position	:	relative;
 	width	:	100%;
 	font-weight	:	bold;
@@ -859,7 +871,8 @@ div.col_gauche_mainnews img
 }
 .col_gauche_news_text_social
 {
-	height	:	20%;
+	height	:	18%;
+	bottom	:	2%
 	position	:	relative;
 	width	:	100%;
 	text-align	:	right;

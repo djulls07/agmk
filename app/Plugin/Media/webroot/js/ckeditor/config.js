@@ -5,7 +5,7 @@
 
 CKEDITOR.editorConfig = function( config )
 {
-	config.extraPlugins = 'grafikart';
+	config.extraPlugins = 'grafikart,lineutils,widget,oembed,dialog,dialogui,clipboard';
 	// Define changes to default configuration here. For example:
 	config.language = 'fr';
 	// config.uiColor = '#AADC6E';
@@ -25,7 +25,7 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
 		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
 		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-		{ name: 'insert', items: [ 'Grafikart' ] },
+		{ name: 'insert', items: [ 'Grafikart', 'oembed' ] },
 		{ name: 'tools', items: [ 'Maximize' ] },
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source' ] },
 		{ name: 'others', items: [ '-' ] },
