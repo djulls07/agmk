@@ -111,6 +111,13 @@ class DatabaseSession implements CakeSessionHandlerInterface {
 		if (!$id) {
 			return false;
 		}
+		if (AuthComponent::user()) {
+			$user_id = AuthComponent::user('id');
+			$expires = time() + $this->_timeout;
+			$record = compact('id', 'data', 'expires', 'user_id');
+			$record[$this->_model->primaryKey] = $id;
+			return $this->_model->save($record);
+		}
 		$expires = time() + $this->_timeout;
 		$record = compact('id', 'data', 'expires');
 		$record[$this->_model->primaryKey] = $id;

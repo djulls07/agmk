@@ -1,8 +1,12 @@
 <?php
 
+
+
 class Friendship extends AppModel {
 
 	public $hasMany = array('User');
+
+	private $_maxTimeSession = 1200;
 
 	public function canBeAdded($myId, $hisId) {
 		$params = array(
@@ -130,7 +134,7 @@ class Friendship extends AppModel {
 	}
 
 	public function getConnected($friendships) {
-		$time = time();
+		$time = time() - $this->_maxTimeSession;
 		$tmp = "(";
 		foreach($friendships as $k => $v) {
 			$tmp .= "'".$v['User']['id']."',";
@@ -140,14 +144,15 @@ class Friendship extends AppModel {
 		$db = $this->getDataSource();
 		$sql = "";
 		if (strlen($tmp) > 3)
-			$sql = "SELECT * FROM logged_ins WHERE time>=".$time." AND user_id IN ".$tmp;
+			$sql = "SELECT * FROM cake_sessions WHERE user_id IN ".$tmp." AND expires>=".$time;
 		else 
 			return $friendships;
-
 		$res = $db->fetchAll($sql);
 		$tmp = array();
+		$i=0;
 		foreach($res as $k => $v) {
-			$tmp[$res[$k]['logged_ins']['user_id']] = $res[$k]['logged_ins']['user_id'];
+			//$tmp[$res[$k]['logged_ins']['user_id']] = $res[$k]['logged_ins']['user_id'];
+			$tmp[$res[$k]['cake_sessions']['user_id']] = true;
 		}
 		foreach($friendships as $k => $v) {
 			if (isset($tmp[$v['User']['id']])) {
