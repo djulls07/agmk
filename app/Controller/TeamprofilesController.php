@@ -55,7 +55,13 @@ class TeamprofilesController extends AppController {
 				}
 			} else {
 				//Send notif to addProfile and then add toRoster
-				$this->Session->setFlash(__('SHOUD SEND NOTIF TO ADD TO ROSTER CAUSE NO PROFILE FOUND'));
+				if ($this->Teamprofile->Team->User->Notification->addToRosterWithoutProfile($idUser, $idTeam, $this->request->data['Teamprofile']['game_id'])) {
+					$this->Session->setFlash(__('This user has not register any profiles for this game, a notification has been sent to complete profile and join Roster'));
+					return $this->redirect(array('controller' => 'teams' ,'action' => 'view', $idTeam));
+				} else {
+					$this->Session->setFlash(__('Error while adding mate to Roster contact admin'));
+					return $this->redirect(array('controller' => 'teams' ,'action' => 'view', $idTeam));
+				}
 			}
 		}
 		$this->set('user', $this->Teamprofile->Team->User->findById($idUser));

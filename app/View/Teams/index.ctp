@@ -2,7 +2,7 @@
 <nav>
 	<?php echo $this->Html->link('Create NEW TEAM', array('action' => 'add')); ?> |
 </nav>
-<hr>
+
 <br />
 <div id="myteams">
 	<h3>My Teams</h3>

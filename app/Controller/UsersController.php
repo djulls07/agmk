@@ -125,12 +125,15 @@ class UsersController extends AppController {
 				if ($this->request->data['User']['avatar1'] == '') {
                 	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], substr($this->request->data['User']['avatar'],1))) {
 						$this->Session->setFlash(__('The user has been saved.'));
+						$this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
 						return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 					} else {
+						$this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
 						$this->Session->setFlash(__('User saved, but error happened with file upload'));
 					}
 				} else {
 					$this->Session->setFlash(__('The user has been saved.'));
+					$this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
 					return $this->redirect(array('action' => 'view', $this->Auth->user('id')));
 				}
 			} else {
@@ -175,7 +178,6 @@ class UsersController extends AppController {
 	public function login() {
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {	
-	        	$this->User->writeLoggedIn($this->Auth->user('id'));
 	            return $this->redirect($this->Auth->redirect());
 	        } else {
 	            $this->Session->setFlash(__("Username or password incorrect"));
@@ -188,7 +190,6 @@ class UsersController extends AppController {
 	}
 
 	public function logout() {
-		$this->User->writeNotLoggedIn($this->Auth->user('id'));
 	    return $this->redirect($this->Auth->logout());
 	}
 

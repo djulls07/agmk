@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	var games = $( "#ProfileGame" );
-	var form = $( "#ProfileAddForm" );
+	var form = $( "#ProfileCreateFromNotifForm" );
 	var game = '';
 	games.append("<option value=\"-1\" selected>None</option>"); 
 	var inputPseudo = $( "#ProfilePseudo" );
@@ -50,7 +50,7 @@ $(document).ready(function() {
 
 	function majLol(pseudo, region) {
 		inputLevel.val('Loading data');
-		$( "#loading" ).html('LOADING...LOADING...LOADING...')
+		$( "#loading" ).html('LOADING...LOADING...LOADING...');
 	    $.ajax({
 	     	url: "https://prod.api.pvp.net/api/lol/"+region+"/v1.4/summoner/by-name/"+pseudo+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1",
 	     	type: 'GET',
@@ -71,16 +71,15 @@ $(document).ready(function() {
 	                  				form.submit();
 	                  			}
 	                		});
-
 	              		});
 	            	});
 	            	if (!test) {
-	            		inputLevel.val('UNRANKED');
+		            	inputLevel.val('UNRANKED');
 	      				inputPseudo.val(pseudo);
 	      				inputRegion.val(region);
 	      				alert('You LoL level is: UNRANKED');
 	      				form.submit();
-	            	}
+	      			}
 	        	});
 	      	},
 	     	error: function() {

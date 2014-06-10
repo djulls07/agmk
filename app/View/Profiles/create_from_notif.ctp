@@ -1,4 +1,4 @@
-<?php echo $this->Form->create('Profile'); ?>
+<?php echo $this->Form->create('Profile', array('action' => 'createFromNotif/'.$params[0].'/'.$params[1].'/'.$params[2], 'id' => 'ProfileCreateFromNotifForm')); ?>
 <fieldset>
 <legend><?php echo __('Add Game profile'); ?></legend>
 <?php echo $this->Form->input('Game'); ?>
@@ -8,4 +8,5 @@
 </fieldset>
 <?php //echo $this->Form->end(__('Submit')); ?>
 <div id="loading"></div>
-<?php echo $this->Html->script('addProfile'); ?>
+
+<?php echo $this->Html->script('createProfileFromNotif'); ?>

@@ -103,7 +103,7 @@ class FriendshipsController extends AppController {
 						array('Friendship.actif' => 1)
 					)
 				),
-				'fields' => array('User1.id', 'User1.username', 'User2.id', 'User2.username', 'Friendship.id', 'Friendship.user_id', 'Friendship.friend_id','Friendship.actif')
+				'fields' => array('User1.id', 'User1.avatar' , 'User1.username', 'User2.id','User2.avatar' , 'User2.username', 'Friendship.id', 'Friendship.user_id', 'Friendship.friend_id','Friendship.actif')
 			);
 			$this->Paginator->settings = $params;
 			$friendships = $this->Paginator->paginate();
