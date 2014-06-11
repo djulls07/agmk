@@ -18,7 +18,7 @@
 
 <?php 
 $action = 'index';
-if (isset ( $back ) 
+if (isset ( $back ) )
 	echo $this->Html->link('Back', array('controller'=>'users','action' => 'view', $back));
 else
 	echo $this->Html->link('Back', array('action' => 'index'));

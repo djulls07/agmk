@@ -72,6 +72,7 @@ $games_stats = array(
 	</div>
 </div>
 <div id="espace_droite">
+	<?php echo $this->Session->flash(); ?>
 	<a id="Posts" class=""></a>
 	<a id="Profiles" class=""></a>
 	<a id="Articles" class=""></a>
@@ -147,7 +148,7 @@ $games_stats = array(
 		</div>
 		
 	</div>
-		<?php echo $this->Session->flash(); ?>
+
 		<div class="related" id="idPosts">
 			<h3><?php echo __('Related Posts'); ?></h3>
 			<?php if (!empty($user['Post'])): ?>
@@ -268,12 +269,9 @@ $games_stats = array(
 		<?php endif; ?>
 		</div>
 		
+		
+	<?php echo $this->fetch('content');  ?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
 	<!--</div>-->
 </div><p/><br>
 
