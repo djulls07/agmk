@@ -169,8 +169,15 @@ class MessagesController extends AppController {
 
 	public function ecrire() {
 		if ($this->request->is('get')) {
-
-		} else if ($this->request->is('post')) {
+			if ( isset ($this->request->query['To']) ) {
+				$user_dest=$this->Message->User->findById($this->request->query['To']);
+				if (!$user_dest) {
+					$this->Session->setFlash(__('Invalid user'));
+				}
+				else $this->set('user_dest', $user_dest);
+			}
+		} 
+		else if ($this->request->is('post')) {
 			$this->request->data['Message']['src_id'] = $this->Auth->user('id');
 			$this->request->data['Message']['src_username'] = $this->Auth->user('username');
 

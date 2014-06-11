@@ -16,4 +16,10 @@
 
 <?php echo $this->Form->end(__('Add Friend')); ?>
 
-<?php echo $this->Html->link('Back', array('action' => 'index')); ?>
+<?php 
+$action = 'index';
+if (isset ( $back ) 
+	echo $this->Html->link('Back', array('controller'=>'users','action' => 'view', $back));
+else
+	echo $this->Html->link('Back', array('action' => 'index'));
+?>

@@ -915,6 +915,12 @@ div.col_droite
 	margin-top	:	0%;
 	margin-bottom	:	1%;
 	text-align	:	center;
+	
+	background-image	:	url('../img/barre_titre.png');
+	background-repeat	:	repeat-x;
+	background-size	:	auto 100%;
+	
+	border-radius: 5px;
 }
 
 .col_droite_info
@@ -1103,8 +1109,8 @@ div.col_droite
 
 #espace_gauche_menu
 {
-	width	:	100%;
-	height	:	75%;
+	width		:	100%;
+	height		:	75%;
 	margin-top	:	5%;
 	/*border	:	2px	solid	black;*/
 	box-sizing:border-box;
@@ -1113,44 +1119,55 @@ div.col_droite
 	-ms-box-sizing: border-box;
 }
 
+#espace_gauche_menu	a
+{
+	display	:	inline-block;
+	height	:	100%;
+	width	:	100%;
+}
+
 #espace_droite
 {
-	float	:	left;
-	width	:	73%;
+	float			:	left;
+	width			:	73%;
 	margin-right	:	2%;
-	padding-top	:	2%;
+	padding-top		:	2%;
 }
 
 #espace_droite_top
 {
-	height	:250px; /* TODO: à fixer/virer Taille du conteneur du pseudo + stats */
+	height		:	250px; /* hauteur à fixer */
+	line-height	:	250px;
 }
 
 #espace_droite_user
 {
 	position	:	relative;
-	width	:	100%;
-	height	:	10%;
+	width		:	100%;
+	height		:	10%;
+	line-height	:	10%;
 	text-align	:	center;
 }
 
 #espace_droite_user_flag
 {
-	float	:	left;
-	width	:	5%;
-	height	:	100%;
+	float		:	left;
+	width		:	5%;
+	height		:	100%;
+	line-height	:	10%;
 }
 
 #espace_droite_user_flag img
 {
 	width	:	100%;
 	height	:	auto;
+	max-height	:	100%;
 }
 
 #espace_droite_user_pseudo
 {
-	margin	:	0 auto;
-	height	:	100%;
+	margin			:	0 auto;
+	height			:	100%;
 	padding-left	:	1%;
 }
 
@@ -1168,93 +1185,145 @@ div.col_droite
 
 #espace_droite_stats
 {
-	width	:	100%;
-	height	:	75%;
-	margin-top	:	2%;
+	width			:	100%;
+	height			:	75%;
+	margin-top		:	2%;
 	margin-bottom	:	3%;
-}
-
-#espace_droite_stats_bloc1
-{
-	float	:	left;
-	margin-left	:	0.5%;
-	width	:	33%;
-	height	:	100%;
-	border	:	1px solid black;
 	border-right	:	0;
-	box-sizing:border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-}
-
-#espace_droite_stats_bloc2
-{
-	float	:	left;
-	width	:	33%;
-	height	:	100%;
+	text-align		:	center;
 	border	:	1px solid black;
-	border-right	:	0;
-	box-sizing:border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
 }
+	
+	#espace_droite_stats img
+	{
+		vertical-align	:	middle;
+	}
 
-#espace_droite_stats_bloc3
-{
-	float	:	left;
-	width	:	33%;
-	height	:	100%;
-	border	:	1px solid black;
-	box-sizing:border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-}
+	.espace_droite_stats_fleche
+	{
+		float	:	left;
+		height	:	100%;
+		line-height	:	1150%;
+		width	:	5%;
+	}
+	
+	.espace_droite_stats_fleche a
+	{
+		display	:	block;
+		height	:	100%;
+		width	:	100%;
+	}
+	
+	.espace_droite_stats_blocs
+	{
+		border-top	:	1px solid black;
+		border-bottom	:	1px solid black;
+	}
 
-#espace_droite_stats_bloc_logogame
-{
-	height	:	40%;
-	width	:	100%;
-	text-align	:	center;
-}
+	.espace_droite_stats_bloc
+	{
+		border-radius: 0 15px 15px 0;
+		float	:	left;
+		width	:	30%;
+		height	:	100%;
+		border-right	:	1px solid black;
+		border-left	:	1px solid black;
+		box-sizing:border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+	}
+	.espace_droite_stats_bloc ~ .espace_droite_stats_bloc
+	{
+		border-left	:	0;
+	}
 
-#espace_droite_stats_bloc_ranks
-{
-	height	:	40%;
-	width	:	100%;
-	border-top	:	1px solid black;
-	border-bottom	:	1px solid black;
-}
+	.espace_droite_stats_bloc_logogame
+	{
+		height	:	40%;
+		line-height	:	400%;
+		width	:	100%;
+		text-align	:	center;
+	}
+	
+	.espace_droite_stats_bloc_logogame	img
+	{
+		width	:	32px;
+		height	:	32px;
+	}
 
-#espace_droite_stats_bloc_rank1
-{
-	float	:	left;
-	border-right	:	1px solid black;
-	height	:	100%;
-	width	:	40%;
-}
+	.espace_droite_stats_bloc_ranks
+	{
+		height	:	40%;
+		line-height	:	400%;
+		width	:	100%;
+		border-top	:	1px solid black;
+		border-bottom	:	1px solid black;
+	}
 
-#espace_droite_stats_bloc_rank2
-{
-	float	:	left;
-	height	:	100%;
-	overflow	:	hidden;
-}
+	.espace_droite_stats_bloc_rank
+	{
+		border-right	:	1px solid black;
+		height	:	100%;
+		width	:	50%;
+		display	:	inline-block;
+		float:left;
+		box-sizing:border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+	}
+	
+	.espace_droite_stats_bloc_rank ~	.espace_droite_stats_bloc_rank
+	{
+		border:0;
+	}
 
-#espace_droite_stats_bloc_morestats
-{
-	height	:	20%;
-	width	:	100%;
-}
-
-#espace_droite_stats_bloc_morestats a
-{
-	display	:	inline-block;
-	height	:	100%;
-	width	:	100%;
-}
+	.espace_droite_stats_bloc_morestats
+	{
+		height	:	20%;
+		width	:	100%;
+		line-height	:	200%;
+	}
+	
+	.espace_droite_stats_bloc_morestats a
+	{
+		display	:	inline-block;
+		height	:	100%;
+		width	:	100%;
+	}
+	
+	a.button{
+		/*background: #ECECEC;*/
+		border-radius: 0 15px 15px 0;
+		/*padding: 10px 20px;*/
+		display: block;
+		font-family: arial;
+		font-weight: bold;
+		color:#7f7f7f;
+		/*text-decoration: none;
+		text-shadow:0px 1px 0px #fff;
+		border:1px solid #a7a7a7;*/
+		width: 100%;
+		height	:	100%;
+		margin:0px auto;
+		/*margin-top:50px;*/
+		line-height	:	1150%;
+		/*box-shadow: 0px 2px 1px white inset, 0px -2px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);*/
+		-webkit-transition:all 0.5s;
+		transition:all 0.5s;
+	}
+	a.button i{
+		float: right;
+		margin-top: 2px;
+	}
+	a.button:hover{
+		box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+	}
+	a.button:active{
+		box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
+		background:-webkit-linear-gradient(top, #d1d1d1 0%,#ECECEC 100%);
+	}
 
 /** espace membre droite wall */
 #espace_droite a.ancre{
@@ -1997,11 +2066,13 @@ ul.liste_style {
 }
 ul.liste_style li {
 		position: relative;
-		padding: 16px;
 		background: #eee;
 		color: #252525;
 		font-size: 18px;
 		z-index: 2;
+		height	:	60px;
+		line-height	:	60px;
+		text-align	:	center;
 	}
 ul.liste_style li:nth-child(odd) {
 		background: #fff;

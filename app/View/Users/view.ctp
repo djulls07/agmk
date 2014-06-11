@@ -1,5 +1,23 @@
 <?php
 $specific_user_color="orange";
+$games_stats = array(
+		array(
+		'game_id'	=>	'4',
+		'rank1'	=>	'80',
+		'rank2'	=>	'700000'
+	),
+		array(
+		'game_id'	=>	'3',
+		'rank1'	=>	'80000',
+		'rank2'	=>	'80'
+	),
+		array(
+		'game_id'	=>	'0',
+		'rank1'	=>	'80000',
+		'rank2'	=>	'80'
+	)
+);
+/* TODO: vérifier que les id_game correspondent bien à dex  jeux */
 ?>
 <div id="espace_gauche"><?php echo $this->Session->flash(); ?>
 	<div id="espace_gauche_avatar" style="background-color:<?php print $specific_user_color;?>; background-image:url('<?php print $user['User']['avatar'];?>')">
@@ -9,7 +27,23 @@ $specific_user_color="orange";
 		
 			<?php if ( AuthComponent::user('id') == $user['User']['id'] ) : ?>
 				<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
-			<?php endif; ?>
+			<?php else :
+				echo '<li>';
+					if ( ! $are_friends ) {
+					
+						echo $this->Form->create('Friendship',array('id'	=>	'FriendshipAddForm', 'url' => array('controller' => 'friendships', 'action' => 'add?url=friendships%2Fadd&back='.$user['User']['id']))) ;
+						echo $this->Form->input('username', array(
+							'type' => 'hidden', 
+							'value'	=>	''.$user['User']['username'].''
+						));
+						echo $this->Form->input('user_id', array('type' => 'hidden', 'class' => 'inputAdd'));
+						echo $this->Form->end(__('Add Friend'));
+					}else
+						echo 'Delete Friendship';
+				echo '</li><li>'.
+						$this->Html->link(__('Message'), array('controller'	=>	'messages',	'action' => 'ecrire?To='.$user['User']['id']))
+					 .'</li>';
+			endif; ?>
 			
 			<li><a href="#Posts">Posts</a></li>
 			<li><a href="#Profiles">Profiles</a></li>
@@ -20,18 +54,18 @@ $specific_user_color="orange";
 			
 			<?php if ( AuthComponent::user('id') == $user['User']['id'] && (AuthComponent::user('role') == 'author' || AuthComponent::user('role') == 'admin' )) : ?>
 				<li style="text-align:center;background-color:green">Author actions</li>
-				<li style="text-align:center;border:1px solid green"><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?></li>
+				<li style="text-align:center;border:2px solid green"><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?></li>
 			<?php endif; ?>
 
 			<?php if ( AuthComponent::user('role') == 'admin' ) : ?>
 				<li style="text-align:center;background-color:#9d86b7">Admin actions</li>
-				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
 			<?php if (AuthComponent::user('id') == $user['User']['id'] ) : ?>
-				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
-				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('List Posts'), array('controller' => 'posts', 'action' => 'index')); ?> </li>
-				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
-				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('List Profiles'), array('controller' => 'profiles', 'action' => 'index')); ?> </li>
-				<li style="text-align:center;border:1px solid #9d86b7"><?php echo $this->Html->link(__('New Profile'), array('controller' => 'profiles', 'action' => 'add'));?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('List Posts'), array('controller' => 'posts', 'action' => 'index')); ?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('List Profiles'), array('controller' => 'profiles', 'action' => 'index')); ?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('New Profile'), array('controller' => 'profiles', 'action' => 'add'));?> </li>
 			<?php endif; endif; ?>
 			
 		</ul>
@@ -46,7 +80,7 @@ $specific_user_color="orange";
 	<div id="espace_droite_top">
 		<div id="espace_droite_user">
 			<div id="espace_droite_user_flag">
-				<img src="images/flag_fr.png">
+				<img src="/img/flag_fr.png">
 			</div>
 			<div id="espace_droite_user_team" class="vertical_center_div">
 				<a href=""><?php echo __(h($user['User']['username']))."team";?></a>
@@ -57,43 +91,62 @@ $specific_user_color="orange";
 			</div>
 		</div>
 		<div id="espace_droite_stats">
-			<div id="espace_droite_stats_bloc1">
-				<div id="espace_droite_stats_bloc_logogame" class="vertical_center_div">LogoGame
+			<div class="espace_droite_stats_fleche">
+				<a href="#stats-">&#9664;</a>
+			</div>
+				<?php foreach ( $games_stats as $game_stat ) : ?>
+				<div class="espace_droite_stats_bloc">
+					<?php if ($game_stat['game_id']) : ?>
+						<div class="espace_droite_stats_bloc_logogame">
+							<?php 	$logogame	=	"/img/icons/icon".$game_stat['game_id'].".png";
+									if (! file_exists("../webroot".$logogame)) $logogame	=	'/img/agamek_logo_crop.png';
+									print "<img src=\"".$logogame."\">";
+							?>
+						</div>
+						<div class="espace_droite_stats_bloc_ranks">
+							<div class="espace_droite_stats_bloc_rank">Level <?php print $game_stat['rank1']; ?>
+							</div>
+							<div class="espace_droite_stats_bloc_rank">Level <?php print $game_stat['rank2']; ?>
+							</div>
+						</div>
+						<div class="espace_droite_stats_bloc_morestats"><a href="">More stats</a>
+						</div>
+						<?php else : ?>
+							<a href="#" class="button">Add Game</a>
+						<?php endif; ?>
 				</div>
-				<div id="espace_droite_stats_bloc_ranks">
-					<div id="espace_droite_stats_bloc_rank1" class="vertical_center_div">rank1
+				<? endforeach; ?>
+			<!--
+			<div class="espace_droite_stats_bloc">
+				<div class="espace_droite_stats_bloc_logogame" class="vertical_center_div">LogoGame
+				</div>
+				<div class="espace_droite_stats_bloc_ranks">
+					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank1
 					</div>
-					<div id="espace_droite_stats_bloc_rank2" class="vertical_center_div">rank2
+					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank2
 					</div>
 				</div>
-				<div id="espace_droite_stats_bloc_morestats" class="vertical_center_div"><a href="">More stats</a>
+				<div class="espace_droite_stats_bloc_morestats" class="vertical_center_div"><a href="">More stats</a>
 				</div>
 			</div>
-			<div id="espace_droite_stats_bloc2">
-				<div id="espace_droite_stats_bloc_logogame" class="vertical_center_div">LogoGame
+			
+			<div class="espace_droite_stats_bloc">
+				<div class="espace_droite_stats_bloc_logogame" class="vertical_center_div">LogoGame
 				</div>
-				<div id="espace_droite_stats_bloc_ranks">
-					<div id="espace_droite_stats_bloc_rank1" class="vertical_center_div">rank1
+				<div class="espace_droite_stats_bloc_ranks">
+					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank1
 					</div>
-					<div id="espace_droite_stats_bloc_rank2" class="vertical_center_div">rank2
-					</div>
-				</div>
-				<div id="espace_droite_stats_bloc_morestats" class="vertical_center_div"><a href="">More stats</a>
-				</div>
-			</div>
-			<div id="espace_droite_stats_bloc3">
-				<div id="espace_droite_stats_bloc_logogame" class="vertical_center_div">LogoGame
-				</div>
-				<div id="espace_droite_stats_bloc_ranks">
-					<div id="espace_droite_stats_bloc_rank1" class="vertical_center_div">rank1
-					</div>
-					<div id="espace_droite_stats_bloc_rank2" class="vertical_center_div">rank2
+					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank2
 					</div>
 				</div>
-				<div id="espace_droite_stats_bloc_morestats" class="vertical_center_div"><a href="">More stats</a>
+				<div class="espace_droite_stats_bloc_morestats" class="vertical_center_div"><a href="">More stats</a>
 				</div>
+			</div>-->
+			<div class="espace_droite_stats_fleche">
+				<a href="#stats-">&#9654;</a>
 			</div>
 		</div>
+		
 	</div>
 
 		<div class="related" id="idPosts">
@@ -176,7 +229,6 @@ $specific_user_color="orange";
 				</ul>
 			</div>
 		</div>
-
 		<div class="related" id="idArticles">
 			<h3><?php echo __('Related Articles'); ?></h3>
 			<?php if (!empty($user['Article'])): ?>
@@ -209,19 +261,21 @@ $specific_user_color="orange";
 			</table>
 		<?php endif; ?>
 		<?php if (in_array(AuthComponent::user('role'), array('admin', 'author'))) : ?>
-		<div class="actions">
-				<ul>
-					<li><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?> </li>
-				</ul>
+			<div class="actions">
+					<ul>
+						<li><?php echo $this->Html->link(__('New Article'), array('controller' => 'articles', 'action' => 'add')); ?> </li>
+					</ul>
 			</div>
-		</div>
 		<?php endif; ?>
+		</div>
+		
 
 		<div class="actions">
 			<ul>
 				<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
 			</ul>
 		</div>
+
 	<!--</div>-->
 </div><p/><br>
 

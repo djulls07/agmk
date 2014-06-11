@@ -57,6 +57,10 @@ class UsersController extends AppController {
 		$options = array(
 			'conditions' => array('User.' . $this->User->primaryKey => $id));
 		$this->set('user', $this->User->find('first', $options));
+		
+		$this->set('are_friends', false);
+		if ($this->User->Friendship->areActiveFriends(AuthComponent::user('id'), $id ))
+			$this->set('are_friends', true);
 	}
 
 	public function admin_view($id = null) {

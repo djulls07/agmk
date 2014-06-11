@@ -9,6 +9,10 @@ class FriendshipsController extends AppController {
 	}
 
 	public function add() {
+		if ( isset ($this->request->query['back']) ) {
+				$this->set('back', $this->request->query['back']);
+			}
+			
 		if ($this->request->is('post')) {
 			$username = $this->request->data['Friendship']['username'];
 			$user = $this->Friendship->User->find('first', array('conditions' => array('User.username' => $username)));
