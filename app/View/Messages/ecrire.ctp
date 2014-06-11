@@ -1,9 +1,15 @@
 <?php echo $this->Form->create('Message'); ?>
 <?php if (isset ($user_dest) )
-		echo $this->Form->input('dest_username', array('value'	=>	''.$user_dest['User']['username'].'', 'autocomplete' => 'off', 'id' => 'MessageTo', 'label' => 'To'));
+		{
+			echo $this->Form->input('dest_id', array('type' => 'hidden', 'value'	=>	$user_dest['User']['id'], 'id' => 'dest_id'));
+			echo $this->Form->input('dest_username', array('type'	=>	'hidden', 'value'	=>	''.$user_dest['User']['username'].'', 'autocomplete' => 'off', 'id' => 'MessageTo', 'label' => 'To'));
+		}
 	  else
-		echo $this->Form->input('dest_username', array('autocomplete' => 'off', 'id' => 'MessageTo', 'label' => 'To')); ?>
-<?php echo $this->Form->input('dest_id', array('type' => 'hidden', 'id' => 'dest_id')); ?>
+		{
+			echo $this->Form->input('dest_username', array('autocomplete' => 'off', 'id' => 'MessageTo', 'label' => 'To'));
+			echo $this->Form->input('dest_id', array('type' => 'hidden', 'id' => 'dest_id'));
+		}
+		?>
 <div id="results">
 </div>
 

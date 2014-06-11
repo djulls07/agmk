@@ -31,7 +31,10 @@ class FriendshipsController extends AppController {
 				if ($this->Friendship->save($this->request->data)) {
 					if ($this->Friendship->User->Notification->addFriend($this->Auth->user(), array(0=>$user['User']['id']))) {
 						$this->Session->setFlash(__('Friend request sent'));
-						return $this->redirect(array('controller' => 'friendships'));
+						if ( isset ($this->request->query['back']) )
+							return $this->redirect(array('controller' => 'friendships', '?' => array('back'	=>	$user['User']['id'])));
+						else
+							return $this->redirect(array('controller' => 'friendships'));
 					}
 					$this->Session->setFlash(__('Cant send "add friend" request'));
 				}
