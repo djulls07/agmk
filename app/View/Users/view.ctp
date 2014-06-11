@@ -17,6 +17,7 @@ $games_stats = array(
 		'rank2'	=>	'80'
 	)
 );
+
 /* TODO: vérifier que les id_game correspondent bien à dex  jeux */
 ?>
 <div id="espace_gauche">
@@ -28,7 +29,7 @@ $games_stats = array(
 			<?php if ( AuthComponent::user('id') == $user['User']['id'] ) : ?>
 				<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
 			<?php else :
-				echo '<li>';
+				echo '<li> <div class="icone_user">';
 					if ( ! $are_friends ) {
 					
 						echo $this->Form->create('Friendship',array('id'	=>	'FriendshipAddForm', 'url' => array('controller' => 'friendships', 'action' => 'add?url=friendships%2Fadd&back='.$user['User']['id']))) ;
@@ -37,12 +38,16 @@ $games_stats = array(
 							'value'	=>	''.$user['User']['username'].''
 						));
 						echo $this->Form->input('user_id', array('type' => 'hidden', 'class' => 'inputAdd'));
-						echo $this->Form->end(__('Add Friend'));
+						echo $this->Form->submit('', array('type'=>'image','src' => '/img/add_friend.png')); 
+						echo $this->Form->end();
 					}else
 						echo 'Delete Friendship';
-				echo '</li><li>'.
+						echo "</div><div class='icone_user'>";
+						echo $this->Html->image("/img/mail.png", array ( 'url' => array('controller' => 'messages','action'=> 'ecrire?To='.$user['User']['id'])));
+						echo"</div>";
+				/*echo '</li><li>'.
 						$this->Html->link(__('Message'), array('controller'	=>	'messages',	'action' => 'ecrire?To='.$user['User']['id']))
-					 .'</li>';
+					 .'</li>';*/
 			endif; ?>
 			
 			<li><a href="#Posts">Posts</a></li>
@@ -274,6 +279,6 @@ $games_stats = array(
 			<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
-	<!--</div>-->
+
 </div><p/><br>
 
