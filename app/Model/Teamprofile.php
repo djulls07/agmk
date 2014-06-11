@@ -40,6 +40,31 @@ class Teamprofile extends AppModel {
 		return $results;
 	}
 
+	public function getRosterToManage($id) {
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM teamprofiles as Teamprofile WHERE Teamprofile.id=".$id;
+		$teamProfile = $db->fetchAll($sql);
+		$teamProfile['Teamprofile'] = $teamProfile[0]['Teamprofile'];
+		unset($teamProfile[0]);
+		$teamProfile['Teamprofile']['roster'] = explode(',', $teamProfile['Teamprofile']['roster']);
+		$sql = "SELECT * FROM teams_users as Tu LEFT JOIN users as User ON (Tu.user_id=User.id) WHERE Tu.actif=1 AND Tu.team_id=".$teamProfile['Teamprofile']['team_id'];
+		$teamProfile['Users'] = $db->fetchAll($sql);
+		foreach($teamProfile['Users'] as $k => $v) {
+			$teamProfile['Users'][$teamProfile['Users'][$k]['User']['id']] = $teamProfile['Users'][$k]['User'];
+			unset($teamProfile['Users'][$k]);
+		}
+		foreach($teamProfile['Teamprofile']['roster'] as $k => $v) {
+			$teamProfile['Teamprofile']['roster'][$v] = $v;
+			unset($teamProfile['Teamprofile']['roster'][$k]);
+		}
+		foreach($teamProfile['Users'] as $k => $user) {
+			if (!isset($teamProfile['Teamprofile']['roster'][$k])) {
+				$teamProfile['Teamprofile']['notRoster'][$k] = $k;
+			}
+		}
+		return $teamProfile;
+	}
+
 	public function deleteProfiles($idTeam) {
 		$db = $this->getDataSource();
 		$sql = "DELETE FROM teamprofiles WHERE team_id=".$idTeam;
@@ -167,6 +192,18 @@ class Teamprofile extends AppModel {
 		else
 			$teamProfile['Teamprofile']['roster'] = $idUser;
 		if ($this->save($teamProfile)) {
+			return true;
+		}
+		return false;
+	}
+
+	public function canManage($idRoster, $idUser) {
+		$roster = $this->findById($idRoster);
+		if ($idUser == $roster['Teamprofile']['roster_leader_id']) {
+			return true;
+		}
+		$team = $this->Team->findById($roster['Teamprofile']['team_id']);
+		if ($team['Team']['leader_id'] == $idUser) {
 			return true;
 		}
 		return false;

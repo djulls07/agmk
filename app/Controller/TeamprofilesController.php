@@ -104,9 +104,27 @@ class TeamprofilesController extends AppController {
 		}
 	}
 
+	public function manage($idTeamProfile = null) {
+		if (!$idTeamProfile) {
+			throw new NotFoundException(__('Invalid Roster'));
+		}
+		$this->Teamprofile->recursive = 1;
+		$teamProfile = $this->Teamprofile->getRosterToManage($idTeamProfile);
+		$this->set('teamProfile', $teamProfile);
+		debug($teamProfile);
+	}
+
 	public function isAuthorized($user) {
 		if (in_array($this->action, array('add', 'addToRoster', 'ejectFromRoster', 'makeLeaderRoster'))) {
 			return true;
+		}
+		if ($this->action === 'manage') {
+			if (!isset($this->request->params['pass'])) return false;
+			$idRoster = (int) $this->request->params['pass'][0];
+			if($this->Teamprofile->canManage($idRoster, $this->Auth->user('id'))) {
+				return true;
+			}
+			return false;
 		}
 		if ($this->action === 'delete') {
 			$idTeam = (int) $this->request->params['pass'][1];
