@@ -55,7 +55,8 @@ class TeamsController extends AppController {
 				continue;
 			}
 			$idGame = $team['Teamprofile'][$k]['game_id'];
-			$sql = "SELECT * FROM users as User LEFT JOIN profiles as Profile ON (User.id=Profile.user_id AND Profile.game_id=".$idGame.") WHERE User.id IN ".$sqlPart;
+			$sql = "SELECT * FROM users as User LEFT JOIN profiles as Profile ON ".
+				"(User.id=Profile.user_id AND Profile.game_id=".$idGame.") WHERE User.id IN ".$sqlPart;
 			$res = $db->fetchAll($sql);
 			$team['Teamprofile'][$k]['roster'] = $res;
 		}

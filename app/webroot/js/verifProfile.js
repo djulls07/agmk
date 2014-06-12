@@ -5,6 +5,12 @@ $(document).ready(function() {
   var sc2Region = $ ( "#Profile"+id+"Region" );
   var sc2Level = $( "#Profile"+id+"Level" );
 
+  var lolId = 2;
+  var lolPseudo = $( "#Profile"+lolId+"Pseudo" );
+  var lolLevel = $(  "#Profile"+lolId+"Level" );
+  var lolRegion = $( "#Profile"+lolId+"Region" );
+  var summonerId = -1;
+
   sc2Pseudo.change(function() {
       majSc2();
   });
@@ -39,11 +45,7 @@ $(document).ready(function() {
   }
 
 
-	var lolId = 2;
-  var lolPseudo = $( "#Profile"+lolId+"Pseudo" );
-  var lolLevel = $(  "#Profile"+lolId+"Level" );
-  var lolRegion = $( "#Profile"+lolId+"Region" );
-  var summonerId = -1;
+	
 
   lolPseudo.change(function() {
     majLol();
@@ -76,14 +78,6 @@ $(document).ready(function() {
       },
        datatype: 'json'
     });
-
-
-    /*$.get( "https://prod.api.pvp.net/api/lol/"+lolRegion.val()+"/v1.4/summoner/by-name/"+lolPseudo.val()+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1", function( data ) {
-      $.each(data, function(index, val) {
-        //on prend que le first.
-        summonerId = val.id;
-      });      
-    });*/
   }	
 
 });
