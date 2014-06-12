@@ -239,7 +239,25 @@ class User extends AppModel {
     	$sql = "DELETE FROM logged_ins WHERE user_id=".$idUser;
     	$db->query($sql);
     }*/
+
+
+	public function getFavGames($user) {
+		$games = $this->Profile->Game->find('list', array(
+			'conditions' => array(
+				'OR' => array(
+					array('Game.id' => $user['idgame1']),
+					array('Game.id' => $user['idgame2']),
+					array('Game.id' => $user['idgame3'])
+				)
+			),
+			'fields' => array('Game.id', 'Game.name')
+		));
+		return $games;
+	}
+
 }
+
+
 
 
 ?>

@@ -184,7 +184,8 @@ class UsersController extends AppController {
 
 	public function login() {
 	    if ($this->request->is('post')) {
-	        if ($this->Auth->login()) {	
+	        if ($this->Auth->login()) {
+	        	$this->Session->write('Auth.User.Games', $this->User->getFavGames($this->Auth->user()));
 	            return $this->redirect($this->Auth->redirect());
 	        } else {
 	            $this->Session->setFlash(__("Username or password incorrect"));
@@ -280,5 +281,6 @@ class UsersController extends AppController {
     		}
     	}
     }
+
 }
 ?>
