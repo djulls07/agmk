@@ -112,7 +112,7 @@ class Friendship extends AppModel {
 		);
 		$friendship = $this->find('first', $params);
 		if (!$friendship) {
-			return false;
+			return true;
 		}
 		$id = $friendship['Friendship']['id'];
 		if ($this->delete($id))
@@ -134,7 +134,7 @@ class Friendship extends AppModel {
 	}
 
 	public function getConnected($friendships) {
-		$time = time() - $this->_maxTimeSession;
+		$time = time() - $this->_maxTimeSession + (1200*60);
 		$tmp = "(";
 		foreach($friendships as $k => $v) {
 			$tmp .= "'".$v['User']['id']."',";

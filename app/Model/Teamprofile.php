@@ -47,10 +47,14 @@ class Teamprofile extends AppModel {
 		$teamProfile['Teamprofile'] = $teamProfile[0]['Teamprofile'];
 		unset($teamProfile[0]);
 		$teamProfile['Teamprofile']['roster'] = explode(',', $teamProfile['Teamprofile']['roster']);
-		$sql = "SELECT * FROM teams_users as Tu LEFT JOIN users as User ON (Tu.user_id=User.id) WHERE Tu.actif=1 AND Tu.team_id=".$teamProfile['Teamprofile']['team_id'];
+		$sql = "SELECT * FROM teams_users as Tu LEFT JOIN users as User ON ".
+			"(Tu.user_id=User.id) LEFT JOIN profiles as Profile ON ".
+			"(Profile.user_id=User.id AND Profile.game_id=".$teamProfile['Teamprofile']['game_id'].
+			") WHERE Tu.actif=1 AND Tu.team_id=".$teamProfile['Teamprofile']['team_id'];
 		$teamProfile['Users'] = $db->fetchAll($sql);
 		foreach($teamProfile['Users'] as $k => $v) {
-			$teamProfile['Users'][$teamProfile['Users'][$k]['User']['id']] = $teamProfile['Users'][$k]['User'];
+			$teamProfile['Users'][$teamProfile['Users'][$k]['User']['id']]['Profile'] = $teamProfile['Users'][$k]['Profile'];
+			$teamProfile['Users'][$teamProfile['Users'][$k]['User']['id']]['User'] = $teamProfile['Users'][$k]['User'];
 			unset($teamProfile['Users'][$k]);
 		}
 		foreach($teamProfile['Teamprofile']['roster'] as $k => $v) {
@@ -62,6 +66,10 @@ class Teamprofile extends AppModel {
 				$teamProfile['Teamprofile']['notRoster'][$k] = $k;
 			}
 		}
+		$sql = "SELECT * FROM teams as Team WHERE Team.id=".$teamProfile['Teamprofile']['team_id'];
+		$team = $db->fetchAll($sql);
+		$teamProfile['Teamprofile']['Team'] = $team[0]['Team'];
+		unset($team);
 		return $teamProfile;
 	}
 

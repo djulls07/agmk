@@ -44,7 +44,8 @@
 				);
 				echo ' | ';
 			}?> 
-			<?php if (AuthComponent::user('id') == $teamProfile['roster_leader_id']) {
+			<?php if (AuthComponent::user('id') == $teamProfile['roster_leader_id'] ||
+					AuthComponent::user('id') == $team['Team']['leader_id']) {
 				echo $this->Html->link('Manage Roster', array(
 					'controller' => 'teamprofiles',
 					'action' => 'manage',

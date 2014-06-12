@@ -218,7 +218,7 @@ Configure::write('Routing.prefixes', array('admin'));
 	Configure::write('Session', array(
 		'defaults' => 'database',
 		'cookie' => 'agmk_app',
-		'timeout' => 20,
+		'timeout' => 1200,
 		'handler' => array(
 			'model' => 'cake_session'
     	)

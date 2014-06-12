@@ -13,6 +13,21 @@ echo $this->Form->create('User', array(
 		echo $this->Form->input('avatar1');
 		echo $this->Form->file('User.avatar2');
 		//echo $this->Form->input('role');
+		echo $this->Form->input('Game', 
+			array('label' => 'Game 1',
+			'name' => 'data[User][idgame1]',
+			'selected' => $this->request->data['User']['idgame1']
+		));
+		echo $this->Form->input('Game', 
+			array('label' => 'Game 2' ,
+			'name'=> 'data[User][idgame2]',
+			'selected' => $this->request->data['User']['idgame2']
+		));
+		echo $this->Form->input('Game', 
+			array('label' => 'Game' ,
+				'name'=> 'data[User][idgame3]',
+				'selected' => $this->request->data['User']['idgame3']
+		));
 	?>
 		<div class="input select">
 			<label for="UsernewsParPage">News par page</label>

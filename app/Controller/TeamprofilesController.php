@@ -36,6 +36,36 @@ class TeamprofilesController extends AppController {
 		}
 	}
 
+	public function addToRosterById($idUser = null, $idTeamProfile = null) {
+		if ($idUser == null || $idTeamProfile == null) {
+			throw new NotFoundException(__('Invalid User or Roster'));
+		}
+		$teamProfile = $this->Teamprofile->findById($idTeamProfile);
+		if (!$teamProfile) {
+			throw new NotFoundException(__('Invalid Roster'));
+		}
+		if ($this->request->is('post')) {
+			if ($this->Teamprofile->Team->User->Profile->hasProfile($idUser, 
+					$teamProfile['Teamprofile']['game_id'])) {
+				//on continue
+				if ($this->Teamprofile->addToRoster($idUser, $teamProfile['Teamprofile']['game_id'], 
+					$teamProfile['Teamprofile']['team_id'])) {
+						$this->Session->setFlash(__('User add to roster'));
+						return $this->redirect(array('controller' => 'teamprofiles' ,'action' => 'manage', $teamProfile['Teamprofile']['id']));
+				}
+			} else {
+				//Send notif to addProfile and then add toRoster
+				if ($this->Teamprofile->Team->User->Notification->addToRosterWithoutProfile($idUser, $teamProfile['Teamprofile']['team_id'], $teamProfile['Teamprofile']['game_id'])) {
+					$this->Session->setFlash(__('This user has not register any profiles for this game, a notification has been sent to complete profile and join Roster'));
+					return $this->redirect(array('controller' => 'teamprofiles' ,'action' => 'manage', $teamProfile['Teamprofile']['id']));
+				} else {
+					$this->Session->setFlash(__('Error while adding mate to Roster contact admin'));
+					return $this->redirect(array('controller' => 'teamprofiles' ,'action' => 'manage', $teamProfile['Teamprofile']['id']));
+				}
+			}
+		}
+	}
+
 	public function addToRoster($idUser, $idTeam) {
 		if (!$idUser || !$idTeam) {
 			throw new NotFoundException('Invalid team or User');
@@ -92,7 +122,7 @@ class TeamprofilesController extends AppController {
 		$this->request->onlyAllow('post');
 		if ($this->Teamprofile->ejectFromRoster($idTeamProfile, $idUser)) {
 			$this->Session->setFlash(__('User ejected from roster'));
-			return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+			return $this->redirect(array('controller' => 'teamprofiles', 'action' => 'manage', $idTeamProfile));
 		}
 	}
 
@@ -111,11 +141,11 @@ class TeamprofilesController extends AppController {
 		$this->Teamprofile->recursive = 1;
 		$teamProfile = $this->Teamprofile->getRosterToManage($idTeamProfile);
 		$this->set('teamProfile', $teamProfile);
-		debug($teamProfile);
+		//debug($teamProfile);
 	}
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('add', 'addToRoster', 'ejectFromRoster', 'makeLeaderRoster'))) {
+		if (in_array($this->action, array('add', 'addToRoster', 'addToRosterById', 'ejectFromRoster', 'makeLeaderRoster'))) {
 			return true;
 		}
 		if ($this->action === 'manage') {

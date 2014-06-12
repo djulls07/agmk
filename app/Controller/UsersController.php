@@ -118,15 +118,17 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->request->data['User']['avatar1'] != '') {
+			if (empty($this->request->data['User']['avatar2']['name']) && $this->request->data['User']['avatar1'] == '') {
+				unset($this->request->data['User']['avatar']);
+			} else if ($this->request->data['User']['avatar1'] != '') {
             		$this->request->data['User']['avatar'] = $this->request->data['User']['avatar1'];
-	            } else {
-	            	//dans avatar2 on recoit l'upload, a gerer.
-	            	$this->request->data['User']['avatar'] = '/img/uploads/'.$this->Auth->user('id').'/'.$this->request->data['User']['avatar2']['name'];
-	            	$dir = new Folder('img/uploads/'.$this->Auth->user('id'), true, 0755);	            		
-	            }
+	        } else {
+            	//dans avatar2 on recoit l'upload, a gerer.
+            	$this->request->data['User']['avatar'] = '/img/uploads/'.$this->Auth->user('id').'/'.$this->request->data['User']['avatar2']['name'];
+            	$dir = new Folder('img/uploads/'.$this->Auth->user('id'), true, 0755);	            		
+            }
 			if ($this->User->save($this->request->data)) {
-				if ($this->request->data['User']['avatar1'] == '') {
+				if (!empty($this->request->data['User']['avatar2']['name'])) {
                 	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], substr($this->request->data['User']['avatar'],1))) {
 						$this->Session->setFlash(__('The user has been saved.'));
 						$this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
@@ -148,6 +150,7 @@ class UsersController extends AppController {
 			$this->request->data = $this->User->findById($id);
 			unset($this->request->data['User']['password']);
 		}
+		$this->set('games', $this->User->Profile->Game->find('list', array('fields' => array('Game.id', 'Game.name'))));
 	}
 
 /**
