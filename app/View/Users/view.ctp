@@ -38,12 +38,12 @@ $games_stats = array(
 							'value'	=>	''.$user['User']['username'].''
 						));
 						echo $this->Form->input('user_id', array('type' => 'hidden', 'class' => 'inputAdd'));
-						echo $this->Form->submit('', array('type'=>'image','src' => '/img/add_friend.png')); 
+						echo $this->Form->submit('', array('type'=>'image','title'=>'Add Friend','src' => '/img/add_friend.png')); 
 						echo $this->Form->end();
 					}else
 						echo 'Delete Friendship';
 						echo "</div><div class='icone_user'>";
-						echo $this->Html->image("/img/mail.png", array ( 'url' => array('controller' => 'messages','action'=> 'ecrire?To='.$user['User']['id'])));
+						echo $this->Html->image("/img/mail.png", array ( 'title'	=>	"Message",	'url' => array('controller' => 'messages','action'=> 'ecrire?To='.$user['User']['id'])));
 						echo"</div>";
 				/*echo '</li><li>'.
 						$this->Html->link(__('Message'), array('controller'	=>	'messages',	'action' => 'ecrire?To='.$user['User']['id']))

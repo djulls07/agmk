@@ -432,7 +432,7 @@ div.banniere_image
 	position	:	relative;
 	width	:	50%;
 	height	:	100%;
-	background-image	:	url('../img/agamek_logo_metal.png');
+	background-image	:	url('../img/agamek_logo_final.png');
 	background-size:auto 100%;
 	background-repeat	:	no-repeat;
 	background-position: center center;
@@ -911,16 +911,24 @@ div.col_droite
 
 .col_titre
 {
-	background-color	:	#9d86b7;
+	background-color	:	#d6c2ff;
 	margin-top	:	0%;
 	margin-bottom	:	1%;
 	text-align	:	center;
 	
-	background-image	:	url('../img/barre_titre.png');
+	/*background-image	:	url('../img/barre_titre.png');
 	background-repeat	:	repeat-x;
-	background-size	:	auto 100%;
+	background-size	:	auto 100%;*/
 	
-	border-radius: 5px;
+	/*border-radius: 5px;*/
+	
+	box-shadow	: inset 0 0 10px  #747474;
+	
+	border	:	1px solid gray;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
 }
 
 .col_droite_info
