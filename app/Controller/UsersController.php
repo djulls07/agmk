@@ -117,6 +117,7 @@ class UsersController extends AppController {
 		if (!$id || !$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
+		$games = $this->User->Profile->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
 		if ($this->request->is(array('post', 'put'))) {
 			if (empty($this->request->data['User']['avatar2']['name']) && $this->request->data['User']['avatar1'] == '') {
 				unset($this->request->data['User']['avatar']);
@@ -127,6 +128,9 @@ class UsersController extends AppController {
             	$this->request->data['User']['avatar'] = '/img/uploads/'.$this->Auth->user('id').'/'.
             		$this->request->data['User']['avatar2']['name'];
             	$dir = new Folder('img/uploads/'.$this->Auth->user('id'), true, 0755);	            		
+            }
+            for ($i=1; $i<4; $i++) {
+            	$this->request->data['User']['namegame'.$i] = $games[$this->request->data['User']['idgame'.$i]];
             }
 			if ($this->User->save($this->request->data)) {
 				if (!empty($this->request->data['User']['avatar2']['name'])) {
@@ -152,7 +156,7 @@ class UsersController extends AppController {
 			$this->request->data = $this->User->findById($id);
 			unset($this->request->data['User']['password']);
 		}
-		$this->set('games', $this->User->Profile->Game->find('list', array('fields' => array('Game.id', 'Game.name'))));
+		$this->set('games', $games);
 	}
 
 /**
@@ -187,7 +191,6 @@ class UsersController extends AppController {
 	public function login() {
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
-	        	$this->Session->write('Auth.User.Games', $this->User->getFavGames($this->Auth->user()));
 	            return $this->redirect($this->Auth->redirect());
 	        } else {
 	            $this->Session->setFlash(__("Username or password incorrect"));

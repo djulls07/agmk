@@ -96,7 +96,6 @@ class DatabaseSession implements CakeSessionHandlerInterface {
 		if (empty($row[$this->_model->alias]['data'])) {
 			return false;
 		}
-
 		return $row[$this->_model->alias]['data'];
 	}
 
