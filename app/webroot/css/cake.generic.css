@@ -1389,6 +1389,91 @@ a#Profiles:target ~ #idProfiles
 		display	:	none;
 	}
 
+/* Edit User */
+.users_edit form {
+	background: rgba(108, 91, 126, 1);/*#9cbc2c;*/
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	width: 100%;
+	margin-top:0%;
+	margin-bottom:1%;
+}
+.users_edit form fieldset {
+	border: none;
+	margin-bottom: 10px;
+}
+.users_edit form fieldset:last-of-type {
+	margin-bottom: 0;
+}
+
+.users_edit form legend {
+	color: rgba(157, 134, 183, 1);/*#384313;*/
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom: 10px;
+	text-shadow: 0 1px 1px black;/*rgba(157, 134, 183, 0.5);/*#c0d576;*/
+}
+.users_edit form ol li {
+	background: #9d86b7;/*#b9cf6a;*/
+	background: rgba(255,255,255,.3);
+	border-color: #e3ebc3;
+	border-color: rgba(255,255,255,.6);
+	border-style: solid;
+	border-width: 2px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	line-height: 30px;
+	list-style: none;
+	padding: 5px 10px;
+	margin-bottom: 2px;
+}
+.users_edit form ol ol li {
+	background: none;
+	border: none;
+	float: left;
+}
+.users_edit input[type="range"] {
+    position: relative;
+    margin-left: 1em;
+}
+.users_edit input[type="range"]:after,
+.users_edit input[type="range"]:before {
+    position: absolute;
+    top: 1em;
+    color: #aaa;
+}
+.users_edit input[type="range"]:before {
+    left:0em;
+    content: attr(min);
+}
+.users_edit input[type="range"]:after {
+    right: 0em;
+    content: attr(max);
+}
+.users_edit form button {
+	background: #9d86b7;/*#384313;*/
+	border: none;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	border-radius: 20px;
+	color: #ffffff;
+	display: block;
+	font: 18px Georgia, "Times New Roman", Times, serif;
+	letter-spacing: 1px;
+	margin: auto;
+	padding: 7px 25px;
+	text-shadow: 0 1px 1px #000000;
+	text-transform: uppercase;
+}
+.users_edit form button:hover {
+	background: #1e2506;
+	cursor: pointer;
+}
+/******/
+	
 
 /** Layout **/
 #container {
