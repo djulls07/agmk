@@ -1390,14 +1390,26 @@ a#Profiles:target ~ #idProfiles
 	}
 
 /* Edit User */
+.user_edit_title
+{
+width	:	10%;
+float:left;
+}
+.user_edit
+{
+	width	:	60%;
+	float	:	left;
+}
 .users_edit form {
 	background: rgba(108, 91, 126, 1);/*#9cbc2c;*/
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	width: 100%;
-	margin-top:0%;
+	margin	:	auto;
+	margin-top:1%;
 	margin-bottom:1%;
+	float:left;
 }
 .users_edit form fieldset {
 	border: none;
@@ -1471,6 +1483,20 @@ a#Profiles:target ~ #idProfiles
 .users_edit form button:hover {
 	background: #1e2506;
 	cursor: pointer;
+}
+.rotate {
+    margin: 0;
+    padding: 0;
+    -webkit-transform-origin: 0 0;
+       -moz-transform-origin: 0 0;
+        -ms-transform-origin: 0 0;
+         -o-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transform: rotate(90deg);
+       -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+         -o-transform: rotate(90deg);
+            transform: rotate(90deg);
 }
 /******/
 	

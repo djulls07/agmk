@@ -1,5 +1,6 @@
 <?php
-	$categories = array (
+
+	/*$categories = array (
 		"8"	=> array(
 					"name"	=>	"MOBA",
 					"games"	=>	array()
@@ -25,7 +26,11 @@
 					"games"	=>	array()
 				),
 	);
+	$games = $this->requestAction(array('controller'=>'games', 'action' => 'listgames'));
+		foreach ($games as $game) :
+			array_push($categories[$game['Game']['category']]['games'],$game);
 
+		endforeach;*/
 ?>
 
 <div class="barre_jeux" id="barre_jeux">
@@ -60,19 +65,7 @@
 	}
 	else
 	{
-		$games = $this->requestAction(array('controller'=>'games', 'action' => 'listgames'));
-		foreach ($games as $game) :
-			array_push($categories[$game['Game']['category']]['games'],$game);
-			/*echo "<span class='barre_jeux_element' id='barre_jeux_".$game['Game']['id']."'>";
-			echo $this->Html->link($game['Game']['name'], array(
-							'controller' => 'articles',
-							'action' => 'index',
-							$game['Game']['id']
-							)
-						);
-			echo '</span>';*/
-		endforeach;
-		
+		$categories	=	CategoriesComponent::getGamesInCategories();
 		echo "<nav class=\"home_barre_mines\"><ul>";
 		$unepremiereborder = "class=\"home_barre_mines_first\"";
 		foreach($categories as $category)
@@ -99,21 +92,18 @@
 		echo $this->Html->link('Coaching', array(
 			'controller' => 'articles',
 			'action' => 'index',
-			$game['Game']['id']
 			)
 		);
 		echo"</li><li>";
 		echo $this->Html->link('Forum', array(
 			'controller' => 'articles',
 			'action' => 'index',
-			$game['Game']['id']
 			)
 		);
 		echo"</li><li>";
 		echo $this->Html->link('Store', array(
 			'controller' => 'articles',
 			'action' => 'index',
-			$game['Game']['id']
 			)
 		);
 		echo "</li></ul></nav>";

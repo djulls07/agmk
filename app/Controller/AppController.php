@@ -46,6 +46,7 @@ class AppController extends Controller {
             ),
             'authError' => 'You should be register to access this page',
         ),
+		'Categories',
         'RequestHandler'
     );
 

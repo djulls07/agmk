@@ -1,10 +1,12 @@
+<div class="rotate user_edit_title">
+	EDIT USER
+</div>
 <div class="users_edit">
 <?php 
 $user=AuthComponent::user();
 echo $this->Form->create('User', array(
     'enctype' => 'multipart/form-data'
 ));?>
-<h3>Edit User</h3>
 	<?php 
 		echo '<fieldset><ol>';
 		echo '<legend>Informations personnelles</legend>';

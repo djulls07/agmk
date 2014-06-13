@@ -17,14 +17,17 @@ if( false) {
 //{
 ?>
  <STYLE type="text/css">
+		<?php if ( file_exists('../webroot/img/backgrounds/'.$game['Game']['image_gauche'].'.png' )) { ?>
 		div.contentgauche
 		{
 			background-image:url('/img/backgrounds/<?php print $game['Game']['image_gauche']; ?>.png');
 		}
+		<?php } if ( file_exists('../webroot/img/backgrounds/'.$game['Game']['image_gauche'].'.png' )) { ?>
 		div.contentdroite
 		{
 			background-image:url('/img/backgrounds/<?php print $game['Game']['image_droite']; ?>.png');
 		}
+		<?php } ?>
 		div.menu a
 		{
 			background	:	#<?php echo $game['Game']['a_background']; ?>;

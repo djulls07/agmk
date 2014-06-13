@@ -71,6 +71,8 @@ $games_stats = array(
 				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
 				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('List Profiles'), array('controller' => 'profiles', 'action' => 'index')); ?> </li>
 				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('New Profile'), array('controller' => 'profiles', 'action' => 'add'));?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('List Games'), array('controller' => 'games', 'action' => 'index'));?> </li>
+				<li style="text-align:center;border:2px solid #9d86b7"><?php echo $this->Html->link(__('New Game'), array('controller' => 'games', 'action' => 'add'));?> </li>
 			<?php endif; endif; ?>
 			
 		</ul>
@@ -279,6 +281,7 @@ $games_stats = array(
 			<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
+
 
 </div><p/><br>
 
