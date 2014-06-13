@@ -42,7 +42,6 @@ class AppController extends Controller {
             'authenticate' => array(
                 'Form' => array(
                     'fields' => array('username' => 'username'),
-
                 )
             ),
             'authError' => 'You should be register to access this page',

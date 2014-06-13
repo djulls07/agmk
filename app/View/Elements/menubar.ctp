@@ -77,17 +77,33 @@ $specific_user_GMT=2;
 			<li>
 				<a href=""> MyGames <span style="vertical-align	:	bottom">&#9660;</span></a>
 				<ul>
-					<?php foreach($user['Games'] as $k => $name) : ?>
-						<li>
-							<?php
-								echo $this->Html->link($name, array(
-									'controller' => 'articles',
-									'action' => 'index',
-									$k
-								));
-							?>
-						</li>
-					<?php endforeach; ?>
+					<li>
+						<?php
+							echo $this->Html->link($user['namegame1'], array(
+								'controller' => 'articles',
+								'action' => 'index',
+								$user['idgame1']
+							));
+						?>
+					</li>
+					<li>
+						<?php
+							echo $this->Html->link($user['namegame2'], array(
+								'controller' => 'articles',
+								'action' => 'index',
+								$user['idgame2']
+							));
+						?>
+					</li>
+					<li>
+						<?php
+							echo $this->Html->link($user['namegame3'], array(
+								'controller' => 'articles',
+								'action' => 'index',
+								$user['idgame3']
+							));
+						?>
+					</li>
 				</ul>
 				<?php
 					/*echo $this->Html->link('LogOut', array(
