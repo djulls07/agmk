@@ -47,7 +47,7 @@ class ArticlesController extends AppController {
                 'order' => 'Article.modified DESC',
                 'recursive' => 1,
                 'limit' => 100,
-                'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id', 'Thumb.file'),
+                'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id, Article.type', 'Thumb.file'),
                 'contain' => array('Thumb'),
                 'conditions' => array('Article.published' => 1)
             );
@@ -82,6 +82,18 @@ class ArticlesController extends AppController {
 		
 		$Acomment=$this->Article->Acomment->find('all',array('order' => array('Acomment.article_id'), 'fields' => array('id', 'article_id')));
 		$this->set('Acomment', $Acomment);
+		
+		$articles_a_la_une = array();
+		$articles_main_news = array();
+		foreach ($articles as $article_tmp){
+			if ( $article_tmp['Article']['type'] == 1 ||  $article_tmp['Article']['type'] == 3)
+				array_push($articles_main_news,$article_tmp);
+			if ( $article_tmp['Article']['type'] >= 2 )
+				array_push($articles_a_la_une,$article_tmp);
+		}
+		$this->set('articles_a_la_une', $articles_a_la_une);
+		$this->set('articles_main_news', $articles_main_news);
+		/* article.type = 0 :  normal ; article.type = 1 : main_news ; article.type = 2 : colonne droite ; article.type = 3 : main + droite*/
     }
 
     public function delete($id = null) {
@@ -140,6 +152,10 @@ class ArticlesController extends AppController {
             unset($game['Game']['Link']);
             $this->set('game', $game);
             //debug($article);
+			
+			$articles_a_la_une = $this->Article->find('all', array('recursive' => 0,'conditions' => array('Article.type' => '2', 'Article.type' => '3')));			
+			$this->set('articles_a_la_une', $articles_a_la_une);
+			/* article.type = 0 :  normal ; article.type = 1 : main_news ; article.type = 2 : colonne droite ; article.type = 3 : main + droite*/
         }
     }
 

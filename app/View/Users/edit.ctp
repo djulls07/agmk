@@ -1,7 +1,10 @@
-<div class="rotate user_edit_title">
-	EDIT USER
-</div>
 <div class="users_edit">
+<div class="users_edit_title">
+	<div class="rotate">
+	<h1 style="font-size:300%">EDIT USER</h1>
+	</div>
+</div>
+<div class="users_edit_form">
 <?php 
 $user=AuthComponent::user();
 echo $this->Form->create('User', array(
@@ -81,3 +84,4 @@ echo $this->Form->create('User', array(
 				} */?>
 			</select>
 		</div>-->
+</div>

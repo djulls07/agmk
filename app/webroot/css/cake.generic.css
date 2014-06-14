@@ -1,5 +1,10 @@
 /*TODO : responsive design (% des font-size, virer les fixed et ptet les images sur les cotés, )
-TODO : w3c + css3 all navigateurs (moz webkit etc sur box shadow etc) */
+TODO : w3c + css3 all navigateurs (moz webkit etc sur box shadow etc) 
+
+Html5shiv 
+Modernizr
+
+TODO : html5 element : article/section/aside ... http://www.alsacreations.com/article/lire/1376-html5-section-article-nav-header-footer-aside.html http://hakim.se/experiments/css3-3d-slideshow*/
 
 @charset "utf-8";
 
@@ -75,7 +80,7 @@ h1, h2, h3, h4 {
     margin-bottom:0.5em;
 }
 h1 {
-    color: black;
+    color: #9d86b7;
     font-size: 160%;
     padding:5px;
 }
@@ -623,7 +628,7 @@ div.col_gauche
 div.col_gauche_mainnews
 {
 	width		:	100%;
-	height	:	200px; /* hauteur à définir */
+	height	:	250px; /* hauteur à définir */
 }
 div.col_gauche_mainnews img
 {
@@ -904,7 +909,7 @@ div.col_droite
 .col_droite_tv
 {
 	width	:	100%;
-	height	:	200px; /* hauteur à définir */
+	height	:	250px; /* hauteur à définir */
 	text-align	:	center;
 	line-height	:	200px;
 }
@@ -934,7 +939,7 @@ div.col_droite
 .col_droite_info
 {
 	width	:	100%;
-	font-weight	:	bold;
+	/*font-weight	:	bold;*/
 }
 
 #article_gameinfo
@@ -1094,13 +1099,54 @@ div.col_droite
 	width	:	100%;
 }
 
+/* Streams */
+#streams ul
+{
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	list-style: none;
+}
+#streams li
+{
+	position: relative;
+	/*background: black;*/
+	height	:	40px;
+	line-height	:	40px;
+	text-align	:	center;
+	margin-top	:	2px;
+	margin-bottom	:	2px;
+	border	:	1px solid #d6c2ff;
+	padding	:	2px;
+}
+#streams a
+{
+	display	:	block;
+	width	:	100%;
+	height	:	100%;
+	color	:	black;
+}
+#streams a:hover
+{
+	color	:	#9d86b7;
+}
+.streams_program
+{
+	float:left;
+}
+.streams_horaires
+{
+	float:right;
+}
+/* */
+
 
 /* ESPACE MEMBRE */
 #espace_gauche
 {
 	float	:	left;
 	width	:	15%;
-	height	:	1000px;
 	margin-left	:	5%;
 	margin-right	:	5%;
 	padding-top	:	5%;
@@ -1390,18 +1436,42 @@ a#Profiles:target ~ #idProfiles
 	}
 
 /* Edit User */
-.user_edit_title
+.users_edit
 {
-width	:	10%;
-float:left;
+	width	:	80%;
+	margin	:	0 auto;
 }
-.user_edit
+.users_edit_title
 {
-	width	:	60%;
+	width	:	10%;
+	float:left;
+	height	:	100%;
+	min-height	:	600px;
+}
+.rotate {
+    margin: 0;
+    padding: 0;
+	min-width	:	600px;
+	text-align	:	right;
+	float:right;
+    -webkit-transform-origin: right	60%	0px;
+       -moz-transform-origin:	right	60%	0px;
+        -ms-transform-origin: right	60%	0px;
+         -o-transform-origin: right	60%	0px;
+            transform-origin: right	60%	0px;
+    -webkit-transform: rotate(-90deg);
+       -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+         -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+}
+.users_edit_form
+{
+	width	:	80%;
 	float	:	left;
 }
 .users_edit form {
-	background: rgba(108, 91, 126, 1);/*#9cbc2c;*/
+	background: #9d86b7;/*rgba(108, 91, 126, 1);/*rgba(108, 91, 126, 1);/*#9cbc2c;*/
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
@@ -1420,11 +1490,11 @@ float:left;
 }
 
 .users_edit form legend {
-	color: rgba(157, 134, 183, 1);/*#384313;*/
+	color: rgba(108, 91, 126, 1);/*rgba(157, 134, 183, 1);/*#384313;*/
 	font-size: 16px;
 	font-weight: bold;
 	padding-bottom: 10px;
-	text-shadow: 0 1px 1px black;/*rgba(157, 134, 183, 0.5);/*#c0d576;*/
+	text-shadow: 1px 1px 10px white;/*rgba(157, 134, 183, 0.5);/*#c0d576;*/
 }
 .users_edit form ol li {
 	background: #9d86b7;/*#b9cf6a;*/
@@ -1465,7 +1535,7 @@ float:left;
     content: attr(max);
 }
 .users_edit form button {
-	background: #9d86b7;/*#384313;*/
+	background: rgba(108, 91, 126, 1);/*#384313;*/
 	border: none;
 	-moz-border-radius: 20px;
 	-webkit-border-radius: 20px;
@@ -1483,20 +1553,6 @@ float:left;
 .users_edit form button:hover {
 	background: #1e2506;
 	cursor: pointer;
-}
-.rotate {
-    margin: 0;
-    padding: 0;
-    -webkit-transform-origin: 0 0;
-       -moz-transform-origin: 0 0;
-        -ms-transform-origin: 0 0;
-         -o-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: rotate(90deg);
-       -moz-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-         -o-transform: rotate(90deg);
-            transform: rotate(90deg);
 }
 /******/
 	
@@ -1543,7 +1599,13 @@ float:left;
 	border-top	:	10px	solid	#9d86b7;
 	border-bottom	:	10px	solid	#9d86b7;
 	margin-bottom	:	0;
+	top	:	50px;
 	bottom	:	0;
+}
+#footer img {
+float	:	left;
+width	:	50px;
+height	:	auto;
 }
 #header a, #footer a {
 

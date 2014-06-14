@@ -60,45 +60,88 @@ if( false) {
 		<?php echo $this->fetch('content');  ?>
 	</div>
 	<div class="col_droite">
+	<!--- STREAMS --->
 		<div class="col_droite_tv">
 			<iframe width="100%" height="100%" src="//www.youtube.com/embed/0iiNPtM9bKs?autoplay=0&version=3" frameborder="0" allowfullscreen></iframe>
 
 		</div>
 		<div class="col_titre">
-			TITRE
+			STREAMS
 		</div>
-		<div class="col_droite_info">
-			Info1
-		</div>
-				<div class="col_titre">
-			TITRE
-		</div>
-		<div class="col_droite_info">
-			Info1
+			<div class="col_droite_info" id="streams">
+				<ul>
+					<li><a href=""><span class="streams_program">Emission1</span><span class="streams_horaires">20h-21h</span></a></li>
+					<li><a href=""><span class="streams_program">Emission2</span><span class="streams_horaires">21h-24h</span></a></li>
+					<li><a href=""><span class="streams_program">Emission3</span><span class="streams_horaires">26h-31h</span></a></li>
+				</ul>
+			</div>
+	<!--- EVENTS --->
+		<div class="col_titre">
+			ON-GOING EVENTS
 		</div>
 		<div class="col_titre">
-			TITRE
+			UP-COMING EVENTS
 		</div>
-		<div class="col_droite_info">
-			Info1
+	<!--- CONCOURS --->
+		<div class="col_titre">
+			CONCOURS
 		</div>
-		<div class="col_droite_info">
-			Info2
+	<!--- ARTICLES A LA UNE --->
+		<?php if ( isset ($articles_a_la_une) )  if (!empty($articles_a_la_une)) : ?>
+			<div class="col_titre">
+				A LA UNE
+			</div>
+			<div class="col_droite_info">
+				<?php 
+				foreach($articles_a_la_une as $article_a_la_une){
+				$article_a_la_une=$article_a_la_une['Article'];
+					echo'<div class="col_gauche_news">';
+						$article_image='/img/agamek_logo_crop.png';
+						$style_default="background-position:center center; background-size:contain";
+						if ( isset ($article_a_la_une['thumb']) )
+							if (!empty ($article_a_la_une['thumb']))
+
+									{
+										$article_image	=	$article_a_la_une['thumb'];
+										$style_default="";
+									}
+						?>
+						<div class="col_gauche_news_image" style="background-image:url('<? print $article_image."');".$style_default; ?>">
+							<?php
+								echo $this->Html->link(' ', array(
+									'controller' => 'articles',
+									'action' => 'view',
+									$article_a_la_une['id']
+									)
+								);
+							?>
+						</div>
+						<div class="col_gauche_news_text">
+							<a href="/articles/view/<?php print $article_a_la_une['id']; ?>">
+								<div class="col_gauche_news_text_title"><?php echo $article_a_la_une['title']; ?></div>
+								<div class="col_gauche_news_text_subtitle"><?php echo $article_a_la_une['subtitle']; ?></div>
+							</a>
+						</div>
+					</div>
+			<?php }
+			echo'</div>';
+		endif; ?>
+	<!--- FORUM --->
+		<div class="col_titre">
+			Derniers topics
 		</div>
-				<div class="col_titre">
-			TITRE
+			<div class="col_droite_info">
+				Info1
+			</div>
+			<div class="col_droite_info">
+				Info2
+			</div>
+	<!--- POSTS --->
+		<div class="col_titre">
+			Derniers posts
 		</div>
 		<div class="col_droite_info">
 			Info1
 		</div>
 	</div>
-						<div id="footer">
-						<p>Suivre AGAMEK
-						<br>
-						twitter facebook google+ pinterest reddit you-porn</p>
-						<p>
-							Tous droits reserves 2014
-						</p>
-						
-					</div>
 </div>

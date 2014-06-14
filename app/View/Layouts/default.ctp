@@ -83,6 +83,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 						<?php echo $this->Session->flash(); ?>
 
 						<?php echo $this->fetch('content'); ?>
+						
+						<?php echo $this->element('footer')/*, array(),
+							array(
+								// utilise la configuration de cache "long_view"
+								"cache" => "long",
+								// défini à true pour avoir before/afterRender appelé pour l'element
+								"callbacks" => true)*/; 
+						?>
 					</div>
 				</div>
 				

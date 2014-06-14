@@ -1,16 +1,21 @@
 <?php
 	$this->extend('/Common/articles_design');
-?>			
-<div class="col_gauche_mainnews">
-	<div id="slideshow">
-		<ul id="sContent_mainnews" style="width:400%">
-			<li><div style="width:25%; float:left; height:100%;  text-align:center" class="vertical_center_div"><img src="../../img/main1.jpg"></div></li>
-			<li><div style="width:25%; float:left;height:100%;  text-align:center" class="vertical_center_div"><img src="../../img/main2.jpg"></div></li>
-			<li><div style="width:25%; float:left;height:100%;  text-align:center" class="vertical_center_div"><img src="../../img/main3.jpg"></div></li>
-			<li><div style="width:25%; float:left;height:100%; text-align:center" class="vertical_center_div"><img src="../../img/main4.jpg"></div></li>
-		</ul>
+?>
+<?php if(  isset ($articles_main_news) )  if (!empty($articles_main_news)) : ?>
+	<div class="col_gauche_mainnews">
+		<div id="slideshow">
+			<ul id="sContent_mainnews" style="width:400%">
+				<?php foreach ( $articles_main_news as $article_main_news) : ?>
+				<?php endforeach; ?>
+				<li><div style="width:25%; float:left; height:100%;  text-align:center" class="vertical_center_div"><img src="http://lorempixel.com/400/200/food/"></div></li>
+				<li><div style="width:25%; float:left;height:100%;  text-align:center" class="vertical_center_div"><img src="http://lorempixel.com/400/200/cats/"></div></li>
+				<li><div style="width:25%; float:left;height:100%;  text-align:center" class="vertical_center_div"><img src="http://lorempixel.com/400/200/animals/"></div></li>
+				<li><div style="width:25%; float:left;height:100%; text-align:center" class="vertical_center_div"><img src="../../img/main4.jpg"></div></li>
+			</ul>
+		</div>
 	</div>
-</div>
+<?php endif; ?>
+	
 <div class="col_titre">
 	ACTUALITE
 </div>

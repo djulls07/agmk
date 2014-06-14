@@ -13,7 +13,16 @@
                 '1' => 'Make public',
                 '0' => 'Do not make public'
             )
-        )); ?>
+        )); 
+		if(AuthComponent::user('role') == 'admin') :
+		echo $this->Form->input('type', array(
+            'options' => array(
+                '0' => 'Normal',
+				'1' => 'Main News',
+				'2' => 'Colonne droite',
+				'3' => 'Main + droite'
+            )
+        )); endif;?>
         <?php echo $this->Form->input('Tag'); ?>
         <?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
         

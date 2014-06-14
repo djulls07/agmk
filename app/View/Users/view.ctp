@@ -283,5 +283,5 @@ $games_stats = array(
 	</div>
 
 
-</div><p/><br>
+</div>
 
