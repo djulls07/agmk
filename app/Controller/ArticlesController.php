@@ -153,7 +153,7 @@ class ArticlesController extends AppController {
             $this->set('game', $game);
             //debug($article);
 			
-			$articles_a_la_une = $this->Article->find('all', array('recursive' => 0,'conditions' => array('Article.type' => '2', 'Article.type' => '3')));			
+			$articles_a_la_une = $this->Article->find('all', array('recursive' => 0,'conditions' => array('Article.game_id' => $article[0]['Game']['id'], 'Article.published' => 1,'Article.type' => '2', 'Article.type' => '3' , 'NOT' => array('Article.id' => $id)),'order' => 'Article.modified DESC'));			
 			$this->set('articles_a_la_une', $articles_a_la_une);
 			/* article.type = 0 :  normal ; article.type = 1 : main_news ; article.type = 2 : colonne droite ; article.type = 3 : main + droite*/
         }

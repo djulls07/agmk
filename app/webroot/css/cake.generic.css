@@ -3,6 +3,7 @@ TODO : w3c + css3 all navigateurs (moz webkit etc sur box shadow etc)
 
 Html5shiv 
 Modernizr
+http://prefixmycss.com/
 
 TODO : html5 element : article/section/aside ... http://www.alsacreations.com/article/lire/1376-html5-section-article-nav-header-footer-aside.html http://hakim.se/experiments/css3-3d-slideshow*/
 
@@ -25,6 +26,12 @@ body {
 	padding:0;
 	width:100%;
 	background-color:white;
+}
+
+::selection
+{
+	background	:	#9d86b7;
+	color	:	white;
 }
 
 img
@@ -637,6 +644,151 @@ div.col_gauche_mainnews img
 	height	:	100%;
 }
 
+.col_gauche_mainnews_cube_container{
+width:100%;
+height:100%;
+/*perspective*/
+-webkit-perspective:600;
+   -moz-perspective:600;
+    -ms-perspective:600;
+     -o-perspective:600;
+        perspective:600;
+}
+.col_gauche_mainnews_cube_container #cube{
+position:absolute;
+width:80%;
+left:10%;
+height:200px;
+top:25px;
+margin:0 auto;
+text-align:center;
+/*transform-style*/
+-webkit-transform-style:preserve-3d;
+   -moz-transform-style:preserve-3d;
+    -ms-transform-style:preserve-3d;
+     -o-transform-style:preserve-3d;
+        transform-style:preserve-3d;
+/*transition*/
+-webkit-transition:-webkit-transform 1s ease;
+   -moz-transition:   -moz-transform 1s ease;
+    -ms-transition:    -ms-transform 1s ease;
+     -o-transition:     -o-transform 1s ease;
+        transition:        transform 1s ease;
+/*transform*/
+-webkit-transform:translateZ(0px) rotateX( -0 ) rotateY( 0deg );
+   -moz-transform:translateZ(0px) rotateX( -0 ) rotateY( 0deg );
+    -ms-transform:translateZ(0px) rotateX( -0 ) rotateY( 0deg );
+     -o-transform:translateZ(0px) rotateX( -0 ) rotateY( 0deg );
+        transform:translateZ(0px) rotateX( -0 ) rotateY( 0deg );
+}
+#cube img{
+height:100%;
+width:100%;
+}
+#cube #front, #back, #up, #bottom{
+background:white;
+position:absolute;
+overflow:hidden;
+width:100%;
+height:100%;
+border:1px solid #000;
+/*backface-visibility*/
+-webkit-backface-visibility:visible;
+   -moz-backface-visibility:visible;
+    -ms-backface-visibility:visible;
+     -o-backface-visibility:visible;
+        backface-visibility:visible;
+/*-webkit-transition:-webkit-shadow 2s;
+   -moz-transition:   -moz-shadow 2s;
+    -ms-transition:    -ms-shadow 2s;
+     -o-transition:     -o-shadow 2s;
+        transition:        background 2s ease;
+/*-webkit-box-shadow: inset 0px -100px 100px -50px rgba(0,0,0,0.5);
+   -moz-box-shadow: inset 0px -100px 100px -50px rgba(0,0,0,0.5);
+    -ms-box-shadow: inset 0px -100px 100px -50px rgba(0,0,0,0.5);
+     -o-box-shadow: inset 0px -100px 100px -50px rgba(0,0,0,0.5);
+        box-shadow: inset 0px -100px 100px -50px rgba(0,0,0,0.5);*/
+
+}
+#front{
+/*transform*/
+-webkit-transform:translateZ( 100px );
+   -moz-transform:translateZ( 100px );
+    -ms-transform:translateZ( 100px );
+     -o-transform:translateZ( 100px );
+        transform:translateZ( 100px );
+}
+#back{
+/*transform*/
+-webkit-transform:translateZ( -100px ) rotateX(180deg);
+   -moz-transform:translateZ( -100px ) rotateX(180deg);
+    -ms-transform:translateZ( -100px ) rotateX(180deg);
+     -o-transform:translateZ( -100px ) rotateX(180deg);
+        transform:translateZ( -100px ) rotateX(180deg);
+}
+#up{
+/*transform*/
+-webkit-transform:rotateX(90deg) translateZ( 100px );
+   -moz-transform:rotateX(90deg) translateZ( 100px );
+    -ms-transform:rotateX(90deg) translateZ( 100px );
+     -o-transform:rotateX(90deg) translateZ( 100px );
+        transform:rotateX(90deg) translateZ( 100px );
+}
+#bottom{
+/*transform*/
+-webkit-transform:rotateX(-90deg) translateZ( 100px );
+   -moz-transform:rotateX(-90deg) translateZ( 100px );
+    -ms-transform:rotateX(-90deg) translateZ( 100px );
+     -o-transform:rotateX(-90deg) translateZ( 100px );
+        transform:rotateX(-90deg) translateZ( 100px );
+}
+.left, .right{
+position	:	absolute;
+right	:	0;
+top:0;
+width:25px;
+height:25px;
+line-height:25px;
+/*border-radius*/
+-webkit-border-radius:25px;
+   -moz-border-radius:25px;
+        border-radius:25px;
+background:#d6c2ff;
+color	:	#9d86b7;;
+z-index:10;
+text-align	:	center;
+cursor : pointer;
+-webkit-transform:rotate(-90deg);
+   -moz-transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg);
+     -o-transform:rotate(-90deg);
+        transform:rotate(-90deg);
+		
+box-shadow	:  0 0 10px  #747474;
+}
+.right{
+top:225px;
+-webkit-transform:rotate(90deg);
+   -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+     -o-transform:rotate(90deg);
+        transform:rotate(90deg);
+}
+.left:hover, .right:hover
+{
+	background	:	#9d86b7;
+	color	:	#d6c2ff;
+	box-shadow	: inset 0 0 10px  #747474;
+}
+#cube .col_gauche_news
+{
+height	:	100%;
+width	:	100%;
+margin-top:0;
+}
+
+
+/*animation css
 #slideshow {
     position: relative;
     width: 100%;
@@ -653,46 +805,46 @@ div.col_gauche_mainnews img
 
 @-moz-keyframes AutoSlide_mainnews {
     0%, 5%, 100% {
-        left: 0px; /*1ère image*/
+        left: 0px; 
     }
     25%, 30% {
-        left: -100%; /*2ème image*/
+        left: -100%; 
     }
     50%, 55% {
-        left: -200%; /*3ème image*/
+        left: -200%; 
     }
 	75%, 80% {
-        left: -300%; /*4ème image*/
+        left: -300%; 
     }
 }
 
 @-webkit-keyframes AutoSlide_mainnews {
     0%, 5%, 100% {
-        left: 0px; /*1ère image*/
+        left: 0px; 
     }
     25%, 30% {
-        left: -100%; /*2ème image*/
+        left: -100%; 
     }
     50%, 55% {
-        left: -200%; /*3ème image*/
+        left: -200%;
     }
 	75%, 80% {
-        left: -300%; /*4ème image*/
+        left: -300%; 
     }
 }
 
 @keyframes AutoSlide_mainnews {
     0%, 5%, 100% {
-        left: 0px; /*1ère image*/
+        left: 0px; 
     }
     25%, 30% {
-        left: -100%; /*2ème image*/
+        left: -100%; 
     }
     50%, 55% {
-        left: -200%; /*3ème image*/
+        left: -200%;
     }
 	75%, 80% {
-        left: -300%; /*4ème image*/
+        left: -300%;
     }
 }
 
@@ -700,7 +852,7 @@ div.col_gauche_mainnews img
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 400%; /* 100% * nbr de slides */
+	width: 400%; 
 	height	:	100%;
 	margin: 0;            
 	padding: 0;
@@ -723,37 +875,37 @@ div.col_gauche_mainnews img
 
 @-moz-keyframes AutoSlide_tv {
     0%, 15%, 100% {
-        left: 0px; /*1ère image*/
+        left: 0px; 
     }
     35%, 50% {
-        left: -100%; /*2ème image*/
+        left: -100%; 
     }
     70%, 85% {
-        left: -200%; /*3ème image*/
+        left: -200%; 
     }
 }
 
 @-webkit-keyframes AutoSlide_tv {
     0%, 15%, 100% {
-        left: 0px; /*1ère image*/
+        left: 0px; 
     }
     35%, 50% {
-        left: -100%; /*2ème image*/
+        left: -100%; 
     }
     70%, 85% {
-        left: -200%; /*3ème image*/
+        left: -200%; 
     }
 }
 
 @keyframes AutoSlide_tv {
     0%, 15%, 100% {
-        left: 0px; /*1ère image*/
+        left: 0px; 
     }
     35%, 50% {
-        left: -100%; /*2ème image*/
+        left: -100%; 
     }
     70%, 85% {
-        left: -200%; /*3ème image*/
+        left: -200%; 
     }
 }
 
@@ -812,18 +964,18 @@ div.col_gauche_mainnews img
 
 .col_gauche_news_image
 {
-	position	:	relative;
-	float	:	left;
-	width	:	20%;
-	height	:	100%;
-	border-right	:	1px	solid black;
-	box-sizing:border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	border	:	0;
+	position	:	relative !important;
+	float	:	left !important;
+	width	:	20% !important;
+	height	:	100% !important;
+	border-right	:	1px	solid black !important;
+	box-sizing:border-box !important;
+	-webkit-box-sizing: border-box !important;
+	-moz-box-sizing: border-box !important;
+	-ms-box-sizing: border-box !important;
+	border	:	0 !important;
 	
-	border-right	:	1px solid #d9d9d9;
+	border-right	:	1px solid #d9d9d9 !important;
 	
 	background-position	:	50% 50%;
 	background-size	:	200% auto;
@@ -1155,10 +1307,20 @@ div.col_droite
 #espace_gauche_avatar
 {
 	width	:	100%;
-	height	:	20%;
-	background-size	:	80% auto;
+	height	:	150px;
+	line-height	:	150px;
+	text-align	:	center;
+	/*background-size	:	80% auto;
 	background-repeat:no-repeat;
-	background-position:center center;
+	background-position:center center;*/
+}
+
+#espace_gauche_avatar img
+{
+	width	:	80%;
+	height	:	auto;
+	max-height	:	80%;
+	vertical-align	:	middle;
 }
 
 #espace_gauche_menu
