@@ -93,6 +93,15 @@ class Team extends AppModel {
 		$db->query($sql);
 		return true;
 	}
+
+	public function isMember($idUser, $idTeam) {
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM teams_users as tu WHERE tu.team_id=".$idTeam." AND tu.user_id=".$idUser;
+		if ($db->fetchAll($sql) == null) {
+			return false;
+		}
+		return true;
+	}
 }
 
 ?>

@@ -135,8 +135,14 @@ class TeamsController extends AppController {
 		if (in_array($this->action, array('index', 'add', 'view', 'activeMember', 'notactiveMember'))) {
 			return true;
 		}
+		$teamId = (int) $this->request->params['pass'][0];
+		if (in_array($this->action, array("getLastsMessages", "saveTchat"))) {
+			if (!$teamId) return false;
+			if ($this->Team->isMember($user['id'], $teamId)) {
+				return true;
+			}
+		}
 		if (in_array($this->action, array('delete', 'edit', 'addMember', 'eject'))) {
-			$teamId = (int) $this->request->params['pass'][0];
 			if (!$teamId) return false;
 			if ($this->Team->isLeader($user, $teamId)) {
 				return true;
@@ -211,6 +217,52 @@ class TeamsController extends AppController {
 				$this->Session->setFlash(__('Cant Eject user, try again later or contact admin.'));
 				return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
 			}
+		}
+	}
+
+	public function getLastsMessages($idTeam) {
+		if ($this->request->is('ajax')) {
+			$path = 'files/teams/conversations/'.$idTeam.'_conversation.txt';
+			if (!file_exists($path)) {
+				echo '{}';
+				exit();
+			}
+			$file = fopen($path, "r");
+			if ($file == false) {
+				throw new Exception(__('Cant open convers'));
+			}
+			//on lit les 10 1er lignes du fichier
+			for ($i=9; $i>=0; $i--) {
+				$conversation[$i] = fgets($file);
+				if ($conversation[$i] == false) {
+					unset($conversation[$i]);
+					break;
+				}
+			}
+			fclose($file);
+			echo json_encode($conversation);
+			exit();
+		}
+	}
+
+	public function saveTchat($idTeam = null, $message = null) {
+		if($this->request->is('ajax')) {
+			if (!$message || empty($message)) {
+				echo '{"error":"Message cant be empty"}';
+				exit();
+			}
+			$path = 'files/teams/conversations/'.$idTeam.'_conversation.txt';
+			if (!($file = fopen($path, "r+"))) {
+				$file = fopen($path, "x");//TODO: separer les deux cas pour ecrire ou non compteur ( lire ou nn ) etc etc...
+			}
+			$compt = (int) fgets($file);
+			fseek($file, 0, SEEK_SET);
+			fputs($file, ++$compt);
+			fseek($file, 0, SEEK_END);
+			fputs($file, $message."\n");
+			fclose($file);
+			$this->getLastsMessages($idTeam);
+			exit();
 		}
 	}
 }
