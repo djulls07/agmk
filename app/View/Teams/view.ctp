@@ -270,8 +270,13 @@
 		<?php endif; ?>
 		<?php endforeach; ?>
 	</table>
-	<?php $this->Conversation->createConversation(); ?>
+	<div id="tchat">
+	<div id="messages"></div>
+	<?php echo $this->Form->create("Tchat", 
+		array('id' => 'conversationForm', 'ressource' => 'files/teams/'.$team['Team']['id'].'_tchat.txt')); ?>
+	<?php echo $this->Form->input("message", array('id' => 'inputMessage')); ?>
+	<?php echo $this->Form->end(__("Send"), array('id' => 'submitForm')); ?>
+	</div>
 </div>
 
-
-<?php echo $this->Html->script('conversations'); ?>
+<?php echo $this->Html->script("conversations"); ?>

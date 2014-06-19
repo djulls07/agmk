@@ -4,8 +4,6 @@ App::uses('AppController', 'Controller');
 
 class TeamsController extends AppController {
 
-	public $helpers = array('Conversation');
-
 	public function beforeFilter() {
 		$this->Auth->deny('all');
 	}
