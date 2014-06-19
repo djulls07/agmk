@@ -10,17 +10,30 @@ $(document).ready(function() {
 
 	var idTeam = form.attr('idTeam');
 
+	var res;
+	alert('ok');
+
+	/*$.post( "/teams/readTchat/" + idTeam ).done(function( data ) {
+		res = $.parseJSON(data);
+		$.each(res, function(index, value) {
+			conversation.append("<p class=\"tchat\">"+value+"</p>");
+		});
+	});
+
 	$( ".tchat" ).show();
 
 	form.on("submit", function() {
 		//appel ajax
-		alert(action+"/" + idTeam + "/" + message.val());
-		$.post( action+"/" + idTeam + "/" + message.val()).done(function( data ) {
-			alert(data);
+		$.post( action+"/" + idTeam , {message: message.val()}).done(function( data ) {
 			res = $.parseJSON(data);
+			conversation.empty();
+			$.each(res, function(index, value) {
+				conversation.append("<p class=\"tchat\">"+value+"</p>");
+			});
 		});
+		message.val('');
 		return false;
-	});
+	});*/
 	
 
 });

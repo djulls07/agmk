@@ -4,6 +4,8 @@ App::uses('AppController', 'Controller');
 
 class TeamsController extends AppController {
 
+	public $helpers = array('Conversation');
+
 	public function beforeFilter() {
 		$this->Auth->deny('all');
 	}
@@ -136,12 +138,6 @@ class TeamsController extends AppController {
 			return true;
 		}
 		$teamId = (int) $this->request->params['pass'][0];
-		if (in_array($this->action, array("getLastsMessages", "saveTchat"))) {
-			if (!$teamId) return false;
-			if ($this->Team->isMember($user['id'], $teamId)) {
-				return true;
-			}
-		}
 		if (in_array($this->action, array('delete', 'edit', 'addMember', 'eject'))) {
 			if (!$teamId) return false;
 			if ($this->Team->isLeader($user, $teamId)) {
@@ -220,51 +216,7 @@ class TeamsController extends AppController {
 		}
 	}
 
-	public function getLastsMessages($idTeam) {
-		if ($this->request->is('ajax')) {
-			$path = 'files/teams/conversations/'.$idTeam.'_conversation.txt';
-			if (!file_exists($path)) {
-				echo '{}';
-				exit();
-			}
-			$file = fopen($path, "r");
-			if ($file == false) {
-				throw new Exception(__('Cant open convers'));
-			}
-			//on lit les 10 1er lignes du fichier
-			for ($i=9; $i>=0; $i--) {
-				$conversation[$i] = fgets($file);
-				if ($conversation[$i] == false) {
-					unset($conversation[$i]);
-					break;
-				}
-			}
-			fclose($file);
-			echo json_encode($conversation);
-			exit();
-		}
-	}
-
-	public function saveTchat($idTeam = null, $message = null) {
-		if($this->request->is('ajax')) {
-			if (!$message || empty($message)) {
-				echo '{"error":"Message cant be empty"}';
-				exit();
-			}
-			$path = 'files/teams/conversations/'.$idTeam.'_conversation.txt';
-			if (!($file = fopen($path, "r+"))) {
-				$file = fopen($path, "x");//TODO: separer les deux cas pour ecrire ou non compteur ( lire ou nn ) etc etc...
-			}
-			$compt = (int) fgets($file);
-			fseek($file, 0, SEEK_SET);
-			fputs($file, ++$compt);
-			fseek($file, 0, SEEK_END);
-			fputs($file, $message."\n");
-			fclose($file);
-			$this->getLastsMessages($idTeam);
-			exit();
-		}
-	}
+	
 }
 
 ?>
