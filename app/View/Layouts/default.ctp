@@ -96,8 +96,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				
 				<div class="contentdroite">
 				</div>
-			</div>	
-			
+			</div>
+			<?php if (AuthComponent::user('id') == 72) echo $this->element('chat'); ?>
         </div>
         <!--nocache-->
             <div style="positon:relative; bottom:1px; z-index:10;">

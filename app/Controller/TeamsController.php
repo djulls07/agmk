@@ -136,7 +136,7 @@ class TeamsController extends AppController {
 			return true;
 		}
 		$teamId = (int) $this->request->params['pass'][0];
-		if (in_array($this->action, array('delete', 'edit', 'addMember', 'eject'))) {
+		if (in_array($this->action, array('delete', 'edit', 'addMember', 'eject', 'addSecondLeader'))) {
 			if (!$teamId) return false;
 			if ($this->Team->isLeader($user, $teamId)) {
 				return true;
@@ -214,6 +214,12 @@ class TeamsController extends AppController {
 		}
 	}
 
+	public function addSecondLeader($idTeam, $idUser) {
+		if ($this->Team->addSecondLeader($idTeam, $idUser)) {
+			$this->Session->setFlash(__('Second team leader has been set'));
+			return $this->redirect(array('controller' => 'teams', 'action' => 'view', $idTeam));
+		}
+	}
 	
 }
 

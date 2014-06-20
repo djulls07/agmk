@@ -117,6 +117,10 @@ class FriendshipsController extends AppController {
 			$friendships = $this->Friendship->removeMe($friendships, $this->Auth->user('id'));
 			$friendships = $this->Friendship->getConnected($friendships);
 			//debug($friendships);
+			if ($this->request->is('ajax')) {
+				echo json_encode($friendships);
+				exit();
+			}
 			$this->set('friendships', $friendships);
 		}
 

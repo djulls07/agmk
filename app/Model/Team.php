@@ -102,6 +102,19 @@ class Team extends AppModel {
 		}
 		return true;
 	}
+
+	public function addSecondLeader($idTeam, $idUser) {
+		$team = $this->findById($idTeam);
+		if (!$team) {
+			return false;
+		}
+		$team['Team']['second_leader_id'] = $idUser;
+		$this->id = $team['Team']['id'];
+		if ($this->save($team)) {
+			return true;
+		}
+		return false;
+	}
 }
 
 ?>
