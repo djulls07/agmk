@@ -270,7 +270,7 @@
 		<?php endif; ?>
 		<?php endforeach; ?>
 	</table>
-	<div id="tchat">
+	<div id="tchat" style="display:none;">
 	<div id="messages"></div>
 	<?php echo $this->Form->create("Tchat", 
 		array('id' => 'conversationForm', 'ressource' => 'files/teams/'.$team['Team']['id'].'_tchat.txt')); ?>
