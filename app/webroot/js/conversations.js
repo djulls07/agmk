@@ -1,26 +1,55 @@
 $(document).ready(function() {
 
-	var conversation = $( "#conversation" );
+	/* Needed Vars */
+	var tchat = $( "#tchat" );
+	var form = $( "#conversationForm" );
+	var file = form.attr("ressource");
+	var message = $( "#inputMessage" );
+	var messages = $( "#messages" );
 
-	var form = $( "#ConversationForm" );
+	messages.css("overflow", "auto");
+	messages.css("height", "300px");
 
-	var action = form.attr('myaction');
 
-	var message = $( "#messageInput" );
+	/* Functions needed to ajax tchat */
+	function create() {
+		$.post( "/tchats/createFile", {ressource: file} ).done(function( data ) {
+			res = $.parseJSON(data);
+			if (res.status == "ok") {
+				tchat.show();
+				getMessages(-1, 20);
+			}
+		});
+	}
 
-	var idTeam = form.attr('idTeam');
+	function getMessages(d, nbLignes) {
+		$.post( "/tchats/getMessages", {ressource: file, debut: d, nombreLignes: nbLignes} ).done(function( data ) {
+			res = $.parseJSON(data);
+			messages.html('');
+			$.each(res, function (index, val) {
+				messages.append("<p>" + val + "</p>");
+			});
+		});
+	}
 
-	$( ".tchat" ).show();
+	function writeMessage() {
+		if (message.val() == "") return;
+		$.post( "/tchats/writeMessage", {ressource: file, message: message.val()} ).done(function( data ) {
+			message.val('');
+			res = $.parseJSON(data);
+			if (res.status == 'ok') {
+				getMessages(-1, 20);
+			} else {
+				//status ko
+			}
+		});
+	}
 
+	/*call functions*/
 	form.on("submit", function() {
 		//appel ajax
-		alert(action+"/" + idTeam + "/" + message.val());
-		$.post( action+"/" + idTeam + "/" + message.val()).done(function( data ) {
-			alert(data);
-			res = $.parseJSON(data);
-		});
+		writeMessage();
 		return false;
 	});
-	
-
+	create();
 });

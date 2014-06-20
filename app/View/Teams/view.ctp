@@ -270,19 +270,13 @@
 		<?php endif; ?>
 		<?php endforeach; ?>
 	</table>
-
-	<br />
-
-	<div class="tchat" style="display:none;">
-		<h3> Team Tchat </h3>
-		<div id="conversation">
-		<!-- This part will be fill by javascript -->
-		</div>
-		<?php echo $this->Form->create('Conversation', array('id' => 'ConversationForm', 'myaction' => '/teams/saveTchat', 'idTeam' => $team['Team']['id'])); ?>
-		<?php echo $this->Form->input('message', array('label' => 'Message', 'id' => 'messageInput')); ?>
-		<?php echo $this->Form->end(__('Send')); ?>
+	<div id="tchat" style="display:none;">
+	<div id="messages"></div>
+	<?php echo $this->Form->create("Tchat", 
+		array('id' => 'conversationForm', 'ressource' => 'files/teams/'.$team['Team']['id'].'_tchat.txt')); ?>
+	<?php echo $this->Form->input("message", array('id' => 'inputMessage')); ?>
+	<?php echo $this->Form->end(__("Send"), array('id' => 'submitForm')); ?>
 	</div>
 </div>
 
-
-<?php echo $this->Html->script('conversations'); ?>
+<?php echo $this->Html->script("conversations"); ?>
