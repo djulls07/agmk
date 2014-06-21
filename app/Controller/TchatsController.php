@@ -15,7 +15,7 @@ class TchatsController extends AppController {
 		return parent::isAuthorized($user);
 	}
 
-	public function getMessages() {		
+	public function getMessages() {
 		$tabIndex = array();
 		$debut = $this->request->data['debut'];
 		$path = $this->request->data['ressource'];

@@ -134,7 +134,7 @@ class Friendship extends AppModel {
 	}
 
 	public function getConnected($friendships) {
-		$time = time() - $this->_maxTimeSession + (1200*60);
+		$time = time() - $this->_maxTimeSession;
 		$tmp = "(";
 		foreach($friendships as $k => $v) {
 			$tmp .= "'".$v['User']['id']."',";

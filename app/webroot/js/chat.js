@@ -8,7 +8,11 @@ $(document).ready(function() {
 	var offline = "Offline";
 	var friends = null;
 	var barre_action = $( "#barre_action" );
-
+	var teams = $( "#team_chat" );
+	var frame = $( "#frame" );
+	var menuFrame = $( "#menu_frame" );
+	tabFriends = Array();
+	tabTeams = Array();
 
 	/* Debut Functions */
 
@@ -18,10 +22,12 @@ $(document).ready(function() {
 		elements.each(function () {
 			$(this).on('click', function() {
 				hideOrShow = $("#" + $(this).attr('idBalise'));
-				if (hideOrShow.css("display") == 'none') {
-					hideOrShow.css("display", "block");
+				if (hideOrShow.css('visibility') == 'hidden') {
+					//hideOrShow.show();
+					hideOrShow.css("visibility", "visible");
 				} else {
-					hideOrShow.css("display", "none");
+					//hideOrShow.hide();
+					hideOrShow.css("visibility", "hidden");
 				}
 			});
 		});
@@ -34,9 +40,9 @@ $(document).ready(function() {
 			contacts.append('<ul>');
 			$.each(friends, function (index, val) {
 				if (val.User.connected == false) {
-					contacts.append("<li userId=\""+val.User.id+"\" class=\"mouseChatListen\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
+					contacts.append("<li userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
 				} else {
-					contacts.append("<li userId=\""+val.User.id+"\" class=\"mouseChatListen\" style=\"background-color: rgba(157, 134, 183, 0.5);margin-top:2px; margin-bottom:2px;\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
+					contacts.append("<li userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\" style=\"background-color: rgba(157, 134, 183, 0.5);margin-top:2px; margin-bottom:2px;\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
 				}
 			});
 			contacts.append('</ul>');
@@ -48,21 +54,50 @@ $(document).ready(function() {
 		var ev1 = $( "li.mouseChatListen" );
 		ev1.each(function() {
 			$(this).on('click', function() {
-				newFrame($(this).attr('userId'));
+				newFrameFriend($(this).attr('userId'), $(this).attr('userName'));
 			});
 		});
 	}
 
-	function newFrame($id) {
-		alert('Ouverture chat entre -> authComp et ' +$id);
+	function newFrameFriend(id, name) {
+		if (tabFriends[id] != name) {
+			tabFriends[id] = name;
+			frame.append('<li id="chat_friend_'+id+'"></li>');
+			menuFrame.append('<li id="menu_chat_friend_'+id+'" class=\"hideAndShow\" idBalise="chat_friend_'+id+'">'+name+'</li>');
+			getMessages(id, name, $( "#chat_friend_"+id ), $( "#menu_chat_friend_"+id ));
+		} else {
+			$( "#chat_friend_"+id ).remove();
+			$( "#menu_chat_friend_"+id ).remove();
+			tabFriends[id] = '';
+		}
+	}
+
+	//on recupere les messages du chat entre User.id = id et "moi"(AuthComp) via ajax
+	function getMessages(id, name, frameDiscussion, menuFrameDiscussion, d, nbLignes) {
+		var file = "";
+		if (userId < id) {
+			file = "files/friends/"+userId+"_"+id+"_tchat.txt";
+		} else {
+			file = "files/friends/"+id+"_"+userId+"_tchat.txt";
+		}
+		$.post('/tchats/getMessages', { debut: , nombreLignes: nbLignes, ressource: file}).done(function(data) {
+			alert(data);
+			return;
+		});
+	}
+
+	function create() {
+		$.post( "/tchats/createFile", {ressource: file} ).done(function( data ) {
+			res = $.parseJSON(data);
+			if (res.status == "ok") {
+				tchat.show();
+				getMessages(-1, 20, false);
+			}
+		});
 	}
 
 
 	function main() {
-		divChat.css('position', 'fixed');
-		divChat.css('bottom', '1px');
-
-		//contacts.hide();
 		getFriends();
 		hideAndShow();	
 	};
