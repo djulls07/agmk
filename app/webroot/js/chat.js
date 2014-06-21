@@ -3,9 +3,9 @@ $(document).ready(function() {
 	//vars
 	var divChat = $( "#agmk_chat" );
 	var contacts = $( "#contacts_chat" );
-	var userId = divChat.attr("userId");
-	var online = "Online";
-	var offline = "Offline";
+	var userId = parseInt(divChat.attr("userId"));
+	var online = "<span style=\"color:rgba(0,255,0,0.7);\">Online</span>";
+	var offline = "<span style=\"color:rgba(255,0,0,0.7);\">Offline</span>";
 	var friends = null;
 	var barre_action = $( "#barre_action" );
 	var teams = $( "#team_chat" );
@@ -15,9 +15,9 @@ $(document).ready(function() {
 	tabTeams = Array();
 
 	/* Debut Functions */
-
-	function hideAndShow() {
-		var elements = $( "li.hideAndShow" );
+	function hideAndShow(bool) {
+		if (bool) var elements = $( "li.hideAndShow2" );
+		else var elements = $( "li.hideAndShow" );
 		var hideOrShow;
 		elements.each(function () {
 			$(this).on('click', function() {
@@ -42,7 +42,7 @@ $(document).ready(function() {
 				if (val.User.connected == false) {
 					contacts.append("<li userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
 				} else {
-					contacts.append("<li userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\" style=\"background-color: rgba(157, 134, 183, 0.5);margin-top:2px; margin-bottom:2px;\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
+					contacts.append("<li userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\" style=\"margin-top:2px; margin-bottom:2px;\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+online+"</li>");
 				}
 			});
 			contacts.append('</ul>');
@@ -62,9 +62,9 @@ $(document).ready(function() {
 	function newFrameFriend(id, name) {
 		if (tabFriends[id] != name) {
 			tabFriends[id] = name;
-			frame.append('<li id="chat_friend_'+id+'"></li>');
-			menuFrame.append('<li id="menu_chat_friend_'+id+'" class=\"hideAndShow\" idBalise="chat_friend_'+id+'">'+name+'</li>');
-			getMessages(id, name, $( "#chat_friend_"+id ), $( "#menu_chat_friend_"+id ));
+			frame.append('<li class="chatFriendFrame" id="chat_friend_'+id+'"></li>');
+			menuFrame.append('<li id="menu_chat_friend_'+id+'" class="hideAndShow2" idBalise="chat_friend_'+id+'">'+name+'</li>');
+			getMessages(id, name, $( "#chat_friend_"+id ), $( "#menu_chat_friend_"+id ), -1, 20);
 		} else {
 			$( "#chat_friend_"+id ).remove();
 			$( "#menu_chat_friend_"+id ).remove();
@@ -73,33 +73,37 @@ $(document).ready(function() {
 	}
 
 	//on recupere les messages du chat entre User.id = id et "moi"(AuthComp) via ajax
-	function getMessages(id, name, frameDiscussion, menuFrameDiscussion, d, nbLignes) {
+	function getMessages(id, name, myFrame, menuMyFrame, d, nbLignes) {
 		var file = "";
 		if (userId < id) {
 			file = "files/friends/"+userId+"_"+id+"_tchat.txt";
 		} else {
 			file = "files/friends/"+id+"_"+userId+"_tchat.txt";
 		}
-		$.post('/tchats/getMessages', { debut: , nombreLignes: nbLignes, ressource: file}).done(function(data) {
-			alert(data);
-			return;
-		});
-	}
-
-	function create() {
 		$.post( "/tchats/createFile", {ressource: file} ).done(function( data ) {
 			res = $.parseJSON(data);
-			if (res.status == "ok") {
-				tchat.show();
-				getMessages(-1, 20, false);
+			if (res.status != "ok") {
+				alert('Error while getting chat file');
+				return;
 			}
+		});
+		$.post('/tchats/getMessages', { debut: d , nombreLignes: nbLignes, ressource: file}).done(function(data) {
+			data = $.parseJSON(data);
+			myFrame.empty();
+			myFrame.append("<div>");
+			$.each(data, function (index, val) {
+				myFrame.append('<p>'+val+'</p>');
+			});
+			myFrame.append("</div>");
+			hideAndShow(true);
+			return;
 		});
 	}
 
 
 	function main() {
 		getFriends();
-		hideAndShow();	
+		hideAndShow(false);	
 	};
 	/* Fin Fonctions*/
 

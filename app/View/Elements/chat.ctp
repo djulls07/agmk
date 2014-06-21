@@ -1,4 +1,4 @@
-<div id="agmk_chat">
+<div id="agmk_chat", userId="<?=AuthComponent::user('id');?>">
 	<div id="agmk_chat_frame">
 		<ul id="frame">
 			<li id="contacts_chat"> </li>
