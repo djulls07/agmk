@@ -1,9 +1,13 @@
 #agmk_chat {
 	width:100%;
+	position: fixed;
+	bottom:1px;
+	max-height:400px;
 }
 
 #agmk_chat ul li {
 	list-style-type: none;
+
 }
 
 #agmk_chat_frame {
@@ -69,9 +73,4 @@
 .mouseChatListen:hover {
 	background:rgba(157,134,183,0.6);
 	cursor:default;
-}
-
-#agmk_chat {
-	position: fixed;
-	bottom:1px;
 }

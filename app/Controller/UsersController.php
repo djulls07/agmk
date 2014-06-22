@@ -210,7 +210,7 @@ class UsersController extends AppController {
 		if (in_array($this->action, 
 				array('logout', 'index', 'view', 'add_friend',
 					'list_friend', 'myteams','getusernotifs',
-					'getusers', 'alpha')))
+					'getusers', 'alpha', 'saveChatState')))
 			return true;
 		if ($this->action ==='login') return false;
 		if (in_array($this->action, array('delete', 'edit'))) {
@@ -269,6 +269,17 @@ class UsersController extends AppController {
     			return $this->redirect(array('controller' => 'teams', 'action' => 'index'));
     		}
     	}
+    }
+
+    public function saveChatState() {
+    	if ($this->request->is("ajax")) {
+    		$this->User->id = $this->Auth->user('id');
+	    	if ($this->User->saveField('chat_state', $this->request->data['chatState'])) {
+	    		$this->Session->write('Auth', $this->User->read(null, $this->Auth->user('id')));
+	    		exit();
+	    	}
+    	}
+    	exit();
     }
 
 }

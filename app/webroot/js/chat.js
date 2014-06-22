@@ -14,6 +14,7 @@ $(document).ready(function() {
 	var tabFriends = Array();
 	var tabTeams = Array();
 	var focus = "";
+	var chatState = divChat.attr('chatState').split(";");
 
 	/* Debut Functions */
 	function hideAndShow(bool) {
@@ -56,6 +57,7 @@ $(document).ready(function() {
 		ev1.each(function() {
 			$(this).on('click', function() {
 				newFrameFriend($(this).attr('userId'), $(this).attr('userName'));
+				saveChatState();
 			});
 		});
 	}
@@ -69,11 +71,14 @@ $(document).ready(function() {
 			//ajout event cache frame si clic menu
 			$( "#menu_chat_friend_"+id ).on("click", function () {
 				e = $("#chat_friend_"+id);
-				if (e.css('visibility') == "visible") {
+				/*if (e.css('visibility') == "visible") {
 					e.css('visibility', 'hidden');
 				} else {
 					e.css('visibility', 'visible');
-				}
+				}*/
+				e.remove();
+				$(this).remove();
+				tabFriends[id] = "";
 			});
 			//hideAndShow(true);
 		} else {
@@ -100,6 +105,9 @@ $(document).ready(function() {
 		});
 		$.post('/tchats/getMessages', { debut: d , nombreLignes: nbLignes, ressource: file}).done(function(data) {
 			data = $.parseJSON(data);
+			if (focus == "inputMessage_"+id) {
+				var messSave = $( "#inputMessage_"+id ).val();
+			}
 			myFrame.empty();
 			myFrame.append("<div>");
 			$.each(data, function (index, val) {
@@ -112,6 +120,7 @@ $(document).ready(function() {
 
 			if (focus == "inputMessage_"+id) {
 				setFocus();
+				$( "#inputMessage_"+id ).val(messSave);
 			}
 
 			$( "#inputMessage_"+id ).focus(function() {
@@ -166,10 +175,29 @@ $(document).ready(function() {
 		return false;
 	}
 
+	function setChatState() {
+		$.each(chatState, function(index, val) {
+			//alert("comptons")
+			newFrameFriend(val.split(",")[0], val.split(",")[1]);
+		});
+	}
+
+	function saveChatState() {
+		var state = "";
+		$.each(friends, function (index, val) {
+			if (tabFriends[val.User.id] == val.User.username) {
+				state += val.User.id+","+val.User.username+";";
+			}
+		});
+		state = state.substr(0, state.length -1);
+		$.post("/users/saveChatState", {chatState: state}).done(function(data) {
+		});
+	}
+
 	function main() {
 		getFriends();
 		hideAndShow(false);
-		majMessages();
+		setChatState();
 		setInterval(function() {
 			//actualise les messsages.
 			majMessages();
