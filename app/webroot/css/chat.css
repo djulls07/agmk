@@ -35,6 +35,12 @@
 	display:inline-block;
 	background:rgba(255,255,255,0.8);
 	overflow:auto;
+	height:300px;
+	border:5px groove rgba(157,134,183,0.6);
+}
+
+.formChatFriendFrame {
+	width:20%;
 }
 
 .hideAndShow2 {
@@ -44,6 +50,7 @@
 	cursor:default;
 	margin-right: 5px;
 }
+
 .hideAndShow {
 	width:15%;
 	background:rgba(157,134,183,0.6);

@@ -11,12 +11,13 @@ $(document).ready(function() {
 	var teams = $( "#team_chat" );
 	var frame = $( "#frame" );
 	var menuFrame = $( "#menu_frame" );
-	tabFriends = Array();
-	tabTeams = Array();
+	var tabFriends = Array();
+	var tabTeams = Array();
+	var focus = "";
 
 	/* Debut Functions */
 	function hideAndShow(bool) {
-		if (bool) var elements = $( "li.hideAndShow2" );
+		if (bool == true) var elements = $( "li.hideAndShow2" );
 		else var elements = $( "li.hideAndShow" );
 		var hideOrShow;
 		elements.each(function () {
@@ -65,10 +66,20 @@ $(document).ready(function() {
 			frame.append('<li class="chatFriendFrame" id="chat_friend_'+id+'"></li>');
 			menuFrame.append('<li id="menu_chat_friend_'+id+'" class="hideAndShow2" idBalise="chat_friend_'+id+'">'+name+'</li>');
 			getMessages(id, name, $( "#chat_friend_"+id ), $( "#menu_chat_friend_"+id ), -1, 20);
+			//ajout event cache frame si clic menu
+			$( "#menu_chat_friend_"+id ).on("click", function () {
+				e = $("#chat_friend_"+id);
+				if (e.css('visibility') == "visible") {
+					e.css('visibility', 'hidden');
+				} else {
+					e.css('visibility', 'visible');
+				}
+			});
+			//hideAndShow(true);
 		} else {
 			$( "#chat_friend_"+id ).remove();
 			$( "#menu_chat_friend_"+id ).remove();
-			tabFriends[id] = '';
+			tabFriends[id] = "";
 		}
 	}
 
@@ -92,18 +103,77 @@ $(document).ready(function() {
 			myFrame.empty();
 			myFrame.append("<div>");
 			$.each(data, function (index, val) {
-				myFrame.append('<p>'+val+'</p>');
+				myFrame.append('<p><small>'+val+'</small></p>');
 			});
+
 			myFrame.append("</div>");
-			hideAndShow(true);
+			myFrame.append('<form id="form_'+id+'" action="/tchats/writeMessage" method="POST"><input id="inputMessage_'+id+
+				'" idDest="'+id+'"></input></form></li>');
+
+			if (focus == "inputMessage_"+id) {
+				setFocus();
+			}
+
+			$( "#inputMessage_"+id ).focus(function() {
+				focus = "inputMessage_"+id;
+			});
+
+			$( "#form_"+id ).on('submit', function () {
+				writeMessage(file, $( "#inputMessage_"+id ), id);
+				return false;
+			});
+			var sF = document.getElementById('chat_friend_'+id);
+			$('#chat_friend_'+id).scrollTop(sF.scrollHeight);
 			return;
 		});
 	}
 
+	function writeMessage(file, message, id) {
+		if (message.val() == "") return;
+		$.post( "/tchats/writeMessage", {ressource: file, message: message.val()} ).done(function( data ) {
+			res = $.parseJSON(data);
+			if (res.status == "ok") {
+				getMessages(id, name, $( "#chat_friend_"+id ), $( "#menu_chat_friend_"+id ), -1, 20);
+				message.val('');
+				return;
+			} else {
+				//status ko
+				return;
+			}
+		});
+	}
+
+	function majMessages() {
+		if (friends == null) return;
+		$.each(friends, function (index, val) {
+			if ($( "#chat_friend_"+val.User.id ).length) {
+				myFrame = $( "#chat_friend_"+val.User.id );
+				menuMyFrame = $( "#menu_chat_friend_"+val.User.id );
+				getMessages(val.User.id, val.User.name, myFrame, menuMyFrame, -1, 20);
+			}
+			//getNewMessages(val.User.id, val.User.name);
+		});
+	}
+
+	function getNewMessages() {
+		//TODO;
+	}
+
+	function setFocus() {
+
+		document.getElementById(focus).focus();
+
+		return false;
+	}
 
 	function main() {
 		getFriends();
-		hideAndShow(false);	
+		hideAndShow(false);
+		majMessages();
+		setInterval(function() {
+			//actualise les messsages.
+			majMessages();
+		}, 10000);
 	};
 	/* Fin Fonctions*/
 
