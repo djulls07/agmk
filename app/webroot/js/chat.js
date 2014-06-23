@@ -42,12 +42,24 @@ $(document).ready(function() {
 			contacts.append('<ul>');
 			$.each(friends, function (index, val) {
 				if (val.User.connected == false) {
-					contacts.append("<li userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
+					contacts.append("<li type=\"friend\" userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
 				} else {
-					contacts.append("<li userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\" style=\"margin-top:2px; margin-bottom:2px;\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+online+"</li>");
+					contacts.append("<li type=\"friend\" userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\" style=\"margin-top:2px; margin-bottom:2px;\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+online+"</li>");
 				}
 			});
 			contacts.append('</ul>');
+			//addMouseEvents();
+		});
+	}
+
+	function getTeams() {
+		$.get('/teams/index').done(function(data) {
+			data = $.parseJSON(data);
+			teams.append('<ul>')
+			$.each(data, function (index, val) {
+				teams.append('<li type="team" class="mouseChatListen" teamId="'+val.Team.id+'" >'+val.Team.name+'</li>');
+			});
+			teams.append('</ul>')
 			addMouseEvents();
 		});
 	}
@@ -56,9 +68,71 @@ $(document).ready(function() {
 		var ev1 = $( "li.mouseChatListen" );
 		ev1.each(function() {
 			$(this).on('click', function() {
-				newFrameFriend($(this).attr('userId'), $(this).attr('userName'));
-				saveChatState();
+				if ($(this).attr('type') == 'friend') newFrameFriend($(this).attr('userId'), $(this).attr('userName'));
+				else if ($(this).attr('type') == 'team') newFrameTeam($(this).attr('teamId'), $(this).html());
 			});
+		});
+		saveChatState();
+	}
+
+	function newFrameTeam(id, name) {
+		if (tabTeams[id] != name) {
+			var file = 'files/teams/'+id+'_tchat.txt';
+			tabTeams[id] = name;
+			frame.append('<li id="chat_team_'+id+'" class="chatFriendFrame" ><div id="team_messages_'+id+'" ></div><form id="form_team_'+id+'" ><input id="inputMessageTeam_'+id+'"></input></form></li>');
+			menuFrame.append('<li id="menu_chat_team_'+id+'" class="hideAndShow2" idBalise="chat_team_'+id+'">'+name+'</li>');
+			$( "#form_team_"+id ).on('submit', function () {
+				writeMessageTeam(file, $( "#inputMessageTeam_"+id ), id);
+				return false;
+			});
+			getMessagesTeam(id, $("#team_messages_"+id), -1, 20);
+			var sF = document.getElementById('chat_team_'+id);
+			$('#chat_team_'+id).scrollTop(sF.scrollHeight);
+
+			$( "#menu_chat_team_"+id ).on("click", function () {
+				var e = $("#chat_team_"+id);
+				e.remove();
+				$(this).remove();
+				tabTeams[id] = "";
+			});
+		} else {
+			$('#chat_team_'+id).remove();
+			$('#menu_chat_team_'+id).remove();
+			tabTeams[id] = "";
+		}
+	}
+
+	function getMessagesTeam(id, divMessages, d, nbLignes) {
+		var file = 'files/teams/'+id+'_tchat.txt';
+		$.post( "/tchats/createFile", {ressource: file} ).done(function( data ) {
+			res = $.parseJSON(data);
+			if (res.status != "ok") {
+				alert('Error while getting chat file');
+				return;
+			}
+		});
+		$.post('/tchats/getMessages', { debut: d , nombreLignes: nbLignes, ressource: file}).done(function(data) {
+			data = $.parseJSON(data);
+			if (focus == "inputMessageTeam_"+id) {
+				var messSave = $( "#inputMessageTeam_"+id ).val();
+			}
+			divMessages.empty();
+			$.each(data, function (index, val) {
+				divMessages.append('<p><small>'+val+'</small></p>');
+			});
+
+			if (focus == "inputMessageTeam_"+id) {
+				setFocus();
+				$( "#inputMessageTeam_"+id ).val(messSave);
+			}
+
+			$( "#inputMessageTeam_"+id ).focus(function() {
+				focus = "inputMessageTeam_"+id;
+			});
+			var sF = document.getElementById('chat_team_'+id);
+			$('#chat_team_'+id).scrollTop(sF.scrollHeight);
+			return;
+			return;
 		});
 	}
 
@@ -151,6 +225,20 @@ $(document).ready(function() {
 			}
 		});
 	}
+	function writeMessageTeam(file, message, id) {
+		if (message.val() == "") return;
+		$.post( "/tchats/writeMessage", {ressource: file, message: message.val()} ).done(function( data ) {
+			res = $.parseJSON(data);
+			if (res.status == "ok") {
+				getMessagesTeam(id, $("#team_messages_"+id), -1, 20);
+				message.val('');
+				return;
+			} else {
+				//status ko
+				return;
+			}
+		});
+	}
 
 	function majMessages() {
 		if (friends == null) return;
@@ -196,6 +284,7 @@ $(document).ready(function() {
 
 	function main() {
 		getFriends();
+		getTeams();
 		hideAndShow(false);
 		setChatState();
 		setInterval(function() {

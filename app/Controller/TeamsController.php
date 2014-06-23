@@ -104,13 +104,17 @@ class TeamsController extends AppController {
 
     public function index() {
     	$id = $this->Auth->user('id');
-
     	$db = $this->Team->getDataSource();
     	$sql = "SELECT * FROM teams as Team ".
     		"WHERE Team.id IN ".
     		"(SELECT team_id FROM teams_users as tu WHERE tu.actif=1 AND tu.user_id=".$id.")";
     	$teams = $db->fetchAll($sql);
-    	$this->set('teams', $teams);
+    	if($this->request->is('ajax')) {
+    		echo json_encode($teams);
+    		exit();
+    	} else {
+    		$this->set('teams', $teams);
+    	}	
     	//debug($teams);
     }
 

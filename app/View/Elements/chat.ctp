@@ -2,9 +2,7 @@
 	<div id="agmk_chat_frame">
 		<ul id="frame">
 			<li id="contacts_chat"> </li>
-			<li id="team_chat">
-				<ul><li>premier</li><li>deuxieme</li></ul>
-			</li>
+			<li id="team_chat"></li>
 		</ul>
 	</div>
 	<div id="barre_action" userId="<?php echo AuthComponent::user('id'); ?>">
