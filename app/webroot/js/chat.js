@@ -48,7 +48,7 @@ $(document).ready(function() {
 				}
 			});
 			contacts.append('</ul>');
-			//addMouseEvents();
+			addMouseEvents();
 		});
 	}
 
@@ -70,16 +70,16 @@ $(document).ready(function() {
 			$(this).on('click', function() {
 				if ($(this).attr('type') == 'friend') newFrameFriend($(this).attr('userId'), $(this).attr('userName'));
 				else if ($(this).attr('type') == 'team') newFrameTeam($(this).attr('teamId'), $(this).html());
+				saveChatState();
 			});
 		});
-		saveChatState();
 	}
 
 	function newFrameTeam(id, name) {
 		if (tabTeams[id] != name) {
 			var file = 'files/teams/'+id+'_tchat.txt';
 			tabTeams[id] = name;
-			frame.append('<li id="chat_team_'+id+'" class="chatFriendFrame" ><div id="team_messages_'+id+'" ></div><form id="form_team_'+id+'" ><input id="inputMessageTeam_'+id+'"></input></form></li>');
+			frame.append('<li id="chat_team_'+id+'" class="chatFriendFrame" ><div id="team_messages_'+id+'" ></div><form class="forms_chat" id="form_team_'+id+'" ><input id="inputMessageTeam_'+id+'"></input></form></li>');
 			menuFrame.append('<li id="menu_chat_team_'+id+'" class="hideAndShow2" idBalise="chat_team_'+id+'">'+name+'</li>');
 			$( "#form_team_"+id ).on('submit', function () {
 				writeMessageTeam(file, $( "#inputMessageTeam_"+id ), id);
@@ -131,7 +131,6 @@ $(document).ready(function() {
 			});
 			var sF = document.getElementById('chat_team_'+id);
 			$('#chat_team_'+id).scrollTop(sF.scrollHeight);
-			return;
 			return;
 		});
 	}
@@ -189,7 +188,7 @@ $(document).ready(function() {
 			});
 
 			myFrame.append("</div>");
-			myFrame.append('<form id="form_'+id+'" action="/tchats/writeMessage" method="POST"><input id="inputMessage_'+id+
+			myFrame.append('<form class="forms_chat" id="form_'+id+'" action="/tchats/writeMessage" method="POST"><input id="inputMessage_'+id+
 				'" idDest="'+id+'"></input></form></li>');
 
 			if (focus == "inputMessage_"+id) {
@@ -241,6 +240,7 @@ $(document).ready(function() {
 	}
 
 	function majMessages() {
+		getFriends();
 		if (friends == null) return;
 		$.each(friends, function (index, val) {
 			if ($( "#chat_friend_"+val.User.id ).length) {

@@ -74,3 +74,8 @@
 	background:rgba(157,134,183,0.6);
 	cursor:default;
 }
+
+.forms_chat {
+	position:relative;
+	top:300px;
+}
