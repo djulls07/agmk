@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 
 	//vars
 	var divChat = $( "#agmk_chat" );
@@ -15,6 +15,7 @@ $(document).ready(function() {
 	var tabTeams = Array();
 	var focus = "";
 	var chatState = divChat.attr('chatState').split(";");
+	var userUsername = divChat.attr("userUsername");
 
 	/* Debut Functions */
 	function hideAndShow(bool) {
@@ -35,12 +36,13 @@ $(document).ready(function() {
 		});
 	}
 
-	function getFriends() {
+	function getFriends(bool) {
 		$.get('/friendships/index').done(function(data) {
 			contacts.empty();
 			friends = $.parseJSON(data);
 			contacts.append('<ul>');
 			$.each(friends, function (index, val) {
+				if (bool) tabFriends[val.User.id] = "";
 				if (val.User.connected == false) {
 					contacts.append("<li type=\"friend\" userName=\""+val.User.username+"\" userId=\""+val.User.id+"\" class=\"mouseChatListen\"><img src=\"" +val.User.avatar+ "\" style=\"width:20px;\"> "+val.User.username+": "+offline+"</li>");
 				} else {
@@ -90,8 +92,7 @@ $(document).ready(function() {
 			$('#chat_team_'+id).scrollTop(sF.scrollHeight);
 
 			$( "#menu_chat_team_"+id ).on("click", function () {
-				var e = $("#chat_team_"+id);
-				e.remove();
+				$("#chat_team_"+id).remove();
 				$(this).remove();
 				tabTeams[id] = "";
 			});
@@ -118,7 +119,11 @@ $(document).ready(function() {
 			}
 			divMessages.empty();
 			$.each(data, function (index, val) {
-				divMessages.append('<p><small>'+val+'</small></p>');
+				if (val == "none") {
+					divMessages.append('<small>No message</small><br />');
+				} else {
+					divMessages.append('<small>'+val+'</small><br />');
+				}
 			});
 
 			if (focus == "inputMessageTeam_"+id) {
@@ -152,6 +157,7 @@ $(document).ready(function() {
 				e.remove();
 				$(this).remove();
 				tabFriends[id] = "";
+				saveChatState();
 			});
 			//hideAndShow(true);
 		} else {
@@ -164,6 +170,9 @@ $(document).ready(function() {
 	//on recupere les messages du chat entre User.id = id et "moi"(AuthComp) via ajax
 	function getMessages(id, name, myFrame, menuMyFrame, d, nbLignes) {
 		var file = "";
+		var len = 0;
+		var tmp = "";
+		var pseudo = "";
 		if (userId < id) {
 			file = "files/friends/"+userId+"_"+id+"_tchat.txt";
 		} else {
@@ -176,37 +185,56 @@ $(document).ready(function() {
 				return;
 			}
 		});
-		$.post('/tchats/getMessages', { debut: d , nombreLignes: nbLignes, ressource: file}).done(function(data) {
-			data = $.parseJSON(data);
-			if (focus == "inputMessage_"+id) {
-				var messSave = $( "#inputMessage_"+id ).val();
-			}
-			myFrame.empty();
-			myFrame.append("<div>");
-			$.each(data, function (index, val) {
-				myFrame.append('<p><small>'+val+'</small></p>');
-			});
 
-			myFrame.append("</div>");
-			myFrame.append('<form class="forms_chat" id="form_'+id+'" action="/tchats/writeMessage" method="POST"><input id="inputMessage_'+id+
-				'" idDest="'+id+'"></input></form></li>');
 
-			if (focus == "inputMessage_"+id) {
-				setFocus();
-				$( "#inputMessage_"+id ).val(messSave);
-			}
+		$.ajax({
+		  	type: 'POST',
+		  	url: '/tchats/getMessages',
+		 	data: { debut: d , nombreLignes: nbLignes, ressource: file},
+		  	success: function(data) {
+		  		data = $.parseJSON(data);
+				if (focus == "inputMessage_"+id) {
+					var messSave = $( "#inputMessage_"+id ).val();
+				}
+				myFrame.empty();
+				myFrame.append("<div>");
+				$.each(data, function (index, val) {
+					tmp = String(val);
+					if (tmp == "none") {
+						myFrame.append('<small>No message</small><br />');
+						return;
+					}
+					pseudo = tmp.split(">")[1].split("<")[0];
+					pseudo = pseudo.substr(0, pseudo.length - 2);
+					if (pseudo == userUsername) {
+						val = tmp.split('<a')[0] + '<a href="/users/view/'+userId+'">Me: </a>'+tmp.split(pseudo+": </a>")[1];
+					}
+					myFrame.append('<small>'+val+'</small><br />');
+				});
 
-			$( "#inputMessage_"+id ).focus(function() {
-				focus = "inputMessage_"+id;
-			});
+				myFrame.append("</div>");
+				myFrame.append('<form class="forms_chat" id="form_'+id+'" action="/tchats/writeMessage" method="POST"><input id="inputMessage_'+id+
+					'" idDest="'+id+'"></input></form></li>');
 
-			$( "#form_"+id ).on('submit', function () {
-				writeMessage(file, $( "#inputMessage_"+id ), id);
-				return false;
-			});
-			var sF = document.getElementById('chat_friend_'+id);
-			$('#chat_friend_'+id).scrollTop(sF.scrollHeight);
-			return;
+				if (focus == "inputMessage_"+id) {
+					setFocus();
+					$( "#inputMessage_"+id ).val(messSave);
+				}
+
+				$( "#inputMessage_"+id ).focus(function() {
+					focus = "inputMessage_"+id;
+				});
+
+				$( "#form_"+id ).on('submit', function () {
+					writeMessage(file, $( "#inputMessage_"+id ), id);
+					return false;
+				});
+				var sF = document.getElementById('chat_friend_'+id);
+				$('#chat_friend_'+id).scrollTop(sF.scrollHeight);
+				return;
+		  	},
+		  	dataType: 'text',
+		  	async:true
 		});
 	}
 
@@ -240,7 +268,7 @@ $(document).ready(function() {
 	}
 
 	function majMessages() {
-		getFriends();
+		getFriends(false);
 		if (friends == null) return;
 		$.each(friends, function (index, val) {
 			if ($( "#chat_friend_"+val.User.id ).length) {
@@ -278,15 +306,16 @@ $(document).ready(function() {
 			}
 		});
 		state = state.substr(0, state.length -1);
-		$.post("/users/saveChatState", {chatState: state}).done(function(data) {
-		});
+		$.post("/users/saveChatState", {chatState: state});
 	}
 
 	function main() {
-		getFriends();
+		//divChat.hide();
+		getFriends(true);
 		getTeams();
 		hideAndShow(false);
 		setChatState();
+		//divChat.show();
 		setInterval(function() {
 			//actualise les messsages.
 			majMessages();
@@ -298,93 +327,4 @@ $(document).ready(function() {
 	main();
 	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/* Needed Vars */
-	/*var tchat = $( "#tchat" );
-	var form = $( "#conversationForm" );
-	var file = form.attr("ressource");
-	var message = $( "#inputMessage" );
-	var messages = $( "#messages" );
-	var bouton = $( "#submitForm" );
-	var messScroll = document.getElementById("messages");
-	var compt = 20;
-
-
-	//a retirer
-	messages.css("overflow", "auto");
-	messages.css("height", "300px");
-	messages.css("margin", "3px");
-
-	tchat.css('border', '1px inset black');
-	tchat.css('margin', '2px');*/
-
-
-	/* Functions needed to ajax tchat */
-	/*function create() {
-		$.post( "/tchats/createFile", {ressource: file} ).done(function( data ) {
-			res = $.parseJSON(data);
-			if (res.status == "ok") {
-				tchat.show();
-				getMessages(-1, 20, false);
-			}
-		});
-	}
-
-	function getMessages(d, nbLignes, fromScroll) {
-		$.post( "/tchats/getMessages", {ressource: file, debut: d, nombreLignes: nbLignes} ).done(function( data ) {
-			res = $.parseJSON(data);
-			messages.html('');
-			$.each(res, function (index, val) {
-				messages.append("<p>" + val + "</p>");
-			});
-			if (!fromScroll) messages.scrollTop(messScroll.scrollHeight);
-			else messages.scrollTop(1);
-		});
-	}
-
-	function writeMessage() {
-		if (message.val() == "") return;
-		$.post( "/tchats/writeMessage", {ressource: file, message: message.val()} ).done(function( data ) {
-			message.val('');
-			res = $.parseJSON(data);
-			if (res.status == 'ok') {
-				getMessages(-1, 20, false);
-			} else {
-				//status ko
-			}
-		});
-	}*/
-
-	/*call functions*/
-	/*form.on("submit", function() {
-		//appel ajax
-		writeMessage();
-		return false;
-	});
-	create();
-
-	messages.on('scroll', function() {
-		if ($(this).scrollTop() > 0) {
-			return;
-		} else {
-			messages.html('Loading previous messages....');
-			compt += 20;
-			setTimeout(function(){getMessages(-1, compt, true);}, 500);
-		}
-	});*/
 });

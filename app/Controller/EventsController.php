@@ -1,28 +1,216 @@
 <?php
-
 App::uses('AppController', 'Controller');
-
+/**
+ * Events Controller
+ *
+ * @property Event $Event
+ * @property PaginatorComponent $Paginator
+ * @property SessionComponent $Session
+ */
 class EventsController extends AppController {
-	
+
+/**
+ * Components
+ *
+ * @var array
+ */
+	public $components = array('Paginator', 'Session');
+
 	public function beforeFilter() {
-		$this->Auth->deny('all');
+		$this->Auth->allow('index');
 	}
 
-	public function isAuthorized($user) {
-		if (in_array($this->action, array('add', 'index'))) 
-			return true;
-	}
-
+/**
+ * index method
+ *
+ * @return void
+ */
 	public function index() {
-		if ($this->request->is('get')) {
-			$this->Event->recursive = 0;
-			$this->set('events', $this->Event->paginate());
+		$this->Event->recursive = 0;
+		$this->set('events', $this->Paginator->paginate());
+	}
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->Event->exists($id)) {
+			throw new NotFoundException(__('Invalid event'));
 		}
+		$options = array('conditions' => array('Event.' . $this->Event->primaryKey => $id));
+		$this->set('event', $this->Event->find('first', $options));
 	}
 
+/**
+ * add method
+ *
+ * @return void
+ */
 	public function add() {
-		
+		if ($this->request->is('post')) {
+			$this->Event->create();
+			$date_debut = explode("/",$this->request->data['Event']['date_debut'] );
+			$date_fin = explode("/",$this->request->data['Event']['date_fin'] );
+			$this->request->data['Event']['date_debut'] = $date_debut[2].'-'.$date_debut[1].'-'.$date_debut[0].' 00:00:00';
+			$this->request->data['Event']['date_fin'] = $date_fin[2].'-'.$date_fin[1].'-'.$date_fin[0].' 23:59:59';
+			if ($this->Event->save($this->request->data)) {
+				$this->Session->setFlash(__('The event has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
+			}
+		}
+		$users = $this->Event->User->find('list');
+		$games = $this->Event->Game->find('list');
+		//$teams = $this->Event->Team->find('list');
+		$this->set(compact('users', 'games', 'teams'));
 	}
 
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->Event->exists($id)) {
+			throw new NotFoundException(__('Invalid event'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Event->save($this->request->data)) {
+				$this->Session->setFlash(__('The event has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('Event.' . $this->Event->primaryKey => $id));
+			$this->request->data = $this->Event->find('first', $options);
+		}
+		$users = $this->Event->User->find('list');
+		$games = $this->Event->Game->find('list');
+		$teams = $this->Event->Team->find('list');
+		$this->set(compact('users', 'games', 'teams'));
+	}
+
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->Event->id = $id;
+		if (!$this->Event->exists()) {
+			throw new NotFoundException(__('Invalid event'));
+		}
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Event->delete()) {
+			$this->Session->setFlash(__('The event has been deleted.'));
+		} else {
+			$this->Session->setFlash(__('The event could not be deleted. Please, try again.'));
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
+
+/**
+ * admin_index method
+ *
+ * @return void
+ */
+	public function admin_index() {
+		$this->Event->recursive = 0;
+		$this->set('events', $this->Paginator->paginate());
+	}
+
+/**
+ * admin_view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admin_view($id = null) {
+		if (!$this->Event->exists($id)) {
+			throw new NotFoundException(__('Invalid event'));
+		}
+		$options = array('conditions' => array('Event.' . $this->Event->primaryKey => $id));
+		$this->set('event', $this->Event->find('first', $options));
+	}
+
+/**
+ * admin_add method
+ *
+ * @return void
+ */
+	public function admin_add() {
+		if ($this->request->is('post')) {
+			$this->Event->create();
+			if ($this->Event->save($this->request->data)) {
+				$this->Session->setFlash(__('The event has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
+			}
+		}
+		$users = $this->Event->User->find('list');
+		$games = $this->Event->Game->find('list');
+		$teams = $this->Event->Team->find('list');
+		$this->set(compact('users', 'games', 'teams'));
+	}
+
+/**
+ * admin_edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admin_edit($id = null) {
+		if (!$this->Event->exists($id)) {
+			throw new NotFoundException(__('Invalid event'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Event->save($this->request->data)) {
+				$this->Session->setFlash(__('The event has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('Event.' . $this->Event->primaryKey => $id));
+			$this->request->data = $this->Event->find('first', $options);
+		}
+		$users = $this->Event->User->find('list');
+		$games = $this->Event->Game->find('list');
+		$teams = $this->Event->Team->find('list');
+		$this->set(compact('users', 'games', 'teams'));
+	}
+
+/**
+ * admin_delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admin_delete($id = null) {
+		$this->Event->id = $id;
+		if (!$this->Event->exists()) {
+			throw new NotFoundException(__('Invalid event'));
+		}
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Event->delete()) {
+			$this->Session->setFlash(__('The event has been deleted.'));
+		} else {
+			$this->Session->setFlash(__('The event could not be deleted. Please, try again.'));
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
 }
-?>

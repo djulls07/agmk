@@ -80,7 +80,7 @@ class TchatsController extends AppController {
 			}
 		}
 		if ($i == 0) {
-			$messages = array('message' => 'no messages');
+			$messages = array('message' => 'none');
 		}
 		return $messages;
 	}
@@ -111,7 +111,7 @@ class TchatsController extends AppController {
 			$tmp = ftell($file);
 			fwrite($fileIndex, $tmp.";");
 			fseek($file, 0, SEEK_END);
-			$preLink = '<a href="/users/view/'.$this->Auth->user('id').'">';
+			$preLink = '['.date("d.m.y", time()).'] <a href="/users/view/'.$this->Auth->user('id').'">';
 			$postLink = '</a>';
 			fwrite($file, $preLink . $this->Auth->user('username') . ': ' .$postLink . h($message."\n"));
 			flock($fileIndex, LOCK_UN);

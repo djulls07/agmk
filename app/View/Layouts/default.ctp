@@ -22,7 +22,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <html>
     <head>
         <?php echo $this->Html->charset(); ?>
-        <?php echo $this->Html->script('jquery-2.1.1.min'); ?>
+        <?php echo $this->Html->script("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"); ?>
+        <?php echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js');?>
+        <?php echo $this->Html->css('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css'); ?>
 
         <!--Script pour actualiser messages -->
         <?php if (AuthComponent::user('id')) echo $this->Html->script('getUserNotifs'); ?>
