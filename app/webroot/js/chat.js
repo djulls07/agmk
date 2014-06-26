@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
 	}
 
 	function getFriends(bool) {
-		$.get('/friendships/index').done(function(data) {
+		$.get('/friendships/index', function(data) {
 			contacts.empty();
 			friends = $.parseJSON(data);
 			contacts.append('<ul>');
@@ -50,29 +50,27 @@ jQuery(document).ready(function($) {
 				}
 			});
 			contacts.append('</ul>');
-			addMouseEvents();
+			//addMouseEvents();
 		});
 	}
 
 	function getTeams() {
-		$.get('/teams/index').done(function(data) {
+		$.get('/teams/index', function(data) {
 			data = $.parseJSON(data);
 			teams.append('<ul>')
 			$.each(data, function (index, val) {
-				teams.append('<li type="team" class="mouseChatListen" teamId="'+val.Team.id+'" >'+val.Team.name+'</li>');
+				teams.append('<li type="team" class="mouseChatListenTeams" teamId="'+val.Team.id+'" >'+val.Team.name+'</li>');
 			});
 			teams.append('</ul>')
-			addMouseEvents();
+			addMouseEventsTeams();
 		});
 	}
 
-	function addMouseEvents() {
-		var ev1 = $( "li.mouseChatListen" );
+	function addMouseEventsTeams() {
+		var ev1 = $( "li.mouseChatListenTeams" );
 		ev1.each(function() {
 			$(this).on('click', function() {
-				if ($(this).attr('type') == 'friend') newFrameFriend($(this).attr('userId'), $(this).attr('userName'));
-				else if ($(this).attr('type') == 'team') newFrameTeam($(this).attr('teamId'), $(this).html());
-				saveChatState();
+				newFrameTeam($(this).attr('teamId'), $(this).html());			
 			});
 		});
 	}
@@ -88,6 +86,7 @@ jQuery(document).ready(function($) {
 				return false;
 			});
 			getMessagesTeam(id, $("#team_messages_"+id), -1, 20);
+
 			var sF = document.getElementById('chat_team_'+id);
 			$('#chat_team_'+id).scrollTop(sF.scrollHeight);
 
@@ -105,13 +104,6 @@ jQuery(document).ready(function($) {
 
 	function getMessagesTeam(id, divMessages, d, nbLignes) {
 		var file = 'files/teams/'+id+'_tchat.txt';
-		$.post( "/tchats/createFile", {ressource: file} ).done(function( data ) {
-			res = $.parseJSON(data);
-			if (res.status != "ok") {
-				alert('Error while getting chat file');
-				return;
-			}
-		});
 		$.post('/tchats/getMessages', { debut: d , nombreLignes: nbLignes, ressource: file}).done(function(data) {
 			data = $.parseJSON(data);
 			if (focus == "inputMessageTeam_"+id) {
@@ -135,7 +127,7 @@ jQuery(document).ready(function($) {
 				focus = "inputMessageTeam_"+id;
 			});
 			var sF = document.getElementById('chat_team_'+id);
-			$('#chat_team_'+id).scrollTop(sF.scrollHeight);
+			if (sF != null) $('#chat_team_'+id).scrollTop(sF.scrollHeight);
 			return;
 		});
 	}
@@ -178,15 +170,6 @@ jQuery(document).ready(function($) {
 		} else {
 			file = "files/friends/"+id+"_"+userId+"_tchat.txt";
 		}
-		$.post( "/tchats/createFile", {ressource: file} ).done(function( data ) {
-			res = $.parseJSON(data);
-			if (res.status != "ok") {
-				alert('Error while getting chat file');
-				return;
-			}
-		});
-
-
 		$.ajax({
 		  	type: 'POST',
 		  	url: '/tchats/getMessages',
@@ -230,6 +213,7 @@ jQuery(document).ready(function($) {
 					return false;
 				});
 				var sF = document.getElementById('chat_friend_'+id);
+				if (sF == null) return;
 				$('#chat_friend_'+id).scrollTop(sF.scrollHeight);
 				return;
 		  	},
@@ -268,13 +252,14 @@ jQuery(document).ready(function($) {
 	}
 
 	function majMessages() {
+		return;
 		getFriends(false);
 		if (friends == null) return;
 		$.each(friends, function (index, val) {
 			if ($( "#chat_friend_"+val.User.id ).length) {
 				myFrame = $( "#chat_friend_"+val.User.id );
 				menuMyFrame = $( "#menu_chat_friend_"+val.User.id );
-				getMessages(val.User.id, val.User.name, myFrame, menuMyFrame, -1, 20);
+				getMessages(val.User.id, val.User.name, $( "#chat_friend_"+val.User.id ), $( "#menu_chat_friend_"+val.User.id ), -1, 20);
 			}
 			//getNewMessages(val.User.id, val.User.name);
 		});
@@ -286,7 +271,8 @@ jQuery(document).ready(function($) {
 
 	function setFocus() {
 
-		document.getElementById(focus).focus();
+		if (document.getElementById(focus) != null)
+			document.getElementById(focus).focus();
 
 		return false;
 	}
@@ -314,7 +300,7 @@ jQuery(document).ready(function($) {
 		getFriends(true);
 		getTeams();
 		hideAndShow(false);
-		setChatState();
+		//setChatState();
 		//divChat.show();
 		setInterval(function() {
 			//actualise les messsages.

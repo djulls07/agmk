@@ -27,6 +27,22 @@ class Event extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'min_teams' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Numeric value only',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'date_debut' => array(
+			'allowEmpty' => false
+		),
+		'date_fin' => array(
+			'allowEmpty' => false
+		)
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

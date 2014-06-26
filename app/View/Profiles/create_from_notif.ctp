@@ -8,5 +8,8 @@
 </fieldset>
 <?php //echo $this->Form->end(__('Submit')); ?>
 <div id="loading"></div>
+<div id="dialog">
+<form id="formPop"></form>
+</div>
 
 <?php echo $this->Html->script('createProfileFromNotif'); ?>

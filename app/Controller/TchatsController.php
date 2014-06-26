@@ -21,6 +21,9 @@ class TchatsController extends AppController {
 		$path = $this->request->data['ressource'];
 		$nombreLignes = $this->request->data['nombreLignes'];
 		$messages = array();
+		if (!file_exists($path)) {
+			$this->createFile();
+		}
 
 		try {		
 			$file = fopen($path, "r");
