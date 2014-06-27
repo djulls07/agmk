@@ -1,40 +1,73 @@
 <div id="onglets">
 	<ul>
-		<li><a href="#onglet-1">Leagues</a></li>
-		<li><a href="#onglet-2">Tournaments</a></li>
-		<li><a href="#onglet-3">Others</a></li>
+		<li><a href="#onglet-1">Subscribed Events</a></li>
+		<li><a href="#onglet-2">Leagues</a></li>
+		<li><a href="#onglet-3">Tournaments</a></li>
 	</ul>
+	
 	<div id="onglet-1">
-		<h2><?php echo __('Events'); ?></h2>
+	<h3><?php echo __('Subscibed Events'); ?></h3>
 			<table cellpadding="0" cellspacing="0">
 			<tr>
-				<th><?php echo $this->Paginator->sort('id'); ?></th>
-				<th><?php echo $this->Paginator->sort('user_id'); ?></th>
+				<th>Name</th>
+				<th>Game</th>
+				<th>Begin Date</th>
+				<th>Ending Date</th>
+				<th> Team subscribed</th>
+				<th class="actions"><?php echo __('Actions'); ?></th>
+			</tr>
+			<?php foreach ($subscribed as $event): ?>
+			<tr>
+				<td>
+					<?php echo $this->Html->link($event['Event']['name'], array('controller' => 'events', 'action' => 'view', $event['Event']['id'])); ?>
+				</td>
+				<td>
+					<?php echo $this->Html->link($event['Game']['name'], array('controller' => 'games', 'action' => 'view', $event['Game']['id'])); ?>
+				</td>
+				<td><?php echo h($event['Event']['date_debut']); ?>&nbsp;</td>
+				<td><?php echo h($event['Event']['date_fin']); ?>&nbsp;</td>
+				<td class="actions">
+					<?php echo $this->Html->link(__('View'), array('action' => 'view', $event['Event']['id'])); ?>
+					<?php echo '<a id="sub" href="#" eventId="'.$event['Event']['id'].
+						'" eventName="'.$event['Event']['name'].'"> UnSubscribe </a>' ;?>
+					<?php if ($event['Event']['user_id'] == AuthComponent::user('id')) : ?>
+					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $event['Event']['id'])); ?>
+					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $event['Event']['id']), array(), __('Are you sure you want to delete # %s?', $event['Event']['id'])); ?>
+				</td>
+			</tr>
+		<?php endif; ?>
+		<?php endforeach; ?>
+	</table>
+	</div>
+	<div id="onglet-2">
+		<h3><?php echo __('Leagues'); ?></h3>
+			<table cellpadding="0" cellspacing="0">
+			<tr>
+				<th><?php echo $this->Paginator->sort('name'); ?></th>
 				<th><?php echo $this->Paginator->sort('game_id'); ?></th>
-				<th><?php echo $this->Paginator->sort('modified'); ?></th>
 				<th><?php echo $this->Paginator->sort('date_debut'); ?></th>
 				<th><?php echo $this->Paginator->sort('date_fin'); ?></th>
-				<th><?php echo $this->Paginator->sort('created'); ?></th>
 				<th class="actions"><?php echo __('Actions'); ?></th>
 			</tr>
 			<?php foreach ($events as $event): ?>
 			<?php if ($event['Event']['type'] == 'league'): ?>
 			<tr>
-				<td><?php echo h($event['Event']['id']); ?>&nbsp;</td>
 				<td>
-					<?php echo $this->Html->link($event['User']['id'], array('controller' => 'users', 'action' => 'view', $event['User']['id'])); ?>
+					<?php echo $this->Html->link($event['Event']['name'], array('controller' => 'events', 'action' => 'view', $event['Event']['id'])); ?>
 				</td>
 				<td>
 					<?php echo $this->Html->link($event['Game']['name'], array('controller' => 'games', 'action' => 'view', $event['Game']['id'])); ?>
 				</td>
-				<td><?php echo h($event['Event']['modified']); ?>&nbsp;</td>
 				<td><?php echo h($event['Event']['date_debut']); ?>&nbsp;</td>
 				<td><?php echo h($event['Event']['date_fin']); ?>&nbsp;</td>
-				<td><?php echo h($event['Event']['created']); ?>&nbsp;</td>
 				<td class="actions">
 					<?php echo $this->Html->link(__('View'), array('action' => 'view', $event['Event']['id'])); ?>
+					<?php echo '<a id="sub" href="#" eventId="'.$event['Event']['id'].
+						'" eventName="'.$event['Event']['name'].'"> Subscribe </a>' ;?>
+					<?php if ($event['Event']['user_id'] == AuthComponent::user('id')) : ?>
 					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $event['Event']['id'])); ?>
 					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $event['Event']['id']), array(), __('Are you sure you want to delete # %s?', $event['Event']['id'])); ?>
+					<?php endif; ?>
 				</td>
 			</tr>
 		<?php endif; ?>
@@ -54,9 +87,6 @@
 			?>
 		</div>
 	</div>
-	<div id="onglet-2">
-
-	</div>
 	<div id="onglet-3">
 
 	</div>
@@ -72,8 +102,40 @@
 	</ul>
 </div>
 
+<div id="dialog">
+	<?php echo $this->Form->create('Event', array('action' => 'addTeam'));?>
+	<?php echo $this->Form->input('teams', array('label' => 'Choose Team')); ?>
+</div>
+
 <script type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#onglets").tabs();
+		var dialog = $("#dialog");
+		var subscribe = jQuery("#sub");
+		dialog.dialog(
+			{
+				autoOpen: false ,
+		 		modal: true,
+		 		width: 600,
+		 		buttons: [{
+					text: "Send",
+					click: function() {
+						jQuery("#EventAddTeamForm").submit();
+
+					}
+				}],
+				title: "Subscribe to "+subscribe.attr('eventName'),
+				close: function() {
+					
+				}
+		 	}
+		);
+		var sub = jQuery("#sub");
+		sub.on("click", function() {
+			jQuery('#EventAddTeamForm').append('<input name="data[Event][eventId]" type="hidden" value="'+subscribe.attr('eventId')+'"></input>');
+			dialog.dialog('open');
+		});
+		
+
 	});
 </script>

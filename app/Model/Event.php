@@ -37,6 +37,16 @@ class Event extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'players_by_team' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				'message' => 'Numeric value only',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'date_debut' => array(
 			'required' => array (
 				'rule' => array('notEmpty')
@@ -46,6 +56,19 @@ class Event extends AppModel {
 			'required' => array (
 				'rule' => array('notEmpty')
 			)
+		),
+		'name' => array(
+			'required' => array (
+				'rule' => array('notEmpty')
+			),
+			'unique' => array(
+            	'rule'    => 'isUnique',
+            	'message' => 'This event name has already been taken.'
+        	),
+        	'between' => array(
+        		'rule' => array('between', 5, 25),
+        		'message' => 'Your event name should be between 5 and 25 chars'
+        	)
 		)
 	);
 
@@ -141,5 +164,34 @@ class Event extends AppModel {
 			'finderQuery' => '',
 		)
 	);
+
+	public function addTeam($idTeam, $eventId) {
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM events_teams WHERE event_id=".$eventId." AND team_id=".$idTeam;
+		if ($db->fetchAll($sql)) return false;
+		$sql = "INSERT INTO events_teams (event_id, team_id) VALUES(".$eventId.", ".$idTeam.")";
+		$db->query($sql);
+		return true;
+	}
+
+	public function getSubscribed($userId) {
+		$db = $this->getDataSource();
+		$teams = $this->Team->getTeamsList($userId);
+		$results = array();
+		$tmp = '';
+		foreach($teams as $k => $v) {
+			$tmp .= $k.',';
+		}
+		$tmp = substr($tmp, 0, -1);
+		$sql = "SELECT * FROM events_teams as EventTeam LEFT JOIN events as Event ON (EventTeam.event_id=Event.id) WHERE EventTeam.team_id IN (".
+			$tmp.")";
+		$results = $db->fetchAll($sql);
+		foreach($results as $k => $v) {
+			$results[$k]['EventTeam']['Team'] = $teams[$v['EventTeam']['team_id']];
+			$game = $this->Game->findById($v['Event']['game_id']);
+			$results[$k]['Game'] = $game['Game'];
+		}
+		return $results;
+	}
 
 }

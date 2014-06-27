@@ -28,6 +28,17 @@ class EventsController extends AppController {
 	public function index() {
 		$this->Event->recursive = 0;
 		$this->set('events', $this->Paginator->paginate());
+		$this->set('teams', $this->Event->Team->find('list', array (
+				'conditions' => array (
+					'OR' => array (
+						array ('leader_id' => $this->Auth->user('id')),
+						array ('second_leader_id' => $this->Auth->user('id'))
+					)
+				)
+			)
+		));
+		$subscribed = $this->Event->getSubscribed($this->Auth->user('id'));
+		$this->set('subscribed', $subscribed);
 	}
 
 /**
@@ -55,8 +66,12 @@ class EventsController extends AppController {
 		if ($this->request->is('post')) {
 			//unset($this->Event->Saison->validate);
 			$this->Event->create();
-			$this->request->data['Event']['date_debut'] .= ' 00:00:00';
+			$this->request->data['Event']['date_debut'] .= ' 00:00:01';
 			$this->request->data['Event']['date_fin'] .= ' 23:59:59';
+			foreach($this->request->data['Saison'] as $k => $v) {
+				$this->request->data['Saison'][$k]['date_debut'] = $v['date_debut'].' 00:00:01';
+				$this->request->data['Saison'][$k]['date_fin'] = $v['date_fin'].' 23:59:59';
+			}
 			if ($this->Event->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The event has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -64,7 +79,7 @@ class EventsController extends AppController {
 				$this->Session->setFlash(__('The event could not be saved. Please, try again.'));
 			}
 		}
-		$users = $this->Event->User->find('list');
+		//$users = $this->Event->User->find('list');
 		$games = $this->Event->Game->find('list');
 		//$teams = $this->Event->Team->find('list');
 		$this->set(compact('users', 'games', 'teams'));
@@ -212,5 +227,25 @@ class EventsController extends AppController {
 			$this->Session->setFlash(__('The event could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function addTeam() {
+		if ($this->request->is('post')) {
+			debug($this->request->data);
+			if ($this->Event->addTeam($this->request->data['Event']['teams'], $this->request->data['Event']['eventId'])) {
+				$this->Session->setFlash(__("Subscribe OK"));
+				return $this->redirect(array('action' => 'view', $this->request->data['Event']['eventId']));
+			} else {
+				$this->Session->setFlash(__("You have already subscribe to this Event"));
+				return $this->redirect(array('action' => 'index'));
+			}
+		}
+	}
+
+	public function isAuthorized($user) {
+		if ($this->action === "addTeam") {
+			return true;
+		}
+		return parent::isAuthorized($user);
 	}
 }

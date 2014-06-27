@@ -13,6 +13,8 @@
 				<?php
 					echo $this->Form->input('user_id', array('type'=>'hidden', 'value' => AuthComponent::user('id')));
 					echo $this->Form->input('game_id');
+					echo $this->Form->input('name');
+					echo $this->Form->input('players_by_team', array('label' => 'Nb min Player/Team'));
 					echo $this->Form->input('min_teams', array('label' => 'Min nb of teams'));
 					echo $this->Form->input('date_debut', array('type' => 'text' ,'class' => 'datepick'));
 					echo $this->Form->input('date_fin', array('type' => 'text' ,'class' => 'datepick'));

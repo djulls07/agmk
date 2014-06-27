@@ -5,7 +5,7 @@
 <div id="onglets">
 	<ul>
 		<?php for($i=1;$i<=count($saisons); $i++) : ?>
-		<li><a href="#onglet-<?=$i;?>">Saison - <?=$i;?></a></li>
+		<li><a href="#onglet-<?=$i;?>">Saison <?=$i;?></a></li>
 		<?php endfor; ?>
 	</ul>
 	<?php for($i=1; $i<=count($saisons); $i++) : ?>
