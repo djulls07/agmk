@@ -78,15 +78,6 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
             $this->User->setCaptcha($this->Captcha->getVerCode()); //getting from component and passing to model to make proper validation check
             $this->User->set($this->request->data);
-            unset($this->User->Profile->validate['user_id']);
-            /* l'ajout d'utilisateur propose l'ajout de profile, on les
-			 * verifie et retire ceux qui sont vide pour eviter de sercharger bdd.
-             */
-            foreach ($this->request->data['Profile'] as $k => $profile) {
-                if (!$this->User->Profile->canBeAdded($profile)) {
-                	unset($this->request->data['Profile'][$k]);
-                }
-            }
             $this->request->data['User']['avatar'] = '/img/avatar.jpg';
             if($this->User->validates()) {
                 $this->User->create();
@@ -99,11 +90,6 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('Data validation failure'));
             }
         }
-        $games = $this->User->Profile->Game->find('list', array(
-            'fields' => array('Game.id', 'Game.name'),
-            'recursive' => 0
-        ));
-        $this->set('games', $games);
     }
 
 /**

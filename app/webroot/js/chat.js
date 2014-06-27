@@ -27,10 +27,12 @@ jQuery(document).ready(function($) {
 				hideOrShow = $("#" + $(this).attr('idBalise'));
 				if (hideOrShow.css('visibility') == 'hidden') {
 					//hideOrShow.show();
+					$("#agmk_chat_frame").show();
 					hideOrShow.css("visibility", "visible");
 				} else {
 					//hideOrShow.hide();
 					hideOrShow.css("visibility", "hidden");
+					$("#agmk_chat_frame").hide();
 				}
 			});
 		});
@@ -296,6 +298,7 @@ jQuery(document).ready(function($) {
 	}
 
 	function main() {
+		$("#agmk_chat_frame").hide();
 		//divChat.hide();
 		getFriends(true);
 		getTeams();

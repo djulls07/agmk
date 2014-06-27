@@ -38,10 +38,14 @@ class Event extends AppModel {
 			),
 		),
 		'date_debut' => array(
-			'allowEmpty' => false
+			'required' => array (
+				'rule' => array('notEmpty')
+			),
 		),
 		'date_fin' => array(
-			'allowEmpty' => false
+			'required' => array (
+				'rule' => array('notEmpty')
+			)
 		)
 	);
 
@@ -78,7 +82,7 @@ class Event extends AppModel {
 		'Match' => array(
 			'className' => 'Match',
 			'foreignKey' => 'event_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
@@ -88,10 +92,23 @@ class Event extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Result' => array(
+		/*'Result' => array(
 			'className' => 'Result',
 			'foreignKey' => 'event_id',
-			'dependent' => false,
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),*/
+		'Saison' => array(
+			'className' => 'Saison',
+			'foreignKey' => 'event_id',
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',

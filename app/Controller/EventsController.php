@@ -52,12 +52,11 @@ class EventsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			//unset($this->Event->Saison->validate);
 			$this->Event->create();
-			$date_debut = explode("/",$this->request->data['Event']['date_debut'] );
-			$date_fin = explode("/",$this->request->data['Event']['date_fin'] );
-			$this->request->data['Event']['date_debut'] = $date_debut[2].'-'.$date_debut[1].'-'.$date_debut[0].' 00:00:00';
-			$this->request->data['Event']['date_fin'] = $date_fin[2].'-'.$date_fin[1].'-'.$date_fin[0].' 23:59:59';
-			if ($this->Event->save($this->request->data)) {
+			$this->request->data['Event']['date_debut'] .= ' 00:00:00';
+			$this->request->data['Event']['date_fin'] .= ' 23:59:59';
+			if ($this->Event->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The event has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
