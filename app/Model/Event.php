@@ -66,8 +66,8 @@ class Event extends AppModel {
             	'message' => 'This event name has already been taken.'
         	),
         	'between' => array(
-        		'rule' => array('between', 5, 25),
-        		'message' => 'Your event name should be between 5 and 25 chars'
+        		'rule' => array('between', 5, 50),
+        		'message' => 'Your event name should be between 5 and 50 chars'
         	)
 		)
 	);
@@ -165,13 +165,28 @@ class Event extends AppModel {
 		)
 	);
 
-	public function addTeam($idTeam, $eventId) {
+	public function addTeam($idTeam, $eventId, $userId) {
 		$db = $this->getDataSource();
 		$sql = "SELECT * FROM events_teams WHERE event_id=".$eventId." AND team_id=".$idTeam;
-		if ($db->fetchAll($sql)) return false;
+		if ($db->fetchAll($sql)) return -1;
+		$sql = "SELECT * FROM teams_users as Tu WHERE Tu.team_id=".$idTeam;
+		$listUsersTeam = $db->fetchAll($sql);
+		$tmp = '';
+		foreach($listUsersTeam as $k=>$v) {
+			$teams = $this->Team->getTeamsList($v['Tu']['user_id']);
+			foreach($teams as $key => $val) {
+				$tmp .= $key.',';
+			}
+		}
+		$tmp = substr($tmp, 0, -1);
+		//on verifie que le user n'est pas deja inscrit a event avec autre team
+		$sql = "SELECT * FROM events_teams as et WHERE et.event_id=".$eventId." AND et.team_id IN(".$tmp.")";
+		if ($db->fetchAll($sql)) {
+			return -2;
+		}
 		$sql = "INSERT INTO events_teams (event_id, team_id) VALUES(".$eventId.", ".$idTeam.")";
 		$db->query($sql);
-		return true;
+		return 0;
 	}
 
 	public function getSubscribed($userId) {

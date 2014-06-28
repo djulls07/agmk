@@ -13,7 +13,7 @@
 				<th>Game</th>
 				<th>Begin Date</th>
 				<th>Ending Date</th>
-				<th> Team subscribed</th>
+				<th>Team subscribed</th>
 				<th class="actions"><?php echo __('Actions'); ?></th>
 			</tr>
 			<?php foreach ($subscribed as $event): ?>
@@ -26,10 +26,10 @@
 				</td>
 				<td><?php echo h($event['Event']['date_debut']); ?>&nbsp;</td>
 				<td><?php echo h($event['Event']['date_fin']); ?>&nbsp;</td>
+				<td><?php echo h($event['EventTeam']['Team']['name']) ; ?></td>
 				<td class="actions">
 					<?php echo $this->Html->link(__('View'), array('action' => 'view', $event['Event']['id'])); ?>
-					<?php echo '<a id="sub" href="#" eventId="'.$event['Event']['id'].
-						'" eventName="'.$event['Event']['name'].'"> UnSubscribe </a>' ;?>
+					<?php echo 'UnSub';?>
 					<?php if ($event['Event']['user_id'] == AuthComponent::user('id')) : ?>
 					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $event['Event']['id'])); ?>
 					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $event['Event']['id']), array(), __('Are you sure you want to delete # %s?', $event['Event']['id'])); ?>
@@ -62,7 +62,7 @@
 				<td><?php echo h($event['Event']['date_fin']); ?>&nbsp;</td>
 				<td class="actions">
 					<?php echo $this->Html->link(__('View'), array('action' => 'view', $event['Event']['id'])); ?>
-					<?php echo '<a id="sub" href="#" eventId="'.$event['Event']['id'].
+					<?php echo '<a class="sub" href="#" eventId="'.$event['Event']['id'].
 						'" eventName="'.$event['Event']['name'].'"> Subscribe </a>' ;?>
 					<?php if ($event['Event']['user_id'] == AuthComponent::user('id')) : ?>
 					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $event['Event']['id'])); ?>
@@ -102,7 +102,7 @@
 	</ul>
 </div>
 
-<div id="dialog">
+<div id="dialog" style="display:none;">
 	<?php echo $this->Form->create('Event', array('action' => 'addTeam'));?>
 	<?php echo $this->Form->input('teams', array('label' => 'Choose Team')); ?>
 </div>
@@ -111,31 +111,30 @@
 	jQuery(document).ready(function() {
 		$("#onglets").tabs();
 		var dialog = $("#dialog");
-		var subscribe = jQuery("#sub");
-		dialog.dialog(
-			{
-				autoOpen: false ,
-		 		modal: true,
-		 		width: 600,
-		 		buttons: [{
-					text: "Send",
-					click: function() {
-						jQuery("#EventAddTeamForm").submit();
+		var subscribe = jQuery(".sub");
+		jQuery.each(subscribe, function () {
+			jQuery(this).on("click", function() {
+				dialog.dialog(
+					{
+						autoOpen: false ,
+				 		modal: true,
+				 		width: 600,
+				 		buttons: [{
+							text: "Send",
+							click: function() {
+								jQuery("#EventAddTeamForm").submit();
 
-					}
-				}],
-				title: "Subscribe to "+subscribe.attr('eventName'),
-				close: function() {
-					
-				}
-		 	}
-		);
-		var sub = jQuery("#sub");
-		sub.on("click", function() {
-			jQuery('#EventAddTeamForm').append('<input name="data[Event][eventId]" type="hidden" value="'+subscribe.attr('eventId')+'"></input>');
-			dialog.dialog('open');
+							}
+						}],
+						title: "Subscribe to "+jQuery(this).attr('eventName'),
+						close: function() {
+							
+						}
+				 	}
+				);
+				jQuery('#EventAddTeamForm').append('<input name="data[Event][eventId]" type="hidden" value="'+jQuery(this).attr('eventId')+'"></input>');
+				dialog.dialog('open');
+			});
 		});
-		
-
 	});
 </script>

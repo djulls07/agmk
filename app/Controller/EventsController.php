@@ -231,15 +231,23 @@ class EventsController extends AppController {
 
 	public function addTeam() {
 		if ($this->request->is('post')) {
-			debug($this->request->data);
-			if ($this->Event->addTeam($this->request->data['Event']['teams'], $this->request->data['Event']['eventId'])) {
+			$id = $this->Auth->user('id');
+			$switch = $this->Event->addTeam($this->request->data['Event']['teams'], $this->request->data['Event']['eventId'], $id);
+			if ($switch == 0) {
 				$this->Session->setFlash(__("Subscribe OK"));
 				return $this->redirect(array('action' => 'view', $this->request->data['Event']['eventId']));
+			} else if ($switch == -1) {
+				$this->Session->setFlash(__("You have already subscribe to this Event with this team"));
+				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__("You have already subscribe to this Event"));
+				$this->Session->setFlash(__("You or a member of your team has already subscribe to this event with another team"));
 				return $this->redirect(array('action' => 'index'));
 			}
 		}
+	}
+
+	public function deleteTeam() {
+
 	}
 
 	public function isAuthorized($user) {
