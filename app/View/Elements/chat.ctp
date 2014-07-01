@@ -16,5 +16,7 @@
 		</ul>
 	</div>
 </div>
+<div style="display:none;" id="contain">
+</div>
 <?php echo $this->Html->script("chat"); ?>
 <?php echo $this->Html->css("chat"); ?>

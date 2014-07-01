@@ -1,4 +1,4 @@
-<div id="dialog">
+<div id="dialogWrite">
 <?php echo $this->Form->create('Message'); ?>
 <?php 
 	$label_dest="";
@@ -80,7 +80,7 @@ echo $this->Html->css('soundsystem');
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#dialog").dialog(
+		$("#dialogWrite").dialog(
 			{
 				autoOpen: true ,
 		 		modal: true,

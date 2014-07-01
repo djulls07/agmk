@@ -95,7 +95,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Create Event'), array('action' => 'add')); ?></li>
+		<li><?php if (AuthComponent::user('role') == 'admin') echo $this->Html->link(__('Create Event'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Matches'), array('controller' => 'matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('My Teams'), array('controller' => 'teams', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Create Team'), array('controller' => 'teams', 'action' => 'add')); ?> </li>

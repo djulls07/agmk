@@ -52,7 +52,7 @@ jQuery(document).ready(function($) {
 				}
 			});
 			contacts.append('</ul>');
-			//addMouseEvents();
+			addMouseEvents();
 		});
 	}
 
@@ -65,6 +65,36 @@ jQuery(document).ready(function($) {
 			});
 			teams.append('</ul>')
 			addMouseEventsTeams();
+		});
+	}
+
+	function addMouseEvents() {
+		var ev1 = $( "li.mouseChatListen" );
+		ev1.each(function() {
+			$(this).on('click', function() {
+				$.get('messages/ecrire?To='+$(this).attr('userId'), function(data) {
+					$("#contain").empty();
+					$("#contain").append(data);
+					$("#dialogWrite").dialog(
+						{
+							autoOpen: true ,
+					 		modal: true,
+					 		width: 600,
+					 		buttons: [{
+								text: "Send",
+								click: function() {
+									$("#MessageEcrireForm").submit();
+									//$( this ).dialog( "close" );
+								}
+							}],
+							title: "Write ",
+							close: function() {
+								jQuery(location).attr('href',document.location);
+							}
+					 	}
+					);
+				});			
+			});
 		});
 	}
 

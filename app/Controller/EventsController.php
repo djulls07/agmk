@@ -17,7 +17,7 @@ class EventsController extends AppController {
 	public $components = array('Paginator', 'Session');
 
 	public function beforeFilter() {
-		$this->Auth->allow('index');
+		$this->Auth->deny('all');
 	}
 
 /**
