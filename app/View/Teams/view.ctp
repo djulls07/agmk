@@ -158,7 +158,7 @@
 	<?php endforeach; ?>
 	<br />
 
-	<h3>Active Members</h3>
+	<h3>Team Members</h3>
 	<table id="teamMembers">
 		<tr style="background:#aaa;">
 			<th>Name</th>
@@ -179,6 +179,8 @@
 				<td>
 					<?php if ($team['Team']['leader_id'] == $m['id']) {
 						echo 'LEADER';
+					} else if ($team['Team']['second_leader_id'] == $m['id']) {
+						echo 'LEADER 2';
 					} else {
 						echo 'MEMBER';
 					}
@@ -199,7 +201,7 @@
 					?>
 					<?php
 						if ($team['Team']['leader_id'] == AuthComponent::user('id')) {
-							echo $this->Html->link('Add To Roster...', 
+							echo $this->Html->link('Add to a Roster...', 
 								array('controller' => 'teamprofiles',
 									'action' => 'addToRoster',
 								 	$m['id'], 
@@ -217,6 +219,12 @@
 								array('controller' => 'teams', 'action' => 'eject', $team['Team']['id'], $m['id']),
 								array('confirm' => 'Are you sure ?')
 							);
+							if($m['id'] != $team['Team']['second_leader_id']) {
+								echo $this->Form->postLink('Promote to leader 2', 
+									array('controller' => 'teams', 'action' => 'addSecondLeader', $team['Team']['id'], $m['id']),
+									array('confirm' => 'Are you sure ?')
+								);
+							}
 						} else if ($team['Team']['leader_id'] == AuthComponent::user('id')) {
 							echo $this->Form->postLink('Eject', 
 								array('controller' => '#', 'action' => '#'),
@@ -270,13 +278,22 @@
 		<?php endif; ?>
 		<?php endforeach; ?>
 	</table>
-	<div id="tchat" style="display:none;">
-	<div id="messages"></div>
-	<?php echo $this->Form->create("Tchat", 
-		array('id' => 'conversationForm', 'ressource' => 'files/teams/'.$team['Team']['id'].'_tchat.txt')); ?>
-	<?php echo $this->Form->input("message", array('id' => 'inputMessage')); ?>
-	<?php echo $this->Form->end(__("Send"), array('id' => 'submitForm')); ?>
-	</div>
+	<br />
+	<?php foreach($members as $m) {
+		if (AuthComponent::user('id') == $m['TeamsUser']['user_id']) {
+		?>
+			<div id="tchat" style="display:none;">
+			<div id="messages"></div>
+			<?php echo $this->Form->create("Tchat", 
+				array('id' => 'conversationForm', 'ressource' => 'files/teams/'.$team['Team']['id'].'_tchat.txt')); ?>
+			<?php echo $this->Form->input("message", array('id' => 'inputMessage')); ?>
+			<?php echo $this->Form->end(__("Send"), array('div' => array('id' => 'submitForm'))); ?>
+			</div>
+		<?php
+		break;
+		}
+	} ?>
+	
 </div>
 
 <?php echo $this->Html->script("conversations"); ?>

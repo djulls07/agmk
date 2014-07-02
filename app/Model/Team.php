@@ -102,6 +102,30 @@ class Team extends AppModel {
 		}
 		return true;
 	}
+
+	public function addSecondLeader($idTeam, $idUser) {
+		$team = $this->findById($idTeam);
+		if (!$team) {
+			return false;
+		}
+		$team['Team']['second_leader_id'] = $idUser;
+		$this->id = $team['Team']['id'];
+		if ($this->save($team)) {
+			return true;
+		}
+		return false;
+	}
+
+	public function getTeamsList($userId) {
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM teams_users as Tu LEFT JOIN teams as Team ON (Tu.team_id=Team.id) WHERE Tu.user_id=".$userId;
+		$res = $db->fetchAll($sql);
+		$results = array();
+		foreach($res as $k => $val) {
+			$results[$val['Team']['id']] = $val['Team'];
+		}
+		return $results;
+	}
 }
 
 ?>

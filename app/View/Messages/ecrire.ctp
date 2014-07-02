@@ -1,3 +1,4 @@
+<div id="dialogWrite">
 <?php echo $this->Form->create('Message'); ?>
 <?php 
 	$label_dest="";
@@ -17,7 +18,7 @@
 </div>
 
 <?php echo $this->Form->input('content', array('type' => 'text', 'label' => 'Message '.$label_dest, 'rows' => 3)); ?>
-<?php echo $this->Form->end(__('Send')); ?>
+<?php //echo $this->Form->end(__('Send')); ?>
 
 <?php echo $this->Html->script('ecrire'); ?>
 
@@ -75,3 +76,27 @@ echo $this->Html->css('soundsystem');
 		
 		endif;
 	?>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#dialogWrite").dialog(
+			{
+				autoOpen: true ,
+		 		modal: true,
+		 		width: 600,
+		 		buttons: [{
+					text: "Send",
+					click: function() {
+						$("#MessageEcrireForm").submit();
+						//$( this ).dialog( "close" );
+					}
+				}],
+				title: "Write ",
+				close: function() {
+					jQuery(location).attr('href',"http://www.agamek.org/messages/sent");
+				}
+		 	}
+		);
+	});
+</script>

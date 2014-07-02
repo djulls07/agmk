@@ -13,44 +13,66 @@ $(document).ready(function() {
 	var sc2Id = '';
 	var summonerId = '';
 	var test = false;
+	var dialog = $("#dialog");
+	var loading = $("#loading");
 
 	//functions
 
 	function afficheForm() {
+		loading.html("Loading...");
+		dialog.empty();
 		switch(game) {
 			case 2: //lol
-				//divInputsText.show('slow');
-				var compt = 0;
-				while(($.inArray(region, Array('na', 'kr', 'ru', 'euw', 'eune'))) < 0 && compt < 2) {
-					compt++;
-					region = prompt('Enter your region ( na, kr, ru, euw, eune )', 'euw');
-				}
-				pseudo = prompt('Enter you League of legends pseudo: ', 'Your-lol-pseudo ( summoner name )');
-				majLol(pseudo, region);
+				dialog.dialog("option", "title", "Profile League of Legends");
+				dialog.append('<form action="#" method="POST" id="formPopLoL">');
+				dialog.append('Pseudo LoL<input name="pseudo" id="pseudoLoL"></input>');
+				dialog.append('Region LoL (euw, eue, kr, na): <input name="regionLoL" id="regionLoL"></input>');
+				dialog.append('<input id="submitB" type="submit" value="Send"/></form>');
+				dialog.dialog("open");
+				$("#submitB").on("click", function() {
+					dialog.dialog("close");
+					loading.dialog('open');
+					majLol(jQuery("#pseudoLoL").val(), jQuery("#regionLoL").val());
+					return false;
+				});
 				break;
 			case 3: //sc2
-				//divInputsText.show('slow');
-				//inputSc2IdSpan.show();
-				sc2Id = prompt('Enter your SC2 ID : ', 'Your-Sc2-Id');
-				pseudo = prompt('Enter your SC2 pseudo', 'You-Sc2-Pseudo');
-				var compt = 0;
-				while(($.inArray(region, Array('eu', 'kr', 'us'))) < 0 && compt < 2) {
-					compt++;
-					region = prompt('Enter your region ( eu, us, kr )', 'eu');
-				}
-				majSc2(region, sc2Id, pseudo);
-				break;
-			case 4: //DOTA2
-
+				dialog.dialog("option", "title", "Profile Starcraft 2");
+				dialog.append('<form action="#" method="POST" id="formPopSc2">');
+				dialog.append("SC2 ID: <input name=\"sc2ID\" id=\"sc2id\"></input");
+				dialog.append('Pseudo SC2<input name="pseudo" id="pseudoSc2"></input>');
+				dialog.append('Region SC2(eu, us, kr): <input name="regionSc2" id="regionSc2"></input>');
+				dialog.append('<input id="submitB" type="submit" value="Send"/></form>');
+				dialog.dialog("open");
+				$("#submitB").on("click", function() {
+					dialog.dialog("close");
+					loading.dialog("open");
+					majSc2(jQuery("#regionSc2").val(), jQuery("#sc2id").val(), jQuery("#pseudoSc2").val());
+					return false;
+				});
 				break;
 			default:
+				dialog.dialog("option", "title", "Profile "+jQuery("#ProfileGame").find(":selected").text());
+				dialog.append('<form action="#" method="POST" id="formPop">');
+				dialog.append('Pseudo<input name="pseudo" id="pseudoDef"></input>');
+				dialog.append('Region(eu, us, kr): <input name="region" id="regionDef"></input>');
+				dialog.append('Level <input id="levelDef" name="level" type="text"></input>');
+				dialog.append('<input id="submitB" type="submit" value="Send"/></form>');
+				dialog.dialog("open");
+				$("#submitB").on("click", function() {
+					dialog.dialog("close");
+					inputRegion.val(jQuery("#regionDef").val());
+					inputPseudo.val(jQuery("#pseudoDef").val());
+					inputLevel.val(jQuery("#levelDef").val());
+					form.submit();
+					return false;
+				});
 				break;
 		}
 	}
 
 	function majLol(pseudo, region) {
 		inputLevel.val('Loading data');
-		$( "#loading" ).html('LOADING...LOADING...LOADING...')
 	    $.ajax({
 	     	url: "https://prod.api.pvp.net/api/lol/"+region+"/v1.4/summoner/by-name/"+pseudo+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1",
 	     	type: 'GET',
@@ -78,7 +100,8 @@ $(document).ready(function() {
 	            		inputLevel.val('UNRANKED');
 	      				inputPseudo.val(pseudo);
 	      				inputRegion.val(region);
-	      				alert('You LoL level is: UNRANKED');
+	      				//alert('You LoL level is: UNRANKED');
+	      				loading.html("Your Lol level is UNRANKED");
 	      				form.submit();
 	            	}
 	        	});
@@ -93,7 +116,6 @@ $(document).ready(function() {
 
 	function majSc2(region, id, pseudo) {
 	    inputLevel.val('Loading data');
-	    $( "#loading" ).html('LOADING...LOADING...LOADING...')
 	    $.ajax({
 	        url: '/profiles/checkSc2',
 	        type: 'POST',
@@ -107,7 +129,7 @@ $(document).ready(function() {
 	          inputLevel.val(data.career.highest1v1Rank);
 	          inputPseudo.val(pseudo);
 	          inputRegion.val(region);
-	          alert('Your SC2 level is: ' + inputLevel.val());
+	          loading.html('Your SC2 level is: ' + inputLevel.val());
 	          form.submit();
 	        },
 	        error: function() {alert("Cant get your level with the informations you give")},
@@ -116,6 +138,21 @@ $(document).ready(function() {
   	}
 
 	divInputsText.hide();
+	dialog.dialog({ autoOpen: false , modal: true, width: 600, show: { effect: "blind", duration: 1300 }});
+	loading.dialog(
+		{
+			autoOpen: false ,
+	 		modal: true,
+	 		width: 600,
+	 		buttons: [{
+				text: "OK",
+				click: function() {
+				$( this ).dialog( "close" );
+				}
+			}]
+	 	}
+	);
+
 
 	games.on('change', function() {
 		game = parseInt($(this).val());

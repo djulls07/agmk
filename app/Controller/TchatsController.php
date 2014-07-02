@@ -15,12 +15,15 @@ class TchatsController extends AppController {
 		return parent::isAuthorized($user);
 	}
 
-	public function getMessages() {		
+	public function getMessages() {
 		$tabIndex = array();
 		$debut = $this->request->data['debut'];
 		$path = $this->request->data['ressource'];
 		$nombreLignes = $this->request->data['nombreLignes'];
 		$messages = array();
+		if (!file_exists($path)) {
+			$this->createFile();
+		}
 
 		try {		
 			$file = fopen($path, "r");
@@ -80,7 +83,7 @@ class TchatsController extends AppController {
 			}
 		}
 		if ($i == 0) {
-			$messages = array('message' => 'no messages');
+			$messages = array('message' => 'none');
 		}
 		return $messages;
 	}
@@ -111,7 +114,7 @@ class TchatsController extends AppController {
 			$tmp = ftell($file);
 			fwrite($fileIndex, $tmp.";");
 			fseek($file, 0, SEEK_END);
-			$preLink = '<a href="/users/view/'.$this->Auth->user('id').'">';
+			$preLink = '['.date("d.m.y", time()).'] <a href="/users/view/'.$this->Auth->user('id').'">';
 			$postLink = '</a>';
 			fwrite($file, $preLink . $this->Auth->user('username') . ': ' .$postLink . h($message."\n"));
 			flock($fileIndex, LOCK_UN);

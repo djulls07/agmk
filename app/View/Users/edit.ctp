@@ -15,7 +15,7 @@ echo $this->Form->create('User', array(
 		echo '<legend>Informations personnelles</legend>';
 			echo $this->Form->input('id');
 			echo '<li>'.$this->Form->input('username').'</li>';
-			echo '<li>'.$this->Form->input('e-mail',array('type'=>'email'/*,'value'=>$user['mail']*/)).'</li>';
+			echo '<li>'.$this->Form->input('mail',array('type'=>'email'/*,'value'=>$user['mail']*/)).'</li>';
 			//echo $this->Form->input('password');
 		echo '</ol></fieldset><fieldset><ol>';
 		echo '<legend>Avatar</legend>';

@@ -27,7 +27,7 @@ class ProfilesController extends AppController {
 
 			if ($this->Profile->save($this->request->data)) {
 				$this->Session->setFlash(__('Profile has been saved'));
-				return $this->redirect(array('controller' => 'users', 'action' => 'view', $id));
+				return $this->redirect(array('controller' => 'users', 'action' => 'view', $id, '#' => 'Profiles'));
 			}
 		}
 		$gamesInProfiles = $this->Profile->getGamesInProfiles($this->Auth->user('id'));
