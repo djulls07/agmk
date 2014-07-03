@@ -68,7 +68,7 @@ a img {
 	font-weight	:	bold;
 }
 @font-face {
-    font-family: "Ghotic";
+    font-family: "GhoticJ";
 	src: url('../GHOTIC.TTF') format('truetype');
 	font-weight:normal;
     font-style:normal;
@@ -319,18 +319,23 @@ nav.home_barre_mines ul
 	vertical-align	:	middle;
 	line-height : 30px; /* hauteur de la home_barre - hauteurs des borders*/
 	font-weight	:	none;
-	font-family	:	"Agency";
+	font-family	:	"Ghotic";
 	list-style: none;
 	display: inline-table;
 	z-index:	10;
 }
 
 nav.home_barre_mines ul ul {
-	display: none;
+	display : block;
+	visibility:hidden;
 }
 
 nav.home_barre_mines ul li:hover > ul {
-	display: block;
+	visibility:visible;
+}
+
+nav.home_barre_mines ul li:hover > ul  > li {
+	max-height:	50px;
 }
 
 .home_barre_mines_first
@@ -381,16 +386,32 @@ nav.home_barre_mines ul li:hover a {
 nav.home_barre_mines ul ul {
 	background: #9d86b7; border-radius: 0px; padding: 0;
 	position: absolute;
+	line-height	:	20px !important;
 }
 nav.home_barre_mines ul ul li {
 	float: none; 
 	border-bottom: 1px solid #a7a7a7;
 	position: relative;
+	text-align	:	left;
+	
+	max-height : 0px;
+	overflow:hidden;
+	transition	:	max-height 300ms ease 0s;
+		-webkit-transition	:	max-height 300ms ease 0s;
+		-moz-transition	:	max-height 300ms ease 0s;
+		-ms-transition	:	max-height 300ms ease 0s;
+		-o-transition	:	max-height 300ms ease 0s;
 }
 nav.home_barre_mines ul ul li a {
 	padding: 15px 40px;
 	color: #fff;
 }	
+nav.home_barre_mines ul ul li a img {
+	float : left;
+	height : 20px;
+	width:	20px;
+	vertical-align:middle;
+}
 nav.home_barre_mines ul ul li a:hover {
 	background: rgba(108, 91, 126, 1);
 }
@@ -504,6 +525,14 @@ div.barre_jeux nav.home_barre_mines ul
 	z-index	:	9;
 }
 
+img.barre_specific_image
+{
+	position:	absolute;
+	left : 250px;
+	height : 60px;
+	width:	auto;
+	top : -15px;
+}
 /*span.barre_jeux_element
 {
 	text-decoration	:	none;
@@ -556,7 +585,7 @@ aside#contentgauche, aside#contentdroite
 	background-image	:	url('../img/backgrounds/menu_bord_G.png');
 	background-position	:	top	right;
 	background-repeat	:	no-repeat;
-	background-size		:	100% auto;
+	background-size		:	auto 100%;
 	
 	/*box-shadow: -40px 0 40px -40px #a7a7a7 inset;*/
 }
@@ -564,6 +593,7 @@ aside#contentdroite
 {
 	background-image	:	url('../img/backgrounds/menu_bord_D.png');
 	right : 0;
+	background-position	:	top	left;
 }
 
 section#contentcentre
@@ -576,6 +606,7 @@ section#contentcentre
 	height : 100%;
 	right : 300px;
 	left : 300px;
+	min-width:	600px;
 }
 
 div.content
@@ -938,7 +969,7 @@ div.col_droite
 	margin-top	:	0%;
 	margin-bottom	:	1%;
 	text-align	:	center;
-	font-family	:	"Ghotic";
+	font-family	:	"GhoticJ";
 	
 	/*background-image	:	url('../img/barre_titre.png');
 	background-repeat	:	repeat-x;

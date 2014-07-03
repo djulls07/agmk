@@ -7715,3 +7715,677 @@ Stack Trace:
 #3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2014-06-18 19:09:54 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-18 19:15:04 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-19 02:17:56 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:13:41 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:14:18 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:14:20 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:14:21 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:14:35 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:14:38 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:15:15 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-06-26 23:15:16 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-07-02 22:22:00 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-07-02 22:23:42 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-07-02 22:24:28 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1045] Access denied for user \'h3374\'@\'localhost\' (using password: YES)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-07-02 22:25:40 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [1049] Unknown database \'h3374_agamek\'',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3479): ConnectionManager::getDataSource('default')
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1128): Model->setDataSource('default')
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(3501): Model->setSource('articles')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1357): Model->getDataSource()
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#8 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#11 [internal function]: Model->__construct(Array)
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#14 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#17 [internal function]: ArticlesController->index()
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#20 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#21 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#22 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#23 {main}
+2014-07-02 22:30:12 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1142 SELECT command denied to user 'h3374'@'localhost' for table 'articles'
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\DboSource.php(458): PDOStatement->execute(Array)
+#1 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Datasource\Database\Mysql.php(339): DboSource->_execute('SHOW FULL COLUM...')
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1360): Mysql->describe(Object(Article))
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(1449): Model->schema()
+#4 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Plugin\Media\Model\Behavior\MediaBehavior.php(22): Model->hasField('media_id')
+#5 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(145): MediaBehavior->setup(Object(Article), Array)
+#6 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\BehaviorCollection.php(66): BehaviorCollection->load('Media.Media', Array)
+#7 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Model\Model.php(747): BehaviorCollection->init('Article', Array)
+#8 [internal function]: Model->__construct(Array)
+#9 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Utility\ClassRegistry.php(168): ReflectionClass->newInstance(Array)
+#10 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(738): ClassRegistry::init(Array)
+#11 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(367): Controller->loadModel('Article')
+#12 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(405): Controller->__isset('Article')
+#13 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\Controller\ArticlesController.php(71): Controller->__get('Article')
+#14 [internal function]: ArticlesController->index()
+#15 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ArticlesController), Array)
+#16 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(191): Controller->invokeAction(Object(CakeRequest))
+#17 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Routing\Dispatcher.php(165): Dispatcher->_invoke(Object(ArticlesController), Object(CakeRequest))
+#18 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#19 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\index.php(41): require('C:\Program File...')
+#20 {main}
+2014-07-02 22:38:02 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 22:38:02 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 22:38:09 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 22:38:09 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 22:42:27 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 22:42:27 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 22:42:44 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 22:42:44 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 22:42:47 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 22:42:47 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:56 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:56 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:56 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:56 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:57 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:57 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:57 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:57 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:57 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:57 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:57 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:57 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:58 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:58 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:58 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:58 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:58 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:58 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:58 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:58 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:59 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:59 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-07-02 23:25:59 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\app\View\Elements\menubar.ctp, line 197]
+2014-07-02 23:25:59 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /
+Stack Trace:
+#0 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Program File...', 197)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#2 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Program File...', 197, Array)
+#3 C:\Program Files (x86)\EasyPHP-5.3.3.1\www\AGAMEK\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

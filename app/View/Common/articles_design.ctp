@@ -137,7 +137,7 @@ if( false) {
 		endif; ?>
 	<!--- FORUM --->
 		<div class="col_titre">
-			Derniers topics
+			TOPICS
 		</div>
 			<div class="col_droite_info">
 				Info1
@@ -147,7 +147,7 @@ if( false) {
 			</div>
 	<!--- POSTS --->
 		<div class="col_titre">
-			Derniers posts
+			POSTS
 		</div>
 		<div class="col_droite_info">
 			Info1
