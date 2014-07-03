@@ -25,7 +25,7 @@ $specific_user_GMT=2;
 		</div>
 		
 		<div class="home_barre_boutons">
-			<div class="home_barre_bouton1">					
+			<div  title="Articles" class="home_barre_bouton1">					
 				<?php
 					echo $this->Html->link(' ', array(
 						'controller' => 'articles',
@@ -34,7 +34,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/notification_new.png')\""; else print '"';?>>
+			<div  title="Notifications" class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/notification_new.png')\""; else print '"';?>>
 				<?php
 					echo $this->Html->link($user['notifications'], array(
 						'controller' => 'notifications',
@@ -43,7 +43,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/mail_new.png')\""; else print '"';?>>
+			<div  title="Messages" class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/mail_new.png')\""; else print '"';?>>
 				<?php
 					echo $this->Html->link('0', array(
 						'controller' => 'messages',
@@ -52,29 +52,31 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-		</div>
-		
-		<nav class="home_barre_mines" style="float:left">
-			<ul>
-			<li class="home_barre_mines_first">
+			<div class="home_barre_bouton4" title="My Events">
 				<?php
-					echo $this->Html->link('MyTeams', array(
-						'controller' => 'teams',
-						'action' => 'index',
-						)
-					);
-				?>
-			</li>
-			<li>
-				<?php
-					echo $this->Html->link('MyEvents', array(
+					echo $this->Html->link(' ', array(
 						'controller' => 'events',
 						'action' => 'index',
 						)
 					);
 				?>
-			</li>
-			<li>
+			</div>
+			<div class="home_barre_bouton5" title="My Teams">
+			<?php
+					echo $this->Html->link(' ', array(
+						'controller' => 'teams',
+						'action' => 'index',
+						)
+					);
+				?>			
+			</div>
+			<div class="home_barre_bouton6"  title="My Coaching"> 
+			</div>
+		</div>
+		
+		<nav class="home_barre_mines" style="float:left">
+			<ul>
+			<li class="home_barre_mines_first">
 				<a href=""> MyGames <span style="vertical-align	:	bottom">&#9660;</span></a>
 				<ul>
 					<li>

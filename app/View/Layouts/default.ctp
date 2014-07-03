@@ -76,10 +76,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</div>
 			
 			<div class="page">
-				<div class="contentgauche">
-				</div>
+				<aside id="contentgauche">
+				</aside>
+				
+				<aside id="contentdroite">
+				</aside>
 			
-				<div class="contentcentre">
+				<section id="contentcentre">
 							
 					<div class="content" id="centre">
 						<?php echo $this->Session->flash(); ?>
@@ -91,13 +94,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 								// utilise la configuration de cache "long_view"
 								"cache" => "long",
 								// défini à true pour avoir before/afterRender appelé pour l'element
-								"callbacks" => true)*/; 
+								"callbacks" => true)*/
+								; 
 						?>
 					</div>
-				</div>
+				</section>
 				
-				<div class="contentdroite">
-				</div>
 			</div>
 			<?php /*if (AuthComponent::user('id') == 72)*/ echo $this->element('chat'); ?>
         </div>

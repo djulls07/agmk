@@ -25,17 +25,6 @@
 		//changeStyle('front','background','-webkit-linear-gradient(top, white 0%,gray 70%,black 100%)');
 	}
 	
-	function doAroll(sens)
-	{ 
-		//tourneCube(sens);
-		tourneCube(-sens);
-		//tourneCube(sens);
-		tourneCube(-sens);
-		//tourneCube(sens);
-		tourneCube(-sens);
-		//tourneCube(sens);
-	}
-
 	var stopdragvar = false; 
 	
 	function	dragCube(dragobj)
@@ -78,7 +67,7 @@
 			</ul>
 		</div>
 		<?php else : ?>
-			<div class="left" onclick="tourneCube(1)" ondblclick="doAroll(1)">&#10142</div>
+			<div class="left" onclick="tourneCube(1)">&#10142</div>
 			<div class="col_gauche_mainnews_cube_container">
 				<div id="cube">
 					<?php 
@@ -120,7 +109,7 @@
 					<?php endfor; ?>
 				</div>
 			</div>
-			<div class="right" onclick="tourneCube(-1)" ondblclick="doAroll(-1)">&#10143</div>
+			<div class="right" onclick="tourneCube(-1)">&#10143</div>
 		<?php endif; ?>
 	</div>
 <?php endif; ?>

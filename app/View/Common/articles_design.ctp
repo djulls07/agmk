@@ -18,12 +18,12 @@ if( false) {
 ?>
  <STYLE type="text/css">
 		<?php if ( file_exists('../webroot/img/backgrounds/'.$game['Game']['image_gauche'].'.png' )) { ?>
-		div.contentgauche
+		aside#contentgauche
 		{
 			background-image:url('/img/backgrounds/<?php print $game['Game']['image_gauche']; ?>.png');
 		}
 		<?php } if ( file_exists('../webroot/img/backgrounds/'.$game['Game']['image_gauche'].'.png' )) { ?>
-		div.contentdroite
+		aside#contentdroite
 		{
 			background-image:url('/img/backgrounds/<?php print $game['Game']['image_droite']; ?>.png');
 		}
@@ -43,11 +43,20 @@ if( false) {
 		{
 			background	:	#<?php echo $game['Game']['a_background']; ?>;
 			color	:	#<?php echo $game['Game']['a_color']; ?>;
+			background-image:-webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffffff), color-stop(40%,#<?php echo $game['Game']['a_background']; ?>),color-stop(60%,#<?php echo $game['Game']['a_background']; ?>),color-stop(97%,#ffffff));
+			background-image : -moz-linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
+			background-image : -ms-linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
+			background-image : -o-linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
+			background-image : linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
 		}
 		/*div.contenu
 		{
 			padding-top:3.5%;
 		}*/
+		
+		.col_gauche_news_text:hover {
+			box-shadow: inset 0px 0px 10px 2px #<?php echo $game['Game']['a_background']; ?>;
+		}
  </STYLE>
  
  
