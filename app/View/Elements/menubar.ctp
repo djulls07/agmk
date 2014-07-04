@@ -52,7 +52,7 @@ $specific_user_GMT=2;
 					);
 				?>
 			</div>
-			<div class="home_barre_bouton4" title="My Events">
+			<!--<div class="home_barre_bouton4" title="My Events">
 				<?php
 					echo $this->Html->link(' ', array(
 						'controller' => 'events',
@@ -71,13 +71,13 @@ $specific_user_GMT=2;
 				?>			
 			</div>
 			<div class="home_barre_bouton6"  title="My Coaching"> 
-			</div>
+			</div>-->
 		</div>
 		
 		<nav class="home_barre_mines" style="float:left">
 			<ul>
 			<li class="home_barre_mines_first">
-				<a href=""> MyGames <span style="vertical-align	:	bottom">&#9660;</span></a>
+				<a href=""> MY GAMES <span style="vertical-align	:	bottom">&#9660;</span></a>
 				<ul>
 					<li>
 						<?php
@@ -117,7 +117,7 @@ $specific_user_GMT=2;
 			</li>
 			<li>
 				<?php
-					echo $this->Html->link('Social', array(
+					echo $this->Html->link('SOCIAL', array(
 						'controller' => 'friendships',
 						'action' => 'index',
 						)

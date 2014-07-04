@@ -18,11 +18,11 @@ class CategoriesComponent extends Component {
 						"games"	=>	array()
 					),
 			"9"	=> array(
-						"name"	=>	"V-Fight",
+						"name"	=>	"V-FIGHT",
 						"games"	=>	array()
 					),
 			"0"	=>	array(
-						"name"	=>	"Others",
+						"name"	=>	"OTHERS",
 						"games"	=>	array()
 					)
 		);

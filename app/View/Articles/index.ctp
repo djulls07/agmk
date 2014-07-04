@@ -164,7 +164,8 @@
 			<a href="/articles/view/<?php print $article['id']; ?>">
 				<div class="col_gauche_news_text_title"><?php echo $article['title']; ?></div>
 				<div class="col_gauche_news_text_subtitle"><?php echo $article['subtitle']; ?></div>
-				<div class="col_gauche_news_text_social"> <? if ( $comments ) print "&#9714;".$comments; ?></div>
+				<div class="col_gauche_news_text_social"> <? print "<span style='float:left'>".date("d/m/y",strtotime($article['created']))."</span>"; 
+					if ( $comments ) print "&#9714;".$comments; ?></div>
 			</a>
 			</div>
 		</div>

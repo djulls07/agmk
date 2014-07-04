@@ -28,7 +28,7 @@ if( false) {
 			background-image:url('/img/backgrounds/<?php print $game['Game']['image_droite']; ?>.png');
 		}
 		<?php } ?>
-		div.menu a
+		/*div.menu a
 		{
 			background	:	#<?php echo $game['Game']['a_background']; ?>;
 			color	:	#<?php echo $game['Game']['a_color']; ?>;
@@ -38,7 +38,7 @@ if( false) {
 			background	:	#<?php echo $game['Game']['a_hover_background']; ?>;
 			color	:	#<?php echo $game['Game']['a_hover_color']; ?>;
 
-		}
+		}*/
 		.col_titre
 		{
 			background	:	#<?php echo $game['Game']['a_background']; ?>;
