@@ -1,9 +1,7 @@
 <?php
 
 class Article extends AppModel {
-
-//validate
-//associations    
+  
     public $actsAs = array(
         'Media.Media' => array(
             'extensions' => array('jpg', 'png', 'jpeg'),
