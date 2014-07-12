@@ -128,7 +128,7 @@
 						}],
 						title: "Subscribe to "+jQuery(this).attr('eventName'),
 						close: function() {
-							
+                
 						}
 				 	}
 				);

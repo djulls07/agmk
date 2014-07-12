@@ -246,14 +246,23 @@ class EventsController extends AppController {
 		}
 	}
 
-	public function deleteTeam() {
-
+	public function deleteTeam($id) {
+      $team = $this->Event->getSubscribedTeam($id, $this->Auth->user('id'));
+      if ($team == null) {
+          // peut pas desubsribed si pas de team inscrite a cet event
+      }
+      if ($this->Event->Team->isLeader($this->Auth->user('id'), $teamId)) {
+          //de sub
+      }
 	}
 
 	public function isAuthorized($user) {
 		if ($this->action === "addTeam") {
 			return true;
 		}
+    if ($this->action === 'delete') {
+        return true;
+    }
 		return parent::isAuthorized($user);
 	}
 }
