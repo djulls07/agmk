@@ -20,6 +20,14 @@ class Team extends AppModel {
 		)
 	);*/
 
+	public $hasOne = array(
+		'Wallet' => array(
+			'classname' => 'Wallet',
+			'foreignKey' => 'id_assoc',
+			'conditions'=> array('type' => 1)
+		)
+	);
+
 	public $hasMany = array(
 		'Teamprofile' => array(
 			'classname' => 'Teamprofile',
@@ -50,6 +58,21 @@ class Team extends AppModel {
 		}
 		return false;
 	}
+	
+	public function isLeaderOrSecondLeader($user, $teamId) {
+		if (is_array($teamId)) return false;
+		if (is_array($user)) {
+			$userId = $user['id'];
+		} else {
+			$userId = $user;
+		}
+		$team = $this->findById($teamId);
+		if (in_array($userId, array($team['Team']['leader_id'], $team['Team']['second_leader_id']))) {
+			return true;
+		}
+		return false;
+	}
+	
 
 	public function leave($teamId, $userId) {
 		$db = $this->getDataSource();
@@ -132,6 +155,7 @@ class Team extends AppModel {
 		}
 		return $results;
 	}
+
 }
 
 ?>

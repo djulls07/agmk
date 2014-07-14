@@ -239,6 +239,9 @@ class EventsController extends AppController {
 			} else if ($switch == -1) {
 				$this->Session->setFlash(__("You have already subscribe to this Event with this team"));
 				return $this->redirect(array('action' => 'index'));
+			} else if($switch == -2) {
+				$this->Session->setFlash(__("You have to be team leader to subscribe"));
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__("You or a member of your team has already subscribe to this event with another team"));
 				return $this->redirect(array('action' => 'index'));
@@ -251,11 +254,11 @@ class EventsController extends AppController {
 		$userId = $this->Auth->user('id');
 		$team = $this->Event->getSubsribedTeam($id, $userId);
 		if ($team == null) {
-			// peut pas desubsribed si pas de team inscrite a cet event
-			throw new NotFoundException(__('You do not lead any team subscribed to this event'));
+			$this->Session->setFlash(__('You cant do this action'));
+			return $this->redirect(array('controller'=>'events', 'action'=>'index'));
 		}
 		$teamId = $team['id'];
-		if ($this->Event->Team->isLeader($userId, $teamId)) {
+		if ($this->Event->Team->isLeaderOrSecondLeader($userId, $teamId)) {
 			$this->Event->unsubsribedTeam($id, $teamId);
 			$this->Session->setFlash(__('Your team has been removed from event'));
 			return $this->redirect(array('controller'=>'events', 'action'=>'index'));
