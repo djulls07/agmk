@@ -208,5 +208,24 @@ class Event extends AppModel {
 		}
 		return $results;
 	}
-
+	
+	public function getSubsribedTeam($idEvent, $idUser) {
+		//$db = $this->getDataSource();
+		$this->recursive = 1;
+		$event = $this->findById($idEvent);
+		$team = array();
+		foreach($event['Team'] as $t) {
+			if ($t['leader_id'] == $idUser) {
+				$team = $t; break;
+			}
+		}
+		return $team;
+	}
+	
+	public function unsubsribedTeam($idEvent, $idTeam) {
+		$db = $this->getDataSource();
+		$sql = "DELETE FROM events_teams WHERE team_id=".$idTeam." AND event_id=".$idEvent;
+		$db->query($sql);
+	}
 }
+

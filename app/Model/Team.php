@@ -38,8 +38,14 @@ class Team extends AppModel {
 	);
 
 	public function isLeader($user, $teamId) {
+		if (is_array($teamId)) return false;
+		if (is_array($user)) {
+			$userId = $user['id'];
+		} else {
+			$userId = $user;
+		}
 		$team = $this->findById($teamId);
-		if ($team['Team']['leader_id'] == $user['id']) {
+		if ($team['Team']['leader_id'] == $userId) {
 			return true;
 		}
 		return false;

@@ -23,6 +23,13 @@ class Message extends AppModel {
 
 	public $belongsTo = 'User';
 
+	public function isConcerned($idUser, $idMessage) {
+		$message = $this->findById($idMessage);
+		if ($message['Message']['dest_id'] == $idUser) {
+			return true;
+		}
+		return false;
+	}
 }
 
 ?>

@@ -6,48 +6,48 @@ App::uses('AppController', 'Controller');
  * @property Event $Event
  * @property PaginatorComponent $Paginator
  * @property SessionComponent $Session
- */
+*/
 class EventsController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
+	/**
+	 * Components
+	 *
+	 * @var array
+	 */
 	public $components = array('Paginator', 'Session');
 
 	public function beforeFilter() {
 		$this->Auth->deny('all');
 	}
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		$this->Event->recursive = 0;
 		$this->set('events', $this->Paginator->paginate());
 		$this->set('teams', $this->Event->Team->find('list', array (
 				'conditions' => array (
-					'OR' => array (
-						array ('leader_id' => $this->Auth->user('id')),
-						array ('second_leader_id' => $this->Auth->user('id'))
-					)
+						'OR' => array (
+								array ('leader_id' => $this->Auth->user('id')),
+								array ('second_leader_id' => $this->Auth->user('id'))
+						)
 				)
-			)
+		)
 		));
 		$subscribed = $this->Event->getSubscribed($this->Auth->user('id'));
 		$this->set('subscribed', $subscribed);
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * view method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function view($id = null) {
 		if (!$this->Event->exists($id)) {
 			throw new NotFoundException(__('Invalid event'));
@@ -57,11 +57,11 @@ class EventsController extends AppController {
 		$this->set('event', $this->Event->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *
+	 * @return void
+	 */
 	public function add() {
 		if ($this->request->is('post')) {
 			//unset($this->Event->Saison->validate);
@@ -85,13 +85,13 @@ class EventsController extends AppController {
 		$this->set(compact('users', 'games', 'teams'));
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * edit method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function edit($id = null) {
 		if (!$this->Event->exists($id)) {
 			throw new NotFoundException(__('Invalid event'));
@@ -113,13 +113,13 @@ class EventsController extends AppController {
 		$this->set(compact('users', 'games', 'teams'));
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * delete method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function delete($id = null) {
 		$this->Event->id = $id;
 		if (!$this->Event->exists()) {
@@ -134,23 +134,23 @@ class EventsController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 
-/**
- * admin_index method
- *
- * @return void
- */
+	/**
+	 * admin_index method
+	 *
+	 * @return void
+	 */
 	public function admin_index() {
 		$this->Event->recursive = 0;
 		$this->set('events', $this->Paginator->paginate());
 	}
 
-/**
- * admin_view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * admin_view method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function admin_view($id = null) {
 		if (!$this->Event->exists($id)) {
 			throw new NotFoundException(__('Invalid event'));
@@ -159,11 +159,11 @@ class EventsController extends AppController {
 		$this->set('event', $this->Event->find('first', $options));
 	}
 
-/**
- * admin_add method
- *
- * @return void
- */
+	/**
+	 * admin_add method
+	 *
+	 * @return void
+	 */
 	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->Event->create();
@@ -180,13 +180,13 @@ class EventsController extends AppController {
 		$this->set(compact('users', 'games', 'teams'));
 	}
 
-/**
- * admin_edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * admin_edit method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function admin_edit($id = null) {
 		if (!$this->Event->exists($id)) {
 			throw new NotFoundException(__('Invalid event'));
@@ -208,13 +208,13 @@ class EventsController extends AppController {
 		$this->set(compact('users', 'games', 'teams'));
 	}
 
-/**
- * admin_delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+	/**
+	 * admin_delete method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
 	public function admin_delete($id = null) {
 		$this->Event->id = $id;
 		if (!$this->Event->exists()) {
@@ -247,22 +247,32 @@ class EventsController extends AppController {
 	}
 
 	public function deleteTeam($id) {
-      $team = $this->Event->getSubscribedTeam($id, $this->Auth->user('id'));
-      if ($team == null) {
-          // peut pas desubsribed si pas de team inscrite a cet event
-      }
-      if ($this->Event->Team->isLeader($this->Auth->user('id'), $teamId)) {
-          //de sub
-      }
+		$this->request->allowMethod('post');
+		$userId = $this->Auth->user('id');
+		$team = $this->Event->getSubsribedTeam($id, $userId);
+		if ($team == null) {
+			// peut pas desubsribed si pas de team inscrite a cet event
+			throw new NotFoundException(__('You do not lead any team subscribed to this event'));
+		}
+		$teamId = $team['id'];
+		if ($this->Event->Team->isLeader($userId, $teamId)) {
+			$this->Event->unsubsribedTeam($id, $teamId);
+			$this->Session->setFlash(__('Your team has been removed from event'));
+			return $this->redirect(array('controller'=>'events', 'action'=>'index'));
+		} else {
+			$this->Session->setFlash(__('You have to be the team leader'));
+			return $this->redirect(array('controller'=>'events', 'action'=>'index'));
+		}
 	}
+
 
 	public function isAuthorized($user) {
 		if ($this->action === "addTeam") {
 			return true;
 		}
-    if ($this->action === 'delete') {
-        return true;
-    }
+		if ($this->action === 'deleteTeam') {
+			return true;
+		}
 		return parent::isAuthorized($user);
 	}
 }
