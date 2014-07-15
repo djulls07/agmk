@@ -182,6 +182,9 @@ class Event extends AppModel {
 		//on verifie que le user n'est pas deja inscrit a event avec autre team
 		$sql = "SELECT * FROM events_teams as et WHERE et.event_id=".$eventId." AND et.team_id IN(".$tmp.")";
 		if ($db->fetchAll($sql)) {
+			return -3;
+		}
+		if (!$this->Team->isLeaderOrSecondLeader($userId, $idTeam)) {
 			return -2;
 		}
 		$sql = "INSERT INTO events_teams (event_id, team_id) VALUES(".$eventId.", ".$idTeam.")";
@@ -208,5 +211,24 @@ class Event extends AppModel {
 		}
 		return $results;
 	}
-
+	
+	public function getSubsribedTeam($idEvent, $idUser) {
+		//$db = $this->getDataSource();
+		$this->recursive = 1;
+		$event = $this->findById($idEvent);
+		$team = array();
+		foreach($event['Team'] as $t) {
+			if ($t['leader_id'] == $idUser || $t['second_leader_id'] == $idUser) {
+				$team = $t; break;
+			}
+		}
+		return $team;
+	}
+	
+	public function unsubsribedTeam($idEvent, $idTeam) {
+		$db = $this->getDataSource();
+		$sql = "DELETE FROM events_teams WHERE team_id=".$idTeam." AND event_id=".$idEvent;
+		$db->query($sql);
+	}
 }
+

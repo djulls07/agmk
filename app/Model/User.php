@@ -131,6 +131,14 @@ class User extends AppModel {
             'associationForeignKey' => 'team_id'
 		)
 	);
+	
+	public $hasOne = array(
+		'Wallet' => array(
+			'classname' => 'Wallet',
+			'foreignKey' => 'id_assoc',
+			'conditions'=> array('type' => 0)
+		)
+	);
 
 	public function beforeSave($options = array()) {
         if (!empty($this->data['User']['password'])) {

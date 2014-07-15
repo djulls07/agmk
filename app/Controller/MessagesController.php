@@ -10,8 +10,13 @@ class MessagesController extends AppController {
 	}
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('index', 'add', 'view', 'received', 'sent', 'reponse', 'ecrire')))
+		if (in_array($this->action, array('index', 'add', 'received', 'sent', 'ecrire')))
 			return true;
+		//reponse et view
+		$messId = (int) $this->request['params'][0];
+		if ($this->Message->isConcerned($user['id'], $messId)) {
+			return true;
+		}
 		return parent::isAuthorized($user);
 	}
 
