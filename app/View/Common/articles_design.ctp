@@ -43,11 +43,11 @@ if( false) {
 		{
 			background	:	#<?php echo $game['Game']['a_background']; ?>;
 			color	:	#<?php echo $game['Game']['a_color']; ?>;
-			background-image:-webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffffff), color-stop(40%,#<?php echo $game['Game']['a_background']; ?>),color-stop(60%,#<?php echo $game['Game']['a_background']; ?>),color-stop(97%,#ffffff));
-			background-image : -moz-linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
-			background-image : -ms-linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
-			background-image : -o-linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
-			background-image : linear-gradient(right top, #ffffff 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ffffff 97%);
+			background-image:-webkit-gradient(linear, right top, left bottom, color-stop(0%,#ececec), color-stop(40%,#<?php echo $game['Game']['a_background']; ?>),color-stop(60%,#<?php echo $game['Game']['a_background']; ?>),color-stop(97%,#ececec));
+			background-image : -moz-linear-gradient(right top, #ececec 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ececec 97%);
+			background-image : -ms-linear-gradient(right top, #ececec 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ececec 97%);
+			background-image : -o-linear-gradient(right top, #ececec 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ececec 97%);
+			background-image : linear-gradient(right top, #ececec 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ececec 97%);
 		}
 		/*div.contenu
 		{
@@ -55,7 +55,7 @@ if( false) {
 		}*/
 		
 		.col_gauche_news_text:hover {
-			box-shadow: inset 0px 0px 10px 2px #<?php echo $game['Game']['a_background']; ?>;
+			/*box-shadow: inset 0px 0px 10px 2px #<?php echo $game['Game']['a_background']; ?>;*/
 		}
  </STYLE>
  

@@ -68,7 +68,10 @@
 					<a target=\"_blank\" href=\"".$link_array['url']."\">".$link_array['name']."</a>
 					</span>";
 			if ( count($game['Link']) != $link_id+1) echo "<span class='barre_jeux_element'> - </span>";*/
-			print "<li ".$unepremiereborder."><a href=".$link_array['url'].">".$link_array['name']."</a></li>";
+			$target = "";
+			if ( substr( $link_array['url'], 0 , 4) == "http" )
+				$target = "target='_blank'";
+			print "<li ".$unepremiereborder."><a href=".$link_array['url']." ".$target.">".$link_array['name']."</a></li>";
 			$unepremiereborder="";
 		}
 		echo "</ul></nav>";
@@ -87,10 +90,10 @@
 				{
 					print "<li><a href='/articles/index/".$game['Game']['id']."'>";
 					if ( file_exists('../webroot/img/icons/'.$game['Game']['icon'].'.png' ))
-						print"<img src='/img/icons/".$game['Game']['icon'].".png' />";
+						print"<img src='/img/icons/". $game['Game']['icon'].".png' />";
 					else
 						print"<img src='/img/agamek_logo_crop.png' />";
-					print	"&nbsp;".$game['Game']['name']."</a></li>";
+					print	"&nbsp;". strtoupper($game['Game']['name'])."</a></li>";
 				}
 				print"</ul></li>";
 				$unepremiereborder="";
