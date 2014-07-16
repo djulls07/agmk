@@ -5,10 +5,13 @@ $(document).ready(function() {
 
 	//on recupere la bar a autocomplete, ainsi que le controller a appelé et sa method
 
-	var form = $( 'form' );
-
+	var form = $( '.form_auto_complete' );
+	var max = 1;
+	var compteur = 0;
+	
 	$.each(form, function () {
-
+		if (compteur >= max) return;
+		else compteur++;
 		var searchBar = $( "#"+$(this).attr('id') + " .searchBar" );
 		if (searchBar.length == 0) return;
 		var results = $( "#"+$(this).attr('id') + " .resultsSearchBar" );

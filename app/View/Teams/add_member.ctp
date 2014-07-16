@@ -1,4 +1,4 @@
-<?php echo $this->Form->create('Team', array('label' => 'ADD TeamMate', 'id' => 'formSearchBar')); ?>
+<?php echo $this->Form->create('Team', array('label' => 'ADD TeamMate', 'id' => 'formSearchBar', 'class'=>'form_auto_complete')); ?>
 <?php 
 echo $this->Form->input('name', 
 	array(
