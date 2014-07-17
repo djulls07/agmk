@@ -13,13 +13,16 @@ class ChatsController extends AppController {
 			echo '{"reponse" : "null"}';
 			exit();
 		}
-		$channels = explode(";", $chat['Chat']['channels']);
-		if ($channels == null) {
+		$ongletsChann = explode(";", $chat['Chat']['onglets_channels']);
+		foreach($ongletsChann as $k=>$v) {
+			$ongletsChan[$k] = explode(',', $v);
+		}
+		if ($ongletsChan == null) {
 			echo '{"reponse" : "none"}';
 			exit();
 		}
-		$nbChan = count($channels);
-		echo json_encode(array('nb_channels'=>$nbChan, 'channels'=>$channels));
+		$nbOnglets = count($ongletsChan);
+		echo json_encode(array('nb_onglets'=>$nbOnglets, 'ongletsChan'=>$ongletsChan));
 		exit();
 	}
 	
