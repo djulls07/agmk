@@ -1,5 +1,13 @@
 <?php if (AuthComponent::user('id')): ?>
-	<div id="agmk_chat">
+<?php 
+	$u = AuthComponent::user();
+	if (isset($u['agmk_chat_open'])) {
+		$open = 'open';
+	} else {
+		$open = 'close';
+	}
+?>
+	<div id="agmk_chat" state="<?php echo $open; ?>">
 		<div id="menu_agmk_chat">
 			<ul id="menu_liste_agmk_chat">
 				<li class="libutton" id="new_onglet_agmk_chat"> <input class="action button_agmk_chat" type="button" value="New" /></li>
@@ -13,7 +21,7 @@
 				<ul id="liste_onglets_agmk_chat">
 					<li ><a class="hideable" href="#onglet-1_agmk_chat">Onglet 1</a></li>
 				</ul>
-				<div id="onglet-1_agmk_chat"></div>		
+				<div class="hideable" id="onglet-1_agmk_chat"></div>		
 			</div>
 		</div>
 		<div id="form_agmk_chat">
@@ -22,6 +30,14 @@
 				<input type="submit" value="send" />
 			</form>
 		</div>
+	</div>
+	
+	<div id="agmk_chat_min">
+		<ul>
+			<li class="button_agmk_chat_min">
+				<input type="button" class="actions" value="Open chat" />
+			</li>
+		</ul>
 	</div>
 	<?php echo $this->Html->script('chat'); ?>
 	<?php echo $this->Html->css("chat"); ?>

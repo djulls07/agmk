@@ -74,18 +74,19 @@ class ChatsController extends AppController {
 			if ($this->Auth->user('chat_id') == 0) {
 				$this->Chat->create();
 				$tmp = "";
-				for($j=1;$j<$onglets; $j++) {
-					$tmp .= ";";
+
+				for($j=1;$j<$onglet; $j++) {
+					$tmp .= "agamek;";
 				}
-				$data = array('Chat'=> array('onglets_channels'=>$channel));
+				$data = array('Chat'=> array('onglets_channels'=>$tmp.'agamek,'.$channel));
 				if ($this->Chat->save($data)) {
 					//ok
 					$user = array();
-					$user['User'] = $this->User->findById($this->Auth->user('id'));
+					$user = $this->User->findById($this->Auth->user('id'));
 					$user['User']['chat_id'] = $this->Chat->id;
 					$this->User->id = $this->Auth->user('id');
 					if ($this->User->saveField('chat_id', $this->Chat->id)) {
-						$this->Session->write('Auth', $user['User']);
+						$this->Session->write('Auth', $user);
 						
 					}
 				}
@@ -103,10 +104,18 @@ class ChatsController extends AppController {
 							exit();
 						}
 					}
+					array_push($tab[$onglet-1], $channel);
 				} else {
+					for($i=0;$i<($onglet-1); $i++) {
+						if (!isset($tab[$i]) || !is_array($tab[$i])) {
+							$tab[$i] = array();
+							array_push($tab[$i], 'agamek');
+						}
+					}
 					$tab[$onglet-1] = array();
+					array_push($tab[$onglet-1], 'agamek');
+					array_push($tab[$onglet-1], $channel);
 				}
-				array_push($tab[$onglet-1], $channel);
 				$w = "";
 				foreach($tab as $ong) {
 					foreach($ong as $chann) {
@@ -116,6 +125,8 @@ class ChatsController extends AppController {
 					$w.=";";
 				}
 				$w = substr($w, 0, strlen($w)-1);
+				if ($chat['Chat']['onglets_channels'] == '')
+					$w = 'agamek'.$w;
 				$chat['Chat']['onglets_channels'] = $w;
 				$this->Chat->save($chat);
 			}
@@ -124,9 +135,23 @@ class ChatsController extends AppController {
 		exit();
 	}
 	
+	public function open() {
+		$user['User'] = $this->Auth->user();
+		$user['User']['agmk_chat_open'] = true;
+		$this->Session->write('Auth', $user);
+		echo '{"status":"ok"}';
+		exit();
+	}
+	public function close() {
+		$user['User'] = $this->Auth->user();
+		$user['User']['agmk_chat_open'] = false;
+		$this->Session->write('Auth', $user);
+		echo '{"status":"ok"}';
+		exit();
+	}
 	
 	public function isAuthorized($user) {
-		if (in_array($this->action, array("channels", 'checkCommand'))) {
+		if (in_array($this->action, array("channels", 'checkCommand', 'open', 'close'))) {
 			return true;
 		}
 		return parent::isAuthorized($user);
