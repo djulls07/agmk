@@ -1,7 +1,7 @@
 <?php if (AuthComponent::user('id')): ?>
 <?php 
-	$u = AuthComponent::user();
-	if (isset($u['agmk_chat_open'])) {
+	$cs = SessionComponent::read('chatstate');
+	if (isset($cs) && $cs == true) {
 		$open = 'open';
 	} else {
 		$open = 'close';
@@ -10,8 +10,9 @@
 	<div id="agmk_chat" state="<?php echo $open; ?>">
 		<div id="menu_agmk_chat">
 			<ul id="menu_liste_agmk_chat">
-				<li class="libutton" id="new_onglet_agmk_chat"> <input class="action button_agmk_chat" type="button" value="New" /></li>
-				<li class="libutton" id="close_agmk_chat"><input class="action button_agmk_chat" type="button" value="Close" /></li>
+				<li class="libutton" id="new_onglet_agmk_chat"> <input class="action button_agmk_chat" type="image" src="/img/chat/add.png" alt="New" /></li>
+				<li class="libutton" id="max_agmk_chat"><input class="action button_agmk_chat" type=image src="/img/chat/maximize.png" alt="Max" /></li>
+				<li class="libutton" id="close_agmk_chat"><input class="action button_agmk_chat" type="image" src="/img/chat/minimize.png" alt="Close" /></li>
 			</ul>
 		</div>
 		<div id="content_agmk_chat">

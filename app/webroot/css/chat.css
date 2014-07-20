@@ -1,11 +1,11 @@
 #agmk_chat {
-	position:relative;
+	position: fixed;
 	top:10px;
 	width: 300px;
 	display:none;
 	font-size:8pt;
 	z-index: 10000;
-	min-height:362px;
+	min-height: 400px;
 	height:400px;
 }
 
@@ -17,6 +17,7 @@
 	top:0px;
 }
 
+
 #menu_liste_agmk_chat {
 	list-style-type:none;
 	display:inline;
@@ -26,7 +27,7 @@
 
 #content_agmk_chat {
 	position:relative;
-	height:80%;
+	height:85%;
 	background: rgba(1,1,1,1);
 }
 
@@ -42,28 +43,28 @@
 .hideable {
 	overflow:auto;
 	width:100%;
-	max-height:80%;
+	max-height:70%;
 	position:relative;
 	/*background: rgba(157, 134, 183, 0.8);*/
 }
 
 #form_agmk_chat {
 	position:relative;
-	top:8%;
+	top:1.5%;
 	height:15%;
 }
 
 
 /*boutons*/
 .button_agmk_chat{
-	width:100px;
+	width:23px;
 }
 #close_agmk_chat {
 	right:1px;
 }
 
 .libutton {
-	width:100px;
+	display:inline;
 }
 
 #agmk_chat_min {
@@ -71,5 +72,18 @@
 	display:none;
 	bottom:1px;
 	width:100px;
-	background: rgba(157, 134, 183, 0.8)
+	background: rgba(157, 134, 183, 0.8);
 }
+
+.command_name {
+	color: red;
+}
+
+.command_key_words {
+	color:blue;
+}
+.systeme {
+	color: rgb(157, 134, 183);
+}
+
+
