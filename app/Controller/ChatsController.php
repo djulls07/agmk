@@ -76,11 +76,12 @@ class ChatsController extends AppController {
 						$reponse = array();
 						$ligne = (int)fgets($file);
 						$ligne++;
+						fseek($file, 0, SEEK_SET);
 						fwrite($file, $ligne."\n");
 						for ($i=0;$i<$ligne-1; $i++) {
 							fgets($file);
 						}
-						fwrite($file, $this->Auth->user('username').': '.$message);
+						fwrite($file, $this->Auth->user('username').': '.$message."\n");
 						flock($file, LOCK_UN);
 						fclose($file);
 						echo json_encode(array('status'=>'ok', 'message'=>$this->Auth->user('username').': '.$message, 'ligne'=>$ligne, 'channel'=>$channel));
@@ -138,9 +139,6 @@ class ChatsController extends AppController {
 					$file = fopen($path, "w");
 					flock($file, LOCK_EX);
 					fwrite($file, "2\n");
-					for($i=1; $i<100; $i++) {
-						fwrite($file, $i."%;%\n");
-					}
 					flock($file, LOCK_UN);
 					fclose($file);
 					array_push($jsonArr,
@@ -263,40 +261,42 @@ class ChatsController extends AppController {
 		}
 		
 		$reponse = array();
-		$curr = -1;
-		$currJS = -1;
+		$ligne;
+		
 		$tmpRep = array();
+		$compt = 0;
 		foreach($tabChan[1] as $k=>$channel) {
+			$currJS = (int)$tabChan[0][$k];
+			$compt = 0;
 			$reponse[$channel] = array();
+			$reponse[$channel]['messages'] = array();
+			$reponse[$channel]['ligne'] = -1;
 			$path = $this->getFile($channel);
 			if (file_exists($path)) {
 				$file = fopen($path, "r");
 				flock($file, LOCK_SH);
-				//TODO: lire file en envoyer data.
+				/* on recupere la ligne current */
+				$ligne = (int)fgets($file);
+				if ($ligne <= 2) {
+					continue;
+				}
 				if ($currJS == -1) {
-					//on lit la last ligne du file, donc curr
-					while(($tmp = fgets($file)) != false) {
-						$tmpRep = explode("%;%", $tmp);
-						if ((int)$tmpRep[0] == $currJS) {
-							//on lit a partir de la jusqu'au bout pr ce channel
-						}
-						array_push($reponse[$channel], $tmpRep);
+					//-2 car deja lu une ligne et qu'on veut lire la last ligne pas ecrire apres.
+					for($i=0;$i<$ligne-3;$i++) {
+						fgets($file);
 					}
-					flock($file, LOCK_UN);
-					fclose($file);
-					echo json_encode($reponse);
+					array_push($reponse[$channel]['messages'], fgets($file));
+					$reponse[$channel]['ligne'] = $ligne;
+				} else if ($currJS == $ligne) {
 					exit();
-				}
-				while(($tmp = fgets($file)) != false) {
-					$tmpRep = explode("%;%", $tmp);
-					if ((int)$tmpRep[0] == $currJS) {
-						//on lit a partir de la jusqu'au bout pr ce channel
-						break;
+				} else {
+					for ($i=0;$i<$currJS-2;$i++) {
+						fgets($file);
 					}
-				}
-				while(($tmp = fgets($file)) != false) {
-					$tmpRep = explode("%;%", $tmp);
-					array_push($reponse[$channel], $tmpRep);
+					for ($i=$currJS-3;$i<$ligne-3;$i++) {
+						array_push($reponse[$channel]['messages'], fgets($file));
+					}
+					$reponse[$channel]['ligne'] = $ligne;
 				}
 				flock($file, LOCK_UN);
 				fclose($file);
