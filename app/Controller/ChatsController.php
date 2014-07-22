@@ -344,8 +344,12 @@ class ChatsController extends AppController {
 		$input = substr($input, 7);
 		$inputArr = array();
 		$inputArr = explode(" ", $input);
+		
+		$len = strlen($inputArr[0]);
+		
+		$message = substr($input, $len);
 				
-		$destinataire = $this->User->findByUsername($inputArr[0]);
+		$destinataire = $this->User->find('first', array('conditions'=> array('User.username'=>$inputArr[0])));
 		
 		if ($destinataire == null) {
 			echo '{"status":"ko", "message":"cant find this user"}';
@@ -357,9 +361,12 @@ class ChatsController extends AppController {
 			'src_username'=>$this->Auth->user('username'),
 			'dest_id'=>$destinataire['User']['id'],
 			'dest_username'=>$destinataire['User']['username'],
-			'content'=>$inputArr[1]
+			'content'=>$message
 		));
-		if ($this->Chat->save($data)) {
+		$this->Message->create();
+		if ($this->Message->save($data)) {
+			$this->User->id = $destinataire['User']['id'];
+			$this->User->saveField('messages', ($destinataire['User']['messages'] + 1));
 			echo '{"status":"ok", "message":"Private Message sent"}';
 			exit();
 		}

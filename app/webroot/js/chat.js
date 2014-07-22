@@ -30,6 +30,7 @@ jQuery(document).ready(function() {
 	var argsRun = null;
 	var tampon = "";
 	var isBig = false;
+	var isReading = false;
 	
 	/* le array d'onglets contient pour chaque entree ->1 objet/array avec tous les channels de l'onglet */
 	var ongletsArray = Array();
@@ -120,7 +121,7 @@ jQuery(document).ready(function() {
 						 * */
 						//ecrireOngletActuel("["+argsRun.channel+"] "+argsRun.message);
 						//ongletsArray['onglet-'+ongletActuel+'_agmk_chat'][argsRun.channel]['ligne'] = argsRun.ligne;
-						read();
+						if (!isReading) read();
 					} else {
 						alert(argsRun.message);
 					}
@@ -314,10 +315,13 @@ jQuery(document).ready(function() {
 	}
 	
 	function actuFrame() {
-		return;
+		var sF = document.getElementById('onglet-'+ongletActuel+'_agmk_chat');
+		if (sF == null) return;
+		ongletsArray['onglet-'+ongletActuel+'_agmk_chat']['content'].scrollTop(sF.scrollHeight);
 	}
 	
 	function read() {
+		isReading = true;
 		jsonStr = "";
 		var line = -1;
 		//serialize a la main
@@ -339,6 +343,7 @@ jQuery(document).ready(function() {
 			success: function(data) {
 				if (data == "" || data == "[]") return;
 				traitementReadChannels(data);
+				isReading = false;
 			},
 			dataType: 'text'
 		});
@@ -364,6 +369,7 @@ jQuery(document).ready(function() {
 				}		
 			}
 		});
+		actuFrame();
 	}
 	
 	function onInputFocus() {
@@ -546,16 +552,12 @@ jQuery(document).ready(function() {
 			agmk_chat.css("bottom",agmk_chat.attr('postop'));	
 		}
 		
-		/*var links = jQuery('a');
-		jQuery.each(links, function() {
-			jQuery(this).on('click', function() {
-				//TODO: finir CA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				jQuery.get(jQuery(this).attr('href'), function (data) {
-					alert(data);
-				});
-				//return false;
+		var linksChat = jQuery('#agmk_chat a');
+		jQuery.each(linksChat, function() {
+			jQuery(this).on('click', function(event) {
+				event.preventDefault();
 			});
-		});*/
+		});
 	}
 	
 	
