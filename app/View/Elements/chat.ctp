@@ -6,8 +6,20 @@
 	} else {
 		$open = 'close';
 	}
+	$pos = SessionComponent::read('chatposition');
+	if (isset($pos) && is_array($pos)) {
+		$w = $pos['width'];
+		$h = $pos['height'];
+		$t = $pos['top'];
+		$l = $pos['left'];
+	} else {
+		$w = -1;
+		$h = -1;
+		$t = -1;
+		$l = -1;
+	}
 ?>
-	<div id="agmk_chat" state="<?php echo $open; ?>">
+	<div id="agmk_chat" posleft="<?php echo $l; ?>" postop="<?php echo $t; ?>" poswidth="<?php echo $w; ?>" posheight="<?php echo $h; ?>" state="<?php echo $open; ?>">
 		<div id="menu_agmk_chat">
 			<ul id="menu_liste_agmk_chat">
 				<li class="libutton" id="new_onglet_agmk_chat"> <input class="action button_agmk_chat" type="image" src="/img/chat/add.png" alt="New" /></li>
@@ -27,7 +39,7 @@
 		</div>
 		<div id="form_agmk_chat">
 			<form action="#">
-				<input id="input_form_agmk_chat" type="text" value="type messages/commands here" />
+				<input id="input_form_agmk_chat" type="text" value="type messages/commands" />
 				<input type="submit" value="send" />
 			</form>
 		</div>

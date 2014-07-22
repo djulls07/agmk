@@ -75,6 +75,11 @@ class ChatsController extends AppController {
 						flock($file, LOCK_EX);
 						$reponse = array();
 						$ligne = (int)fgets($file);
+						// cas nettoyage
+						if ($ligne > 100) {
+							ftruncate($file, 0);
+							$ligne = 2;	
+						}
 						$ligne++;
 						fseek($file, 0, SEEK_SET);
 						fwrite($file, $ligne."\n");
@@ -97,13 +102,18 @@ class ChatsController extends AppController {
 		exit();
 	}
 	
-	public function link() {
-		echo '{"status":"ok"}';
-		exit();
-	}
-	
-	public function unlink() {
-		echo '{"status":"ok"}';
+	public function position() {
+		$this->loadModel('User');
+		$w = $this->request->data['width'];
+		$h = $this->request->data['height'];
+		$l = $this->request->data['left'];
+		$t = $this->request->data['top'];
+		$this->Session->write('chatposition', array(		
+			'width' => $w,
+			'height'=> $h,
+			'left' => $l,
+			'top' => $t
+		));
 		exit();
 	}
 	
@@ -278,23 +288,24 @@ class ChatsController extends AppController {
 				/* on recupere la ligne current */
 				$ligne = (int)fgets($file);
 				if ($ligne <= 2) {
-					continue;
-				}
-				if ($currJS == -1) {
+					$reponse[$channel]['ligne'] = $ligne;
+					//none
+				} else if ($currJS == -1) {
 					//-2 car deja lu une ligne et qu'on veut lire la last ligne pas ecrire apres.
 					for($i=0;$i<$ligne-3;$i++) {
 						fgets($file);
 					}
-					array_push($reponse[$channel]['messages'], fgets($file));
+					array_push($reponse[$channel]['messages'], h(fgets($file)));
 					$reponse[$channel]['ligne'] = $ligne;
 				} else if ($currJS == $ligne) {
-					exit();
+					//none;
+					$reponse[$channel]['ligne'] = $ligne;
 				} else {
 					for ($i=0;$i<$currJS-2;$i++) {
 						fgets($file);
 					}
 					for ($i=$currJS-3;$i<$ligne-3;$i++) {
-						array_push($reponse[$channel]['messages'], fgets($file));
+						array_push($reponse[$channel]['messages'], h(fgets($file)));
 					}
 					$reponse[$channel]['ligne'] = $ligne;
 				}
@@ -306,8 +317,58 @@ class ChatsController extends AppController {
 		exit();
 	}
 	
+	public function clear() {
+		$chat = $this->Chat->findById($this->Auth->user('chat_id'));
+		if ($chat == null)
+		{
+			echo '{"status":"ko", "message":"No chat found"}';
+			exit();
+		}
+		if ($chat['Chat']['onglets_channels'] == "") {
+			echo '{"status":"ko", "message":Your chat is already empty ! dont abuse of commands !"}';
+			exit();
+		}
+		$chat['Chat']['onglets_channels'] = "";
+		$this->Session->write('chatstate', null);
+		$this->Session->write('chatposition', null);
+		if ($this->Chat->save($chat))
+			echo '{"status":"ok", "message":"ok"}';
+		else 
+			echo '{"status":"ko", "message":"Cant save reset"}';
+		exit();
+	}
+	
+	public function write($input, $onglet) {
+		$this->loadModel('Message');
+		$this->loadModel('User');
+		$input = substr($input, 7);
+		$inputArr = array();
+		$inputArr = explode(" ", $input);
+				
+		$destinataire = $this->User->findByUsername($inputArr[0]);
+		
+		if ($destinataire == null) {
+			echo '{"status":"ko", "message":"cant find this user"}';
+			exit();
+		}
+		
+		$data = array('Message'=> array(
+			'src_id'=>$this->Auth->user('id'),
+			'src_username'=>$this->Auth->user('username'),
+			'dest_id'=>$destinataire['User']['id'],
+			'dest_username'=>$destinataire['User']['username'],
+			'content'=>$inputArr[1]
+		));
+		if ($this->Chat->save($data)) {
+			echo '{"status":"ok", "message":"Private Message sent"}';
+			exit();
+		}
+		echo '{"status":"ko", "message":"cant save message"}';
+		exit();
+	}
+	
 	public function isAuthorized($user) {
-		if (in_array($this->action, array("channels", 'checkCommand', 'open', 'close', 'talk', 'link', 'read'))) {
+		if (in_array($this->action, array("channels", 'checkCommand', 'open', 'close', 'talk', 'link', 'read', 'position', 'clear', 'write'))) {
 			return true;
 		}
 		return parent::isAuthorized($user);

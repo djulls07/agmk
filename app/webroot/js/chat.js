@@ -36,6 +36,26 @@ jQuery(document).ready(function() {
 	var ongletActuel = 1;
 	var channelActuel = Array();
 	
+	/* objet JS pour alias commands */
+	var listeAlias =
+	{
+			'/j': '/join',
+			'/t': '/talk',
+			'/l': '/link',
+			'/u': '/unlink',
+			'/s': '/style',
+			'/w': '/write',
+			'help': function() {
+				var s = "<span class=\"command_key_words\">Commands ALIAS :</span><br />";
+				for (key in listeAlias) {
+					if (key != 'help') {
+						s += '<span class="command_key_words"> Alias </span> <span class="command_name"> '+key+' --> '+listeAlias[key]+'</span><br />';
+					}
+				}
+				return s;
+			}
+	}
+	
 	/* Objet javascript contenant la liste des commandes et leur methodes */
 	var listeCommandes = 
 	{
@@ -49,23 +69,24 @@ jQuery(document).ready(function() {
 					{
 						str += listeCommandes[key]['description']+'<br /><br />';
 					}
+					str += listeAlias['help']();
 					ongletsArray['onglet-'+ongletActuel+'_agmk_chat']['content'].append('<p class="command_help">' + str + '</p>');
 				},
-				'description': 'Command /help, usage: /help --> Show all commands descriptions',
+				'description': '<span class="command_key_words>"Command</span> <span class="command_name>"/help</span> <span class="commandKeyWords"> Usage: </span> <span class="command_name>"/help</span> --> Show all commands descriptions',
 				'noserver': function() 
 				{
 					listeCommandes['/help']['run']();
 				}
 			},
 			/* Commande /w */
-			'/w':
+			/*'/w':
 			{
 				'run': function() 
 				{
 					
 				},
-				'description': 'Command /w, usage: /w Name Message --> Send a private message to Name'
-			},
+				'description': 'A FAIRE',
+			},*/
 			/* Commande /join */
 			'/join':
 			{
@@ -78,7 +99,7 @@ jQuery(document).ready(function() {
 						ongletsArray['onglet-'+ongletActuel+'_agmk_chat'][value.channel]['ligne'] = -1;
 						ongletsArray['onglet-'+ongletActuel+'_agmk_chat']['content'].append('<p class="systeme">'+(value.message)+'</p>');
 						ongletsArray['onglet-'+ongletActuel+'_agmk_chat']['actual'] = "none";
-						ongletsArray['onglet-'+ongletActuel+'_agmk_chat']['ligne'] = -1
+						ongletsArray['onglet-'+ongletActuel+'_agmk_chat'][value.channel]['ligne'] = -1
 					});
 				},
 				'description': '<span class="command_key_words"> Command </span> <span class="command_name"> /join </span> <span class="commandKeyWords"> Usage: </span> <span class="command_name"> /join </span> blabla --> Join a channel named blabla'
@@ -97,9 +118,9 @@ jQuery(document).ready(function() {
 						 * 
 						 * Ici version simplifiée pour test rapide du chat et serveur.
 						 * */
-						ecrireOngletActuel("["+argsRun.channel+"] "+argsRun.message);
-						ongletsArray['onglet-'+ongletActuel+'_agmk_chat'][argsRun.channel]['ligne'] = argsRun.ligne;
-						//read();
+						//ecrireOngletActuel("["+argsRun.channel+"] "+argsRun.message);
+						//ongletsArray['onglet-'+ongletActuel+'_agmk_chat'][argsRun.channel]['ligne'] = argsRun.ligne;
+						read();
 					} else {
 						alert(argsRun.message);
 					}
@@ -110,13 +131,13 @@ jQuery(document).ready(function() {
 				'description': '<span class="command_key_words"> Command </span> <span class="command_name">/link </span> <span class="commandKeyWords"> Usage: </span> <span class="command_name">/link chan </span> --> link you with the channel named chan, will allow you to write into chan without using /talk command everytime (you should /join channel first)',
 				'run': function()
 				{
-					
+					return;
 				},
 				'noserver': function() 
 				{
-					var inp = input.val();
+					var inp = argsRun;
 					var regex = /\/[a-z]+ [a-zA-Z_-]+/;//interdit surtout ;,et% use par serveur comme delimiter
-					tampon = ""+regex.exec(input.val());
+					tampon = ""+regex.exec(inp);
 					tampon = tampon.substring(6, tampon.lenght);
 					if (ongletsArray['onglet-'+ongletActuel+"_agmk_chat"][tampon] != null) 
 					{
@@ -127,7 +148,79 @@ jQuery(document).ready(function() {
 						ecrireOngletActuel("Cant link to a channel if you are not in the right frame");
 					}
 				}
+			},
+			'/style':
+			{
+				'description': '<span class="command_key_words"> Command </span> <span class="command_name">/style </span>'+
+					'<span class="commandKeyWords"> Usage: </span> <span class="command_name">/position </span> '+
+					'--> Save the chat style ( size and position )',
+				'run': function()
+				{
+					return;
+				},
+				'noserver': function()
+				{
+					jQuery.ajax({
+						type: "POST",
+						url: '/chats/position',
+						data: {width: agmk_chat.css('width'), height: agmk_chat.css('height'), left: agmk_chat.css('left'), top: agmk_chat.css('bottom')},
+						success: function(data) {
+							ecrireOngletActuel('<span class="systeme"> Chat style saved ( position and size ) </span>');
+						},
+						dataType: 'text'
+					});
+				}
+			},
+			'/unlink':
+			{
+				'description': '<span class="command_key_words"> Command </span> <span class="command_name">/unlink </span>'+
+					'<span class="commandKeyWords"> Usage: </span> <span class="command_name">/link chan </span> --> unlink you from channel in the actual frame',
+				'run': function()
+				{
+					return;
+				},
+				'noserver': function() 
+				{
+					if (ongletsArray['onglet-'+ongletActuel+"_agmk_chat"]['actual'] == null || ongletsArray['onglet-'+ongletActuel+"_agmk_chat"]['actual'] == "none") {
+						ecrireOngletActuel("<span class=\"systeme_hot\"> You are not link with any channel in this frame !</span>");
+					} else {
+						var previous = ongletsArray['onglet-'+ongletActuel+"_agmk_chat"]['actual'];
+						ongletsArray['onglet-'+ongletActuel+"_agmk_chat"]['actual'] = "none";
+						ecrireOngletActuel('<span class="systeme"> Unlink from '+previous+' </span>');
+					}
+				}
+			},
+			'/clear':
+			{
+				'run': function() 
+				{
+					if (argsRun.status == "ok") {
+						location.reload();
+					} else {
+						return;
+					}
+				},
+				'description': '<span class="command_key_words"> Command </span> <span class="command_name">/clear </span>'+
+					'<span class="commandKeyWords"> Usage: </span> <span class="command_name">/clear </span> --> Leave all channels'
+			},
+			'/write': 
+			{
+				'run': function ()
+				{
+					if (argsRun.status == "ok") {
+						ecrireOngletActuel("<span class=\"systeme\">"+argsRun.message+"</span>");
+					} else {
+						ecrireOngletActuel("<span class=\"systeme\">"+argsRun.message+"</span>");
+					}
+				},
+				'description': '<span class="command_key_words"> Command </span> <span class="command_name">/write</span>'+
+					'<span class="commandKeyWords"> Usage: </span> <span class="command_name">/write agmamek_pseudo message </span> --> Send a Message to agamek_pseudo ( in his agamek inbox, not in chat )'
 			}
+	}
+	
+	/*alias car j'en ai marre */
+	function writeOngletActuel(s) {
+		ecrireOngletActuel(s);
 	}
 	
 	function writeLinkOngletActuel() {
@@ -150,12 +243,33 @@ jQuery(document).ready(function() {
 				dataType: 'json'
 			});
 		} else {
+			argsRun = input.val();
+			listeCommandes[command]['noserver']();
+		}
+	}
+	
+	function checkComandAlias(command ,input) {
+		/* premier check js pour certaine commandes like help */
+		if (listeCommandes[command]['noserver'] == null) {
+			jQuery.ajax({
+				type: "POST",
+				url: '/chats/checkCommand',
+				data: {message: input, onglet: ongletActuel},
+				success: function(data) {
+					argsRun = data;
+					listeCommandes[command]['run']();
+				},
+				dataType: 'json'
+			});
+		} else {
+			argsRun = input;
 			listeCommandes[command]['noserver']();
 		}
 	}
 	
 	/* fonction qui analyse l'inut et lance fonction adaptée selon message/command */
 	function analyseMessage() {
+		if (input.val().length == 0) return;
 		var isCommand = false;
 		if (input.val().substring(0,1) == '/') isCommand = true;
 		/* Maintenant on sait si command ou simple message */
@@ -164,9 +278,17 @@ jQuery(document).ready(function() {
 			var regex = /\/[a-z]+/;
 			var command = regex.exec(input.val());
 			
+			/* alias command  ?*/
+			if (listeAlias[command] != null) {
+				var l = command.length;
+				command = ""+listeAlias[command];
+				var s = input.val().substring(l+1);
+				checkComandAlias(command ,command+s);
+				return;
+			}		
 			//on regarde si la commande existe
 			if (listeCommandes[command] == null) {
-				alert('commande introuvable');
+				ecrireOngletActuel('<span class="systeme_hot"> Not a command </span>');
 			} else {
 				checkCommand(command);
 			}
@@ -253,7 +375,7 @@ jQuery(document).ready(function() {
 	function onInputFocusOut() {
 		input.focusout(function() {
 			if (input.val() == '') {
-				input.val('type messages/commands here');
+				input.val('type messages/commands');
 			}
 		});
 	}
@@ -410,10 +532,19 @@ jQuery(document).ready(function() {
 
 	/* Fonction principale */
 	function run() {
-		/* fonction qui va mettre les premier event indispensable */
+		/* fonction qui va mettre un peu tout ce qu'on need pr use le chat */
 		preRunFunc();
+		/* reduit ou pas le chat */
 		if (agmk_chat.attr('state') == 'open') agmk_chat.show();
 		else agmk_chat_min.show();
+		
+		/* position chat etc etc*/
+		if (agmk_chat.attr('poswidth') != -1) {
+			agmk_chat.css("width",agmk_chat.attr('poswidth'));
+			agmk_chat.css("height",agmk_chat.attr('posheight'));
+			agmk_chat.css("left",agmk_chat.attr('posleft'));
+			agmk_chat.css("bottom",agmk_chat.attr('postop'));	
+		}
 		
 		/*var links = jQuery('a');
 		jQuery.each(links, function() {
