@@ -13,10 +13,10 @@ class MessagesController extends AppController {
 		if (in_array($this->action, array('index', 'add', 'received', 'sent', 'ecrire')))
 			return true;
 		//reponse et view
-		$messId = (int) $this->request['params'][0];
-		if ($this->Message->isConcerned($user['id'], $messId)) {
+		if (in_array($this->action, array('reponse', 'view'))) {
 			return true;
 		}
+		
 		return parent::isAuthorized($user);
 	}
 
@@ -155,6 +155,8 @@ class MessagesController extends AppController {
 				$this->Message->User->id = $user['User']['id'];
 				if ($user['User']['messages'] > 0)
 					$this->Message->User->saveField('messages', $user['User']['messages'] - 1 );
+			} else {
+				return $this->redirect(array('controller'=>'messages','action'=>'received'));
 			}
 		} else if ($this->request->is('post')) {	
 			$this->Message->create();

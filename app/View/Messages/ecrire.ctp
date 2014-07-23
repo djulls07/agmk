@@ -1,5 +1,5 @@
 <div id="dialogWrite">
-<?php echo $this->Form->create('Message'); ?>
+<?php echo $this->Form->create('Message', array('class'=>'form_auto_complete')); ?>
 <?php 
 	$label_dest="";
 	if (isset ($user_dest) )
