@@ -64,6 +64,12 @@ if( false) {
  //}
  }
  ?>
+<STYLE type="text/css">
+ 		div.content
+		{
+			background : #ececec;
+		}
+ </STYLE>
 <div class="contenu">
 	<div class="col_gauche">
 		<?php echo $this->fetch('content');  ?>

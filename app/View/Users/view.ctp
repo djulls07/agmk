@@ -29,26 +29,7 @@ $games_stats = array(
 		
 			<?php if ( AuthComponent::user('id') == $user['User']['id'] ) : ?>
 				<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
-			<?php else :
-				echo '<li> <div class="icone_user">';
-					if ( ! $are_friends ) {
-					
-						echo $this->Form->create('Friendship',array('id'	=>	'FriendshipAddForm', 'url' => array('controller' => 'friendships', 'action' => 'add?url=friendships%2Fadd&back='.$user['User']['id']))) ;
-						echo $this->Form->input('username', array(
-							'type' => 'hidden', 
-							'value'	=>	''.$user['User']['username'].''
-						));
-						echo $this->Form->input('user_id', array('type' => 'hidden', 'class' => 'inputAdd'));
-						echo $this->Form->submit('', array('type'=>'image','title'=>'Add Friend','src' => '/img/add_friend.png')); 
-						echo $this->Form->end();
-					}else
-						echo 'Delete Friendship';
-						echo "</div><div class='icone_user'>";
-						echo $this->Html->image("/img/mail.png", array ( 'title'	=>	"Message",	'url' => array('controller' => 'messages','action'=> 'ecrire?To='.$user['User']['id'])));
-						echo"</div>";
-				/*echo '</li><li>'.
-						$this->Html->link(__('Message'), array('controller'	=>	'messages',	'action' => 'ecrire?To='.$user['User']['id']))
-					 .'</li>';*/
+			<?php 
 			endif; ?>
 			
 			<li><a href="#Posts">Posts</a></li>
@@ -85,19 +66,92 @@ $games_stats = array(
 	<a id="Articles" class=""></a>
 	
 	<div id="espace_droite_top">
+	
 		<div id="espace_droite_user">
-			<div id="espace_droite_user_flag">
-				<img src="/img/flag_fr.png">
-			</div>
-			<div id="espace_droite_user_team" class="vertical_center_div">
-				<a href=""><?php echo __(h($user['User']['username']))."team";?></a>
-			</div>
-			<div id="espace_droite_user_pseudo" class="vertical_center_div">
+			<img src="/img/flag_fr.png">
+
+			<span id="espace_droite_user_pseudo">
 				<?php echo __(h($user['User']['username'])); ?>
-				 (<?php echo __('Id'); ?> : <?php echo h($user['User']['id']); ?>)
+			</span>
+			
+			<span id="espace_droite_user_pseudo_id"><?php echo __('Id:').h($user['User']['id']); ?></span>
+
+			<div id="espace_droite_user_team">
+			
+				<?php if ( AuthComponent::user('id') != $user['User']['id'] ) :
+					echo '<div class="icone_user">';
+						if ( ! $are_friends ) {
+						
+							echo $this->Form->create('Friendship',array('div' => false, 'id'	=>	'FriendshipAddForm', 'url' => array('controller' => 'friendships', 'action' => 'add?url=friendships%2Fadd&back='.$user['User']['id']))) ;
+								echo $this->Form->input('username', array(
+									'type' => 'hidden', 
+									'value'	=>	''.$user['User']['username'].''
+								));
+								echo $this->Form->input('user_id', array('type' => 'hidden', 'class' => 'inputAdd'));
+								echo $this->Form->submit('', array('type'=>'image','div'=>false,'title'=>'Add Friend','src' => '/img/add_friend.png')); 
+							echo $this->Form->end();
+						}else
+							echo 'X';
+						echo "</div><div class='icone_user'>";
+						echo $this->Html->image("/img/mail.png", array ( 'title'	=>	"Message",	'url' => array('controller' => 'messages','action'=> 'ecrire?To='.$user['User']['id'])));
+						echo"</div>";
+				endif; ?>
+				
+				<a href=""><?php //echo __(h($user['User']['username']))."team";?></a>
 			</div>
 		</div>
-		<div id="espace_droite_stats">
+		
+		<div id="espace_droite_userinfos">
+			<table>
+				<tr>
+					<td>Age</td>
+					<td>-2</td>
+				</tr>
+				<tr>
+					<td>Sexe</td>
+					<td>gros</td>
+				</tr>
+				<tr>
+					<td>Pays</td>
+					<td>France</td>
+				</tr>
+				<tr>
+					<td>Main Team</td>
+					<td>PSG</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="espace_droite_experience">
+			<div class="espace_droite_experience_level espace_droite_experience_level_min">9</div>
+			<div class="progress-bar"></div>
+			<div class="espace_droite_experience_level espace_droite_experience_level_max">10</div>
+		</div>
+		
+		<div id="espace_droite_stats"><table>
+			<?php 	foreach ( $games_stats as $game_stat ) : 
+					if ($game_stat['game_id']) :?>
+						<tr>
+							<td>
+								<?php 	$logogame	=	"/img/icons/icon".$game_stat['game_id'].".png";
+									if (! file_exists("../webroot".$logogame)) $logogame	=	'/img/agamek_logo_crop.png';
+									print "<img src=\"".$logogame."\">";
+								?>
+							</td>
+							<td>
+								Level <?php print $game_stat['rank1']; ?>
+							</td>
+							<td>
+								Level <?php print $game_stat['rank2']; ?>
+							</td>
+						</tr>
+					<?php else : ?>
+						<tr><td colspan="3"><a href="#" class="button">Add Game</a></td></tr>
+					<?php endif; ?>
+			<? endforeach; ?>
+		</table></div>
+		
+		<!--<div id="espace_droite_stats">
 			<div class="espace_droite_stats_fleche">
 				<a href="#stats-">&#9664;</a>
 			</div>
@@ -123,38 +177,14 @@ $games_stats = array(
 						<?php endif; ?>
 				</div>
 				<? endforeach; ?>
-			<!--
-			<div class="espace_droite_stats_bloc">
-				<div class="espace_droite_stats_bloc_logogame" class="vertical_center_div">LogoGame
-				</div>
-				<div class="espace_droite_stats_bloc_ranks">
-					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank1
-					</div>
-					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank2
-					</div>
-				</div>
-				<div class="espace_droite_stats_bloc_morestats" class="vertical_center_div"><a href="">More stats</a>
-				</div>
-			</div>
-			
-			<div class="espace_droite_stats_bloc">
-				<div class="espace_droite_stats_bloc_logogame" class="vertical_center_div">LogoGame
-				</div>
-				<div class="espace_droite_stats_bloc_ranks">
-					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank1
-					</div>
-					<div class="espace_droite_stats_bloc_rank" class="vertical_center_div">rank2
-					</div>
-				</div>
-				<div class="espace_droite_stats_bloc_morestats" class="vertical_center_div"><a href="">More stats</a>
-				</div>
-			</div>-->
 			<div class="espace_droite_stats_fleche">
 				<a href="#stats-">&#9654;</a>
 			</div>
-		</div>
+		</div>-->
 		
 	</div>
+	
+	
 		<?php echo $this->Session->flash(); ?>
 		<div class="related" id="idPosts">
 			<h3><?php echo __('Related Posts'); ?></h3>
@@ -277,11 +307,11 @@ $games_stats = array(
 		</div>
 		
 
-	<div class="actions">
-		<ul>
+
+		<!--<ul>
 			<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+		</ul>-->
+
 
 
 </div>

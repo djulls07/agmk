@@ -53,9 +53,7 @@
 		dragCube(dragobj)
 	}
 </script>
-<div class="col_titre">
-	ACTUALITE
-</div>
+
 <?php if(  isset ($articles_main_news) )  if (!empty($articles_main_news)) : ?>
 	<div class="col_gauche_mainnews">
 		<?php if (0) : ?>
@@ -116,6 +114,10 @@
 		<?php endif; ?>
 	</div>
 <?php endif; ?>
+
+<div class="col_titre">
+	ACTUALITE
+</div>
 	
 <?php
 	echo $this->Session->flash();

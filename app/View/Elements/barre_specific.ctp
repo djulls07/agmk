@@ -41,7 +41,7 @@
 		if ( file_exists('../webroot/img/icons/'.$game['Game']['icon'].'.png' ))
 			print"<img class='barre_specific_image' src='/img/icons/".$game['Game']['icon'].".png' /></a>";
 		else
-			print"<img src='/img/agamek_logo_crop.png' /></a>";
+			print"<img class='barre_specific_image' src='/img/agamek_logo_crop.png' /></a>";
 		/*print "	<span class='barre_jeux_element'>".
 				$this->Html->link("Accueil", array(
 						'controller' => 'articles',
