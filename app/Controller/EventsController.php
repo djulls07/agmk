@@ -55,6 +55,7 @@ class EventsController extends AppController {
 		$this->Event->recursive = 1;
 		$options = array('conditions' => array('Event.' . $this->Event->primaryKey => $id));
 		$this->set('event', $this->Event->find('first', $options));
+		//debug($this->Event->find('first', $options));
 	}
 
 	/**
