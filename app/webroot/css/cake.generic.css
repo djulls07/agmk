@@ -904,7 +904,7 @@ margin-top:0;
 		 -ms-box-sizing: border-box;*/
 }
 
-.col_gauche_news::after
+.col_gauche_news_separation::after
 {
 	position:	absolute;
 	width:	100%;
@@ -951,6 +951,20 @@ margin-top:0;
 	background-repeat:no-repeat;
 	
 	z-index:1;
+}
+
+.col_gauche_news_image_mainnews
+{
+	position : absolute;
+	width : 100%;
+	height : 100%;
+	margin : 0 auto;
+	padding:0;
+	top:0;
+	left:0;
+	background-position	:	0% 0%;
+	background-size	:	100% 100%;
+	background-repeat:no-repeat;
 }
 
 .col_gauche_news_logo

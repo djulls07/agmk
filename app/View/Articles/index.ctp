@@ -87,7 +87,7 @@
 												$style_default="";
 											}
 								?>
-								<div class="col_gauche_news_image" style="background-image:url('<? print $article_image."');".$style_default; ?>">
+								<div class="col_gauche_news_image_mainnews" style="background-image:url('<? print $article_image."');".$style_default; ?>">
 									<?php
 										echo $this->Html->link(' ', array(
 											'controller' => 'articles',
@@ -97,12 +97,12 @@
 										);
 									?>
 								</div>
-								<div class="col_gauche_news_text">
+								<!--<div class="col_gauche_news_text">
 									<a href="/articles/view/<?php print $article_main_news['id']; ?>">
 										<div class="col_gauche_news_text_title"><?php echo $article_main_news['title']; ?></div>
 										<div class="col_gauche_news_text_subtitle"><?php echo $article_main_news['subtitle']; ?></div>
 									</a>
-								</div>
+								</div> -->
 							</div></div>
 						<?php }	else
 							echo '<div id='.$cube_face.'><img src="http://lorempixel.com/400/200/technics/"></div>';
@@ -137,8 +137,8 @@
 		for($j = 0 ; $j < $Acomments ; $j++)
 			if($Acomment[$j]['Acomment']['article_id'] == $article['id']) $comments++;
 		?>
-		<div class="col_gauche_news">
-
+		
+		<div class="col_gauche_news col_gauche_news_separation">
 			<?php 
 			$article_image='/img/agamek_logo_crop.png';
 			$style_default="background-position:center center; background-size:contain";
@@ -155,11 +155,25 @@
 				$article_logo = '/img/icons/logo_gameid-'.$article['game_id'].'.png';	
 			?>
 			
-			<div class="col_gauche_news_logo">
-				<?php print"<img src='".$article_logo."' />"; ?>
-			</div>
+			<?php 	
+			$style_text = "";
+			$class_image = "col_gauche_news_image";
+			if ($article['type'] != '1' && $article['type'] != '3') // si l'article n'est pas main_news (1=main 2=une 3=1&2)
+			{ ?>
+				<div class="col_gauche_news_logo">
+					<?php print"<img src='".$article_logo."' />"; // alors on affiche le logo du jeu correspondant à l'article ?>
+				</div>
+			<?php } 
+			else
+			{
+				$style_text = "style='display:none;'";
+				$class_image = "col_gauche_news_image_mainnews";
+			}
+			?>
 			
-			<div class="col_gauche_news_image" style="background-image:url('<? print $article_image."');".$style_default; ?>">
+			<div 	class='<?php print $class_image; ?>'
+					style="background-image:url('<? print $article_image."');".$style_default; ?>"
+			>
 				<?php
 					echo $this->Html->link(' ', array(
 						'controller' => 'articles',
@@ -171,7 +185,7 @@
 				<?php 	//echo '<a href="/articles/view/' . $article['id']. '">';
 						//echo $this->Media->image($article['thumb'], 175, 110); ?><!--</a>-->
 			</div>
-			<div class="col_gauche_news_text">
+			<div class="col_gauche_news_text" <?php print $style_text; ?> >
 			<a href="/articles/view/<?php print $article['id']; ?>">
 				<div class="col_gauche_news_text_auteur"><? print "<span style='color:gray'>Le ".date("d/m/y",strtotime($article['created']))." par </span> ".$articles[$news_id]['User']['username'];?></div>
 				<div class="col_gauche_news_text_title"><?php echo $article['title']; ?></div>

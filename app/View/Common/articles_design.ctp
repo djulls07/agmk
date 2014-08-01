@@ -110,7 +110,7 @@ if( false) {
 				<?php 
 				foreach($articles_a_la_une as $article_a_la_une){
 				$article_a_la_une=$article_a_la_une['Article'];
-					echo'<div class="col_gauche_news">';
+					echo'<div class="col_gauche_news col_gauche_news_separation">';
 						$article_image='/img/agamek_logo_crop.png';
 						$style_default="background-position:center center; background-size:contain";
 						if ( isset ($article_a_la_une['thumb']) )
