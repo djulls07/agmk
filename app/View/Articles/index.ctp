@@ -115,9 +115,9 @@
 	</div>
 <?php endif; ?>
 
-<div class="col_titre">
+<!--<div class="col_titre">
 	ACTUALITE
-</div>
+</div>-->
 	
 <?php
 	echo $this->Session->flash();
@@ -149,7 +149,16 @@
 							$article_image	=	$article['thumb'];
 							$style_default="";
 						}
+						
+			$article_logo = '/img/agamek_logo_crop.png';
+			if ( file_exists('../webroot/img/icons/logo_gameid-'.$article['game_id'].'.png' ))
+				$article_logo = '/img/icons/logo_gameid-'.$article['game_id'].'.png';	
 			?>
+			
+			<div class="col_gauche_news_logo">
+				<?php print"<img src='".$article_logo."' />"; ?>
+			</div>
+			
 			<div class="col_gauche_news_image" style="background-image:url('<? print $article_image."');".$style_default; ?>">
 				<?php
 					echo $this->Html->link(' ', array(
@@ -164,10 +173,12 @@
 			</div>
 			<div class="col_gauche_news_text">
 			<a href="/articles/view/<?php print $article['id']; ?>">
+				<div class="col_gauche_news_text_auteur"><? print "<span style='color:gray'>Le ".date("d/m/y",strtotime($article['created']))." par </span> ".$articles[$news_id]['User']['username'];?></div>
 				<div class="col_gauche_news_text_title"><?php echo $article['title']; ?></div>
 				<div class="col_gauche_news_text_subtitle"><?php echo $article['subtitle']; ?></div>
-				<div class="col_gauche_news_text_social"> <? print "<span style='float:left'>".date("d/m/y",strtotime($article['created']))."</span>"; 
-					if ( $comments ) print "&#9714;".$comments; ?></div>
+				<div class="col_gauche_news_text_social"> 
+					<div class="talkbubble"><?php echo $comments; ?></div>
+				</div>
 			</a>
 			</div>
 		</div>

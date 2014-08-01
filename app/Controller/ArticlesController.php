@@ -47,8 +47,8 @@ class ArticlesController extends AppController {
                 'order' => 'Article.modified DESC',
                 'recursive' => 1,
                 'limit' => 100,
-                'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id, Article.type', 'Thumb.file'),
-                'contain' => array('Thumb'),
+                'fields' => array('Article.id, Article.title, Article.subtitle, Article.created, Article.author_id, Article.type, Article.game_id', 'Thumb.file','User.username'),
+                'contain' => array('Thumb','User'),
                 'conditions' => array('Article.published' => 1)
             );
         } else {
@@ -57,7 +57,7 @@ class ArticlesController extends AppController {
                 'conditions' => array('Article.game_id' => $id, 'Article.published' => 1),
                 'order' => 'Article.created DESC',
                 'limit' => 100,
-                'contain' => array('Thumb'),
+                'contain' => array('Thumb','User'),
                 'recursive' => 0
             );
             $this->Article->Game->recursive = 1;

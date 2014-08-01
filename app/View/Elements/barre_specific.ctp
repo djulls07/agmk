@@ -38,8 +38,8 @@
 	if (isset ($game) ) 
 	{
 		print "<a href='/articles/index/".$game['Game']['id']."'>";
-		if ( file_exists('../webroot/img/icons/'.$game['Game']['icon'].'.png' ))
-			print"<img class='barre_specific_image' src='/img/icons/".$game['Game']['icon'].".png' /></a>";
+		if ( file_exists('../webroot/img/icons/logo_gameid-'.$game['Game']['id'].'.png' ))
+			print"<img class='barre_specific_image' src='/img/icons/logo_gameid-".$game['Game']['id'].".png' /></a>";
 		else
 			print"<img class='barre_specific_image' src='/img/agamek_logo_crop.png' /></a>";
 		/*print "	<span class='barre_jeux_element'>".
@@ -89,8 +89,8 @@
 				foreach ($category['games'] as $game)
 				{
 					print "<li><a href='/articles/index/".$game['Game']['id']."'>";
-					if ( file_exists('../webroot/img/icons/'.$game['Game']['icon'].'.png' ))
-						print"<img src='/img/icons/". $game['Game']['icon'].".png' />";
+					if ( file_exists('../webroot/img/icons/logo_gameid-'.$game['Game']['id'].'.png' ))
+						print"<img src='/img/icons/logo_gameid-".$game['Game']['id'].".png' />";
 					else
 						print"<img src='/img/agamek_logo_crop.png' />";
 					print	"&nbsp;". strtoupper($game['Game']['name'])."</a></li>";
