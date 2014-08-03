@@ -156,6 +156,23 @@ class Team extends AppModel {
 		return $results;
 	}
 
+	public function getRosters($teams, $gameId) {
+
+		$teamsIds = array();
+		foreach($teams as $team) {
+			array_push($teamsIds, $team['id']);
+		}
+
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM teamprofiles as Tm WHERE Tm.game_id=".$gameId." AND Tm.team_id IN(-1, ".implode(',', $teamsIds).")";
+		$res = $db->fetchAll($sql);
+		$tmp = array();
+		foreach($res as $k=>$r) {
+			$tmp[$r['Tm']['team_id']] = $r['Tm'];
+		}
+		return $tmp;
+	}
+
 }
 
 ?>

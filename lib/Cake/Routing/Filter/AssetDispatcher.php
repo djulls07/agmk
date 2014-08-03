@@ -28,7 +28,7 @@ class AssetDispatcher extends DispatcherFilter {
  * Default priority for all methods in this filter
  * This filter should run before the request gets parsed by router
  *
- * @var integer
+ * @var int
  */
 	public $priority = 9;
 
@@ -108,7 +108,7 @@ class AssetDispatcher extends DispatcherFilter {
 /**
  * Builds asset file path based off url
  *
- * @param string $url
+ * @param string $url URL
  * @return string Absolute path for asset file
  */
 	protected function _getAssetFile($url) {
@@ -141,7 +141,7 @@ class AssetDispatcher extends DispatcherFilter {
 	protected function _deliverAsset(CakeResponse $response, $assetFile, $ext) {
 		ob_start();
 		$compressionEnabled = Configure::read('Asset.compress') && $response->compress();
-		if ($response->type($ext) == $ext) {
+		if ($response->type($ext) === $ext) {
 			$contentType = 'application/octet-stream';
 			$agent = env('HTTP_USER_AGENT');
 			if (preg_match('%Opera(/| )([0-9].[0-9]{1,2})%', $agent) || preg_match('/MSIE ([0-9].[0-9]{1,2})/', $agent)) {

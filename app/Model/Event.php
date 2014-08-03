@@ -140,6 +140,11 @@ class Event extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Division' => array(
+			'classname' => 'Division',
+			'foreignKey' => 'event_id',
+			'dependent' => true
 		)
 	);
 
@@ -167,6 +172,19 @@ class Event extends AppModel {
 
 	public function addTeam($idTeam, $eventId, $userId) {
 		$db = $this->getDataSource();
+		/*if ($userId == 72) {
+			$sql = "INSERT INTO events_teams (event_id, team_id) VALUES(".$eventId.", ".$idTeam.")";
+			$db->query($sql);
+			return 0;
+		}*/
+		$event = $this->findById($eventId);
+		$game_id = $event['Event']['game_id'];
+		$team = $this->Team->findById($idTeam);
+		$rosters = $this->Team->getRosters(array(0=>$team['Team']), $game_id);
+		if ($rosters == null || count($rosters)<1) {
+			return -3;
+		}
+
 		$sql = "SELECT * FROM events_teams WHERE event_id=".$eventId." AND team_id=".$idTeam;
 		if ($db->fetchAll($sql)) return -1;
 		$sql = "SELECT * FROM teams_users as Tu WHERE Tu.team_id=".$idTeam;
@@ -182,7 +200,7 @@ class Event extends AppModel {
 		//on verifie que le user n'est pas deja inscrit a event avec autre team
 		$sql = "SELECT * FROM events_teams as et WHERE et.event_id=".$eventId." AND et.team_id IN(".$tmp.")";
 		if ($db->fetchAll($sql)) {
-			return -3;
+			return -4;
 		}
 		if (!$this->Team->isLeaderOrSecondLeader($userId, $idTeam)) {
 			return -2;

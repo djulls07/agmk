@@ -30,7 +30,7 @@ class Teamprofile extends AppModel {
 		return $tab;
 	}
 
-	public function afterFind($results, $primary) {
+	public function afterFind($results, $primary = false) {
 		if (!$primary) {
 			foreach($results as $k => $v) {
 				$results[$k]['Teamprofile']['roster'] = explode(',', $results[$k]['Teamprofile']['roster']);
@@ -199,6 +199,8 @@ class Teamprofile extends AppModel {
 			$teamProfile['Teamprofile']['roster'] .= ','.$idUser;
 		else
 			$teamProfile['Teamprofile']['roster'] = $idUser;
+
+		//$this->calculLevel($teamProfile);
 		if ($this->save($teamProfile)) {
 			return true;
 		}
@@ -215,6 +217,82 @@ class Teamprofile extends AppModel {
 			return true;
 		}
 		return false;
+	}
+
+	/*Callbacks*/
+	public function beforeSave($options = array()) {
+		if ($this->data['Teamprofile']['roster'] == null || strlen($this->data['Teamprofile']['roster'])<1) return true;
+		$roster = explode(",", $this->data['Teamprofile']['roster']);
+		$gameId = $this->data['Teamprofile']['game_id'];
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM profiles as Profile WHERE game_id=".$gameId." AND user_id IN(".implode(',', $roster).")";
+		$res = $db->fetchAll($sql);
+		if (count($roster) != count($res)) {
+			return false;
+		}
+		$l = 0;
+		foreach($res as $r) {
+			//calculc niveau moyen:
+			switch($r['Profile']['level']) {
+				case 'bronze':
+				case 'BRONZE':
+				case '1':
+				case 1:
+					$l+=1;
+					break;
+
+				case 'silver':
+				case 'SILVER':
+				case '2':
+				case 2:
+					$l+=2;
+					break;
+
+				case 'gold':
+				case 'GOLD':
+				case '3':
+				case 3:
+					$l+=3;
+					break;
+
+				case 'platinium':
+				case 'PLATINIUM':
+				case '4':
+				case 4:
+					$l+=4;
+					break;
+
+				case 'diamond':
+				case 'DIAMOND':
+				case '5':
+				case 5:
+					$l+=5;
+					break;
+
+				case 'master':
+				case 'MASTER':
+				case '7':
+				case 7:
+					$l+=7;
+					break;
+
+				case 'grandmaster':
+				case 'GRANDMASTER':
+				case '8':
+				case 8:
+					$l+=9;
+					break;
+
+				default:
+					$l+=3;
+					break;
+			}
+		}
+		$l = (int) ($l/(count($res)));
+		$l++;
+		if ($l < 0) return false;
+		$this->data['Teamprofile']['level'] = $l;
+		return true;
 	}
 }
 

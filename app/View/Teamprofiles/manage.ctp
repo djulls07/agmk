@@ -23,6 +23,7 @@ Manage Roster
 		<th class="actions">Actions</th>
 	</tr>
 	<?php foreach($teamProfile['Teamprofile']['roster'] as $id) : ?>
+		<?php if (!isset($teamProfile['Users'][$id]['User']['username'])) continue; ?>
 		<tr style="background:#ccc;">
 			<td><?php echo h($teamProfile['Users'][$id]['User']['username']); ?></td>
 			<td><?php echo h($teamProfile['Users'][$id]['Profile']['pseudo']); ?></td>

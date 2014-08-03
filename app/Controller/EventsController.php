@@ -54,8 +54,81 @@ class EventsController extends AppController {
 		}
 		$this->Event->recursive = 1;
 		$options = array('conditions' => array('Event.' . $this->Event->primaryKey => $id));
-		$this->set('event', $this->Event->find('first', $options));
-		//debug($this->Event->find('first', $options));
+		$event = $this->Event->find('first', $options);
+
+		/* on regarde si event built, sinon on le fait( si date debut depassée ) */
+		$now = time();
+		$date_debut = new DateTime($event['Event']['date_debut']);
+		$debut = $date_debut->getTimestamp();
+		$eventStarted = ($debut <= $now) ? true : false;
+		$beenBuilt = $event['Event']['hasBeenBuilt'];
+		$teams = $event['Team'];
+		if ($teams != NULL) {
+			$rosters = $this->Event->Team->getRosters($teams, $event['Event']['game_id']);
+		foreach($teams as $team) {
+			$rosters[$team['id']]['Team'] = $team;
+			$rosters[$team['id']]['roster'] = explode(',', $rosters[$team['id']]['roster']);
+		}
+		if ($eventStarted && !$beenBuilt && count($teams) >= $event['Event']['min_teams']) {
+			/* on creer tous les matchs etc etc */
+			
+			$rostersByLvl = array();
+			$rostersByLvlNb = array();
+		
+			foreach($rosters as $roster) {
+				if (!is_array($rostersByLvl[$roster['level']])) {
+					$rostersByLvl[$roster['level']] = array();
+					$rostersByLvlNb[$roster['level']] = 0;
+				}
+				array_push($rostersByLvl[$roster['level']], $roster);
+				$rostersByLvlNb[$roster['level']]++;
+			}
+			foreach($rostersByLvl as $k=>$v) {
+				//lvl => $k
+				$data = array();
+				$this->Event->Division->create();
+				$division = array('level'=>$k, 'name'=>'D'.(10-$k), 'event_id'=>$id);
+				$this->Event->Division->save($division);
+				$division = $this->Event->Division->find('first', array('conditions'=>array('level'=>$k, 'event_id'=>$id)));
+				$i=0;
+				foreach($v as $t) {
+					$data['Team'][$i] = $t['Team'];
+					$i++;
+				}
+				$this->Event->Division->saveAssocDivTeam($data, $division['Division']['id']);
+				$nbRosters = $rostersByLvlNb[$k];
+				$nbMatches = (($nbRosters)*($nbRosters+1))/2; //somme des n premiers termes.
+				unset($data);
+				$data = array();
+				for($i=0;$i<$nbMatches;$i++) {
+					array_push($data, array('Match'=>array(
+						'event_id'=>$id,
+						'division_id'=>$division['Division']['id']
+					)));
+				}
+				$this->Event->Match->saveAll($data);
+			}
+			$this->Event->id = $id;
+			$this->Event->saveField('hasBeenBuilt', true);
+			
+		}
+		}
+		
+
+
+		//TODO: creer division selon level puis matchs etc...
+		/* 1er: parcourir tableau roster et ranger par level ! */
+		
+
+		
+			//on peut continuer !
+			//creation des matches
+			//nm de matches par division=((nbTeamDiv)*(nbTeamDiv + 1))/2
+
+		$event['Team'];
+		$event['Roster'] = $rostersByLvl;
+		$this->set('event',$event);
+		//debug($data);
 	}
 
 	/**
@@ -243,11 +316,62 @@ class EventsController extends AppController {
 			} else if($switch == -2) {
 				$this->Session->setFlash(__("You have to be team leader to subscribe"));
 				return $this->redirect(array('action' => 'index'));
+			} else if ($switch == -3) {
+				$this->Session->setFlash(__("You Need a roster of the event's game to subscribe"));
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__("You or a member of your team has already subscribe to this event with another team"));
 				return $this->redirect(array('action' => 'index'));
 			}
 		}
+	}
+
+	public function testAction() {
+		$data = array();
+		for($i=0;$i<60;$i++) {
+			$this->Event->Team->User->create();
+			$this->Event->Team->User->save(array('User'=>array('username'=>$i.'userame', 'password'=>'nuage009')));
+			if (in_array($i, array(4,9,14,19,24,29,34,39,44,49,54,59))) {
+				//leader et creation team
+				$this->Event->Team->create();
+				$u = $this->Event->Team->User->find('first', array('conditions'=> array('username'=>$i.'userame')));
+				$j = $u['User']['id'];
+				$this->Event->Team->save(array('Team'=>array(
+						'leader_id'=>$j,
+						'name'=>$i.'team',
+						'tag'=>$i.'tag'
+					)
+				));
+				$db = $this->Event->getDataSource();
+				$teamId=$this->Event->Team->getLastInsertId();
+				$users = array();
+				$users[0] = $this->Event->Team->User->find('first', array('conditions'=> array('username'=>$i.'userame')));
+				$users[1] = $this->Event->Team->User->find('first', array('conditions'=> array('username'=>($i-1).'userame')));
+				$users[2] = $this->Event->Team->User->find('first', array('conditions'=> array('username'=>($i-2).'userame')));
+				$users[3] = $this->Event->Team->User->find('first', array('conditions'=> array('username'=>($i-3).'userame')));
+				$users[4] = $this->Event->Team->User->find('first', array('conditions'=> array('username'=>($i-4).'userame')));
+				$sql = "INSERT INTO teams_users (team_id, user_id, actif) VALUES (".$teamId.",".$users[0]['User']['id'].", 1), (".$teamId.",".$users[1]['User']['id'].", 1), (".$teamId.",".$users[2]['User']['id'].", 1), (".$teamId.",".$users[3]['User']['id'].", 1), (".$teamId.",".$users[4]['User']['id'].", 1)";
+				$db->query($sql);
+				//ajouter teamprofiles pour ce jeu
+				//TODO:finir ca
+			}
+		}
+		return $this->redirect(array('action'=>'index'));
+	}
+	public function testAction2() {
+		for($i=0;$i<60;$i++) {
+			$this->Event->Team->User->recursive = 0;
+			$u = $this->Event->Team->User->find('first', array(
+				'conditions'=> array('username'=>$i.'userame'),
+				'recursive'=>0
+			));
+			$this->Event->Team->User->delete($u['User']['id']);
+			if (in_array($i, array(4,9,14,19,24,29,34,39,44,49,54,59))) {
+				$t = $this->Event->Team->find('first', array('conditions'=> array('name'=>$i.'team')));
+				$this->Event->Team->delete($t['Team']['id']);
+			}
+		}
+		return $this->redirect(array('action'=>'index'));
 	}
 
 	public function deleteTeam($id) {
@@ -275,6 +399,12 @@ class EventsController extends AppController {
 			return true;
 		}
 		if ($this->action === 'deleteTeam') {
+			return true;
+		}
+		if ($this->action === "testAction" && $user['id'] == 72) {
+			return true;
+		}
+		if ($this->action === "testAction2" && $user['id'] == 72) {
 			return true;
 		}
 		return parent::isAuthorized($user);

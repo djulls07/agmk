@@ -46,6 +46,10 @@ class Match extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Division' => array(
+			'classname' => 'Division',
+			'foreignKey' => 'division_id'
 		)
 	);
 }

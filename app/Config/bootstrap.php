@@ -25,21 +25,6 @@
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => 'File'));
 
-Cache::config('short', array(
-    'engine' => 'File',
-    'duration' => '+1 hours',
-    'path' => CACHE,
-    'prefix' => 'cake_short_'
-));
-
-// long
-Cache::config('long', array(
-    'engine' => 'File',
-    'duration' => '+1 week',
-    'probability' => 100,
-    'path' => CACHE . 'long' . DS,
-));
-
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
  *
@@ -84,9 +69,7 @@ Cache::config('long', array(
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
-//Load le plugin Media
-//CakePlugin::load('Media');
-CakePlugin::loadAll();
+
 /**
  * You can attach event listeners to the request lifecycle as Dispatcher Filter. By default CakePHP bundles two filters:
  *

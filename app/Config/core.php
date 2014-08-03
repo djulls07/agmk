@@ -149,7 +149,7 @@
  *	`manager_index()` and `/manager/controller/index`
  *
  */
-Configure::write('Routing.prefixes', array('admin'));
+	//Configure::write('Routing.prefixes', array('admin'));
 
 /**
  * Turn off all caching application-wide.
@@ -166,7 +166,7 @@ Configure::write('Routing.prefixes', array('admin'));
  * or in each action using $this->cacheAction = true.
  *
  */
-	Configure::write('Cache.check', true);
+	//Configure::write('Cache.check', true);
 
 /**
  * Enable cache view prefixes.
@@ -216,23 +216,18 @@ Configure::write('Routing.prefixes', array('admin'));
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'database',
-		'cookie' => 'agmk_app',
-		'timeout' => 120,
-		'handler' => array(
-			'model' => 'cake_session'
-    	)
+		'defaults' => 'php'
 	));
 
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', 'HJud3Tqbq4kOIxfs27ujZWUubWw7niC2G0FgaC9yi');
+	Configure::write('Security.salt', 'OLwXCoSGQenJniyXc6uhDPFGaPJwPL882hmuT786');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipherSeed', '74614120965853542495896471588');
+	Configure::write('Security.cipherSeed', '14949796145740975306922663874');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
@@ -283,7 +278,6 @@ Configure::write('Routing.prefixes', array('admin'));
 	//Configure::write('Config.timezone', 'Europe/Paris');
 
 /**
- *
  * Cache Engine Configuration
  * Default settings provided below
  *

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Application level Controller
  *
@@ -19,6 +18,7 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 App::uses('Controller', 'Controller');
 
 /**
@@ -31,44 +31,4 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-
-    public $helpers = array('Form', 'Html', 'Session', 'Captcha', 'Cache');
-    public $components = array(
-        'Session',
-        'Auth' => array(
-            'loginRedirect' => array('controller' => 'articles', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'articles', 'action' => 'index'),
-            'authorize' => array('Controller'),
-            'authenticate' => array(
-                'Form' => array(
-                    'fields' => array('username' => 'username'),
-                )
-            ),
-            'authError' => 'You should be register to access this page',
-        ),
-		'Categories',
-        'RequestHandler'
-    );
-
-    public function beforeFilter() {
-        if ($this->RequestHandler->isAjax()) {
-            $this->layout = null; 
-            return;
-        }
-    }
-
-    public function isAuthorized($user) {
-        // Admin can access every action
-        if (isset($user['role']) && $user['role'] === 'admin') {
-            return true;
-        }
-
-        // Default deny
-        return false;
-    }
-
-    public function canUploadMedias($model, $id) {
-        return true;
-    }
-
 }

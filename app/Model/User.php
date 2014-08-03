@@ -136,7 +136,8 @@ class User extends AppModel {
 		'Wallet' => array(
 			'classname' => 'Wallet',
 			'foreignKey' => 'id_assoc',
-			'conditions'=> array('type' => 0)
+			'conditions'=> array('type' => 0),
+			'dependent'=>true
 		)
 	);
 
