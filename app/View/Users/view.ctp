@@ -21,7 +21,8 @@ $games_stats = array(
 /* TODO: vérifier que les id_game correspondent bien à dex  jeux */
 ?>
 <div id="espace_gauche">
-	<div id="espace_gauche_avatar" style="background-color:<?php print $specific_user_color;?>;" >
+	<!--<div id="espace_gauche_avatar" style="background-color:<?php print $specific_user_color;?>;" >-->
+	<div id="espace_gauche_avatar">
 		<a href="<?php print $user['User']['avatar'];?>"><img src="<?php print $user['User']['avatar'];?>"></a>
 	</div>
 	<div id="espace_gauche_menu">

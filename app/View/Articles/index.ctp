@@ -158,17 +158,17 @@
 			<?php 	
 			$style_text = "";
 			$class_image = "col_gauche_news_image";
-			if ($article['type'] != '1' && $article['type'] != '3') // si l'article n'est pas main_news (1=main 2=une 3=1&2)
-			{ ?>
+			//if ($article['type'] != '1' && $article['type'] != '3') // si l'article n'est pas main_news (1=main 2=une 3=1&2)
+			//{ ?>
 				<div class="col_gauche_news_logo">
 					<?php print"<img src='".$article_logo."' />"; // alors on affiche le logo du jeu correspondant à l'article ?>
 				</div>
-			<?php } 
-			else
+			<?php // } 
+			/*else
 			{
 				$style_text = "style='display:none;'";
 				$class_image = "col_gauche_news_image_mainnews";
-			}
+			}*/
 			?>
 			
 			<div 	class='<?php print $class_image; ?>'
@@ -186,14 +186,14 @@
 						//echo $this->Media->image($article['thumb'], 175, 110); ?><!--</a>-->
 			</div>
 			<div class="col_gauche_news_text" <?php print $style_text; ?> >
-			<a href="/articles/view/<?php print $article['id']; ?>">
-				<div class="col_gauche_news_text_auteur"><? print "<span style='color:gray'>Le ".date("d/m/y",strtotime($article['created']))." par </span> ".$articles[$news_id]['User']['username'];?></div>
+				<div class="col_gauche_news_text_auteur"><? print "<span style='color:gray'>Le ".date("d/m/y",strtotime($article['created']))." par </span> <a href='/users/view/".$articles[$news_id]['User']['id']."'>".$articles[$news_id]['User']['username']."</a>";?></div>
 				<div class="col_gauche_news_text_title"><?php echo $article['title']; ?></div>
 				<div class="col_gauche_news_text_subtitle"><?php echo $article['subtitle']; ?></div>
 				<div class="col_gauche_news_text_social"> 
-					<div class="talkbubble"><?php echo $comments; ?></div>
+					<a href="/articles/view/<?php print $article_main_news['id']; ?>" class="ReadMore"><img src="/img/read_more.png" /></a>
+					<div class="talkbubble"><a href="/articles/view/<?php print $article['id']; ?>#comments"><?php echo $comments; ?></a></div>
 				</div>
-			</a>
+				<a href="/articles/view/<?php print $article['id']; ?>"></a>
 			</div>
 		</div>
 	<?php }

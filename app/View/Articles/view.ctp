@@ -58,7 +58,7 @@
 			)
 		); ?>
 </div>
-<div id="article_comments">
+<div id="article_comments"><a name="comments"></a>
 	<?php foreach ($article['Acomment'] as $comment):?>
 		<div class="article_comment">
 			<div class="article_comment_image">

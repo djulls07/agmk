@@ -80,7 +80,7 @@ if( false) {
 			<iframe width="100%" height="100%" src="//www.youtube.com/embed/0iiNPtM9bKs?autoplay=0&version=3" frameborder="0" allowfullscreen></iframe>
 
 		</div>
-		<div class="col_titre">
+		<div class="col_titre col_titre_stream">
 			STREAMS
 		</div>
 			<div class="col_droite_info" id="streams">
