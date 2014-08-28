@@ -115,13 +115,14 @@
 	</div>
 <?php endif; ?>
 
-<!--<div class="col_titre">
+<div class="col_titre">
+	<img src="/img/news_img.png" />
 	ACTUALITE
-</div>-->
+</div>
 	
 <?php
 	echo $this->Session->flash();
-	$newsTotal=count($articles);	//debug($Acomment);	
+	$newsTotal=count($articles);
 	$Acomments=count($Acomment); // nombre total de commentaires
 	$pageindex=1;
 	$news_id	=	0;
@@ -159,11 +160,12 @@
 			$style_text = "";
 			$class_image = "col_gauche_news_image";
 			//if ($article['type'] != '1' && $article['type'] != '3') // si l'article n'est pas main_news (1=main 2=une 3=1&2)
-			//{ ?>
+			//{ 
+			if (!isset($game)) { ?>
 				<div class="col_gauche_news_logo">
 					<?php print"<img src='".$article_logo."' />"; // alors on affiche le logo du jeu correspondant à l'article ?>
 				</div>
-			<?php // } 
+			<?php } // } 
 			/*else
 			{
 				$style_text = "style='display:none;'";
@@ -190,8 +192,8 @@
 				<div class="col_gauche_news_text_title"><?php echo $article['title']; ?></div>
 				<div class="col_gauche_news_text_subtitle"><?php echo $article['subtitle']; ?></div>
 				<div class="col_gauche_news_text_social"> 
-					<a href="/articles/view/<?php print $article_main_news['id']; ?>" class="ReadMore"><img src="/img/read_more.png" /></a>
-					<div class="talkbubble"><a href="/articles/view/<?php print $article['id']; ?>#comments"><?php echo $comments; ?></a></div>
+					<a href="/articles/view/<?php print $article['id']; ?>" class="ReadMore"> </a>
+					<a href="/articles/view/<?php print $article['id']; ?>#comments" class="talkbubble"><?php echo $comments; ?></a>
 				</div>
 				<a href="/articles/view/<?php print $article['id']; ?>"></a>
 			</div>

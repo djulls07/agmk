@@ -102,7 +102,7 @@ if( false) {
 			CONCOURS
 		</div>
 	<!--- ARTICLES A LA UNE --->
-		<?php if ( isset ($articles_a_la_une) )  if (!empty($articles_a_la_une)) : ?>
+		<?php if ( false && isset ($articles_a_la_une) )  if (!empty($articles_a_la_une)) : ?>
 			<div class="col_titre">
 				A LA UNE
 			</div>

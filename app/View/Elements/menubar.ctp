@@ -12,7 +12,7 @@ $specific_user_GMT=2;
 						'url' => array('controller' => 'users', 'action' => 'view', $user['id'])
 					));?>
 				</div>
-				<div class="home_barre_pseudo" style="border: 2px solid <?php print $specific_user_color;?>; border-left:0; border-bottom-width:4px">
+				<!--<div class="home_barre_pseudo" style="border: 2px solid <?php print $specific_user_color;?>; border-left:0; border-bottom-width:4px">
 					<?php
 						echo $this->Html->link($user['username'], array(
 							'controller' => 'users',
@@ -21,7 +21,7 @@ $specific_user_GMT=2;
 							)
 						);
 					?>
-				</div>
+				</div>-->
 		</div>
 		
 		<div class="home_barre_boutons">
@@ -113,6 +113,24 @@ $specific_user_GMT=2;
 						'action' => 'logout',
 						)
 					);*/
+				?>
+			</li>
+			<li>
+				<?php
+					echo $this->Html->link('MY TEAMS', array(
+						'controller' => 'teams',
+						'action' => 'index',
+						)
+					);
+				?>
+			</li>			
+			<li>
+				<?php
+					echo $this->Html->link('MY EVENTS', array(
+						'controller' => 'events',
+						'action' => 'index',
+						)
+					);
 				?>
 			</li>
 			<li>
