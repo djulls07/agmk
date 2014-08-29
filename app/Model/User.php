@@ -64,6 +64,7 @@ class User extends AppModel {
 				'rule' => array('notEmpty')
 			)
 		),
+		'mail'=>'email'
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

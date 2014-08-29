@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    Rewriterule ^phpmyadmin/.*$ - [PT]
+    Rewriterule ^forum/.*$ - [PT]
+    RewriteRule    ^$    app/webroot/    [L]
+    RewriteRule    (.*) app/webroot/$1    [L]
+</IfModule>
