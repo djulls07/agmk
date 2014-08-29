@@ -87,10 +87,10 @@ class UsersController extends AppController {
                 $this->User->create();
                 if ($this->User->saveAssociated($this->request->data)) {
                 	$db = $this->User->getDataSource();
-                	//$sql = "INSERT INTO fluxbb_users (group_id, username, password, email,title,realname,url,jabber,icq,msn,aim,yahoo,location,signature,disp_topics,disp_posts,email_setting,notify_with_post,auto_notify,show_smilies,show_img,show_img_sig,show_avatars,show_sig,timezone,dst,time_format,date_format,language,style,num_posts,last_post,last_search,last_email_sent,registered,registration_ip,last_visit,admin_note,activate_string,activate_key) ".
+                	//$sql = "INSERT INTO forum_users (group_id, username, password, email,title,realname,url,jabber,icq,msn,aim,yahoo,location,signature,disp_topics,disp_posts,email_setting,notify_with_post,auto_notify,show_smilies,show_img,show_img_sig,show_avatars,show_sig,timezone,dst,time_format,date_format,language,style,num_posts,last_post,last_search,last_email_sent,registered,registration_ip,last_visit,admin_note,activate_string,activate_key) ".
                 	//	"VALUES(2, '".$username."', '".$passwordHash."', '".$mail."', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,1,1,1,1,1,0,0,0,0,'english','Technetium',0,NULL,NULL,NULL,NULL,".time().",'".$this->request->clientIp()."',0,NULL,NULL,NULL)";
-                	//$sql = "INSERT INTO fluxbb_users VALUES(2, '".$username."', '".$passwordHash."', '".$mail."', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,1,1,1,1,1,0,0,0,0,'english','Technetium',0,NULL,NULL,NULL,NULL,".time().",'".$this->request->clientIp()."',0,NULL,NULL,NULL)";
-                	$sql = "INSERT INTO fluxbb_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
+                	//$sql = "INSERT INTO forum_users VALUES(2, '".$username."', '".$passwordHash."', '".$mail."', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,1,1,1,1,1,0,0,0,0,'english','Technetium',0,NULL,NULL,NULL,NULL,".time().",'".$this->request->clientIp()."',0,NULL,NULL,NULL)";
+                	$sql = "INSERT INTO forum_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
                 	$db->query($sql);
                		$this->Session->setFlash(__('New user has been saved on agamek.org and forum'));
                 	return $this->redirect(array('action' => 'login'));  
@@ -195,13 +195,14 @@ class UsersController extends AppController {
 		    		$mail = "PLEASEsetyourmail@setyourmail.com";
 		    	}
 		    	$db = $this->User->getDataSource();
-		    	$sql = "SELECT * FROM fluxbb_users WHERE username='".$username."'";
+		    	$sql = "SELECT * FROM forum_users WHERE username='".$username."'";
 		    	$res = null;
 		    	$res = $db->query($sql);
 		    	if ($res == null) {
-		    		$sql = "INSERT INTO fluxbb_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
+		    		$sql = "INSERT INTO forum_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
                 	$db->query($sql);
 		    	}
+
 	            return $this->redirect($this->Auth->redirect());
 	        } else {
 	            $this->Session->setFlash(__("Username or password incorrect"));
