@@ -106,11 +106,9 @@
 			)
 		);
 		echo"</li><li>";
-		echo $this->Html->link('FORUM', array(
-			'controller' => 'articles',
-			'action' => 'index',
-			)
-		);
+		?>
+		<a href="http://agamek.org/forum">FORUM</a>
+		<?php
 		echo"</li><li>";
 		echo $this->Html->link('STORE', array(
 			'controller' => 'articles',

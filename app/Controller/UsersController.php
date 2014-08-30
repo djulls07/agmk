@@ -79,10 +79,20 @@ class UsersController extends AppController {
             $this->User->setCaptcha($this->Captcha->getVerCode()); //getting from component and passing to model to make proper validation check
             $this->User->set($this->request->data);
             $this->request->data['User']['avatar'] = '/img/avatar.jpg';
+            $passwordHash = sha1($this->request->data['User']['password']);
+            $username = $this->request->data['User']['username'];
+            $mail = $this->request->data['User']['mail'];
+            $time = time();
             if($this->User->validates()) {
                 $this->User->create();
                 if ($this->User->saveAssociated($this->request->data)) {
-               		$this->Session->setFlash(__('New user has been saved'));
+                	$db = $this->User->getDataSource();
+                	//$sql = "INSERT INTO forum_users (group_id, username, password, email,title,realname,url,jabber,icq,msn,aim,yahoo,location,signature,disp_topics,disp_posts,email_setting,notify_with_post,auto_notify,show_smilies,show_img,show_img_sig,show_avatars,show_sig,timezone,dst,time_format,date_format,language,style,num_posts,last_post,last_search,last_email_sent,registered,registration_ip,last_visit,admin_note,activate_string,activate_key) ".
+                	//	"VALUES(2, '".$username."', '".$passwordHash."', '".$mail."', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,1,1,1,1,1,0,0,0,0,'english','Technetium',0,NULL,NULL,NULL,NULL,".time().",'".$this->request->clientIp()."',0,NULL,NULL,NULL)";
+                	//$sql = "INSERT INTO forum_users VALUES(2, '".$username."', '".$passwordHash."', '".$mail."', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,1,1,1,1,1,0,0,0,0,'english','Technetium',0,NULL,NULL,NULL,NULL,".time().",'".$this->request->clientIp()."',0,NULL,NULL,NULL)";
+                	$sql = "INSERT INTO forum_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
+                	$db->query($sql);
+               		$this->Session->setFlash(__('New user has been saved on agamek.org and forum'));
                 	return $this->redirect(array('action' => 'login'));  
                 }               
                 $this->Session->setFlash(__('The user could not be saved, please try again'));
@@ -177,6 +187,22 @@ class UsersController extends AppController {
 	public function login() {
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
+		        $passwordHash = sha1($this->request->data['User']['password']);
+		    	$username = $this->request->data['User']['username'];
+		    	$mail = $this->Auth->user('mail');
+		    	$time = time();
+		    	if (empty($mail)) {
+		    		$mail = "PLEASEsetyourmail@setyourmail.com";
+		    	}
+		    	$db = $this->User->getDataSource();
+		    	$sql = "SELECT * FROM forum_users WHERE username='".$username."'";
+		    	$res = null;
+		    	$res = $db->query($sql);
+		    	if ($res == null) {
+		    		$sql = "INSERT INTO forum_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
+                	$db->query($sql);
+		    	}
+
 	            return $this->redirect($this->Auth->redirect());
 	        } else {
 	            $this->Session->setFlash(__("Username or password incorrect"));

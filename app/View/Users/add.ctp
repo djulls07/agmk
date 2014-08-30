@@ -7,6 +7,7 @@
 		echo $this->Form->input('username');
 		echo $this->Form->input('password');
 		echo $this->Form->input('role', array('type' => 'hidden', 'value' => 'basic'));
+		echo $this->Form->input('mail');
 	?>
 	
 	</fieldset>
