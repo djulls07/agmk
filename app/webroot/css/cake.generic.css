@@ -1743,7 +1743,7 @@ div.col_droite
 		color : #d7d7d7;
 		font-size:120%;
 	}
-	.espace_droite_experience_level_max
+	/*.espace_droite_experience_level_max
 	{
 		right : 10%;
 		text-align	:	right;
@@ -1758,7 +1758,7 @@ div.col_droite
 	
 	.progress-bar { 
 		position:	absolute;
-		left:	15%; /*100-width /2 */
+		left:	15%; 
 		width: 70%;
 		margin:	0 auto;
 		height: 100%;
@@ -1776,7 +1776,7 @@ div.col_droite
 		content: '';
 		display: block;
 		position: absolute;
-		width: 20%; /* relatif à #espace_droite_experience */
+		width: 20%; 
 		height: 24px;
 		background: #9d86b7;
 		border-radius: 12px;
@@ -1790,7 +1790,7 @@ div.col_droite
 		content: '|||||||||||||';
 		display: block;
 		position: absolute;
-		width: 20%; /* le même que :before */
+		width: 20%; 
 		height: 24px;
 		overflow: hidden;
 		border-radius: 12px;
@@ -1804,7 +1804,7 @@ div.col_droite
 		letter-spacing: -6px;
 		color: #000;
 		opacity: 0.06;
-	}
+	}*/
 	
 #espace_droite_stats_ranksrewards
 {
@@ -2200,6 +2200,92 @@ a#Profiles:target ~ #idProfiles
 	cursor: pointer;
 }
 /******/
+
+
+/**** EVENTS *****/
+#events_topimg
+{
+	width : 100%;
+	position : relative;
+}
+
+#events_topimg img
+{
+	width : 100%;
+	height : auto;
+}
+
+#events_topmenu
+{
+	position : relative;
+	width : 100%;
+	height : 30px;
+	box-shadow : 0px 8px 6px -2px #3a3a3a;
+}
+
+#events_topmenu ul
+{
+	width : 100%;
+	height : 100%;
+	line-height : 30px;
+	list-style : none;
+}
+
+
+#events_topmenu li
+{
+	position : relative;
+	font-size	:	12px;
+	height : 100%;
+	width : 12.5%;
+	display : inline-block;
+	float : left;
+	text-align : center;
+	border : 1px solid #afafaf;
+	border-left : 0;
+	
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+	#events_topmenu li
+	{
+		color : #7f7f7f;
+	}
+	#events_topmenu li:first-child
+	{
+		border-left : 1px solid #afafaf;
+	}
+
+	#events_topmenu li::after
+	{
+		position : absolute;
+		top : 100%;
+		height : 10%;
+		left : 0;
+		right : 0;
+		background-color : #afafaf;
+		content:' ';
+	}
+	#events_topmenu li:hover::after
+	{
+		background-color : #9475c2;
+	}
+	#events_topmenu li.events_topmenu_selected::after
+	{
+		background-color : #8544d5;
+	}
+	#events_topmenu li a
+	{
+		font-family	:	"Agency";
+		font-weight : bold;
+		color : #7f7f7f;
+		display : block;
+		width : 100%;
+		height : 100%;
+		font-size : 140%;
+	}
 	
 
 /** Layout **/

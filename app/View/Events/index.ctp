@@ -1,3 +1,40 @@
+<script type="text/javascript">
+	function clickMenu(divid)
+	{
+		var ul = document.getElementById("events_topmenu_ul");
+		var items = ul.getElementsByTagName("li");
+		for (var i = 0; i < items.length; ++i)
+		{
+			element = items[i];
+			if ( element.id == divid )
+			{
+				element.className = "events_topmenu_selected";
+			}
+			else
+			{
+				element.className = "events_topmenu_notselected";
+			}
+		}
+	}
+</script>
+
+<div id="events_topimg">
+	<img src="/img/ban_event.png" />
+</div>
+
+<div id="events_topmenu">
+	<ul id="events_topmenu_ul">
+		<li id="OVERVIEW" onclick="clickMenu(this.id)" class=""><a href="#OVERVIEW">OVERVIEW</a></li>
+		<li id="INFOS" onclick="clickMenu(this.id)" class=""><a href="#INFOS">INFOS</a></li>
+		<li id="HISTORY" onclick="clickMenu(this.id)" class=""><a href="#HISTORY">MATCH HISTORY</a></li>
+		<li id="MYTEAM" onclick="clickMenu(this.id)" class=""><a href="#MYTEAM">MYTEAM</a></li>
+		<li id="CALENDAR" onclick="clickMenu(this.id)" class=""><a href="#CALENDAR">CALENDAR</a></li>
+		<li id="STREAM" onclick="clickMenu(this.id)" class=""><a href="#STREAM">STREAM</a></li>
+		<li id="RULES" onclick="clickMenu(this.id)" class="events_topmenu_selected"><a href="#RULES">RULES</a></li>
+		<li id="REPORT" onclick="clickMenu(this.id)" class=""><a href="#REPORT">REPORT</a></li>
+	</ul>
+</div>
+<!--
 <div id="onglets">
 	<ul>
 		<li><a href="#onglet-1">Subscribed Events</a></li>
@@ -138,3 +175,4 @@
 		});
 	});
 </script>
+-->
