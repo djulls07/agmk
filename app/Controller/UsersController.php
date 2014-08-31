@@ -26,7 +26,7 @@ class UsersController extends AppController {
  */
 	
 	public function beforeFilter() {
-		$this->Auth->allow('login', 'add', 'admin_login');
+		$this->Auth->allow('login', 'add', 'admin_login', 'activate');
 	}
 	
 	public function index() {
@@ -92,7 +92,9 @@ class UsersController extends AppController {
                 	//$sql = "INSERT INTO forum_users VALUES(2, '".$username."', '".$passwordHash."', '".$mail."', NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,0,0,1,1,1,1,1,0,0,0,0,'english','Technetium',0,NULL,NULL,NULL,NULL,".time().",'".$this->request->clientIp()."',0,NULL,NULL,NULL)";
                 	$sql = "INSERT INTO forum_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
                 	$db->query($sql);
-               		$this->Session->setFlash(__('New user has been saved on agamek.org and forum'));
+               		$this->Session->setFlash(__('New user has been saved on agamek.org and forum. Please check your email to activate your account.'));
+                	$user = $this->User->findByUsername($username);
+                	$this->User->sendEmailActivation($user);
                 	return $this->redirect(array('action' => 'login'));  
                 }               
                 $this->Session->setFlash(__('The user could not be saved, please try again'));
@@ -186,27 +188,33 @@ class UsersController extends AppController {
 
 	public function login() {
 	    if ($this->request->is('post')) {
-	        if ($this->Auth->login()) {
-		        $passwordHash = sha1($this->request->data['User']['password']);
-		    	$username = $this->request->data['User']['username'];
-		    	$mail = $this->Auth->user('mail');
-		    	$time = time();
-		    	if (empty($mail)) {
-		    		$mail = "PLEASEsetyourmail@setyourmail.com";
-		    	}
-		    	$db = $this->User->getDataSource();
-		    	$sql = "SELECT * FROM forum_users WHERE username='".$username."'";
-		    	$res = null;
-		    	$res = $db->query($sql);
-		    	if ($res == null) {
-		    		$sql = "INSERT INTO forum_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
-                	$db->query($sql);
-		    	}
+	    	$user = $this->User->findByUsername($this->request->data['User']['username']);
+	    	if ($user && $user['User']['active']) {
+		        if ($this->Auth->login()) {
+			        $passwordHash = sha1($this->request->data['User']['password']);
+			    	$username = $this->request->data['User']['username'];
+			    	$mail = $this->Auth->user('mail');
+			    	$time = time();
+			    	if (empty($mail)) {
+			    		$mail = "PLEASEsetyourmail@setyourmail.com";
+			    	}
+			    	$db = $this->User->getDataSource();
+			    	$sql = "SELECT * FROM forum_users WHERE username='".$username."'";
+			    	$res = null;
+			    	$res = $db->query($sql);
+			    	if ($res == null) {
+			    		$sql = "INSERT INTO forum_users(group_id,username,password,email,language,style,registration_ip,registered) VALUES(4,'".$username."','".$passwordHash."','".$mail."','english', 'Air', '".$this->request->clientIp()."',".$time.")";
+	                	$db->query($sql);
+			    	}
 
-	            return $this->redirect($this->Auth->redirect());
-	        } else {
-	            $this->Session->setFlash(__("Username or password incorrect"));
-	        }
+		            return $this->redirect($this->Auth->redirect());
+		        } else {
+		            $this->Session->setFlash(__("Username or password incorrect"));
+		        }
+		    } else {
+		    	$this->Session->setFlash('Account exists, please activate it ( check your email )');
+		    	$this->User->sendEmailActivation($user);
+		    }
 	    }
 	}
 
@@ -292,6 +300,25 @@ class UsersController extends AppController {
 	    	}
     	}
     	exit();
+    }
+
+    public function activate() {
+    	$hash = $this->request->query('h');
+    	$username = $this->request->query('u');
+    	$email = $this->request->query('e');
+    	if (!$email || !$username || !$hash) {
+    		throw new notFoundException(__('Invalid link'));		
+    	}
+    	$user = $this->User->findByUsername($username);
+    	if ($user!=null) {
+    		$this->User->id = $user['User']['id'];
+    		$this->User->saveField('active', 1);
+    		$this->Session->setFlash("Account Activated.");
+    		return $this->redirect(array('action'=>'login'));
+    	} else {
+    		throw new notFoundException(__('Invalid link'));
+    	}
+    	//return $this->redirect(array('controller'=>'articles','action'=>'index'));
     }
 
 }
