@@ -118,10 +118,55 @@ class ProfilesController extends AppController {
 	}
 
 	public function isAuthorized($user) {
-		if (in_array($this->action, array('add', 'createFromNotif', 'notcreateFromNotif'))) {
+		if (in_array($this->action, array('add', 'createFromNotif', 'notcreateFromNotif', 'getLolLevel'))) {
 			return true;
+		}
+		if ($this->action=="delete") {
+			$id = (int) $this->request->params['pass'][0];
+			$profile = $this->Profile->findById($id);
+			if ($profile['Profile']['user_id'] == $user['id']) {
+				return true;
+			}
+			return false;
 		}
 		return parent::isAuthorized($user);
 	}
 	
+	public function delete($id=null) {
+		if (!$id) {
+			throw new NotFoundException("Error Processing Request");
+		}
+		$this->Profile->delete($id);
+		$this->Session->setFlash("Profile deleted");
+		return $this->redirect(array('controller'=>'users', 'action'=>'view', $this->Auth->user('id'), "#"=>"Profiles"));
+	}
+
+	public function getLolLevel() {
+		$region = $this->request->data['region'];
+		$summonerId = $this->request->data['summonerId'];
+		$lien = 'https://euw.api.pvp.net/api/lol/'.$region.'/v2.4/league/by-summoner/'.$summonerId.'?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1';
+		
+		$curl = curl_init();
+
+		curl_setopt($curl, CURLOPT_URL, $lien);
+		//curl_setopt($curl, CURLOPT_COOKIESESSION, true);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_AUTOREFERER, true);
+		curl_setopt($curl, CURLOPT_HTTPGET, 1);
+		//curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+		$reponse = curl_exec($curl);
+
+		$rep = array();
+
+		$rep = explode("\"", $reponse);
+		foreach($rep as $k=>$v) {
+			if ($v == "tier") {
+				$key = $k+2;
+				$reponse = $rep[$key];
+			}
+		}
+		echo $reponse;
+		curl_close($curl);
+		exit();
+	}
 }

@@ -74,36 +74,14 @@ $(document).ready(function() {
 	function majLol(pseudo, region) {
 		inputLevel.val('Loading data');
 	    $.ajax({
-	     	url: "https://prod.api.pvp.net/api/lol/"+region+"/v1.4/summoner/by-name/"+pseudo+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1",
+	     	url: "https://euw.api.pvp.net/api/lol/"+region+"/v1.4/summoner/by-name/"+pseudo+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1",
 	     	type: 'GET',
 	      	success: function (data, status) {
 	        	$.each(data, function(index, val) {
 	          		//on prend que le first.
 	          		summonerId = val.id;
-	          		$.get('https://prod.api.pvp.net/api/lol/'+region+'/v2.4/league/by-summoner/'+summonerId+'?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1')
-	            	.done(function (data) {
-	              		$.each(data, function (index, val){
-	                		$.each(val, function (i, v) {
-	                  			if (v.queue == "RANKED_SOLO_5x5") {
-	                  				test = true;
-	                  				inputLevel.val(v.tier);
-	                  				inputPseudo.val(pseudo);
-	                  				inputRegion.val(region);
-	                  				alert('You LoL level is: '+inputLevel.val());
-	                  				form.submit();
-	                  			}
-	                		});
-
-	              		});
-	            	});
-	            	if (!test) {
-	            		inputLevel.val('UNRANKED');
-	      				inputPseudo.val(pseudo);
-	      				inputRegion.val(region);
-	      				//alert('You LoL level is: UNRANKED');
-	      				loading.html("Your Lol level is UNRANKED");
-	      				form.submit();
-	            	}
+	          		//alert(summonerId);
+	          		getLolLevelWithId(summonerId, pseudo, region);
 	        	});
 	      	},
 	     	error: function() {
@@ -112,6 +90,35 @@ $(document).ready(function() {
 	     	},
 	    	datatype: 'json'
     	});
+	}
+
+	function getLolLevelWithId(summonerId, pseudo, region) {
+		test = false;
+		$.ajax({
+			url: '/profiles/getLolLevel',
+			type: 'POST',
+			data:{ pseudo:pseudo, region:region, summonerId:summonerId },
+			success: function(data) {
+				test = true;
+  				inputLevel.val(data);
+  				inputPseudo.val(pseudo);
+  				inputRegion.val(region);
+  				alert('You LoL level is: '+inputLevel.val());
+  				form.submit();
+				if (!test) {
+	        	inputLevel.val('UNRANKED');
+					inputPseudo.val(pseudo);
+					inputRegion.val(region);
+					//alert('You LoL level is: UNRANKED');
+					loading.html("Your Lol level is UNRANKED");
+					form.submit();
+			}
+			},
+			error: function() {
+				$( "#loading" ).html('Cant get your level with the informations you give, please try again');
+			},
+			datatype: "text"
+	    });
 	}
 
 	function majSc2(region, id, pseudo) {
