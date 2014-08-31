@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * User Model
  *
@@ -263,6 +264,25 @@ class User extends AppModel {
 			'fields' => array('Game.id', 'Game.name')
 		));
 		return $games;
+	}
+
+	public function sendEmailActivation($userArr) {
+		$user = $userArr['User'];
+
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM textes WHERE id=1";
+		$res = $db->fetchAll($sql);
+
+		$r = $res[0]['textes'];
+
+		$link = "<a href=\"http://agamek.org/users/activate?h=".$user['password']."&u=".$user['username']."&e=".$user['mail']."\"> Account activation link</a>";
+
+		$Email = new CakeEmail();
+		$Email->emailFormat('html');
+		$Email->from(array('contact@agamek.org' => 'AgameK'));
+		$Email->to($user['mail']);
+		$Email->subject($r['sujet']);
+		$Email->send("<html><body>".$r['contenu'].$link."</body></html>");
 	}
 
 }

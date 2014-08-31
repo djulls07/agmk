@@ -64,8 +64,8 @@ $(document).ready(function() {
 					inputRegion.val(jQuery("#regionDef").val());
 					inputPseudo.val(jQuery("#pseudoDef").val());
 					inputLevel.val(jQuery("#levelDef").val());
-					form.submit();
-					return false;
+					$('#form_pop').submit();
+					return true;
 				});
 				break;
 		}
