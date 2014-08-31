@@ -2299,15 +2299,16 @@ a#Profiles:target ~ #idProfiles
 	width : 90%;
 	height : 300px;
 	margin : 0 auto;
-	margin-top : 50px;
+	margin-bottom : 150px;
 	
-	border : 1 px solid black;
+	border : 1px solid black;
+	border-bottom : 0;
 	box-sizing:border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	
-	box-shadow : 0px 6px 6px -2px black inset;
+	box-shadow : 0px 6px 10px -1px black inset;
 	
 	font-family : "Agency";
 	text-align : center;
@@ -2342,13 +2343,14 @@ a#Profiles:target ~ #idProfiles
 	.myteam_indoor
 	{
 		position : relative;
-		width : 90%;
+		width : 97%;
 		height : 250px;
 		margin : 0 auto;
-		top : 5%;
-		z-index:1;
+		top : 10px;
+		z-index:2;
+		background : white;
 		
-		box-shadow : 0px 6px 6px -2px black;
+		box-shadow : 0px 6px 10px -1px black;
 		
 		border : 1px solid black;
 		box-sizing:border-box;
@@ -2379,8 +2381,7 @@ a#Profiles:target ~ #idProfiles
 			{
 				width : auto;
 				max-width : 80%;
-				height : auto;
-				max-height : 80%;
+				height : 100%;
 			}
 			.myteam_left_tokens
 			{
@@ -2389,17 +2390,20 @@ a#Profiles:target ~ #idProfiles
 				height : 50%;
 				color : 	#4728a0;
 				font-weight : bold;
+				line-height : 30px;
+				font-size : 150%;
 			}
 			.myteam_left_tokens span
 			{
 				text-decoration : underline;
 				font-weight : bold;
-				color : black
+				color : black;
+				font-size : 75%;
 			}
 		.myteam_center
 		{
 			float : left;
-			width : 55%;
+			width : 65%;
 			height : 100%;
 			border-right : 1px solid black;
 			border-left : 1px solid black;
@@ -2411,8 +2415,9 @@ a#Profiles:target ~ #idProfiles
 		}
 			.myteam_center_name
 			{
-				width : 98%;
+				width : 100%;
 				height : 20%;
+				line-height : 50px;
 				border-bottom : 1px solid black;
 					box-sizing:border-box;
 					-webkit-box-sizing: border-box;
@@ -2420,14 +2425,20 @@ a#Profiles:target ~ #idProfiles
 					-ms-box-sizing: border-box;
 				font-weight:	bold;
 				text-align : left;
-				padding-left : 1%;
-				padding-right : 1%;
+				padding-left : 10%;
+				padding-right : 5%;
+				font-size:150%;
+			}
+			.myteam_center_name a
+			{
+				color : black;
 			}
 			.myteam_center_name span
 			{
 				color : 	#4728a0;
 				font-family : "Prototype";
 				float :right;
+				font-size:75%;
 			}
 			.myteam_center_banniere 
 			{
@@ -2475,12 +2486,36 @@ a#Profiles:target ~ #idProfiles
 	{
 		position : relative;
 		width : 100%;
-		height : 4%;
-		top:6%;
-		z-index:2;
-		background : pink;
+		height : 40px;
+		top:9px;
+		z-index:1;
 	}
-
+		.myteam_success_borderbottom_left, .myteam_success_borderbottom_right
+		{
+			position : relative;
+			width : 40%;
+			height : 100%;
+			float : left;
+			border-bottom : 1px solid black;
+			/*box-sizing:border-box;
+					-webkit-box-sizing: border-box;
+					-moz-box-sizing: border-box;
+					-ms-box-sizing: border-box;*/
+		}
+		.myteam_success_borderbottom_right
+		{
+			float : right;
+		}
+		.myteam_success img
+		{
+			position : absolute;
+			width : 20%;
+			margin: 0 auto;
+			height : auto;
+			top:100%;
+			right:0;
+			left:0;
+		}
 /******************/
 	
 

@@ -77,7 +77,7 @@ $specific_user_GMT=2;
 		<nav class="home_barre_mines" style="float:left">
 			<ul>
 			<li class="home_barre_mines_first">
-				<a href=""> MY GAMES <span style="vertical-align	:	bottom">&#9660;</span></a>
+				<a> MY GAMES <span style="vertical-align	:	bottom">&#9660;</span></a>
 				<ul>
 					<li>
 						<?php

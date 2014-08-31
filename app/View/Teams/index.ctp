@@ -1,11 +1,28 @@
+<script type="text/javascript">
+	function changeRank(rank)
+	{
+		var element = document.getElementById("teamtry");
+		element.className = "myteam myteam_"+rank;
+	}
+</script>
+
+
 <nav>
 	<?php echo $this->Html->link('Create NEW TEAM', array('action' => 'add')); ?> |
+	<ul style="list-style:none">
+		<li><a onclick='changeRank("bronze")'>Bronze</a></li>
+		<li><a onclick='changeRank("gold")'>Gold</a></li>
+		<li><a onclick='changeRank("silver")'>Silver</a></li>
+		<li><a onclick='changeRank("platine")'>Platine</a></li>
+		<li><a onclick='changeRank("master")'>Master</a></li>
+		<li><a onclick='changeRank("grandmaster")'>GrandMaster</a></li>
+	</ul>
 </nav>
 
 <br />
 <div id="myteams">
 	<?php foreach($teams as $team) : ?>
-		<div class="myteam">
+		<div class="myteam myteam_gold" id="teamtry">
 			<div class="myteam_indoor">
 				<div class="myteam_left">
 					<div class="myteam_left_logo">
@@ -43,7 +60,9 @@
 				</div>
 			</div>
 			<div class="myteam_success">
-				
+				<div class="myteam_success_borderbottom_left"></div>
+				<div class="myteam_success_borderbottom_right"></div>
+				<img src="/img/RANKS_user_team/rank_gold2.png" id="image_rank" />
 			</div>
 		</div>
 	<?php endforeach; ?>
