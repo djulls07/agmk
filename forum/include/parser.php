@@ -770,7 +770,10 @@ function do_bbcode($text, $is_signature = false)
 		$replace_callback[] = 'handle_list_tag($matches[2], $matches[1])';
 	}
 
-	$pattern[] = '%\[size=(.*)\](.*?)\[/size\]%ms';
+	$pattern[] = '%\[right\](.*?)\[/right\]%ms';
+	$pattern[] = '%\[left\](.*?)\[/left\]%ms';
+	$pattern[] = '%\[center\](.*?)\[/center\]%ms';
+	$pattern[] = '%\[size=(\d+)\](.*?)\[/size\]%ms';
 	$pattern[] = '%\[b\](.*?)\[/b\]%ms';
 	$pattern[] = '%\[i\](.*?)\[/i\]%ms';
 	$pattern[] = '%\[u\](.*?)\[/u\]%ms';
@@ -781,7 +784,10 @@ function do_bbcode($text, $is_signature = false)
 	$pattern[] = '%\[colou?r=([a-zA-Z]{3,20}|\#[0-9a-fA-F]{6}|\#[0-9a-fA-F]{3})](.*?)\[/colou?r\]%ms';
 	$pattern[] = '%\[h\](.*?)\[/h\]%ms';
 
-	$replace[] = '<span style="font-size:$1%;">$2</span>';
+	$replace[] = '<div style="text-align:right;">$1</div>';
+	$replace[] = '<div style="text-align:left;">$1</div>';
+	$replace[] = '<div style="text-align:center;">$1</div>';
+	$replace[] = '<div style="font-size:$1%;">$2</div>';
 	$replace[] = '<strong>$1</strong>';
 	$replace[] = '<em>$1</em>';
 	$replace[] = '<span class="bbu">$1</span>';

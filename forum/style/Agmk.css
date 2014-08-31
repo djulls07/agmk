@@ -1435,7 +1435,7 @@ html, body, .pun {
 }
 
 .pun a, .pun a:link, .pun a:visited {
-	color: #2365B0;
+	color: #9D86B7;
 }
 
 .pun a:hover, .pun a:active, .pun a:focus {
@@ -1454,11 +1454,11 @@ html, body, .pun {
 ----------------------------------------------------------------*/
 
 #brdmenu {
-	background: #44699c;
+	background: #9D86B7;
 }
 
 #brdmenu a, #brdmenu a:link, #brdmenu a:visited {
-	background: #44699c;
+	background: #9D86B7;
 	border-color: #fff;
 	color: #d4dae2;
 }
