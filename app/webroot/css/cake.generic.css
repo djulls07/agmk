@@ -2286,6 +2286,202 @@ a#Profiles:target ~ #idProfiles
 		height : 100%;
 		font-size : 140%;
 	}
+
+/**** MY TEAMS *****/
+#myteams
+{
+	position : relative;
+	width : 100%;
+}
+.myteam
+{
+	position : relative;
+	width : 90%;
+	height : 300px;
+	margin : 0 auto;
+	margin-top : 50px;
+	
+	border : 1 px solid black;
+	box-sizing:border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	
+	box-shadow : 0px 6px 6px -2px black inset;
+	
+	font-family : "Agency";
+	text-align : center;
+}
+
+	.myteam_gold
+	{
+		background : #ffe556;
+	}
+	.myteam_bronze
+	{
+		background : #895959;
+	}
+	.myteam_silver
+	{
+		background : #7a7a7a;
+	}
+	.myteam_platine
+	{
+		background : white;
+	}
+	.myteam_master
+	{
+		background : #cc2424;
+	}
+	.myteam_grandmaster
+	{
+		background : black;
+		border : 1px solid white;
+	}
+	
+	.myteam_indoor
+	{
+		position : relative;
+		width : 90%;
+		height : 250px;
+		margin : 0 auto;
+		top : 5%;
+		z-index:1;
+		
+		box-shadow : 0px 6px 6px -2px black;
+		
+		border : 1px solid black;
+		box-sizing:border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+	}
+	
+		.myteam_left
+		{
+			float : left;
+			width : 20%;
+			height : 100%;
+			line-height : 125px;
+		}
+			.myteam_left_logo
+			{
+				position : relative;
+				width : 100%;
+				height : 50%;
+				border-bottom : 1px solid black;
+				box-sizing:border-box;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-ms-box-sizing: border-box;
+			}
+			.myteam_left_logo img
+			{
+				width : auto;
+				max-width : 80%;
+				height : auto;
+				max-height : 80%;
+			}
+			.myteam_left_tokens
+			{
+				position : relative;
+				width : 100%;
+				height : 50%;
+				color : 	#4728a0;
+				font-weight : bold;
+			}
+			.myteam_left_tokens span
+			{
+				text-decoration : underline;
+				font-weight : bold;
+				color : black
+			}
+		.myteam_center
+		{
+			float : left;
+			width : 55%;
+			height : 100%;
+			border-right : 1px solid black;
+			border-left : 1px solid black;
+				box-sizing:border-box;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-ms-box-sizing: border-box;
+
+		}
+			.myteam_center_name
+			{
+				width : 98%;
+				height : 20%;
+				border-bottom : 1px solid black;
+					box-sizing:border-box;
+					-webkit-box-sizing: border-box;
+					-moz-box-sizing: border-box;
+					-ms-box-sizing: border-box;
+				font-weight:	bold;
+				text-align : left;
+				padding-left : 1%;
+				padding-right : 1%;
+			}
+			.myteam_center_name span
+			{
+				color : 	#4728a0;
+				font-family : "Prototype";
+				float :right;
+			}
+			.myteam_center_banniere 
+			{
+				position : relative;
+				width : 100%;
+				height : 80%;
+				line-height : 200px;
+			}
+			.myteam_center_banniere img
+			{
+				width : 80%;
+				height : auto;
+				max-height	:	80%;
+				vertical-align		:	middle;
+			}
+		.myteam_rigth
+		{
+			float : left;
+		}
+			.myteam_rightul
+			{
+				list-style : none !important;
+			}
+			.myteam_right li
+			{
+				width : 100%;
+				height : 20px;
+			}
+			.myteam_right li a
+			{	
+				display : block;
+				height	:	100%;
+				width : 100%;
+				color : #5c2cbd;
+				font-family : 'Gothic' ;
+			}
+			.myteam_right li a:hover
+			{	
+				display : block;
+				height	:	100%;
+				width : 100%;
+				color : #8f2cbd;
+			}
+	.myteam_success
+	{
+		position : relative;
+		width : 100%;
+		height : 4%;
+		top:6%;
+		z-index:2;
+		background : pink;
+	}
+
+/******************/
 	
 
 /** Layout **/
