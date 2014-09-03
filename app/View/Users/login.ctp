@@ -10,6 +10,8 @@
     ?>
     </fieldset>
 <?php echo $this->Form->end(__('Login')); ?>
+<h3>Connect via Facebook:</h3>
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
 <h2><?php echo $this->Html->link('Got no brain, help me !', array('action'=>'recoverpassword')); ?></h2>
 <p><strong>AgameK.org has been reset today( Alpha start ), please re-create account</strong></p>
 </div>

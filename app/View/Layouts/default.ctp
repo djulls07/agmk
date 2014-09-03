@@ -1,5 +1,7 @@
 <?php
 /**
+ *
+ *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -13,51 +15,102 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
+    <head>
+        <?php echo $this->Html->charset(); ?>
+        <?php echo $this->Html->script("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"); ?>
+        <?php echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js');?>
+        <?php echo $this->Html->css('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css'); ?>
 
-		echo $this->Html->css('cake.generic');
+        <!--Script pour actualiser messages -->
+        <?php if (AuthComponent::user('id')) echo $this->Html->script('getUserNotifs'); ?>
+        <?php echo $this->Html->script('searchBar'); ?>
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
-</head>
-<body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
+        <?php echo $this->fetch('script'); ?>
+        <title>
+            <?php echo 'Agamek' ?>:
+        </title>
+        <?php
+        echo $this->Html->meta('icon');
 
-			<?php echo $this->Session->flash(); ?>
+        echo $this->Html->css('cake.generic');
 
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
-			<p>
-				<?php echo $cakeVersion; ?>
-			</p>
-		</div>
-	</div>
-	<?php echo $this->element('sql_dump'); ?>
-</body>
+        echo $this->fetch('meta');
+        echo $this->fetch('css');
+        ?>
+    </head>
+    <body>
+        <div id="container">
+			<div class="container_absolute_top"><div class="barres_top">
+            <div id="header">
+                <?php echo $this->element('menubar')/*, array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                )*/; ?>
+				<?php echo $this->element('banniere')/*, array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                )*/; ?>
+				<?php echo $this->element('barre_specific')/*, array(),
+                    array(
+                        // utilise la configuration de cache "long_view"
+                        "cache" => "long",
+                        // défini à true pour avoir before/afterRender appelé pour l'element
+                        "callbacks" => true
+                    )
+                )*/; ?>
+            </div>
+			</div>
+			</div>
+			
+			<div class="page">
+				<aside id="contentgauche">
+				</aside>
+				
+				<aside id="contentdroite">
+				</aside>
+			
+				<section id="contentcentre">
+							
+					<div class="content" id="centre">
+						<?php echo $this->Session->flash(); ?>
+
+						<?php echo $this->fetch('content'); ?>
+						
+						<?php echo $this->element('footer')/*, array(),
+							array(
+								// utilise la configuration de cache "long_view"
+								"cache" => "long",
+								// défini à true pour avoir before/afterRender appelé pour l'element
+								"callbacks" => true)*/
+								; 
+						?>
+					</div>
+				</section>
+				
+			</div>
+			<?php /*if (AuthComponent::user('id') == 72)*/ echo $this->element('chat'); ?>
+        </div>
+        <!--nocache-->
+            <div style="positon:relative; bottom:1px; z-index:10;">
+                <?php if (AuthComponent::user('username') == 'djulls07') {
+                    echo '<div style="position:fixed;bottom:1px;z-index:10;">' . $this->element('sql_dump') . '</div>';  
+                    //debug(AuthComponent::user());
+                }
+                ?></div>
+        <!--/nocache-->
+       <?php echo $this->Js->writeBuffer();?>
+    </body>
 </html>
