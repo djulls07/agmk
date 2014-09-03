@@ -99,7 +99,9 @@
 				$unepremiereborder="";
 			}
 		}
-		echo"<li>";
+		echo"<li>";?>
+		<li id="PLAY_button"><a href="/events">PLAY!</a></li><li>
+		<?php
 		echo $this->Html->link('COACHING', array(
 			'controller' => 'articles',
 			'action' => 'index',
@@ -109,13 +111,8 @@
 		?>
 		<a href="http://agamek.org/forum">FORUM</a>
 		<?php
-		echo"</li><li>";
-		echo $this->Html->link('STORE', array(
-			'controller' => 'articles',
-			'action' => 'index',
-			)
-		);
-		echo "</li></ul></nav>";
+		echo"</li>";
+		echo "</ul></nav>";
 	}	
 	?>
 </div>

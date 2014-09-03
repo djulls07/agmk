@@ -180,10 +180,8 @@ div.home_barre_user
 	float	:	left;
 	position	:	relative;
 	height	:	100%;
-	height	:	24px;  /* height de la home barre - border_avatar (définie dans menubar.ctp) ; le but étant que la bordure de l'user recouvre la bordure de la homme barre*/
-	background-color	:	white;
+/*	height	:	24px;  /* height de la home barre - border_avatar (définie dans menubar.ctp) ; le but étant que la bordure de l'user recouvre la bordure de la homme barre*/
 	z-index	:	10;
-	width : 100px;
 }
 
 div.home_barre_user a
@@ -192,10 +190,12 @@ div.home_barre_user a
 	width	:	100%;
 	height	:	100%;
 	float	:	left;
-	line-height	:	24px; /* hauteur de la home_barre - hauteurs des borders - 2*padding du pseudo*/
-	font-weight : none;
-	background-color	:	white;
+	line-height	:	30px; /* hauteur de la home_barre - hauteurs des borders - 2*padding du pseudo*/
+	font-weight : normal;
 	z-index	:	10;
+	font-family	:	"Ghotic";
+	color : #4728a0;
+	text-shadow: 1px 1px black;
 }
 
 div.home_barre_avatar
@@ -522,12 +522,14 @@ div.pub
 	float:	left;
 	width	:	25%;
 	height	:	100%;
-	line-height : 170px; /* wtf */
+	font-size : 150%;
+	color : #C8B4DD;
+	font-family : "Ghotic";
 }
 
 	div.pub img
 	{
-		height:70%;
+		height:100%;
 	}
 
 div.barre_jeux /* = barre_specific */
@@ -569,6 +571,18 @@ img.barre_specific_image
 	width:	auto;
 	top : -15px;
 }
+	#PLAY_button
+	{
+		background-image:-webkit-linear-gradient(top,  #fff7b8  0%, #cbaa47 100%);
+		background-image : -moz-linear-gradient(top,  #fff7b8  0%, #cbaa47 100%);
+		background-image : -ms-linear-gradient(top,  #fff7b8  0%, #cbaa47 100%);
+		background-image : -o-linear-gradient(top,  #fff7b8  0%, #cbaa47 100%);
+		background-image : linear-gradient(top,  #fff7b8  0%, #cbaa47 100%);
+	}
+	#PLAY_button a
+	{
+		color : #515151;
+	}
 /*span.barre_jeux_element
 {
 	text-decoration	:	none;
@@ -630,7 +644,7 @@ aside#contentgauche, aside#contentdroite
 	height : calc(100% - 170px);
 	
 	
-	background-image	:	url('../img/backgrounds/menu_bord_G.png');
+	background-image	:	url('../img/backgrounds/archeage_bord2_G.png');
 	background-position	:	top	right;
 	background-repeat	:	no-repeat;
 	background-size		:	auto 100%;
@@ -646,7 +660,7 @@ aside#contentgauche, aside#contentdroite
 }
 aside#contentdroite
 {
-	background-image	:	url('../img/backgrounds/menu_bord_D.png');
+	background-image	:	url('../img/backgrounds/archeage_bord2_D.png');
 	background-position	:	top	left;
 	box-shadow: 40px 0 40px -40px #a7a7a7 inset;
 	left : -webkit-calc(50% + 550px);
@@ -918,7 +932,7 @@ margin-top:0;
 		 -ms-box-sizing: border-box;*/
 }
 
-.col_gauche_news_separation::after , #espace_droite_user::after , .article_comment::before
+.col_gauche_news_separation::after , #espace_droite_user::after , .article_comment::before, 	#article_user_text p::before, #content_special_titre::after
 {
 	position:	absolute;
 	width:	100%;
@@ -1191,6 +1205,7 @@ div.col_droite
 	width : auto;
 	height : 40px;
 	margin-top : -12px;
+	margin-left: -10px;
 }
 
 .col_titre_stream
@@ -1264,6 +1279,7 @@ div.col_droite
 		padding-bottom	:	5%;
 		background : white;
 		box-shadow : 5px 5px 5px 1px #cbcbcb;
+		font-size : 75%;
 	}
 	
 	#article_content img
@@ -1317,6 +1333,7 @@ div.col_droite
 	/*box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);*/
 	font-family:	'prototype';
 	color : #7f7f7f ;
+	text-align	:	center;
 }
 
 	#article_user_img
@@ -1326,7 +1343,7 @@ div.col_droite
 		max-height	:	90%;
 		margin-left	:	1%;
 		float	:	left;
-		line-height	:	120px; /* = height de acrticle_user */
+		/*line-height	:	120px;  = height de acrticle_user */
 	}
 	
 	#article_user_img img
@@ -1345,6 +1362,51 @@ div.col_droite
 		float	:	left;
 		margin-left	:	5%;
 		vertical-align	:	top;
+	}
+	#article_user_text p /* description de l'auteur */
+	{
+		font-size : 12px;
+		font-family : 'Arial';
+		color : black;
+		margin-top : 20px;
+	}
+	#article_user_text p::before
+	{
+		margin-top : 0;
+		width : 20%;
+		left : 65%;
+		margin-top : -10px;
+		margin-bottom : 10px;
+	}
+	
+	#article_user_buttons
+	{	
+		width : 100%;
+		height : 50px;
+	}
+	
+	#article_user .ReadMore
+	{
+		background-image : url('../../img/read_more_article.png');
+	}
+	#article_user .ReadMore:active
+	{
+		background-image : url('../../img/read_more__articleclicked.png');
+	}
+	
+	.Subscribe
+	{
+		background-image : url('../../img/subscribe.jpg');
+		background-repeat : no-repeat;
+		width : 77px;
+		height : 100%;
+		display : block;
+		float : left;
+	}
+	.Subscribe:active {
+		position:relative;
+		top:1px;
+		background-image : url('../../img/subscribe_clicked.jpg');
 	}
 
 #article_social
@@ -1476,7 +1538,7 @@ div.col_droite
 	background-image : -o-linear-gradient(right,  #ececec 0%, white    30%,white    70%,#ececec 100%);
 	background-image : linear-gradient(right,  #ececec 0%, white    30%,white    70%,#ececec 100%);
 	
-	font-family : 'Gothic';
+	font-family : 'Ghotic';
 
 }
 #streams a
@@ -1499,7 +1561,100 @@ div.col_droite
 	float:right;
 }
 /* */
+/******* CONTENT TYPE FORMULAIRE / TOURNOI  / ETC **/
 
+#content_special
+{
+	width : 97%;
+	margin : 0 auto;
+	box-shadow: 0px 50px 80px -60px #3a3a3a inset;/*, 2px 2px 5px 1px #515151;*/
+	text-align : center;
+	margin-top : 20px;
+	border : 1px solid #b7adc5 ;
+	padding-bottom : 100px;
+}
+	#content_special_titre
+	{
+		width : 100%;
+		font-weight : bold;
+		font-size : 36px;
+		color :  rgba(74, 33, 124, 0.59);
+		font-family : "Agency";
+		text-shadow: 1px 4px 6px rgba(255, 255, 255, 1), 0 0 0 #000, 1px 4px 6px #FFFFFF;
+	}
+	#content_special_titre::after
+	{
+		margin-top:50px;
+		width : 100%;
+		position: absolute;
+		height: 10px;
+		background: white;
+		content: ' ';
+		background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.99) -50%, rgba(0,0,0,0) 60%); /* FF3.6+ */
+		background: -webkit-gradient(radial, center center, 0px, center center, 60%, color-stop(-50%,rgba(0,0,0,0.99)), color-stop(60%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+		background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.99) -50%,rgba(0,0,0,0) 60%); /* Chrome10+,Safari5.1+ */
+		background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.99) -50%,rgba(0,0,0,0) 60%); /* Opera 12+ */
+		background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.99) -50%,rgba(0,0,0,0) 60%); /* IE10+ */
+		background: radial-gradient(ellipse at center, rgba(0,0,0,0.99) -50%,rgba(0,0,0,0) 60%);
+		background-size: 100% 200%;
+		background-position: -50% -500%;
+	}
+	#content_special form
+	{
+		width : 80%;
+		margin: 0 auto;
+		margin-top : 100px;
+	}
+	#content_special input, #content_special textarea 
+	{
+		border : 1px solid #9d9d9d;
+		outline: none;
+	}
+	#content_special input:hover, #content_special input:focus, #content_special textarea:hover , #content_special textarea:focus
+	{
+		border : 1px solid #885cba;
+		background : #f6f4f9 ;
+		outline: none;
+	}
+	#content_special tr
+	{
+		background : white !important;
+		text-align : left;
+		font-family : "Agency";
+	}
+	#content_special tr:last-child
+	{
+		text-align : center;
+		height:150px;
+		vertical-align: bottom;
+	}
+	#content_special td:nth-child(1)
+	{
+		font-family : "Agency";
+		font-weight : bold;
+		color : #56388f;
+		font-size : 150%;
+	}
+	#content_special form div
+	{
+		margin : 0 auto;
+	}
+	#content_special input[type=submit]
+	{
+		background-image : url('../../img/bouton_go.png');
+		width : 135px;
+		height : 46px;
+		font-family : "Arial";
+		border : 0;
+		box-shadow : 0;
+		outline: none;
+		border-radius : 0;
+	}
+	#content_special input[type=submit]:focus
+	{
+		background-image : url('../../img/bouton_go_clicked.png');
+	}
+/**********************/
 
 /* ESPACE MEMBRE */
 #espace_gauche
@@ -1599,8 +1754,7 @@ div.col_droite
 	width		:	100%;
 	height		:	30px;
 	line-height		:	30px;
-	text-align	:	center;
-	text-align:	center;
+	text-align:	left;
 }
 	#espace_droite_user::after
 	{
@@ -1654,7 +1808,7 @@ div.col_droite
 }
 	#espace_droite_userinfos td
 	{
-		border-bottom : 3px double #c8b4dd !important;
+		border-bottom : 4px double #c8b4dd !important;
 		background : white;
 	}
 	#espace_droite_userinfos tr td:nth-child(1)
@@ -1664,7 +1818,7 @@ div.col_droite
 	}
 	#espace_droite_userinfos tr td:nth-child(2)
 	{
-		font-family : 'Gothic';
+		font-family : 'Ghotic';
 		color : #767676;
 		text-align	:	center;
 	}
@@ -1713,6 +1867,11 @@ div.col_droite
 		left : 89px;
 		background : red;
 		z-index:1;
+		background-image:-webkit-linear-gradient(top,  white  20%, yellow 50%,white 80%);
+		background-image : -moz-linear-gradient(top,  white  20%, yellow 50%,white 80%);
+		background-image : -ms-linear-gradient(top,  white  20%, yellow 50%,white 80%);
+		background-image : -o-linear-gradient(top,  white  20%, yellow 50%,white 80%);
+		background-image : linear-gradient(top,  white  20%, yellow 50%,white 80%);
 	}
 	#xp_level
 	{
@@ -1827,8 +1986,11 @@ div.col_droite
 		width : 100%;
 		background : white;
 		box-shadow : 0px 5px 10px 0 #d4d4d4 inset;
-		font-family	:	"Gothic";
+		font-family	:	"Ghotic";
 		font-size	:	20px;
+		border-top : 1px solid #b4b3b3;
+		border-left : 1px solid #b4b3b3;
+		border-right : 1px solid #b4b3b3;
 		box-sizing:border-box;
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -1942,7 +2104,7 @@ div.col_droite
 		display : block;
 		height : 100%;
 		width : 100%;
-		font-family: 'Gothic';
+		font-family: 'Ghotic';
 		font-weight	:	bold;
 		color : black;
 	}
@@ -2308,7 +2470,7 @@ a#Profiles:target ~ #idProfiles
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	
-	box-shadow : 0px 6px 10px -1px black inset;
+	box-shadow : 0px 4px 10px -4px black inset;
 	
 	font-family : "Agency";
 	text-align : center;
@@ -2338,6 +2500,7 @@ a#Profiles:target ~ #idProfiles
 	{
 		background : black;
 		border : 1px solid white;
+		border-bottom : 0;
 	}
 	
 	.myteam_indoor
@@ -2439,6 +2602,13 @@ a#Profiles:target ~ #idProfiles
 				font-family : "Prototype";
 				float :right;
 				font-size:75%;
+				font-weight:	normal;
+			}
+			.myteam_center_name span span
+			{
+				color : black;
+				float : none;
+				font-size : 100%;
 			}
 			.myteam_center_banniere 
 			{
@@ -2473,7 +2643,7 @@ a#Profiles:target ~ #idProfiles
 				height	:	100%;
 				width : 100%;
 				color : #5c2cbd;
-				font-family : 'Gothic' ;
+				font-family : 'Ghotic' ;
 			}
 			.myteam_right li a:hover
 			{	
@@ -2493,7 +2663,7 @@ a#Profiles:target ~ #idProfiles
 		.myteam_success_borderbottom_left, .myteam_success_borderbottom_right
 		{
 			position : relative;
-			width : 40%;
+			width : 45%;
 			height : 100%;
 			float : left;
 			border-bottom : 1px solid black;
@@ -2509,7 +2679,7 @@ a#Profiles:target ~ #idProfiles
 		.myteam_success img
 		{
 			position : absolute;
-			width : 20%;
+			width : 15%;
 			margin: 0 auto;
 			height : auto;
 			top:100%;
@@ -3224,7 +3394,7 @@ ul.liste_style {
 	overflow-y: auto;
 	list-style: none;
 	
-	font-family:	'Gothic';
+	font-family:	'Ghotic';
 
 	-webkit-perspective: 400px;
 	   -moz-perspective: 400px;
@@ -3232,7 +3402,7 @@ ul.liste_style {
 	     -o-perspective: 400px;
 	        perspective: 400px;
 			
-	border : 2px solid #a7a7a7;
+	border : 1px solid #a7a7a7;
 	
 	margin-top : 10px;
 }
@@ -3252,7 +3422,7 @@ ul.liste_style li:last-child{
 	border:0;
 }
 ul.liste_style li a:hover , .li_visited {
-	box-shadow : 0 -30px 40px -10px #d3d3d3 inset;
+	box-shadow : 0 -20px 40px -10px #d3d3d3 inset;
 }
 /*ul.liste_style li:nth-child(odd) {
 		background: #252525;

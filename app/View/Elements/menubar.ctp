@@ -6,13 +6,13 @@ $specific_user_GMT=2;
 	<div class="home_barre"> <!-- home barre -->
 		<div class="home_barre_user">
 			<?php if (AuthComponent::user()): $user=AuthComponent::user();?>
-				<div class="home_barre_avatar" style="border: 2px solid <?php print $specific_user_color;?>; border-bottom-width:4px"> 
+				<!--<div class="home_barre_avatar" style="border: 2px solid <?php print $specific_user_color;?>; border-bottom-width:4px"> 
 					<?php	echo $this->Html->image($user['avatar'], array(
 						"alt" => "AVATAR",
 						'url' => array('controller' => 'users', 'action' => 'view', $user['id'])
 					));?>
-				</div>
-				<!--<div class="home_barre_pseudo" style="border: 2px solid <?php print $specific_user_color;?>; border-left:0; border-bottom-width:4px">
+				</div>-->
+				<div class="home_barre_pseudo">
 					<?php
 						echo $this->Html->link($user['username'], array(
 							'controller' => 'users',
@@ -21,7 +21,7 @@ $specific_user_GMT=2;
 							)
 						);
 					?>
-				</div>-->
+				</div>
 		</div>
 		
 		<div class="home_barre_boutons">
@@ -36,7 +36,7 @@ $specific_user_GMT=2;
 			</div>
 			<div  title="Notifications" class="home_barre_bouton2 <?php if ($user['notifications']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/notification_new.png')\""; else print '"';?>>
 				<?php
-					echo $this->Html->link($user['notifications'], array(
+					echo $this->Html->link(''/*$user['notifications']*/, array(
 						'controller' => 'notifications',
 						'action' => 'index',
 						)
@@ -45,7 +45,7 @@ $specific_user_GMT=2;
 			</div>
 			<div  title="Messages" class="home_barre_bouton3 <?php if ($user['messages']) print "home_barre_boutons_plop\" style=\"background-image:url('/img/mail_new.png')\""; else print '"';?>>
 				<?php
-					echo $this->Html->link('0', array(
+					echo $this->Html->link('', array(
 						'controller' => 'messages',
 						'action' => 'received',
 						)

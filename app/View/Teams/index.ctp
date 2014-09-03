@@ -44,7 +44,7 @@
 							'action' => 'view', 
 							$team['Team']['id']));
 						?>
-						<span>RANK 4</span>
+						<span>RANK <span>4</span></span>
 					</div>
 					<div class="myteam_center_banniere">
 						<img src="/img/logo_agamek.png" />
