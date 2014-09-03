@@ -6,9 +6,9 @@
 			<?php
 				echo "<tr><td>Username</td><td>".$this->Form->input('username', array('label' => false))."</td></tr>";
 				echo "<tr><td>Password</td><td>".$this->Form->input('password', array('label' => false))."</td></tr>";
-				echo "<tr><td>Confirm Password</td><td>".$this->Form->input('passwordr', array('label' => false))."</td></tr>";
-				echo "<tr><td>Email</td><td>".$this->Form->input('mail', array('label' => false))."</td></tr>";
-				echo "<tr><td>Confirm Email</td><td>".$this->Form->input('mailr', array('label' => false))."</td></tr>";
+				echo "<tr><td>Confirm Password</td><td>".$this->Form->input('passwordr', array('label' => false, 'type'=>'password'))."</td></tr>";
+				echo "<tr><td>Email</td><td>".$this->Form->input('mail', array('label' => false, 'type'=>'text'))."</td></tr>";
+				echo "<tr><td>Confirm Email</td><td>".$this->Form->input('mailr', array('label' => false, 'type'=>'text'))."</td></tr>";
 				echo $this->Form->input('role', array('type' => 'hidden', 'value' => 'basic'));
 				$this->Captcha->render($captchaSettings);
 			?>
