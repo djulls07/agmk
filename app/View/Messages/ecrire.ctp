@@ -78,25 +78,3 @@ echo $this->Html->css('soundsystem');
 	?>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#dialogWrite").dialog(
-			{
-				autoOpen: true ,
-		 		modal: true,
-		 		width: 600,
-		 		buttons: [{
-					text: "Send",
-					click: function() {
-						$("#MessageEcrireForm").submit();
-						//$( this ).dialog( "close" );
-					}
-				}],
-				title: "Write ",
-				close: function() {
-					jQuery(location).attr('href',"http://www.agamek.org/messages/sent");
-				}
-		 	}
-		);
-	});
-</script>
