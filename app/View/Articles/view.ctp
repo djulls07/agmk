@@ -2,9 +2,9 @@
 	$this->extend('/Common/articles_design');
 ?>
 
-<div id="article_gameinfo">
+<!--<div id="article_gameinfo">
 	GAME INFO
-</div>
+</div>-->
 <div id="article_view">
 	<div id="article_header">
 		<div id="article_thumb">
@@ -53,7 +53,7 @@
 				<p>
 				"<?php echo $article['User']['description']; ?>"
 				</p>
-				<a href="">Suivre cet auteur</a> <a href="">Partager cet article</a>
+				<div id="article_user_buttons"><a href="" class="ReadMore"> </a> <a href="" class="Subscribe"> </a></div>
 			</div>
 		</div>
 	</div>

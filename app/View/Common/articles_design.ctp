@@ -38,7 +38,7 @@ if( false) {
 			background	:	#<?php echo $game['Game']['a_hover_background']; ?>;
 			color	:	#<?php echo $game['Game']['a_hover_color']; ?>;
 
-		}*/
+		}
 		.col_titre
 		{
 			background	:	#<?php echo $game['Game']['a_background']; ?>;
@@ -48,7 +48,7 @@ if( false) {
 			background-image : -ms-linear-gradient(right top, #ececec 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ececec 97%);
 			background-image : -o-linear-gradient(right top, #ececec 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ececec 97%);
 			background-image : linear-gradient(right top, #ececec 0%, #<?php echo $game['Game']['a_background']; ?> 40%,#<?php echo $game['Game']['a_background']; ?> 60%,#ececec 97%);
-		}
+		}*/
 		/*div.contenu
 		{
 			padding-top:3.5%;
@@ -77,10 +77,10 @@ if( false) {
 	<div class="col_droite">
 	<!--- STREAMS --->
 		<div class="col_droite_tv">
-			<iframe width="100%" height="100%" src="//www.youtube.com/embed/0iiNPtM9bKs?autoplay=0&version=3" frameborder="0" allowfullscreen></iframe>
+			<iframe width="100%" height="100%" src="//www.youtube.com/embed/fXbRTNEpccc?autoplay=0&version=3" frameborder="0" allowfullscreen></iframe>
 
 		</div>
-		<div class="col_titre col_titre_stream">
+		<!--<div class="col_titre col_titre_stream">
 			STREAMS
 		</div>
 			<div class="col_droite_info" id="streams">
@@ -89,7 +89,7 @@ if( false) {
 					<li><a href=""><span class="streams_program">Emission2</span><span class="streams_horaires">21h-24h</span></a></li>
 					<li><a href=""><span class="streams_program">Emission3</span><span class="streams_horaires">26h-31h</span></a></li>
 				</ul>
-			</div>
+			</div>-->
 	<!--- EVENTS --->
 		<div class="col_titre">
 			ON-GOING EVENTS
@@ -141,22 +141,5 @@ if( false) {
 			<?php }
 			echo'</div>';
 		endif; ?>
-	<!--- FORUM --->
-		<div class="col_titre">
-			TOPICS
-		</div>
-			<div class="col_droite_info">
-				Info1
-			</div>
-			<div class="col_droite_info">
-				Info2
-			</div>
-	<!--- POSTS --->
-		<div class="col_titre">
-			POSTS
-		</div>
-		<div class="col_droite_info">
-			Info1
-		</div>
 	</div>
 </div>
