@@ -21,7 +21,7 @@ class ArticlesController extends AppController {
         if ($this->request->is('post')) {
             $this->request->data['Article']['author_id'] = $this->Auth->user('id');
             $this->request->data['Article']['published'] = 0;
-            $this->Batiment->Create();
+            $this->Article->Create();
             if ($this->Article->saveAssociated($this->request->data)) {
                 $this->Session->setFlash(__('Your article has been created'));
                 return $this->redirect(array(
