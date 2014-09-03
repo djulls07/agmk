@@ -119,7 +119,7 @@ $specific_user_GMT=2;
 				<?php
 					echo $this->Html->link('MY TEAMS', array(
 						'controller' => 'articles',
-						'action' => 'contruct',
+						'action' => 'construct',
 						)
 					);
 				?>

@@ -13,7 +13,7 @@ class ArticlesController extends AppController {
     }
 
     public function construct() {
-        
+        //coucou
     }
 
     public function add() {
