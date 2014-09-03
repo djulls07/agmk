@@ -107,7 +107,7 @@
 		);
 		echo"</li><li>";
 		?>
-		<a href="http://agamek.org/forum">FORUM</a>
+		<a target="_blanck" href="http://agamek.org/forum">FORUM</a>
 		<?php
 		echo"</li><li>";
 		echo $this->Html->link('STORE', array(

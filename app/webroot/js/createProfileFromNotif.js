@@ -74,13 +74,13 @@ $(document).ready(function() {
 	function majLol(pseudo, region) {
 		inputLevel.val('Loading data');
 	    $.ajax({
-	     	url: "https://prod.api.pvp.net/api/lol/"+region+"/v1.4/summoner/by-name/"+pseudo+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1",
+	     	url: "https://eu.api.pvp.net/api/lol/"+region+"/v1.4/summoner/by-name/"+pseudo+"?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1",
 	     	type: 'GET',
 	      	success: function (data, status) {
 	        	$.each(data, function(index, val) {
 	          		//on prend que le first.
 	          		summonerId = val.id;
-	          		$.get('https://prod.api.pvp.net/api/lol/'+region+'/v2.4/league/by-summoner/'+summonerId+'?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1')
+	          		$.get('https://eu.api.pvp.net/api/lol/'+region+'/v2.4/league/by-summoner/'+summonerId+'?api_key=fe8ad5ae-034e-43eb-944f-83ac6cccc1a1')
 	            	.done(function (data) {
 	              		$.each(data, function (index, val){
 	                		$.each(val, function (i, v) {

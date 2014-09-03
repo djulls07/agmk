@@ -26,7 +26,7 @@ class UsersController extends AppController {
  */
 	
 	public function beforeFilter() {
-		$this->Auth->allow('login', 'add', 'admin_login', 'activate');
+		$this->Auth->allow('login', 'add', 'admin_login', 'activate', 'recoverPassword');
 	}
 	
 	public function index() {
@@ -76,6 +76,16 @@ class UsersController extends AppController {
 		//$this->loadModel('Friend');
         $this->Captcha = $this->Components->load('Captcha', array('captchaType'=>'math', 'jquerylib'=>true, 'modelName'=>'User', 'fieldName'=>'captcha')); //load it
         if ($this->request->is('post')) {
+        	if ($this->request->data['User']['password'] != $this->request->data['User']['passwordr']) {
+        		$this->Session->setFlash(__('Passwords should be the same'));
+        		return $this->redirect(array('controller'=>'users', 'action'=>'add'));
+        	}
+        	if ($this->request->data['User']['mail'] != $this->request->data['User']['mailr']) {
+        		$this->Session->setFlash(__('Emails should be the same'));
+        		return $this->redirect(array('controller'=>'users', 'action'=>'add'));
+        	}
+        	unset($this->request->data['User']['passwordr']);
+        	unset($this->request->data['User']['mailr']);
             $this->User->setCaptcha($this->Captcha->getVerCode()); //getting from component and passing to model to make proper validation check
             $this->User->set($this->request->data);
             $this->request->data['User']['avatar'] = '/img/avatar.jpg';
@@ -311,6 +321,9 @@ class UsersController extends AppController {
     	}
     	$user = $this->User->findByUsername($username);
     	if ($user!=null) {
+    		if ($user['User']['active'] != 1) {
+    			$this->Session->setFlash('Account already activated');
+    		}
     		$this->User->id = $user['User']['id'];
     		$this->User->saveField('active', 1);
     		$this->Session->setFlash("Account Activated.");
@@ -319,6 +332,49 @@ class UsersController extends AppController {
     		throw new notFoundException(__('Invalid link'));
     	}
     	//return $this->redirect(array('controller'=>'articles','action'=>'index'));
+    }
+
+    public function recoverpassword() {
+    		$email = $this->request->query('e');
+	    	$passNC = $this->request->query('h');
+	    	$username = $this->request->query('u');
+
+	    if (isset($email) && isset($passNC) && isset($username)) {
+	    	$user = $this->User->findByUsername($username);
+	    	if (!$user) {
+	    		throw new NotFoundException('__Invalid user');
+	    	} else if ($user['User']['password']!=$passNC) {
+	    		throw new NotFoundException('__Invalid link');
+	    	}
+	    	$this->set('phase2', 1);
+	    	$this->set('hash',$h);
+	    	$this->set('passnc', $passNC);
+    	} else {
+    		$this->set('phase2', 0);
+    	}
+    	if ($this->request->is('post')) {
+    		if (isset($this->request->data['User']['password'])) {
+    			if ($this->request->data['User']['password'] ==  $this->request->data['User']['passwordr']) {
+    				if (!$user) {
+    					throw new NotFoundException('Invalid Userr');
+    				}
+    				$this->User->id = $user['User']['id'];
+    				
+    				$this->User->saveField("password", $this->request->data['User']['password']);
+    				$this->Session->setFlash('Password changed. You can now login');
+    				$this->User->setForumPass($this->request->data['User']['password']);
+    				return $this->redirect(array('action'=>'login'));
+    			} else {
+    				$this->Session->setFlash("pass should be the same");
+    				$this->set('phase2', 1);
+    			}
+    		} else {
+	    		$this->User->sendEmailRecover($this->request->data['User']['mail']);
+	    		$this->Session->setFlash('Email sent');
+	    		return $this->redirect(array('action'=>'login'));
+	    	}
+    	}
+    	//demande du mail user.
     }
 
 }

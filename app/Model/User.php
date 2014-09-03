@@ -46,6 +46,20 @@ class User extends AppModel {
 				'message' => 'Your password should have between 5 and 25 chars'
 			)
 		),
+		'passwordr' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'between' => array(
+				'rule' => array('between', 5, 25),
+				'message' => 'Your password should have between 5 and 25 chars'
+			)
+		),
 		'role' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -65,7 +79,24 @@ class User extends AppModel {
 				'rule' => array('notEmpty')
 			)
 		),
-		'mail'=>'email'
+		'mail' => array(
+			'required' => array (
+				'rule' => array('notEmpty')
+			),
+			'unique' => array(
+            	'rule'    => 'isUnique',
+            	'message' => 'This email has already been taken.'
+        	),
+        	'between' => array(
+        		'rule' => array('email'),
+        		'message' => 'Your username should be between 5 and 50 chars'
+        	)
+		),
+		'mailr'=>array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			)
+		)
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -283,6 +314,35 @@ class User extends AppModel {
 		$Email->to($user['mail']);
 		$Email->subject($r['sujet']);
 		$Email->send("<html><body>".$r['contenu'].$link."</body></html>");
+	}
+
+	public function sendEmailRecover($mailAdr) {
+		//TODO:finir !
+		$user = $this->findByMail($mailAdr);
+		if (!$user) {
+			return false;
+		}
+		$newPass = rand().'';
+		$this->id = $user['User']['id'];
+		$user = $user['User'];
+		$this->saveField('password', $newPass);
+		//le save crypte le pass
+		$passwordHasher = new SimplePasswordHasher();
+		$link = "<a href=\"http://agamek.org/users/recoverpassword?h=".$passwordHasher->hash($newPass)."&u=".$user['username']."&e=".$user['mail']."\"> I've got no brain, please please i beg you, reset my password...</a>";
+
+		$Email = new CakeEmail();
+		$Email->emailFormat('html');
+		$Email->from(array('contact@agamek.org' => 'AgameK'));
+		$Email->to($mailAdr);
+		$Email->subject("Password Recovery");
+		$Email->send("<html><body> Follow this link to reset password:<br />".$link." </body></html>");
+		return true;
+	}
+
+	public function setForumPass($pass) {
+		$db = $this->getDataSource();
+		$sql = "UPDATE forum_users SET password='".sha1($pass)."'";
+		$db->query($sql);
 	}
 
 }
