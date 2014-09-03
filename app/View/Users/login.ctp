@@ -10,7 +10,8 @@
     ?>
     </fieldset>
 <?php echo $this->Form->end(__('Login')); ?>
-<p><?php echo $this->Html->link('Got no brain, help me !', array('action'=>'recoverpassword')); ?></p>
+<h2><?php echo $this->Html->link('Got no brain, help me !', array('action'=>'recoverpassword')); ?></h2>
+<p><strong>AgameK.org has been reset today( Alpha start ), please re-create account</strong></p>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {

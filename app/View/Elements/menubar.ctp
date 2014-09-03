@@ -118,8 +118,8 @@ $specific_user_GMT=2;
 			<li>
 				<?php
 					echo $this->Html->link('MY TEAMS', array(
-						'controller' => 'teams',
-						'action' => 'index',
+						'controller' => 'articles',
+						'action' => 'contruct',
 						)
 					);
 				?>
@@ -127,8 +127,8 @@ $specific_user_GMT=2;
 			<li>
 				<?php
 					echo $this->Html->link('MY EVENTS', array(
-						'controller' => 'events',
-						'action' => 'index',
+						'controller' => 'articles',
+						'action' => 'construct',
 						)
 					);
 				?>

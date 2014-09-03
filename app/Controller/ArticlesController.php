@@ -9,7 +9,11 @@ class ArticlesController extends AppController {
     public $components = array('Session', 'Paginator');
     
     public function beforeFilter() {
-        $this->Auth->allow('view', 'index');
+        $this->Auth->allow('view', 'index', 'construct');
+    }
+
+    public function construct() {
+        
     }
 
     public function add() {
