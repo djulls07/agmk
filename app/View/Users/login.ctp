@@ -10,8 +10,8 @@
     ?>
     </fieldset>
 <?php echo $this->Form->end(__('Login')); ?>
+<p><?php echo $this->Html->link('Got no brain, help me !', array('action'=>'recoverpassword')); ?></p>
 </div>
-
 <script type="text/javascript">
 $(document).ready(function() {
 

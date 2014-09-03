@@ -362,7 +362,7 @@ class UsersController extends AppController {
     				
     				$this->User->saveField("password", $this->request->data['User']['password']);
     				$this->Session->setFlash('Password changed. You can now login');
-    				$this->User->setForumPass($this->request->data['User']['password']);
+    				$this->User->setForumPass($this->request->data['User']['password'], $username);
     				return $this->redirect(array('action'=>'login'));
     			} else {
     				$this->Session->setFlash("pass should be the same");

@@ -339,9 +339,9 @@ class User extends AppModel {
 		return true;
 	}
 
-	public function setForumPass($pass) {
+	public function setForumPass($pass, $username) {
 		$db = $this->getDataSource();
-		$sql = "UPDATE forum_users SET password='".sha1($pass)."'";
+		$sql = "UPDATE forum_users SET password='".sha1($pass)."' WHERE forum_users.username='".$username."'";
 		$db->query($sql);
 	}
 
