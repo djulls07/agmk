@@ -48,10 +48,6 @@ class Article extends AppModel {
             'required' => true,
             'message' => 'Title length should be between 10 and 50'
         ),
-        'subtitle' => array(
-            'rule' => array('between', 5, 255),
-            'message' => 'Subtitle length should be between 5 and 255'
-        ),
         'intro' => array(
             'rule' => 'notEmpty'
         ),
