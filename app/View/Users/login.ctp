@@ -1,19 +1,19 @@
-<div class="users form">
-<?php echo $this->Session->flash('auth'); ?>
-<?php echo $this->Form->create('User'); ?>
-    <fieldset>
-        <legend>
-            <?php echo __('Please enter your username and password'); ?>
-        </legend>
-        <?php echo $this->Form->input('username');
-        echo $this->Form->input('password');
-    ?>
-    </fieldset>
-    <p><?php echo $this->Html->link('I am a noobs and got no brain...( password recovery )', array('action'=>'recoverpassword')); ?>
-    </p>
-<?php echo $this->Form->end(__('Login')); ?>
-
-<h3>Connect via Facebook:</h3>
+<div id="content_special" class="content_special_login">
+	<span id="content_special_titre">LOGIN</span>
+	
+	<?php echo $this->Session->flash('auth'); ?>
+	<?php echo $this->Form->create('User'); ?>
+		<table>
+			<?php
+				echo "<tr><td>Username</td><td>".$this->Form->input('username', array('label' => false))."</td>
+						<td rowspan='2' style='text-align : right'> <input type='submit' value=' '> </td>
+				</tr>";
+				echo "<tr><td>Password</td><td>".$this->Form->input('password', array('label' => false))."</td>";			
+			?>
+		</table>
+	</form>
+	<?php echo $this->Html->link('I am a noobs and got no brain...( password recovery )', array('action'=>'recoverpassword')) ?>
+<p> <br> </p>
 <!--
   Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers
@@ -24,8 +24,6 @@
 </fb:login-button>
 <?php endif; ?>
 
-<div id="status">
-</div>
 
 <p><strong>AgameK.org has been reset today( Alpha start ), please re-create account</strong></p>
 </div>

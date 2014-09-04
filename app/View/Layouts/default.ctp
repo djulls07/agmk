@@ -47,6 +47,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <div id="container">
 			<div class="container_absolute_top"><div class="barres_top">
             <div id="header">
+				<div id="header_left_temporaire"> <img src="http://djpit.com/wp-content/uploads/2014/07/under-construction-girl.png" /> </div>
+				<div id="header_right_temporaire"> <img src="/img/20130304-elite_auto_paint_supply_website_under_construction.png" /> </div>
                 <?php echo $this->element('menubar')/*, array(),
                     array(
                         // utilise la configuration de cache "long_view"

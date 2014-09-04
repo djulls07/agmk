@@ -8,7 +8,7 @@ $specific_user_GMT=2;
 <div class="banniere">
 	<div class="banniere_content">
 		<div class="pub">
-			<img src="http://djpit.com/wp-content/uploads/2014/07/under-construction-girl.png" />
+			<img src="/img/Under+Construction+Jimdo.png" /> 
 		</div>
 		<div class="banniere_image">
 		</div>

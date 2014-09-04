@@ -58,7 +58,7 @@ class ArticlesController extends AppController {
         } else {
             /* display news about the $id (games table) */
             $params = array(
-                'conditions' => array('Article.game_id' => $id, 'Article.published' => 1),
+                'conditions' => array( 'OR' => array( 'Article.game_id' => $id, 'Article.type' => 3 ) , 'Article.published' => 1),
                 'order' => 'Article.created DESC',
                 'limit' => 100,
                 'contain' => array('Thumb','User'),
@@ -97,7 +97,7 @@ class ArticlesController extends AppController {
 		}
 		$this->set('articles_a_la_une', $articles_a_la_une);
 		$this->set('articles_main_news', $articles_main_news);
-		/* article.type = 0 :  normal ; article.type = 1 : main_news ; article.type = 2 : colonne droite ; article.type = 3 : main + droite*/
+		/* article.type = 0 :  normal ; article.type = 1 : main_news ; article.type = 3 : main news tous les jeux */
     }
 
     public function delete($id = null) {

@@ -12,7 +12,7 @@
 				echo $this->Form->input('role', array('type' => 'hidden', 'value' => 'basic'));
 				$this->Captcha->render($captchaSettings);
 			?>
-			<?php echo "<tr><td colspan='2'>".$this->Form->end(__(' '))."</td></tr>"; ?>
+			<?php echo "<tr><td></td><td style='text-align:center'>".$this->Form->end(__(' '))."</td></tr>"; ?>
 		</table>
 	<!--<div class="actions">
 		<h3><?php echo __('Actions'); ?></h3>

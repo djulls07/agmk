@@ -18,9 +18,8 @@
 		echo $this->Form->input('type', array(
             'options' => array(
                 '0' => 'Normal',
-				'1' => 'Main News',
-				'2' => 'Colonne droite',
-				'3' => 'Main + droite'
+				'1' => 'Main News specifique au jeu',
+				'3' => 'Main News visible dans tous les jeux'
             )
         )); endif;?>
         <?php echo $this->Form->input('Tag'); ?>
