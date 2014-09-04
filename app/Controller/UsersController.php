@@ -74,6 +74,10 @@ class UsersController extends AppController {
  */
 	public function add() {
 		//$this->loadModel('Friend');
+		if ($this->Auth->user()!=null) {
+			$this->Session->setFlash('Cant add account while you are logged in');
+			return $this->redirect(array('controller'=>'articles', 'action'=>'index'));
+		}
         $this->Captcha = $this->Components->load('Captcha', array('captchaType'=>'math', 'jquerylib'=>true, 'modelName'=>'User', 'fieldName'=>'captcha')); //load it
         if ($this->request->is('post')) {
         	if ($this->request->data['User']['password'] != $this->request->data['User']['passwordr']) {

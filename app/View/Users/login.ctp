@@ -12,8 +12,21 @@
     <p><?php echo $this->Html->link('I am a noobs and got no brain...( password recovery )', array('action'=>'recoverpassword')); ?>
     </p>
 <?php echo $this->Form->end(__('Login')); ?>
+
 <h3>Connect via Facebook:</h3>
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"> SOON</div>
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+<?php if (AuthComponent::user('id') == 72): ?>
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+<?php endif; ?>
+
+<div id="status">
+</div>
+
 <p><strong>AgameK.org has been reset today( Alpha start ), please re-create account</strong></p>
 </div>
 <script type="text/javascript">
@@ -50,4 +63,5 @@ $(document).ready(function() {
 	});
 
 });
-</script
+</script>
+
