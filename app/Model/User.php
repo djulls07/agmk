@@ -48,8 +48,8 @@ class User extends AppModel {
 		),
 		'passwordr' => array(
 			'notEmpty' => array(
-				'rule' => array('notEmpty')
-				//'message' => 'Your custom message here',
+				'rule' => array('passwordsEquals'),
+				'message' => 'passwords should be the same.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -72,7 +72,7 @@ class User extends AppModel {
 		),
 		'captcha' => array(
 			'rule' => array('matchCaptcha'),
-			'message' => 'Failed human validation check'
+			'message' => 'Failed human validation check.'
 		),
 		'newsParPage' => array(
 			'notEmpty' => array(
@@ -89,12 +89,13 @@ class User extends AppModel {
         	),
         	'between' => array(
         		'rule' => array('email'),
-        		'message' => 'Your username should be between 5 and 50 chars'
+        		'message' => 'Should be a valid email please.'
         	)
 		),
 		'mailr'=>array(
 			'notEmpty' => array(
-				'rule' => array('notEmpty')
+				'rule' => array('mailsEquals'),
+				'message'=> 'Email should be the same.'
 			)
 		)
 	);
@@ -181,6 +182,12 @@ class User extends AppModel {
                 $this->data['User']['password']
             );
         }
+        if (isset($this->data['passwordr'])) {
+        	unset($this->data['passwordr']);
+        }
+        if (isset($this->data['mailr'])) {
+        	unset($this->data['mailr']);
+        }
         return true;
     }
 
@@ -194,6 +201,20 @@ class User extends AppModel {
 
     function getCaptcha()   {
         return $this->captcha; //getting captcha value
+    }
+
+    public function passwordsEquals() {
+    	if ($this->data['User']['password'] == $this->data['User']['passwordr']) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    public function mailsEquals() {
+    	if ($this->data['User']['mail'] == $this->data['User']['mailr']) {
+    		return true;
+    	}
+    	return false;
     }
 
     public function afterFind($results, $primary) {

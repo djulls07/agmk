@@ -80,16 +80,16 @@ class UsersController extends AppController {
 		}
         $this->Captcha = $this->Components->load('Captcha', array('captchaType'=>'math', 'jquerylib'=>true, 'modelName'=>'User', 'fieldName'=>'captcha')); //load it
         if ($this->request->is('post')) {
-        	if ($this->request->data['User']['password'] != $this->request->data['User']['passwordr']) {
+        	/*if ($this->request->data['User']['password'] != $this->request->data['User']['passwordr']) {
         		$this->Session->setFlash(__('Passwords should be the same'));
         		return $this->redirect(array('controller'=>'users', 'action'=>'add'));
         	}
         	if ($this->request->data['User']['mail'] != $this->request->data['User']['mailr']) {
         		$this->Session->setFlash(__('Emails should be the same'));
         		return $this->redirect(array('controller'=>'users', 'action'=>'add'));
-        	}
-        	unset($this->request->data['User']['passwordr']);
-        	unset($this->request->data['User']['mailr']);
+        	}*/
+        	//unset($this->request->data['User']['passwordr']);
+        	//unset($this->request->data['User']['mailr']);
             $this->User->setCaptcha($this->Captcha->getVerCode()); //getting from component and passing to model to make proper validation check
             $this->User->set($this->request->data);
             $this->request->data['User']['avatar'] = '/img/avatar.jpg';

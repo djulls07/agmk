@@ -12,7 +12,7 @@
 			?>
 		</table>
 	</form>
-	<?php echo $this->Html->link('I am a noobs and got no brain...( password recovery )', array('action'=>'recoverpassword')) ?>
+	<p><small><?php echo $this->Html->link('I am a noobs and got no brain...( password recovery )', array('action'=>'recoverpassword')) ?></small></p>
 <p> <br> </p>
 <!--
   Below we include the Login Button social plugin. This button uses
