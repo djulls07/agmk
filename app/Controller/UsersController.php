@@ -26,7 +26,7 @@ class UsersController extends AppController {
  */
 	
 	public function beforeFilter() {
-		$this->Auth->allow('login', 'add', 'admin_login', 'activate', 'recoverPassword');
+		$this->Auth->allow('login', 'add', 'admin_login', 'activate', 'recoverPassword', 'createOrLogFB');
 	}
 	
 	public function index() {
@@ -381,5 +381,17 @@ class UsersController extends AppController {
     	//demande du mail user.
     }
 
+    public function createOrLogFB() {
+    	if ($this->request->is('ajax')) {
+    		if ($this->Auth->user() == null) {
+    			//pas log
+    			echo 'okok';
+    			exit();
+    		} else {
+    			$this->Session->setFlash('You already logged in !');
+    			return $this->redirect(array('controller'=>'articles', 'action'=>'index'));
+    		}
+    	}
+    }
 }
 ?>

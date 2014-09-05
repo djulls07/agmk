@@ -18,7 +18,7 @@
 </div>
 
 <?php echo $this->Form->input('content', array('type' => 'text', 'label' => 'Message '.$label_dest, 'rows' => 3)); ?>
-<?php //echo $this->Form->end(__('Send')); ?>
+<?php echo $this->Form->end(__('Send')); ?>
 
 <?php echo $this->Html->script('ecrire'); ?>
 

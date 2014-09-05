@@ -19,13 +19,10 @@
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
-<?php if (AuthComponent::user('id') == 72): ?>
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
-<?php endif; ?>
 
 
-<p><strong>AgameK.org has been reset today( Alpha start ), please re-create account</strong></p>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -62,4 +59,5 @@ $(document).ready(function() {
 
 });
 </script>
+<?php echo $this->Html->script("fbLog"); ?>
 
