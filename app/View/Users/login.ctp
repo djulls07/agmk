@@ -21,8 +21,9 @@
 -->
 <fb:login-button id="fbbutton" scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
-<a href="#" id="fbbuttonout" style="display:none;" onclick="logoutfb()">Disconnect from F.B</a>
-
+<p><small>
+<a href="#" id="fbbuttonout" style="display:none;" onclick="logoutfb()">Disconnect from Facebook & FbAgameKapp</a>
+</small></p>
 
 </div>
 <script type="text/javascript">

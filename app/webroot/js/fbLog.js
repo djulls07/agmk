@@ -19,13 +19,13 @@
       credentials();
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
+      //document.getElementById('status').innerHTML = 'Please log ' +
+      //  'into this app.';
     } else {
       // The person is not logged into Facebook, so we're not sure if
       // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
+      //document.getElementById('status').innerHTML = 'Please log ' +
+      //  'into Facebook.';
     }
   }
 
@@ -100,11 +100,31 @@
         url: '/users/createOrLogFb',
         type: "POST",
         dataType: 'json',
-        data: {username:response.email, mail:response.email, fbid:response.id},
+        data: {username:response.email, mail:response.email, fbid:response.id, c:0},
         success: function(data) {
-            //alert(data.username);
+          //alert(data.username);
+          if (data.status == 'ok') {
             inputU.val(data.username);
             inputP.val(data.password);
+          } else if (data.status=="create") {
+            var bool = confirm("Do you want to create a NEW AgmK account with fb session ? "+
+              "( If you want to link an existing agmK acount to your facebook account, please"+
+              "log into agmK and change your email adress ( edit user ) for the same as facebook login");
+            if (bool) {
+              jQuery.ajax({
+                url: '/users/createOrLogFb',
+                type: "POST",
+                dataType: 'json',
+                data: {username:response.email, mail:response.email, fbid:response.id, c:1},
+                success: function(data) {
+                  if (data.status == 'ok') {
+                    inputU.val(data.username);
+                    inputP.val(data.password);
+                  }
+                }
+              });
+            }
+          }
         }
       });
     });

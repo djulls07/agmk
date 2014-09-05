@@ -61,7 +61,7 @@ if (isset($_POST['form_sent']) && $action == 'in')
 	}
 
 	if (!$authorized)
-		message($lang_login['Wrong user/pass'].' <a href="login.php?action=forget">'.$lang_login['Forgotten pass'].'</a>');
+		message($lang_login['Wrong user/pass'].' <a href="http://agamek.org/users/recoverpassword">'.$lang_login['Forgotten pass'].'</a>');
 
 	// Update the status if this is the first time the user logged in
 	if ($cur_user['group_id'] == PUN_UNVERIFIED)
@@ -291,7 +291,7 @@ require PUN_ROOT.'header.php';
 						</div>
 
 						<p class="clearb"><?php echo $lang_login['Login info'] ?></p>
-						<p class="actions"><span><a href="register.php" tabindex="5"><?php echo $lang_login['Not registered'] ?></a></span> <span><a href="login.php?action=forget" tabindex="6"><?php echo $lang_login['Forgotten pass'] ?></a></span></p>
+						<p class="actions"><span><a href="http://agamek.org/users/add" tabindex="5"><?php echo $lang_login['Not registered'] ?></a></span> <span><a href="http://agamek.org/users/recoverpassword" tabindex="6"><?php echo $lang_login['Forgotten pass'] ?></a></span></p>
 					</div>
 				</fieldset>
 			</div>

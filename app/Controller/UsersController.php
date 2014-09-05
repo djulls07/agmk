@@ -129,6 +129,7 @@ class UsersController extends AppController {
 		if (!$id || !$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
+		$user = $this->User->findById($id);
 		$games = $this->User->Profile->Game->find('list', array('fields' => array('Game.id', 'Game.name')));
 		if ($this->request->is(array('post', 'put'))) {
 			if (empty($this->request->data['User']['avatar2']['name']) && $this->request->data['User']['avatar1'] == '') {
@@ -145,6 +146,9 @@ class UsersController extends AppController {
             	$this->request->data['User']['namegame'.$i] = $games[$this->request->data['User']['idgame'.$i]];
             }
 			if ($this->User->save($this->request->data)) {
+    				$db=$this->User->getDataSource();
+    				$sql = "UPDATE forum_users SET email='".$this->request->data['User']['mail']."' WHERE email='".$this->Auth->user('mail')."'";
+                	$db->query($sql);
 				if (!empty($this->request->data['User']['avatar2']['name'])) {
                 	if($this->User->isUploadedAvatar($this->request->data['User']['avatar2'], 
                 			substr($this->request->data['User']['avatar'],1))) {
@@ -228,6 +232,9 @@ class UsersController extends AppController {
 		        } else {
 		            $this->Session->setFlash(__("Username or password incorrect"));
 		        }
+		    } else if (!$user) {
+		    	$this->Session->setFlash('Account not found for username: '.$this->request->data['User']['username']);
+		    	return $this->redirect(array('action'=>'add'));
 		    } else {
 		    	$this->Session->setFlash('Account exists, please activate it ( check your email )');
 		    	$this->User->sendEmailActivation($user);
@@ -393,30 +400,45 @@ class UsersController extends AppController {
     			$username = $this->request->data['username'];
     			$mail = $this->request->data['mail'];
     			$user = $this->User->findByMail($mail);
+    			$n = $this->request->data['c'];
     			if (!$user) {
-    				/* on creer son account ou association */
-    				$data = array('User'=>array(
-    					'username'=>$username,
-    					'mail'=>$mail,
-    					'fbid'=>$fbid,
-    					'password'=>sha1($fbid),
-    					'active'=>true,
-    					'role'=>'basic'
-    				));
-    				$this->User->create();
-    				if ($this->User->save($data)) {
-						//return $this->redirect($this->Auth->redirect());
-						echo json_encode(array(
-							'status'=>'ok',
-							'username'=>$username,
-							'password'=>sha1($fbid)
-						));
+    				if ($n == 0) {
+    					echo json_encode(array('status'=>'create'));
+    					exit();
     				} else {
-    					echo 'no';
+    					/* on creer son account ou association */
+	    				$data = array('User'=>array(
+	    					'username'=>$username,
+	    					'mail'=>$mail,
+	    					'fbid'=>$fbid,
+	    					'password'=>sha1($fbid),
+	    					'active'=>true,
+	    					'role'=>'basic',
+	    					'avatar'=>'/img/avatar.jpg'
+	    				));
+	    				$this->User->create();
+	    				if ($this->User->save($data)) {
+							//return $this->redirect($this->Auth->redirect());
+							echo json_encode(array(
+								'status'=>'ok',
+								'username'=>$username,
+								'password'=>sha1($fbid)
+							));
+	    				}
     				}
     			} else {
     				if ($user['User']['fbid'] != $fbid) {
 	    				$user['User']['password'] = sha1($fbid);
+	    				$user['User']['fbid'] = $fbid;
+	    				$this->User->id = $user['User']['id'];
+	    				$this->User->save($user);
+	    				$db=$this->User->getDataSource();
+	    				$sql = "UPDATE forum_users SET password='".sha1(sha1($fbid))."' WHERE email='".$mail."'";
+	                	$db->query($sql);
+					} else {
+						//surement recover password dun compte lo/creer via FB.
+						//on rechange le password pour reactiver la connexion via fb.
+						$user['User']['password'] = sha1($fbid);
 	    				$user['User']['fbid'] = $fbid;
 	    				$this->User->id = $user['User']['id'];
 	    				$this->User->save($user);
