@@ -217,6 +217,8 @@ class UsersController extends AppController {
 			    	$mail = $this->Auth->user('mail');
 			    	$time = time();
 			    	if (empty($mail)) {
+			    		//user sans mail = user test creer par moi meme donc:
+			    		return $this->redirect($this->Auth->redirect());
 			    		$mail = "PLEASEsetyourmail@setyourmail.com";
 			    	}
 			    	$db = $this->User->getDataSource();

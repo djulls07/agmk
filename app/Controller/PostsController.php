@@ -8,8 +8,8 @@ class PostsController extends AppController {
 );*/
 
     public $paginate = array(
-        'fields' => array('Post.id', 'Post.user_id', 'Post.created', 'Post.modified', 'Post.title', 'User.username'),
-        'limit' => 25,
+        'fields' => array('Post.id', 'Post.poster', 'Post.message', 'Post.posted'),
+        'limit' => 50,
         'order' => array(
             'Post.created' => 'desc'
         )
@@ -33,8 +33,8 @@ class PostsController extends AppController {
         if (!$id) {
             throw new NotFoundException(__('Invalid Post'));
         }
-        $this->Post->recursive = 2;
-        $post = $this->Post->read(array('Post.id', 'Post.title', 'Post.body', 'User.id', 'User.username'),$id);
+        $this->Post->recursive = 0;
+        $post = $this->Post->read(array('Post.poster', 'Post.message'),$id);
         if (!$post) {
             throw new NotFoundException(__('Invalid Post'));
         }
@@ -94,6 +94,7 @@ class PostsController extends AppController {
     }
 
     public function isAuthorized($user) {
+        return parent::isAuthorized($user);
         if ($this->action === 'add' || $this->action === 'view') {
             return true;
         }
