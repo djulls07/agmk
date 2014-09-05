@@ -34,6 +34,15 @@
 		<li id="REPORT" onclick="clickMenu(this.id)" class=""><a href="#REPORT">REPORT</a></li>
 	</ul>
 </div>
+
+<!-- needed for test dont erase it juste comment plz -->
+<?php foreach($events['events'] as $event) {
+	echo $this->Form->create('Event', array('action'=>'addTeam'));
+	echo $this->Form->input('eventId', array('value'=>$event['Event']['id']));
+	echo $this->Form->input('Team');
+	echo $this->Form->end('Subsub');
+
+}?>
 <!--
 <div id="onglets">
 	<ul>

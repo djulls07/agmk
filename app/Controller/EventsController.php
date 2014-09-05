@@ -27,18 +27,21 @@ class EventsController extends AppController {
 	 */
 	public function index() {
 		$this->Event->recursive = 0;
-		$this->set('events', $this->Paginator->paginate());
-		$this->set('teams', $this->Event->Team->find('list', array (
+		$events = array();
+		$events['events'] = $this->Paginator->paginate();
+		$events['Teams'] = $this->Event->Team->find('list', array (
 				'conditions' => array (
 						'OR' => array (
 								array ('leader_id' => $this->Auth->user('id')),
 								array ('second_leader_id' => $this->Auth->user('id'))
 						)
 				)
-		)
-		));
-		$subscribed = $this->Event->getSubscribed($this->Auth->user('id'));
-		$this->set('subscribed', $subscribed);
+			)
+		);
+		$events['sub'] = $subscribed = $this->Event->getSubscribed($this->Auth->user('id'));
+		//debug($events);
+		$this->set('events', $events);
+		$this->set('teams',$events['Teams']);
 	}
 
 	/**
@@ -306,7 +309,8 @@ class EventsController extends AppController {
 	public function addTeam() {
 		if ($this->request->is('post')) {
 			$id = $this->Auth->user('id');
-			$switch = $this->Event->addTeam($this->request->data['Event']['teams'], $this->request->data['Event']['eventId'], $id);
+			//debug($this->request->data);return;
+			$switch = $this->Event->addTeam($this->request->data['Team']['Team'][0], $this->request->data['Event']['eventId'], $id);
 			if ($switch == 0) {
 				$this->Session->setFlash(__("Subscribe OK"));
 				return $this->redirect(array('action' => 'view', $this->request->data['Event']['eventId']));
@@ -330,7 +334,7 @@ class EventsController extends AppController {
 		$data = array();
 		for($i=0;$i<60;$i++) {
 			$this->Event->Team->User->create();
-			$this->Event->Team->User->save(array('User'=>array('username'=>$i.'userame', 'password'=>'nuage009')));
+			$this->Event->Team->User->save(array('User'=>array('username'=>$i.'userame', 'password'=>'nuage009', 'active'=>1)));
 			if (in_array($i, array(4,9,14,19,24,29,34,39,44,49,54,59))) {
 				//leader et creation team
 				$this->Event->Team->create();
@@ -354,7 +358,21 @@ class EventsController extends AppController {
 				$db->query($sql);
 				//ajouter teamprofiles pour ce jeu
 				//TODO:finir ca
+				$sql = "INSERT INTO teamprofiles (team_id, game_id, level, game_name, points, roster_leader_id, roster)".
+					" VALUES(".$teamId.", 2, 'GOLD', 'League of legends', 0, ".$users[0]['User']['id'].", '".($users[0]['User']['id'].";").($users[1]['User']['id'].";").($users[2]['User']['id'].";").($users[3]['User']['id'].";").$users[4]['User']['id']."')";
+				$db->query($sql);
 			}
+			$user = $this->Event->Team->User->find('first', array('conditions'=> array('username'=>$i.'userame')));
+			$data = array('Profile'=>array(
+				'user_id'=>$user['User']['id'],
+				'game_id'=>2,
+				'game_name'=>"League of legends",
+				'region'=>'euw',
+				'pseudo'=>$user['User']['username'].'lolpseudo',
+				'level'=>'GOLD'
+			));
+			$this->Event->Team->User->Profile->create();
+			$this->Event->Team->User->Profile->save($data);
 		}
 		return $this->redirect(array('action'=>'index'));
 	}
@@ -396,6 +414,9 @@ class EventsController extends AppController {
 
 	public function isAuthorized($user) {
 		if ($this->action === "addTeam") {
+			return true;
+		}
+		if ($this->action === "index" || $this->action === "view") {
 			return true;
 		}
 		if ($this->action === 'deleteTeam') {

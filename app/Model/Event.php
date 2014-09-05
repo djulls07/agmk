@@ -213,6 +213,9 @@ class Event extends AppModel {
 	public function getSubscribed($userId) {
 		$db = $this->getDataSource();
 		$teams = $this->Team->getTeamsList($userId);
+		if (!$teams) {
+			return null;
+		}
 		$results = array();
 		$tmp = '';
 		foreach($teams as $k => $v) {
