@@ -1,5 +1,7 @@
 <?php
 
+App::uses('AppController', 'Controller');
+
 class CategoriesController extends AppController {
 
 	public function beforeFilter() {
@@ -8,8 +10,9 @@ class CategoriesController extends AppController {
 
 	public function index() {
 		$this->Categorie->recursive = 2;
-		$this->set('categories', $this->find('all'));
-		debug($this->find('all'));
+		$cat = $this->Category->find('all', array('order'=>array('Category.disp_position')));
+		$this->set('cat', $cat);
+		debug($cat);
 	}
 	
 	//autorisation

@@ -1,5 +1,7 @@
 <?php
-Class Categorie extends AppModel {
+App::uses('AppModel', 'Model');
+
+class Category extends AppModel {
 
 	public $useTable = 'forum_categories';
 
@@ -11,4 +13,3 @@ Class Categorie extends AppModel {
 		)
 	);
 }
-?>

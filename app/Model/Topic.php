@@ -2,6 +2,8 @@
 
 class Topic extends AppModel {
 
+	public $useTable = 'forum_topics';
+
 	public $hasMany = array(
 		'Post' => array(
 			'classname' => 'Post',
@@ -10,3 +12,4 @@ class Topic extends AppModel {
 		),
 	);
 }
+?>
