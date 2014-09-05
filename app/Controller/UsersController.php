@@ -201,6 +201,9 @@ class UsersController extends AppController {
 	}
 
 	public function login() {
+		if ($this->Auth->user()) {
+			return $this->redirect($this->Auth->redirect());
+		}
 	    if ($this->request->is('post')) {
 	    	$user = $this->User->findByUsername($this->request->data['User']['username']);
 	    	if ($user && $user['User']['active']) {
@@ -385,11 +388,54 @@ class UsersController extends AppController {
     	if ($this->request->is('ajax')) {
     		if ($this->Auth->user() == null) {
     			//pas log
-    			echo 'okok';
+    			//echo 'okok';
+    			$fbid = $this->request->data['fbid'];
+    			$username = $this->request->data['username'];
+    			$mail = $this->request->data['mail'];
+    			$user = $this->User->findByMail($mail);
+    			if (!$user) {
+    				/* on creer son account ou association */
+    				$data = array('User'=>array(
+    					'username'=>$username,
+    					'mail'=>$mail,
+    					'fbid'=>$fbid,
+    					'password'=>sha1($fbid),
+    					'active'=>true,
+    					'role'=>'basic'
+    				));
+    				$this->User->create();
+    				if ($this->User->save($data)) {
+						//return $this->redirect($this->Auth->redirect());
+						echo json_encode(array(
+							'status'=>'ok',
+							'username'=>$username,
+							'password'=>sha1($fbid)
+						));
+    				} else {
+    					echo 'no';
+    				}
+    			} else {
+    				if ($user['User']['fbid'] != $fbid) {
+	    				$user['User']['password'] = sha1($fbid);
+	    				$user['User']['fbid'] = $fbid;
+	    				$this->User->id = $user['User']['id'];
+	    				$this->User->save($user);
+	    				$db=$this->User->getDataSource();
+	    				$sql = "UPDATE forum_users SET password='".sha1(sha1($fbid))."' WHERE email='".$mail."'";
+	                	$db->query($sql);
+					}
+					echo json_encode(array(
+						'status'=>'ok',
+						'username'=>$user['User']['username'],
+						'password'=>sha1($fbid)
+					));
+    			}
     			exit();
     		} else {
-    			$this->Session->setFlash('You already logged in !');
-    			return $this->redirect(array('controller'=>'articles', 'action'=>'index'));
+    			echo '...';
+    			exit();
+    			//$this->Session->setFlash('You already logged in !');
+    			//return $this->redirect(array('controller'=>'articles', 'action'=>'index'));
     		}
     	}
     }

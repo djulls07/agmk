@@ -42,8 +42,8 @@ class User extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'between' => array(
-				'rule' => array('between', 5, 25),
-				'message' => 'Your password should have between 5 and 25 chars'
+				'rule' => array('between', 5, 50),
+				'message' => 'Your password should have between 5 and 50 chars'
 			)
 		),
 		'passwordr' => array(

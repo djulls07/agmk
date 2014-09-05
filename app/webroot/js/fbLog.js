@@ -1,4 +1,8 @@
 
+  var b = jQuery('#fbbutton');
+  var bout = jQuery('#fbbuttonout');
+  var inputU = jQuery('#UserUsername');
+  var inputP = jQuery('#UserPassword');
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -9,7 +13,10 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      testAPI();
+      //testAPI();
+      b.hide();
+      bout.show();
+      credentials();
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
       document.getElementById('status').innerHTML = 'Please log ' +
@@ -20,6 +27,14 @@
       document.getElementById('status').innerHTML = 'Please log ' +
         'into Facebook.';
     }
+  }
+
+  function logoutfb() {
+    FB.logout();
+    bout.hide();
+    b.show();
+    inputP.val("");
+    inputU.val("");
   }
 
   // This function is called when someone finishes with the Login
@@ -75,5 +90,22 @@
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+
+  function credentials() {
+    FB.api('/me', function(response) {
+      console.log(response);
+      jQuery.ajax({
+        url: '/users/createOrLogFb',
+        type: "POST",
+        dataType: 'json',
+        data: {username:response.email, mail:response.email, fbid:response.id},
+        success: function(data) {
+            //alert(data.username);
+            inputU.val(data.username);
+            inputP.val(data.password);
+        }
+      });
     });
   }

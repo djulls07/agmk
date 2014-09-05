@@ -19,8 +19,9 @@
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+<fb:login-button id="fbbutton" scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
+<a href="#" id="fbbuttonout" style="display:none;" onclick="logoutfb()">Disconnect from F.B</a>
 
 
 </div>
