@@ -9,10 +9,11 @@ class CategoriesController extends AppController {
 	}
 
 	public function index() {
-		$this->Categorie->recursive = 2;
-		$cat = $this->Category->find('all', array('order'=>array('Category.disp_position')));
+		$this->layout = 'default_forum';
+		$this->Categorie->recursive = 1;
+		$cat = $this->Category->find('all', array('order'=>array('Category.disp_position'), 'recursive'=>2));
 		$this->set('cat', $cat);
-		debug($cat);
+		//debug($cat);
 	}
 	
 	//autorisation
