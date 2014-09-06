@@ -12,7 +12,7 @@
 		</thead>
 		<tbody>
 			<?php foreach($forum['Topic'] as $topic): ?>
-			<tr>
+			<tr onclick="document.location='http://agamek.org/topics/view/<?php echo $topic['id']; ?>'">
 				<td><bold class="text-info"><?php echo $topic['subject'];?></bold>&nbsp;<small class="muted"> by <?php echo $topic['poster']; ?></small></td>
 				<td><?php echo $topic['num_replies'];?></td>
 				<td><?php echo $topic['num_views'];?></td>
