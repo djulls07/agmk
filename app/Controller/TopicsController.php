@@ -18,6 +18,9 @@ class TopicsController extends AppController {
 		$count = $this->Topic->Post->countPosts($id);
 		$count = $count[0][0]['COUNT(*)'];
 		$nbPage = (int)($count/25) + 1;
+		if ($page < 0) {
+			$page = $nbPage;
+		}
 		if ($page > $nbPage) {
 			return $this->redirect(array('controller'=>'categories', 'action'=>'index'));
 		}
@@ -51,7 +54,8 @@ class TopicsController extends AppController {
 		} else {
 			$index[$nbPage+1] = '<li class="disable"><a href="#">Next</a></li>';
 		}
-
+		$this->Topic->id = $id;
+		$this->Topic->saveField('num_views', $topic[0]['Topic']['num_views']+1);
 		$this->set('topic', $topic);
 		$this->set('posters', $posters);
 		$this->set('index', $index);

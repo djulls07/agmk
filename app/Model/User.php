@@ -366,6 +366,9 @@ class User extends AppModel {
 	 */
 	public function getForumIndispo($groupId, $cat=null) {// si cat on retire les fofo indispo de cat et on le retourne lui plutot que la liste des id de fofo
 		$db = $this->getDataSource();
+		if ($groupId == 1 && $cat==null) {
+			return null;
+		}
 		if ($groupId == 1) {
 			$sql = "SELECT * FROM forum_forum_perms";
 		} else {
@@ -373,7 +376,7 @@ class User extends AppModel {
 		}
 		$r = $db->query($sql);
 		$tmp = array();
-		// on return une list d'ids de fofo qui sont ok
+		// on return une list d'ids de fofo qui sont nok
 		foreach($r as $res) {
 			$tmp[$res['forum_forum_perms']['forum_id']] = $res['forum_forum_perms']['forum_id'];
 		}

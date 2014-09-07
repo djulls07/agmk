@@ -7,10 +7,10 @@ class Forum extends AppModel {
 		'Topic' => array(
 			'classname' => 'Topic',
 			'foreignKey' => 'forum_id',
-			'dependent' => true
+			'dependent' => true,
+			'order'=>array('Topic.last_post'=>'desc')
 		)
 	);
-
 
 	public function isDisp($forumId, $forum_user) {
 		$userGid = $forum_user['group_id'];

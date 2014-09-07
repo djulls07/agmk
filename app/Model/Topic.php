@@ -15,6 +15,7 @@ class Topic extends AppModel {
 		),
 	);
 
+
 	public function getPosters($posts) {
 		//return $posts;
 		$ids = array();

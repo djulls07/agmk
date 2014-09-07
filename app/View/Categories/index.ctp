@@ -1,3 +1,8 @@
+<!-- forum menu first -->
+<?php $this->start('menu_forum_gauche'); ?>
+<li class="col-md-12 text-center"><a href="http://agamek.org">Back</a></li>
+<?php $this->end(); ?>
+
 <h2>Categories</h2>
 <div class="row">
 	<?php foreach($cat as $category): ?>

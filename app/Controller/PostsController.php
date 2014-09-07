@@ -16,20 +16,10 @@ class PostsController extends AppController {
     );
 
     public function beforeFilter() {
-        $this->Auth->allow('index');
+        $this->Auth->deny('all');
     }
 
-    public function index() {
-        //$this->set('posts', $this->Post->find('all'));
-        $this->Post->recursive = 0;
-        $this->set('posts', $this->paginate());
-    }
-
-    public function admin_index() {
-        $this->index();
-    }
-
-    public function view($id = null) {
+   /* public function view($id = null) {
         if (!$id) {
             throw new NotFoundException(__('Invalid Post'));
         }
@@ -39,71 +29,74 @@ class PostsController extends AppController {
             throw new NotFoundException(__('Invalid Post'));
         }
         $this->set('post', $post);
-    }
+    }*/
 
-    public function admin_view($id = null) {
-        $this->view($id);
-    }
+    public function add($idTopic=null) {
+        $this->layout="default_forum";
 
-    public function add() {
-        debug($this->request->data);
+        $this->loadModel('Topic');
+        $this->loadModel('User');
+
+        $user = $this->User->readForumUser($this->Auth->user());
+
+        $topic = $this->Topic->find('all', array('conditions'=>array('id'=>$idTopic)));
+
+        $topic = $topic[0];
+
+        $firstPost = $this->Post->find("all", array('conditions'=>array('id'=>$topic['Topic']['first_post_id'])));
+
+        $firstPost = $firstPost[0];
+        $firstPost['Post']['message'] = $this->Post->parseMessage($firstPost['Post']['message']);
+        
         if ($this->request->is('post')) {
-            $this->request->data['Post']['user_id'] = $this->Auth->user('id');
+            //topic last post et poster etc etc date last post
+            //mais avant save post voir champs
+            $data = array('Post'=>array(
+                'message'=>$this->request->data['Post']['message'],
+                'topic_id'=>$idTopic,
+                'poster'=>$user['username'],
+                'poster_id'=>$user['id'],
+                'poster_ip'=>$this->request->clientIp(),
+                'poster_email'=>$user['email'],
+                'posted'=>time()
+            ));
             $this->Post->create();
-            debug($this->request->data);
-            if ($this->Post->save($this->request->data)) {
-                $this->Session->setFlash(__('Your post has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+            if ($this->Post->save($data)) {
+                //now on save si il faut les infos du topic
+                $lastPostId = $this->Post->id;
+                unset($data);
+                $data = array('Topic'=>array(
+                    'last_post'=>time(),
+                    'last_poster'=>$user['username'],
+                    'last_post_id'=>$lastPostId,
+                    'num_replies'=>$topic['Topic']['num_replies']+1
+                ));
+                $this->Topic->id = $idTopic;
+                if ($this->Topic->save($data)) {
+                    $this->Session->setFlash('Post Added');
+                    return $this->redirect(array('controller'=>'topics', 'action'=>'view', $idTopic, -1));
+                }
             }
-            $this->Session->setFlash(__('Unable to add your post.'));
         }
+
+        $this->set('topic', $topic);
+        $this->set('user', $user);
+        $this->set('firstPost', $firstPost);
+        
     }
 
     public function edit($id = null) {
-        if (!$id) {
-            throw new NotFoundException(__('Invalid Post'));
-        }
-
-        $post = $this->Post->findById($id);
-
-        if ($this->request->is(array('post', 'put'))) {
-            $this->Post->id = $id;
-            if ($this->Post->save($this->request->data)) {
-                $this->Session->setFlash(__('Your post has been updated'));
-                return $this->redirect(array('action' => 'index'));
-            }
-            $this->Session->setFlash(__('Unable to validate your post'));
-        }
-
-        if (!$this->request->data) {
-            $this->request->data = $post;
-        }
-    }
-
-    public function delete($id = null) {
-        if (!$id) {
-            throw new NotFoundException(__('Invalid Post'));
-        }
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        }
-        if ($this->Post->delete($id)) {
-            $this->Session->setFlash(__('The post with id: %s has been deleted', h($id)));
-            return $this->redirect(array('action' => 'index'));
-        }
+       
     }
 
     public function isAuthorized($user) {
-        return parent::isAuthorized($user);
-        if ($this->action === 'add' || $this->action === 'view') {
-            return true;
-        }
-        if (in_array($this->action, array('edit', 'delete'))) {
-            $postId = (int) ($this->request->params['pass'][0]);
-            if ($this->Post->isOwnedBy($postId, $user['id']) || $user['role'] === 'admin') {
+        if ($this->action === "add") {
+            $this->loadModel('User');
+            $topicId = (int) $this->request->params['pass'][0];
+            $auth = $this->Post->isAuthReply($topicId, $this->User->readForumUser($this->Auth->user()));
+            if ($auth == true) {
                 return true;
             } else {
-                $this->Session->setFlash(__('You should be owner of the post to Delete / Edit'));
                 return false;
             }
         }

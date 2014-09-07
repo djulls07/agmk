@@ -14,8 +14,25 @@ class ForumsController extends AppController {
 			'recursive'=>1,
 			'conditions'=>array('id'=>(int)$id)
 		));
+		$forum['Topic'] = $this->sortSticky($forum['Topic']);
 		$this->set('forum', $forum);
 		//debug($forum);
+	}
+
+	public function sortSticky($results) {
+		$ret = array();
+		$i=0;
+		foreach($results as $k=>$r) {
+			if ($r['sticky'] == true) {
+				$ret[$i++] = $r;
+			}
+		}
+		foreach($results as $k=>$r) {
+			if ($r['sticky'] != true) {
+				$ret[$i++] = $r;
+			}
+		}
+		return $ret;
 	}
 
 	//autorisation

@@ -1,12 +1,14 @@
 <?php
+App::uses('AppModel', 'Model');
+App::uses('User', 'Model');
+App::uses('Topic', 'Model');
+App::uses('Forum', 'Model');
+
 class Post extends AppModel {
 
 	public $useTable = 'forum_posts';
 
 	public $validate = array(
-		'title' => array(
-		'rule' => 'notEmpty'
-		),
 		'body' => array(
 		'rule' => 'notEmpty'
 		)
@@ -66,7 +68,7 @@ class Post extends AppModel {
 		$replace[] = '<span style="color: $1">$2</span>';
 		$replace[] = '</p><h5>$1</h5><p>';
 		$replace[] = '<img src="$1">';
-		$replace[] = '<p><bold class="text-success">$1 wrote: </bold></p><p class="well">$2</p>"';
+		$replace[] = '<p><bold class="text-success">$1 wrote: </bold></p><p class="well">$2</p>';
 
 		// This thing takes a while! :)
 		$text = preg_replace($pattern, $replace, $text);
@@ -81,6 +83,26 @@ class Post extends AppModel {
 			$results[0]['Post']['message'] = $text;
 		}
 		return $results;
+	}
+
+	public function isAuthReply($topicId, $user) {
+		$classTopic = new Topic();
+		$classUser = new User();
+		$topic = $classTopic->find('all', array('conditions'=>array('id'=>$topicId)));
+		$topic = $topic[0]['Topic'];
+		$groupId = $user['group_id'];
+		$forum_indispo = $classUser->getForumIndispo($groupId);
+		if ($forum_indispo == null) return true;
+		$forumId = $topic['forum_id'];
+		$classForum = new Forum();
+		$f = $classForum->find('all', array('conditions'=>array('id'=>$forumId)));
+		$f = $f[0]['Forum'];
+		if(in_array($f['id'], $forum_indispo)) {
+			return false;
+		} else {
+			return true;
+		}
+		return false;
 	}
 }
 ?>
