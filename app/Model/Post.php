@@ -71,6 +71,7 @@ class Post extends AppModel {
 		$replace[] = '<p><bold class="text-success">$1 wrote: </bold></p><p class="well">$2</p>';
 
 		// This thing takes a while! :)
+		$text = nl2br($text);
 		$text = preg_replace($pattern, $replace, $text);
 		return $text;
 	}
