@@ -353,6 +353,50 @@ class User extends AppModel {
 		$db->query($sql);
 	}
 
+	public function readForumUser($user) {
+		$db = $this->getDataSource();
+		$sql = "SELECT * FROM forum_users AS Fuser WHERE email='".$user['mail']."'";
+		$r = $db->query($sql);
+		return $r[0]['Fuser'];
+	}
+
+	/*
+	 * Retourne un $cat epuré des indispo fofo ou bien la list des ids fofo indispo.
+	 *
+	 */
+	public function getForumIndispo($groupId, $cat=null) {// si cat on retire les fofo indispo de cat et on le retourne lui plutot que la liste des id de fofo
+		$db = $this->getDataSource();
+		if ($groupId == 1) {
+			$sql = "SELECT * FROM forum_forum_perms";
+		} else {
+			$sql = "SELECT * FROM forum_forum_perms WHERE group_id =".$groupId;
+		}
+		$r = $db->query($sql);
+		$tmp = array();
+		// on return une list d'ids de fofo qui sont ok
+		foreach($r as $res) {
+			$tmp[$res['forum_forum_perms']['forum_id']] = $res['forum_forum_perms']['forum_id'];
+		}
+		if (!$cat) {
+			return $tmp;
+		} else {
+			if ($groupId == 1) {
+				return $cat; //no change group 1 = admin tt
+			}
+			foreach($cat as $k=>$c) {
+				foreach($cat[$k]['Forum'] as $key=>$forum) {
+					if (in_array($cat[$k]['Forum'][$key]['id'], $tmp)) {
+						unset($cat[$k]['Forum'][$key]);
+					}
+				}
+				if (count($cat[$k]['Forum']) == 0) {
+					unset($cat[$k]);
+				}
+			}
+			return $cat;
+		}
+	}
+
 }
 
 

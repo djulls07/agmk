@@ -1,3 +1,8 @@
+<!-- forum menu first -->
+<?php $this->start('menu_forum_gauche'); ?>
+<li><a href="http://agamek.org/categories">Back</a></li>
+<?php $this->end(); ?>
+
 <?php //debug($forum); ?>
 <h2><?php echo $forum['Forum']['forum_name']; ?></h2>
 <div class="row">
@@ -18,7 +23,10 @@
 				<td><?php echo $topic['num_views'];?></td>
 				<td>
 					<small>
-					<?php echo date("Y-m-d h:i:s", $topic['posted']);?><?php if ($topic['last_poster']) echo ' by '. $topic['last_poster'];?>
+					<span class="text-info">
+					<?php if ($topic['last_post']) echo date("Y-m-d h:i:s", $topic['last_post']);?>
+					</span>
+					<?php if ($topic['last_poster']) echo ' by '. $topic['last_poster'];?>
 					</small>
 				</td>
 			</tr>

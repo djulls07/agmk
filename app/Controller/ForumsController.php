@@ -20,6 +20,22 @@ class ForumsController extends AppController {
 
 	//autorisation
 	public function isAuthorized($user) {
+		$this->fillForumSession();
+		$forumId = (int) $this->request->params['pass'][0];
+		if ($this->Forum->isDisp($forumId, $this->Session->read('forum_user'))) {
+			return true;
+		} else {
+			return false;
+		}
 		return parent::isAuthorized($user);
+	}
+
+	public function fillForumSession() {
+		$fuser = $this->Session->read('forum_user');
+		//if(empty($fuser)) {
+			$this->loadModel('User');
+			$fuser = $this->User->readForumUser($this->Auth->user());
+			$this->Session->write('forum_user', $fuser);
+		//}
 	}
 }

@@ -10,4 +10,16 @@ class Forum extends AppModel {
 			'dependent' => true
 		)
 	);
+
+
+	public function isDisp($forumId, $forum_user) {
+		$userGid = $forum_user['group_id'];
+		if ($userGid == 1) return true;
+		$classUser = new User();
+		$forum_indispo = $classUser->getForumIndispo($userGid);
+		if (in_array($forumId, $forum_indispo)) {
+			return false;
+		}
+		return true;
+	}
 }

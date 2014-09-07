@@ -55,7 +55,9 @@
 
       <div class="row">
         <nav class="col-md-2">
-          Menu
+          <ul class="nav nav-pills">
+            <?php echo $this->fetch('menu_forum_gauche');?>
+          </ul>
         </nav>
         <section class="col-md-10">
           <?php echo $this->fetch('content'); ?>
