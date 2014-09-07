@@ -1,10 +1,13 @@
 <!-- forum menu first -->
 <?php $this->start('menu_forum_gauche'); ?>
 <li class="col-md-12 text-center"><a href="http://agamek.org/categories">Back</a></li>
+<li class="col-md-12 text-center"><a href="http://agamek.org/topics/add/<?php echo $forum['Forum']['id'];?>">New topic</a></li>
 <?php $this->end(); ?>
 
 <?php //debug($forum); ?>
+<div class="col-md-12">
 <h2><?php echo $forum['Forum']['forum_name']; ?></h2>
+</div>
 <div class="row">
 	<table class="table table-hover">
 		<thead>

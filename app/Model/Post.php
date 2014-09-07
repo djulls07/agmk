@@ -53,6 +53,7 @@ class Post extends AppModel {
 		$pattern[] = '%\[h\](.*?)\[/h\]%ms';
 		$pattern[] = '%\[img\](.*?)\[/img\]%ms';
 		$pattern[] = '%\[quote=(.*?)\](.*?)\[/quote\]%ms';
+		$pattern[] = '%\[url=(.*?)\](.*?)\[/url\]%ms';
 
 		$replace[] = '<div style="text-align:right;">$1</div>';
 		$replace[] = '<div style="text-align:left;">$1</div>';
@@ -69,6 +70,7 @@ class Post extends AppModel {
 		$replace[] = '</p><h5>$1</h5><p>';
 		$replace[] = '<img src="$1">';
 		$replace[] = '<p><bold class="text-success">$1 wrote: </bold></p><p class="well">$2</p>';
+		$replace[] = '<a href="$1">$2</a>';
 
 		// This thing takes a while! :)
 		$text = nl2br($text);

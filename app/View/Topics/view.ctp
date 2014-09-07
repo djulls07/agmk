@@ -52,7 +52,7 @@
 <div class="row well">
 	<div class="col-md-3"><p class="text-left text-warning"><bold><?php echo $post['poster']; ?></bold></p>
 	</div>
-	<div class="col-md-9"><p class="text-left text-warning"><small><?php echo date("Y-m-d h:i:s"); ?></small></p>
+	<div class="col-md-9"><p class="text-left text-warning"><small><?php echo date("Y-m-d h:i:s", $post['posted']); ?></small></p>
 	</div>
 	<div class="col-md-3"><p class="text-left"><bold><small><?php echo $user['group_id']['g_title']; ?></small></bold></p>
 		<?php 

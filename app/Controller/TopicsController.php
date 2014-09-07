@@ -8,6 +8,32 @@ class TopicsController extends AppController {
 		$this->Auth->deny("all");
 	}
 
+	public function add($forumId) {
+		$this->layout = 'default_forum';
+
+		$this->loadModel('Forum');
+		$this->loadModel('User');
+		$user = $this->User->readForumUser($this->Auth->user());
+		$forum = $this->Forum->find('all', array('conditions'=>array('id'=>$forumId)));
+		if (!$forum) {
+			throw new NotFoundException('Forum not found');
+		}
+		$forum = $forum[0];
+		$forum_indispo = $this->User->getForumIndispo($user['group_id']);
+		if (in_array($forum['Forum']['id'], $forum_indispo)) {
+			$this->Session->setFlash('Dont have the right');
+			return $this->redirect(array('controller'=>'forums', 'action'=>'view', $forumId));
+		}
+
+		if ($this->request->is('post')) {
+			debug($this->request->data);
+			//save topic, le post assoc, forum egalement ( topic++ etc) TODO...
+		}
+
+		$this->set('forum', $forum);
+
+	}
+
 	public function view($id = null, $page=1) {
 		$this->loadModel('Post');
 		$this->layout = 'default_forum';

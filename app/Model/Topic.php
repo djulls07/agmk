@@ -15,6 +15,14 @@ class Topic extends AppModel {
 		),
 	);
 
+	public $validate = array(
+		'subject' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			)
+		)
+	);
+
 
 	public function getPosters($posts) {
 		//return $posts;

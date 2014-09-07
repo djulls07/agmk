@@ -36,12 +36,16 @@ class PostsController extends AppController {
 
         $this->loadModel('Topic');
         $this->loadModel('User');
+        $this->loadModel('Forum');
 
         $user = $this->User->readForumUser($this->Auth->user());
 
         $topic = $this->Topic->find('all', array('conditions'=>array('id'=>$idTopic)));
 
         $topic = $topic[0];
+
+        $forum = $this->Forum->find('all', array('conditions'=>array('id'=>$topic['Topic']['forum_id'])));
+        $forum = $forum[0];
 
         $firstPost = $this->Post->find("all", array('conditions'=>array('id'=>$topic['Topic']['first_post_id'])));
 
@@ -73,8 +77,19 @@ class PostsController extends AppController {
                 ));
                 $this->Topic->id = $idTopic;
                 if ($this->Topic->save($data)) {
-                    $this->Session->setFlash('Post Added');
-                    return $this->redirect(array('controller'=>'topics', 'action'=>'view', $idTopic, -1));
+                    //et le fofo
+                    $this->Forum->id = $forum['Forum']['id'];
+                    unset($data);
+                    $data = array('Forum'=>array(
+                        'num_posts'=>$forum['Forum']['num_posts']+1,
+                        'last_post'=>time(),
+                        'last_post_id'=>$lastPostId,
+                        'last_poster'=>$user['username']
+                    ));
+                    if ($this->Forum->save($data)) {
+                        $this->Session->setFlash('Post Added');
+                        return $this->redirect(array('controller'=>'topics', 'action'=>'view', $idTopic, -1));
+                    }
                 }
             }
         }
